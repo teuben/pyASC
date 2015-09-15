@@ -1,4 +1,4 @@
-# masc
+
 python with an All Sky Camera
 =============================
 
