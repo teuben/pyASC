@@ -1,0 +1,18 @@
+#! /bin/csh -f
+#
+#   this script simplifies grabbing data from the repository
+#
+
+set mach      = venus.astro.umd.edu
+set dir       = /venus2/obs-data/allsky
+
+
+if ($#argv == 0) then
+   echo ssh $mach ls -ltr $dir
+   ssh $mach ls -ltr $dir
+endif
+
+foreach day ($*)
+   echo rsync -av ${mach}:$dir/$day .
+   rsync -av ${mach}:$dir/$day .
+end
