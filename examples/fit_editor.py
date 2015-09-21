@@ -1,9 +1,3 @@
-#! /usr/bin/env python
-#
-#    astropy version of ADMIT's listfits
-#    100 files on listfits take ~44", 4" with listfits
-#    ~1900 files with listfitsa take about ...
-
 # python system modules
 import sys
 import astropy.io.fits as fits
