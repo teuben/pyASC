@@ -1,0 +1,33 @@
+Things in progress:
+
+- Example fitsheader before ingestion/curation
+  Typical filename: IMG00002.FIT
+
+SIMPLE  =                    T /                                                
+BITPIX  =                   16 /                                                
+NAXIS   =                    2 /                                                
+NAXIS1  =                 1392 /                                                
+NAXIS2  =                 1040 /                                                
+OBJECT  = 'allsky'                                                              
+TELESCOP= ''                                                                    
+INSTRUME= 'Starlight Xpress Oculus'                                             
+OBSERVER= 'UMD Observatory'                                                     
+ORIGIN  = ''                                                                    
+DATE-OBS= '2015-08-24'                                                          
+TIME-OBS= '21:03:19'                                                            
+HISTORY = ''                                  
+COMMENT = '                                                                    '
+BZERO   =   +3.2767000000E+04                                                   
+BSCALE  =   +1.0000000000E+00                                                   
+PIXWIDTH=    6.4500000000E-03                                                   
+PIXHEIGH=    6.4500000000E-03                                                   
+SATURATE=                32768                                                  
+EXPTIME =    4.5000000000E+01                                                   
+FOCALLEN=    0.0000000000E+00                                                   
+APERTURE=    0.0000000000E+00                                                   
+FILTER  = 'Blank'                                      
+
+- Example fitsheader after ingestion/curation:
+  Typical filename: 20150921_MD1_0002.fits
+
+
