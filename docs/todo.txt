@@ -1,4 +1,5 @@
-Things in progress:
+Work in progress / things to do:
+================================
 
 - Example fitsheader before ingestion/curation
   Typical filename: IMG00002.FIT
