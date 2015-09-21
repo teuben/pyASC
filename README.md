@@ -13,6 +13,6 @@ the Haiti All Sky Camera, HASC) use an Oculus all sky camera from
 Starlight Express
 (http://www.optcorp.com/starlight-xpress-oculus-all-sky-camera.html). Most
 of our cameras use the 180 degree lens, though we have one lens to
-experiment with the finer resolution 150 degree lens. FITS images
-are 1392 x 1040 in size, where the full sky (180 or 150) covers 1040
-pixels.
+experiment with the finer resolution 150 degree lens. FITS images are
+1392 x 1040 in size, where the full sky (180 or 150 degrees) covers
+1040 pixels.
