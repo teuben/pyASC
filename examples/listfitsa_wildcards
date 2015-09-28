@@ -1,0 +1,31 @@
+# python system modules
+import sys
+# 
+import astropy.io.fits as fits
+import glob
+
+argv = sys.argv
+
+for ff in argv[1:]:
+    if ff=='-v':
+      verbose = True
+      continue
+
+    if '/' in ff:
+        fn = ff.rsplit('/', 1)[1]
+    else:
+        fn = ff
+        
+    #glob allows use of wildcards on windows command prompt
+    for wildcard in glob.glob(fn):
+        f = fits.open(wildcard)
+        hdu = f[0]
+        s = hdu.shape
+        object = hdu.header['object']
+        #c1 = hdu.header['crval1']
+        #c2 = hdu.header['crval2']
+        e = hdu.header['exptime']
+        do = hdu.header['date-obs']
+        to = hdu.header['time-obs']
+        f.close()
+        print fn,s,object,e,do,to
