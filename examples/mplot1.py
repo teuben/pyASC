@@ -58,6 +58,8 @@ if __name__ == '__main__':
     #sum1,sum2 = dsum(700,800)   #9 clouds
     #sum1,sum2 = dsum(800,900)   #8 clouds + star
     h1,sum1,sum2 = dsum(180,184)   #
+    dsumy = sum2 - np.roll(sum2, 1, axis = 0) #change in the y axis
+    dsumx = sum2 - np.roll(sum2, 1, axis = 1) #change in the x axis
     show(sum1)
     show(sum2)
     show2(sum1)
@@ -65,5 +67,8 @@ if __name__ == '__main__':
     
     show3(sum1,sum2)
     
+    
+    fits.writeto('dsumx.fits', dsumx, h1, clobber=True)
+    fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
     fits.writeto('sum1.fits', sum1, h1, clobber=True)
     fits.writeto('sum2.fits', sum2, h1, clobber=True)
