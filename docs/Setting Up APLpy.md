@@ -14,3 +14,12 @@ pywcs *cannot* be found in Canopy's package manager.  To install it, launch Cano
 >pip install pywcs
 
 This should install pywcs as a package in Canopy.  Note that a package installed through the command line will not show up in Canopy's package manager.  As long as the command prompt confirms a successful installation, the package will be usable in Canopy.
+
+The last step before you can start using APLpy with mplot1 is to update it and numpy through the Canopy command line.  To do this:
+- Close all Canopy windows (If you do not close all Canopy windows before upgrading, you will receive an error message in the command prompt)
+- Open Canopy 64-bit command prompt (or its 32-bit equivalent)
+- Type:
+
+>pip install aplpy --upgrade
+
+APLpy and numpy will then be updated to the latest versions.  These upgrades will take a while, so do not close the command prompt or open Canopy until you have received confirmation that the upgrade is complete.
