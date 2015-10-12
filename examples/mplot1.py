@@ -58,8 +58,8 @@ if __name__ == '__main__':
     #sum1,sum2 = dsum(700,800)   #9 clouds
     #sum1,sum2 = dsum(800,900)   #8 clouds + star
     h1,sum1,sum2 = dsum(180,184)   #
-    dsumy = sum2 - np.roll(sum2, 1, axis = 0) #change in the y axis
-    dsumx = sum2 - np.roll(sum2, 1, axis = 1) #change in the x axis
+    dsumy = sum1 - np.roll(sum1, 1, axis = 0) #change in the y axis
+    dsumx = sum1 - np.roll(sum1, 1, axis = 1) #change in the x axis
     show(sum1)
     show(sum2)
     show2(sum1)
