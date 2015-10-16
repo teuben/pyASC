@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 import aplpy
+import argparse as ap
 
 def d(ff):
     h = fits.open(ff)
@@ -57,7 +58,21 @@ if __name__ == '__main__':
     #sum1,sum2 = dsum(500,600)   #7 star
     #sum1,sum2 = dsum(700,800)   #9 clouds
     #sum1,sum2 = dsum(800,900)   #8 clouds + star
-    h1,sum1,sum2 = dsum(180,184)   #
+    
+    #--start, -s n
+    #--end, -e n
+    #--box x1 y1 x2 y2
+    parser = ap.ArgumentParser(description='Plotting .fits files.')
+    parser.add_argument('-s', '--start', required = True, type = int, help = 'Starting parameter for fits files')
+    parser.add_argument('-e', '--end', required = True, type = int, help = 'Ending parameter for the fits files')
+    parser.add_argument('--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a square of pixels to be analyzed from the data. In the structure x1, y1, x2, y2')
+    args = vars(parser.parse_args())
+    
+
+    h1,sum1,sum2 = dsum(args['start'], args['end']) #The fact that end can be uninitialized here might throw an error
+    #if args['box'] != None:
+       # sum1 = sum1[args['box'][0]:args['box'][2]][args['box'][1]:args['box'][3]]
+       # sum2 = sum2[args['box'][0]:args['box'][2]][args['box'][1]:args['box'][3]]
     dsumy = sum1 - np.roll(sum1, 1, axis = 0) #change in the y axis
     dsumx = sum1 - np.roll(sum1, 1, axis = 1) #change in the x axis
     show(sum1)
