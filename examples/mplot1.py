@@ -81,26 +81,27 @@ if __name__ == '__main__':
     if box == None:
         box = []
 
-    h1,sum1,sum2 = dsum(start,end,box) # The fact that end can be uninitialized here might throw an error
-    #if args['box'] != None:
-       # sum1 = sum1[args['box'][0]:args['box'][2]][args['box'][1]:args['box'][3]]
-       # sum2 = sum2[args['box'][0]:args['box'][2]][args['box'][1]:args['box'][3]]
-    dsumy = sum1 - np.roll(sum1, 1, axis = 0) #change in the y axis
-    dsumx = sum1 - np.roll(sum1, 1, axis = 1) #change in the x axis
-        
+    # compute the average and dispersion of the series        
+    h1,sum1,sum2 = dsum(start,end,box)           # end can be uninitialized here might throw an error?
+
+    # delta X and Y images
+    dsumy = sum1 - np.roll(sum1, 1, axis = 0)    # change in the y axis
+    dsumx = sum1 - np.roll(sum1, 1, axis = 1)    # change in the x axis
+
+    # write them to FITS
     fits.writeto('dsumx.fits', dsumx, h1, clobber=True)
     fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
     fits.writeto('sum1.fits', sum1, h1, clobber=True)
     fits.writeto('sum2.fits', sum2, h1, clobber=True)
 
-    
-    show(sum1)
-    show(sum2)
+    # display a few
+    #show(sum1)
+    #show(sum2)
     show2(sum1)
     show2(sum2)
-    
-    show3(sum1,sum2)
+    #show3(sum1,sum2)
 
+    # plot the sum1 and sum2 correllation (glueviz should do this)
     s1 = sum1.flatten()
     s2 = sum2.flatten()
     fig = plt.figure()
