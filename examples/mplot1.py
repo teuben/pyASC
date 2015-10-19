@@ -22,7 +22,7 @@ def dsum(i0,i1, box=[]):
     """ for a range of fits files
         compute the mean and dispersion from the mean
     """
-    for i in range(i0,i1):
+    for i in range(i0,i1+1):
         ff = 'IMG%05d.FIT' % i
         h1, d1 = d(ff,box)
         if i == i0: 
@@ -30,13 +30,17 @@ def dsum(i0,i1, box=[]):
             sum1 = d1
             sum2 = d1*d1
             h = h1
+            nx = d1.shape[1]
+            ny = d1.shape[0]     #   d1[ny][nx]
+            c = d1.reshape(1,ny,nx)
         else:
             sum0 = sum0 + 1.0
             sum1 = sum1 + d1
             sum2 = sum2 + d1*d1
+            c = np.append(c,d1.reshape(1,ny,nx),axis=0)
     sum1 = sum1 / sum0
     sum2 = sum2 / sum0 - sum1*sum1
-    return h,sum1,np.sqrt(sum2)
+    return h,sum1,np.sqrt(sum2),c
 
 def show(sum):
     """ some native matplotlib display,
@@ -82,8 +86,9 @@ if __name__ == '__main__':
         box = []
 
     # compute the average and dispersion of the series        
-    h1,sum1,sum2 = dsum(start,end,box)           # end can be uninitialized here might throw an error?
-
+    h1,sum1,sum2,cube = dsum(start,end,box)           # end can be uninitialized here might throw an error?
+    nz = cube.shape[0]
+    
     # delta X and Y images
     dsumy = sum1 - np.roll(sum1, 1, axis = 0)    # change in the y axis
     dsumx = sum1 - np.roll(sum1, 1, axis = 1)    # change in the x axis
@@ -93,6 +98,10 @@ if __name__ == '__main__':
     fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
     fits.writeto('sum1.fits', sum1, h1, clobber=True)
     fits.writeto('sum2.fits', sum2, h1, clobber=True)
+    # 3D cube to
+    h1['NAXIS']  = 3
+    h1['NAXIS3'] = nz
+    fits.writeto('cube.fits', cube, h1, clobber=True)
 
     # display a few
     #show(sum1)
