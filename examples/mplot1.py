@@ -74,13 +74,12 @@ if __name__ == '__main__':
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-s', '--start', required = True, type = int, help = 'Starting parameter for fits files')
-    parser.add_argument('-e', '--end', required = True, type = int, help = 'Ending parameter for the fits files')
+    parser.add_argument('-f', '--frame', nargs = 2, required = True, type = int, help = 'Starting and ending parameters for the frames analyzed')
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
     args = vars(parser.parse_args())
 
-    start = args['start']              # starting frame (IMGnnnnn.FIT)
-    end   = args['end']                # ending frame
+    start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
+    end   = args['frame'][1]           # ending frame
     box   = args['box']                # BLC and TRC
     if box == None:
         box = []
