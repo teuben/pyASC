@@ -22,7 +22,7 @@ def dsum(i0,i1, box=[]):
     """ for a range of fits files
         compute the mean and dispersion from the mean
     """
-    for i in range(i0,i1):
+    for i in range(i0,i1+1):
         ff = 'IMG%05d.FIT' % i
         h1, d1 = d(ff,box)
         if i == i0: 
@@ -30,13 +30,17 @@ def dsum(i0,i1, box=[]):
             sum1 = d1
             sum2 = d1*d1
             h = h1
+            nx = d1.shape[1]
+            ny = d1.shape[0]     #   d1[ny][nx]
+            c = d1.reshape(1,ny,nx)
         else:
             sum0 = sum0 + 1.0
             sum1 = sum1 + d1
             sum2 = sum2 + d1*d1
+            c = np.append(c,d1.reshape(1,ny,nx),axis=0)
     sum1 = sum1 / sum0
     sum2 = sum2 / sum0 - sum1*sum1
-    return h,sum1,np.sqrt(sum2)
+    return h,sum1,np.sqrt(sum2),c
 
 def show(sum):
     """ some native matplotlib display,
@@ -70,20 +74,20 @@ if __name__ == '__main__':
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-s', '--start', required = True, type = int, help = 'Starting parameter for fits files')
-    parser.add_argument('-e', '--end', required = True, type = int, help = 'Ending parameter for the fits files')
+    parser.add_argument('-f', '--frame', nargs = 2, required = True, type = int, help = 'Starting and ending parameters for the frames analyzed')
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
     args = vars(parser.parse_args())
 
-    start = args['start']              # starting frame (IMGnnnnn.FIT)
-    end   = args['end']                # ending frame
+    start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
+    end   = args['frame'][1]           # ending frame
     box   = args['box']                # BLC and TRC
     if box == None:
         box = []
 
     # compute the average and dispersion of the series        
-    h1,sum1,sum2 = dsum(start,end,box)           # end can be uninitialized here might throw an error?
-
+    h1,sum1,sum2,cube = dsum(start,end,box)           # end can be uninitialized here might throw an error?
+    nz = cube.shape[0]
+    
     # delta X and Y images
     dsumy = sum1 - np.roll(sum1, 1, axis = 0)    # change in the y axis
     dsumx = sum1 - np.roll(sum1, 1, axis = 1)    # change in the x axis
@@ -93,6 +97,10 @@ if __name__ == '__main__':
     fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
     fits.writeto('sum1.fits', sum1, h1, clobber=True)
     fits.writeto('sum2.fits', sum2, h1, clobber=True)
+    # 3D cube to
+    h1['NAXIS']  = 3
+    h1['NAXIS3'] = nz
+    fits.writeto('cube.fits', cube, h1, clobber=True)
 
     # display a few
     #show(sum1)
