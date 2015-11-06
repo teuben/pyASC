@@ -14,15 +14,15 @@ def cslice(header, data, flag, value):
     ny = data.shape[1]
     nz = data.shape[0]
     if flag == 'x':
-        d = data[:,:,args['x'][0]]
+        d = data[:,:,value]
         h['NAXIS1'] = ny
         h['NAXIS2'] = nz
     elif flag == 'y':
-        d = data[:,args['y'][0],:]
+        d = data[:,value,:]
         h['NAXIS1'] = nx
         h['NAXIS2'] = nz
     else:
-        d = data[args['z'][0],:,:]
+        d = data[value,:,:]
         h['NAXIS1'] = nx
         h['NAXIS2'] = ny
     #returns data and a header
