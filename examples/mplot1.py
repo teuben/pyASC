@@ -18,11 +18,11 @@ def d(ff,box=[]):
         return h[0].header, h[0].data[box[1]:box[3], box[0]:box[2]]
 
 
-def dsum(i0,i1, box=[]):
+def dsum(i0,i1,step = 1, box=[]):
     """ for a range of fits files
         compute the mean and dispersion from the mean
     """
-    for i in range(i0,i1+1):
+    for i in range(i0,i1+1,step):
         ff = 'IMG%05d.FIT' % i
         h1, d1 = d(ff,box)
         if i == i0: 
@@ -74,18 +74,25 @@ if __name__ == '__main__':
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-f', '--frame', nargs = 2, required = True, type = int, help = 'Starting and ending parameters for the frames analyzed')
+    parser.add_argument('-f', '--frame', nargs = '*', required = True, type = int, help = 'Starting and ending parameters for the frames analyzed')
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
     args = vars(parser.parse_args())
 
-    start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
-    end   = args['frame'][1]           # ending frame
+    if len(args['frame']) >= 2:
+        start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
+        end   = args['frame'][1]           # ending frame
+        if len(args['frame']) == 3:
+            step = args['frame']
+        else:
+            step = 1
+    else:
+        raise Exception,"-f needs at least 2 arguments"
     box   = args['box']                # BLC and TRC
     if box == None:
         box = []
 
     # compute the average and dispersion of the series        
-    h1,sum1,sum2,cube = dsum(start,end,box)           # end can be uninitialized here might throw an error?
+    h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
     nz = cube.shape[0]
     
     # delta X and Y images
