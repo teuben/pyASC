@@ -22,7 +22,7 @@ if __name__ == '__main__':
         box = []
 
     # compute the average and dispersion of the series        
-    h1,sum1,sum2,cube = mp.dsum(start,end,box)           # end can be uninitialized here might throw an error?
+    h1,sum1,sum2,cube = mp.dsum(start,end,box = box)           # end can be uninitialized here might throw an error?
     n = 5
     msum = filters.median_filter(sum1, size = (n,n))
     rmsum = (sum1 - msum) / msum
