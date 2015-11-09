@@ -92,7 +92,7 @@ if __name__ == '__main__':
             if start == None and os.path.isfile(filename):
                 start = count
             #if start has been found and we finally found a file that doesn't exist, set end to the last file that existed (count - 1.FIT)
-            elif not os.path.isfile(filename):
+            elif start != None and not os.path.isfile(filename):
                 end = count - 1
             count += 1  
     elif len(args['frame']) >= 2 and len(args['frame']) <= 3:
@@ -110,7 +110,6 @@ if __name__ == '__main__':
         box = []
 
     # compute the average and dispersion of the series        
-    print start, end
     h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
     nz = cube.shape[0]
     
