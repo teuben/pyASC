@@ -8,8 +8,9 @@ import matplotlib.image as mpimg
 import numpy as np
 import aplpy
 import argparse as ap
-import glob
 import os.path
+import logging
+import time
 
 def d(ff,box=[]):
     h = fits.open(ff)
@@ -84,8 +85,8 @@ class Dtime(object):
         self.dtimes = []
         dt = self.init - self.init
         if self.report:
-            logging.timing("Dtime: %s ADMIT " % self.label + str(self.start))
-            logging.timing("Dtime: %s BEGIN " % self.label + str(dt))
+            logging.info("Dtime: %s ADMIT " % self.label + str(self.start))
+            logging.info("Dtime: %s BEGIN " % self.label + str(dt))
 
     def reset(self, report=True):
         self.start = self.time()
@@ -99,13 +100,13 @@ class Dtime(object):
         self.dtimes.append((mytag, dt))
         self.start = t1
         if self.report:
-            logging.timing("Dtime: %s " % self.label + mytag + "  " + str(dt))
+            logging.info("Dtime: %s " % self.label + mytag + "  " + str(dt))
         return dt
 
     def show(self):
         if self.report:
             for r in self.dtimes:
-                logging.timing("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
+                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
         return self.dtimes
 
     def end(self):
@@ -113,7 +114,7 @@ class Dtime(object):
         t1 = self.time()
         dt = t1 - t0
         if self.report:
-            logging.timing("Dtime: %s END " % self.label + str(dt))
+            logging.info("Dtime: %s END " % self.label + str(dt))
         return dt
 
     def time(self):
@@ -127,6 +128,7 @@ class Dtime(object):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level = logging.INFO)
     dt = Dtime("mplot1") 
     
     #--start, -s n
@@ -160,7 +162,7 @@ if __name__ == '__main__':
         else:
             step = 1
     else:
-        raise Exception,"-f needs at 0, 2, or 3 arguments."
+        raise Exception,"-f needs 0, 2, or 3 arguments."
            
     box   = args['box']                # BLC and TRC
     if box == None:
@@ -168,12 +170,8 @@ if __name__ == '__main__':
 
     dt.tag("start")
     # compute the average and dispersion of the series        
-<<<<<<< HEAD
-    h1,sum1,sum2,cube = dsum(start,end,box)           # end can be uninitialized here might throw an error?
-    dt.tag("dsum")
-=======
     h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
->>>>>>> 40ebb1768a8340a775c410c297dca19d908e6396
+    dt.tag("dsum")
     nz = cube.shape[0]
     
     # delta X and Y images
