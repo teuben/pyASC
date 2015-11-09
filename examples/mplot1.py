@@ -8,6 +8,8 @@ import matplotlib.image as mpimg
 import numpy as np
 import aplpy
 import argparse as ap
+import glob
+import os.path
 
 def d(ff,box=[]):
     h = fits.open(ff)
@@ -74,11 +76,26 @@ if __name__ == '__main__':
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-f', '--frame', nargs = '*', required = True, type = int, help = 'Starting and ending parameters for the frames analyzed')
+    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 'Starting and ending parameters for the frames analyzed')
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
     args = vars(parser.parse_args())
 
-    if len(args['frame']) >= 2:
+    if args['frame'] == None:
+        count = 0
+        start = None
+        end = None
+        step = 1
+        #while we have yet to find an end
+        while end == None:
+            filename = 'IMG%05d.FIT' % count
+            #if start has not been found yet, and this file exists
+            if start == None and os.path.isfile(filename):
+                start = count
+            #if start has been found and we finally found a file that doesn't exist, set end to the last file that existed (count - 1.FIT)
+            elif not os.path.isfile(filename):
+                end = count - 1
+            count += 1  
+    elif len(args['frame']) >= 2 and len(args['frame']) <= 3:
         start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
         end   = args['frame'][1]           # ending frame
         if len(args['frame']) == 3:
@@ -86,12 +103,14 @@ if __name__ == '__main__':
         else:
             step = 1
     else:
-        raise Exception,"-f needs at least 2 arguments"
+        raise Exception,"-f needs at 0, 2, or 3 arguments."
+           
     box   = args['box']                # BLC and TRC
     if box == None:
         box = []
 
     # compute the average and dispersion of the series        
+    print start, end
     h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
     nz = cube.shape[0]
     
