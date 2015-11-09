@@ -62,13 +62,70 @@ def show3(sum1,sum2):
     #fig = aplpy.FITSFigure(sum2,subplot=(2,2,2),figure=1)
     fig.show_grayscale()
 
+#  For some variations on this theme, e.g.  time.time vs. time.clock, see
+#  http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python
+#
+class Dtime(object):
+    """ Class to help measuring the wall clock time between tagged events
+        Typical usage:
+        dt = Dtime()
+        ...
+        dt.tag('a')
+        ...
+        dt.tag('b')
+    """
+    def __init__(self, label=".", report=True):
+        self.start = self.time()
+        self.init = self.start
+        self.label = label
+        self.report = report
+        self.dtimes = []
+        dt = self.init - self.init
+        if self.report:
+            logging.timing("Dtime: %s ADMIT " % self.label + str(self.start))
+            logging.timing("Dtime: %s BEGIN " % self.label + str(dt))
+
+    def reset(self, report=True):
+        self.start = self.time()
+        self.report = report
+        self.dtimes = []
+
+    def tag(self, mytag):
+        t0 = self.start
+        t1 = self.time()
+        dt = t1 - t0
+        self.dtimes.append((mytag, dt))
+        self.start = t1
+        if self.report:
+            logging.timing("Dtime: %s " % self.label + mytag + "  " + str(dt))
+        return dt
+
+    def show(self):
+        if self.report:
+            for r in self.dtimes:
+                logging.timing("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
+        return self.dtimes
+
+    def end(self):
+        t0 = self.init
+        t1 = self.time()
+        dt = t1 - t0
+        if self.report:
+            logging.timing("Dtime: %s END " % self.label + str(dt))
+        return dt
+
+    def time(self):
+        """ pick the actual OS routine that returns some kind of timer
+        time.time   :    wall clock time (include I/O and multitasking overhead)
+        time.clock  :    cpu clock time
+        """
+        return np.array([time.clock(), time.time()])
+
+    
+
 
 if __name__ == '__main__':
-    #sum1,sum2 = dsum(130,500)   #star
-    #sum1,sum2 = dsum(600,700)   #6 clouds
-    #sum1,sum2 = dsum(500,600)   #7 star
-    #sum1,sum2 = dsum(700,800)   #9 clouds
-    #sum1,sum2 = dsum(800,900)   #8 clouds + star
+    dt = Dtime("mplot1") 
     
     #--start, -s n
     #--end, -e n
@@ -91,8 +148,14 @@ if __name__ == '__main__':
     if box == None:
         box = []
 
+    dt.tag("start")
     # compute the average and dispersion of the series        
+<<<<<<< HEAD
+    h1,sum1,sum2,cube = dsum(start,end,box)           # end can be uninitialized here might throw an error?
+    dt.tag("dsum")
+=======
     h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
+>>>>>>> 40ebb1768a8340a775c410c297dca19d908e6396
     nz = cube.shape[0]
     
     # delta X and Y images
@@ -104,10 +167,12 @@ if __name__ == '__main__':
     fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
     fits.writeto('sum1.fits', sum1, h1, clobber=True)
     fits.writeto('sum2.fits', sum2, h1, clobber=True)
+    dt.tag("write2d")
     # 3D cube to
     h1['NAXIS']  = 3
     h1['NAXIS3'] = nz
     fits.writeto('cube.fits', cube, h1, clobber=True)
+    dt.tag("write3d")
 
     # display a few
     #show(sum1)
@@ -124,4 +189,5 @@ if __name__ == '__main__':
     ax.scatter(s1,s2)
     plt.show()
     
-
+    dt.tag("done")
+    dt.end()
