@@ -8,6 +8,9 @@ import matplotlib.image as mpimg
 import numpy as np
 import aplpy
 import argparse as ap
+import os.path
+import logging
+import time
 
 def d(ff,box=[]):
     h = fits.open(ff)
@@ -82,8 +85,8 @@ class Dtime(object):
         self.dtimes = []
         dt = self.init - self.init
         if self.report:
-            logging.timing("Dtime: %s ADMIT " % self.label + str(self.start))
-            logging.timing("Dtime: %s BEGIN " % self.label + str(dt))
+            logging.info("Dtime: %s ADMIT " % self.label + str(self.start))
+            logging.info("Dtime: %s BEGIN " % self.label + str(dt))
 
     def reset(self, report=True):
         self.start = self.time()
@@ -97,13 +100,13 @@ class Dtime(object):
         self.dtimes.append((mytag, dt))
         self.start = t1
         if self.report:
-            logging.timing("Dtime: %s " % self.label + mytag + "  " + str(dt))
+            logging.info("Dtime: %s " % self.label + mytag + "  " + str(dt))
         return dt
 
     def show(self):
         if self.report:
             for r in self.dtimes:
-                logging.timing("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
+                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
         return self.dtimes
 
     def end(self):
@@ -111,7 +114,7 @@ class Dtime(object):
         t1 = self.time()
         dt = t1 - t0
         if self.report:
-            logging.timing("Dtime: %s END " % self.label + str(dt))
+            logging.info("Dtime: %s END " % self.label + str(dt))
         return dt
 
     def time(self):
@@ -125,17 +128,33 @@ class Dtime(object):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level = logging.INFO)
     dt = Dtime("mplot1") 
     
     #--start, -s n
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-f', '--frame', nargs = '*', required = True, type = int, help = 'Starting and ending parameters for the frames analyzed')
+    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 'Starting and ending parameters for the frames analyzed')
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
     args = vars(parser.parse_args())
 
-    if len(args['frame']) >= 2:
+    if args['frame'] == None:
+        count = 0
+        start = None
+        end = None
+        step = 1
+        #while we have yet to find an end
+        while end == None:
+            filename = 'IMG%05d.FIT' % count
+            #if start has not been found yet, and this file exists
+            if start == None and os.path.isfile(filename):
+                start = count
+            #if start has been found and we finally found a file that doesn't exist, set end to the last file that existed (count - 1.FIT)
+            elif start != None and not os.path.isfile(filename):
+                end = count - 1
+            count += 1  
+    elif len(args['frame']) >= 2 and len(args['frame']) <= 3:
         start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
         end   = args['frame'][1]           # ending frame
         if len(args['frame']) == 3:
@@ -143,19 +162,16 @@ if __name__ == '__main__':
         else:
             step = 1
     else:
-        raise Exception,"-f needs at least 2 arguments"
+        raise Exception,"-f needs 0, 2, or 3 arguments."
+           
     box   = args['box']                # BLC and TRC
     if box == None:
         box = []
 
     dt.tag("start")
     # compute the average and dispersion of the series        
-<<<<<<< HEAD
-    h1,sum1,sum2,cube = dsum(start,end,box)           # end can be uninitialized here might throw an error?
-    dt.tag("dsum")
-=======
     h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
->>>>>>> 40ebb1768a8340a775c410c297dca19d908e6396
+    dt.tag("dsum")
     nz = cube.shape[0]
     
     # delta X and Y images
