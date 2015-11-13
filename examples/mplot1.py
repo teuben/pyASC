@@ -34,13 +34,15 @@ def dsum(i0,i1,step = 1, box=[]):
             sum2 = d1*d1
             h = h1
             nx = d1.shape[1]
-            ny = d1.shape[0]     #   d1[ny][nx]
-            c = d1.reshape(1,ny,nx)
+            ny = d1.shape[0]
+            nz = i1 + 1 - i0
+            c = np.zeros((nz, ny, nx))
+            c[0,:,:] = d1.reshape(ny,nx)
         else:
             sum0 = sum0 + 1.0
             sum1 = sum1 + d1
             sum2 = sum2 + d1*d1
-            c = np.append(c,d1.reshape(1,ny,nx),axis=0)
+            c[i - i0,:,:] = d1.reshape(ny,nx)
     sum1 = sum1 / sum0
     sum2 = sum2 / sum0 - sum1*sum1
     return h,sum1,np.sqrt(sum2),c
