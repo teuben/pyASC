@@ -1,4 +1,5 @@
 from astropy.io import fits
+import matplotlib.pyplot as plt
 import argparse as ap
 import mplot1 as mp
 
@@ -70,5 +71,6 @@ if __name__ == '__main__':
     for s in sliceList:
         data = s[0][0]
         header = s[0][1]
-        mp.show(data)
+        mp.show2(data)
         fits.writeto(s[1], data, header, clobber=True)
+    plt.show()

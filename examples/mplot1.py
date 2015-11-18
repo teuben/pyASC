@@ -58,7 +58,8 @@ def show2(sum):
     """ aplpy is the better viewer clearly
     """
     fig = aplpy.FITSFigure(sum)
-    fig.show_grayscale()
+    #fig.show_grayscale()
+    fig.show_colorscale()
 
 def show3(sum1,sum2):
     """ aplpy is the better viewer clearly
