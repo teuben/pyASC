@@ -5,6 +5,7 @@
 from astropy.io import fits
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from scipy.misc import imsave
 import numpy as np
 import aplpy
 import argparse as ap
@@ -13,7 +14,8 @@ import logging
 import time
 
 def d(ff,box=[]):
-    h = fits.open(ff)
+    #very specific for 16 bit data, since we want to keep the data in uint16
+    h = fits.open(ff, do_not_scale_image_data=True)
     if len(box)==0:
         return h[0].header, h[0].data
     else:
@@ -28,10 +30,15 @@ def dsum(i0,i1,step = 1, box=[]):
     for i in range(i0,i1+1,step):
         ff = 'IMG%05d.FIT' % i
         h1, d1 = d(ff,box)
+        #very specific for 16 bit data, since we want to keep the data in uint16
+        bzero = h1['BZERO']
+        bscale = h1['BSCALE']
         if i == i0: 
             sum0 = 1.0
-            sum1 = d1
-            sum2 = d1*d1
+            sum1 = d1*bscale+bzero
+            sum2 = sum1*sum1
+            #sum1 = d1
+            #sum2 = d1*d1
             h = h1
             nx = d1.shape[1]
             ny = d1.shape[0]
@@ -40,11 +47,13 @@ def dsum(i0,i1,step = 1, box=[]):
             c[0,:,:] = d1.reshape(ny,nx)
         else:
             sum0 = sum0 + 1.0
-            sum1 = sum1 + d1
-            sum2 = sum2 + d1*d1
+            sum1 = sum1 + (d1 * bscale + bzero)
+            sum2 = sum2 + (d1 * bscale + bzero) * (d1 * bscale + bzero)
+            #sum2 = sum2+d1*d1
             c[i - i0,:,:] = d1.reshape(ny,nx)
     sum1 = sum1 / sum0
     sum2 = sum2 / sum0 - sum1*sum1
+    print type(sum1), type(sum2)
     return h,sum1,np.sqrt(sum2),c
 
 def show(sum):
@@ -139,6 +148,7 @@ if __name__ == '__main__':
     parser = ap.ArgumentParser(description='Plotting .fits files.')
     parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 'Starting and ending parameters for the frames analyzed')
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
+    parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, help = 'Controls whether to display or save graphics. 0: no graphics, 1: display graphics, 2: save graphics as .png')
     args = vars(parser.parse_args())
 
     if args['frame'] == None:
@@ -192,20 +202,20 @@ if __name__ == '__main__':
     fits.writeto('cube.fits', cube, h1, clobber=True)
     dt.tag("write3d")
 
-    # display a few
-    #show(sum1)
-    #show(sum2)
-    show2(sum1)
-    show2(sum2)
-    #show3(sum1,sum2)
 
-    # plot the sum1 and sum2 correllation (glueviz should do this)
-    s1 = sum1.flatten()
-    s2 = sum2.flatten()
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(s1,s2)
-    plt.show()
+    if args['graphics'][0] == 1:
+        # plot the sum1 and sum2 correllation (glueviz should do this)
+        s1 = sum1.flatten()
+        s2 = sum2.flatten()
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.scatter(s1,s2)
+        plt.show()
+        show2(sum1)
+        show2(sum2)
+    if args['graphics'][0] == 2:
+        imsave('sum1.png', sum1)
+        imsave('sum2.png', sum2)
     
     dt.tag("done")
     dt.end()
