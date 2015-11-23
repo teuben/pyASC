@@ -2,10 +2,12 @@
 #
 #   this script simplifies grabbing data from the repository
 #
+#   1) grab all files individually
+#   2) use jar on a zip file in a pipe
 
 set mach      = venus.astro.umd.edu
 set dir       = /venus2/obs-data/allsky
-
+set tel       = MD01
 
 if ($#argv == 0) then
    echo ssh $mach ls -ltr $dir
@@ -16,3 +18,15 @@ foreach day ($*)
    echo rsync -av ${mach}:$dir/$day .
    rsync -av ${mach}:$dir/$day .
 end
+
+foreach day ($*)
+   echo rsync -av ${mach}:$dir/$day.zip .
+   rsync -av ${mach}:$dir/${day}_${tel}_raw.zip .
+end
+
+if (0) then
+   # example
+   mkdir 20151020
+   cd 20151020
+   wget -qO- http://www.astro.umd.edu/openhouse/obs-data/allsky/20151020.tar | jar xf /dev/stdin
+endif
