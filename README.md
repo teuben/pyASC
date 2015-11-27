@@ -8,8 +8,8 @@ up a server, and associated python code to perform some image
 processing. Lots of example scripts and image inventory logs are kept
 here as well.
 
-Our currrent camera in the Maryland All Sky Network (and hopelly soon
-the Haiti All Sky Camera, HASC) is an Oculus all sky camera from
+Our currrent camera in the Maryland All Sky Network (and
+the Haiti All Sky Camera, HASC, as well) is an Oculus all sky camera from
 Starlight Xpress
 (http://www.sxccd.com/oculus-all-sky-camera; available in the US through http://www.optcorp.com/starlight-xpress-oculus-all-sky-camera.html). Most
 of our cameras use the 180 degree lens, though we have one  150 degree lens to
