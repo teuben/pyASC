@@ -3,9 +3,9 @@
 #    quick and dirty processing of the MD All Sky images
 
 from astropy.io import fits
+from scipy.misc import imsave
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-from scipy.misc import imsave
 import numpy as np
 import aplpy
 import argparse as ap
@@ -67,14 +67,16 @@ def show2(sum):
     """ aplpy is the better viewer clearly
     """
     fig = aplpy.FITSFigure(sum)
-    fig.show_grayscale()
+    #fig.show_grayscale()
+    fig.show_colorscale()
 
 def show3(sum1,sum2):
     """ aplpy is the better viewer clearly
     """
     fig = aplpy.FITSFigure(sum1,subplot=(2,2,1))
     #fig = aplpy.FITSFigure(sum2,subplot=(2,2,2),figure=1)
-    fig.show_grayscale()
+    #fig.show_grayscale()
+    fig.show_colorscale()
 
 #  For some variations on this theme, e.g.  time.time vs. time.clock, see
 #  http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python
