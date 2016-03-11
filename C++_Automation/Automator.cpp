@@ -13,32 +13,46 @@
 #include <stdio.h>
 #include <windows.h>
 #include "SXUSB.h"
-#include <conio.h>
-#include <fstream>
+#include "longnam.h"
+#include "fitsio.h"
 
 #define NUMBER_OF_CAMERAS 1
 #define PIXEL_WIDTH 1392
 #define PIXEL_HEIGHT 1040
-#define MAX_CHARACTERS 93
-#define MAX_IMAGES 999
+#define OBJECT "allsky"
+#define TELESCOP ""
+#define ORIGIN ""
+#define INSTRUME "Starlight Xpress Oculus"
+#define OBSERVER "UMD Observatory"
 
-int writeImageData(const char *path, const USHORT *pixels);
+int convertImageData(USHORT twoDarray[PIXEL_HEIGHT][PIXEL_WIDTH], const USHORT *oneDarray);
 int takeStandardImage(HANDLE handle, int camIndex, ULONG exposure, USHORT *pixelArray);
-int writeMultipleImages(int images, HANDLE handle, int camIndex, ULONG exposure, USHORT *pixelArray, const char *path);
+int writeImagesUntil(HANDLE handle, int camIndex, USHORT *pixelArray, const char *path, ULONG minutes);
 int writeVariableExposureImages(HANDLE handle, int camIndex, USHORT *pixelArray, const char *path);
 
 using namespace std;
 
-/* declare this out here so that its memory is stored in the heap */
+/* declare these out here so that memory is stored in the heap */
 USHORT pixels[PIXEL_WIDTH * PIXEL_HEIGHT];
+USHORT pixelData[PIXEL_HEIGHT][PIXEL_WIDTH];
 
 int main()
 {	
+	/* constants */
+	short const BITPIX = USHORT_IMG;
+	short const NAXIS = 2;
+	short const NAXIS1 = PIXEL_HEIGHT;
+	short const NAXIS2 = PIXEL_WIDTH;
+	long		NAXES[2] = {PIXEL_WIDTH, PIXEL_HEIGHT}; /* purposely missing const */
+
 	/* local variables */
 	HANDLE handles[NUMBER_OF_CAMERAS];
 	t_sxccd_params params[NUMBER_OF_CAMERAS];
 	long firmwareVersions[NUMBER_OF_CAMERAS];
-	int openVal, cameraModels[NUMBER_OF_CAMERAS];
+	int openVal, cameraModels[NUMBER_OF_CAMERAS], status;
+	fitsfile *file;
+
+	/* open the connected cameras */
 	openVal = sxOpen(handles);
 	printf("Opened Cameras: %d\n", openVal);
 
@@ -61,34 +75,48 @@ int main()
 
 	/* Taking an Image */
 	takeStandardImage(handles[0], 0, 50, pixels);
-	
-	/* Write the pixels to a file to be processed by python scripts */
-	writeImageData("pixels.txt", pixels);
+
+	/* set up a fits file with proper hdu to write to a file */
+	status = 0;
+	/* create the file, the ! means it will overwrite any existing file with the same name */
+	if (fits_create_file(&file, "!test.fit", &status)){
+		fits_report_error(stdout, status);
+	}
+	/* basic header information (BITPIX, NAXIS, NAXES, etc) is taken care of through this function as well) */
+	if (fits_create_img(file, BITPIX, NAXIS, NAXES, &status)){
+		fits_report_error(stdout, status);
+	}
+	/* extended header information */
+	if (fits_write_key(file, TSTRING, "OBJECT", OBJECT, "", &status)){
+		fits_report_error(stderr, status);
+	}
+	/* write the image data to the file */
+	if (fits_write_img(file, TUSHORT, 1, PIXEL_HEIGHT * PIXEL_WIDTH, pixels, &status)){
+		fits_report_error(stderr, status);
+	}
+	if (fits_close_file(file, &status)){
+		fits_report_error(stdout, status);
+	}
 
 	return 0;
 }
 
 /* 
-	Writes image data to a text file to be read in python and saved as a .fits file
-	@return - 1 if write was successful, 0 if there was an error. Will attempt to print error message.
+	Converts a 1D, column major array of pixel data into a 2D array. The arrays must be of the size specified for this function PIXEL_HEIGHT and PIXEL_WIDTH
+	@return - 1 if convert was successful, 0 if there was an error. Will attempt to print error message.
 */
 
-int writeImageData(const char *path, const USHORT *pixels){
+int convertImageData(USHORT twoDarray[PIXEL_HEIGHT][PIXEL_WIDTH], const USHORT oneDarray[PIXEL_HEIGHT * PIXEL_WIDTH]){
 	try{
-		ofstream file;
-		file.open(path);
 		for (int h = 0; h < PIXEL_HEIGHT; h++){
 			for (int w = 0; w < PIXEL_WIDTH; w++){
-				file << pixels[PIXEL_WIDTH * h + w];
-				file << ", ";
+				twoDarray[h][w] = oneDarray[PIXEL_WIDTH * h + w];
 			}
-			file << "\n";
 		}
-		file.close();
 		return 1;
 	}
 	catch(int e){
-		printf("An error occured. Error number: %d\n", e);
+		printf("Error while converting image data to 2D array: Error number: %d\n", e);
 		return 0;
 	}
 }
@@ -102,9 +130,10 @@ int writeImageData(const char *path, const USHORT *pixels){
 int takeStandardImage(HANDLE handle, int camIndex, ULONG exposure, USHORT *pixelArray){
 	try{
 		int bytesRead;
-
+		/* clear pixels on the camera and expose them to take the image */
 		sxClearPixels(handle, 0x00, camIndex);
 		sxExposePixels(handle, 0x8B, camIndex, 0, 0, PIXEL_WIDTH, PIXEL_HEIGHT, 1, 1, exposure);
+		/* read the pixels from the camera into an array */
 		if ((bytesRead = sxReadPixels(handle, pixelArray, PIXEL_WIDTH * PIXEL_HEIGHT)) <= 0){
 			printf("Error reading pixels\n");
 			return 0;
@@ -119,48 +148,3 @@ int takeStandardImage(HANDLE handle, int camIndex, ULONG exposure, USHORT *pixel
 }
 
 
-/*
-	Writes multiple images to the same path with an incrementing counter at the end of their name, starting at 0
-	NOTE: This function should not be used when taking pictures throughout the night! When taking pictures throughout the night use 
-	writeVariableExposureImages() and specify when to stop or use writeImagesUntil() and specify when to stop.
-	@param images - number of images to be written. Cannot exceed 999
-	@param path - as of current implementation, path should not include an extension. It will be implemented later that it doesn't matter
-	but for now it should not. It also cannot exceed MAX_CHARACTERS characters.
-	@return - number of images written
-*/
-int writeMultipleImages(int images, HANDLE handle, int camIndex, ULONG exposure, USHORT *pixelArray, const char *path){
-	int imagesWritten = 0;
-	char newPath[100];
-	try{
-		while (imagesWritten < images){
-			if (strlen(path) >= MAX_CHARACTERS){
-				throw MAX_CHARACTERS;
-			}
-			if (images > MAX_IMAGES){
-				throw MAX_IMAGES;
-			}
-			takeStandardImage(handle, camIndex, exposure, pixelArray);
-			for (int i = 0; i < strlen(path); i++){
-				newPath[i] = path[i];
-			}
-			int i = strlen(path);
-			//add picture index
-			newPath[i] = ((imagesWritten % 10) % 100); newPath[i + 3] = '.'; newPath[i + 4] = 't'; newPath[i + 5] = 'x'; newPath[i + 6] = 't';
-			writeImageData(newPath, pixelArray);
-			imagesWritten++;
-		}
-	}
-	catch(int e){
-		if (e == MAX_CHARACTERS){
-			printf("Error, path of file was too long: %d, exceeded %d\n", strlen(path), MAX_CHARACTERS);
-		}
-		if (e == MAX_IMAGES){
-			printf("Error, number of images requested to be taken is too great: %d, exceeded %d\n", images, MAX_IMAGES);
-		}
-		else{
-			printf("Error while writing multiple images on image number %d. Error number: %d\n", imagesWritten + 1, e);
-		}
-		return imagesWritten;
-	}
-	return imagesWritten;
-}
