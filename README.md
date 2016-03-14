@@ -1,6 +1,6 @@
 
-python with an All Sky Camera
-=============================
+python for an All Sky Camera
+============================
 
 This project describes not only the set up of the camera and
 associated software on the connected computer, it also helps you set
