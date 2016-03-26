@@ -1,5 +1,18 @@
-The code currently can take images and writes them to a text document that can be read into python code to be saved as a .fits file. I am working on looking into cfits in order to just save it to a .fits file from c++, so that will come in the near future. All I did was add the reading and saving as a fits file into mplot1 because I was doing it quickly. I probably won't make a python script specifically for this because I'm just going to have to do it on cfits next week anyway, but for now this will get the job done. Just put the ReadTXT.py in a directory with at least one fits file (used to make a header, again was doing this quickly just wanted to see if the camera was taking pictures correctly) and the pixels.txt
+Other necessary files: fitsio.h and cfitsio.lib which can both be 
+found at http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html
 
-In order to use the .cpp file you need to include the header file that the SDK provided and is on the github repository and you can use the .dll or .lib file to execute the code. If you are using Microsoft Visual C++ then you can simply follow the directions commented at the top of the code to get it working with the .lib file. 
+This code currently can take images from an Oculus All-Sky camera and save that image into a FIT file.
 
-The code should be sufficiently commented, you'll see I'm not finished writing additional functions I declared at the top or mentioned later in the code, currently it takes a picture with a given exposure then saves the image data. On Monday I'm hoping I can get cfits working which will make us be able to avoid the whole python part, have a function which takes photos with a given exposure over a given amount of time, and begin an algorithm to decide what exposure to use given the image data of the last photo so the exposure can change as the night gets brighter or darker.
+int takeStandardImage(HANDLE handle, int camIndex, ULONG exposure, USHORT *pixelArray)
+	Prepares the camera to take an image with least amount of specifications.
+	Then reads image data into an array of unsighned shorts, array is expected to be sufficient in length.
+
+Before adding more functionality, we must add the ability to dynamically allocate memory for taking many images
+in a row named IMAGExxxxx.FIT and eventually the ability for the camera to concurrently take images and save the data
+into arrays while also writing the data out to fits files. 
+
+Currently that's the only extended function as a part of Automator.cpp. The next functionality to be written will
+include taking images of a certain exposure until a given time with a predetermined naming convention, 
+taking images with an adapting exposure until a given time, taking images until it is a certain brightness.
+
+After this functionality is written I would like to include availability in user specified naming conventions.                                
