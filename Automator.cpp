@@ -14,6 +14,7 @@
 
 	*/
 
+
 #include "stdafx.h"
 #include <iostream>
 #include <cstdio>
@@ -25,6 +26,8 @@
 #include "SXUSB.h"
 #include "longnam.h"
 #include "fitsio.h"
+#include "Shlwapi.h"
+#include <direct.h>
 
 #define NUMBER_OF_CAMERAS 1
 #define PIXEL_WIDTH 1392
@@ -40,12 +43,16 @@
 int takeStandardImage(HANDLE handle, int camIndex, float exposure, USHORT *pixelArray);
 int writeImage(HANDLE handle, int camIndex, USHORT *pixelArray, char *);
 int writeMultipleImages(HANDLE handle, int camIndex, USHORT *pixelArray);
-int numDigits(int number);
+int numDigits(int);
 std::string getDate();
 std::string getTime();
 std::string NumberToString(int number);
 void setDate(fitsfile *, int);
 void printError(int, const char *);
+bool my_mkdir(const char *);
+bool windows_mkdir(const char *);
+bool unix_mkdir(const char *);
+bool dirExists(const char *);
 
 
 
@@ -66,7 +73,7 @@ char templateName[MAX_LEN] = "IMG%05d.fits";		/* -t <string> */
 char observatory[MAX_LEN] = "defaultObs";					/* -o <string> */
 float exposure = 1.0;						/* -e <float>  NOTE: in seconds */
 float sleepTime = 0.0;						/* -s <float> Sleep time in between taking images */
-int numImages = 1;							/* -n <int> */
+int numImages = 2;							/* -n <int> */
 int initialIndex = 0;						/* -i <int> */
 bool overwrite = false;						/* -f */
 bool verbose = true;						/* -v */ /*NOTE: NOT YET IMPLEMENTED */
@@ -83,7 +90,7 @@ int main(int argc, char **argv)
 
 	/* parse command line arguments */
 	int c;
-	while ((c = getopt(argc, argv, "o:e:n:d:t:s:i:f:v:")) != -1)
+	while ((c = getopt(argc, argv, "o:e:n:d:t:s:i:fv")) != -1)
     switch (c){
 	case 'o':
 		strcpy(observatory, optarg);
@@ -216,9 +223,7 @@ int writeImage(HANDLE handle, int camIndex, USHORT *pixelArray, char * path){
 	/* if overwrite flag is true add an '!' to the front so that fitsio overwrites files of
 		of the same name */
 
-	/* 
-		** make directory here **
-	*/
+	my_mkdir(dirname);
 
 	if (overwrite == true){
 		strcpy(newPath, "!");
@@ -354,4 +359,61 @@ void setDate(fitsfile *file, int option){
 /* Note: for proper output, include function name at beginning of message */
 void printError(int status, const char * message){
 	printf("(FITSIO) ERROR OCCURED IN FUNCTION %s, STATUS NUMBER: %d\n", message, status);
+}
+
+/**
+	Checks if the directory exists, if it does not, creates it
+	@return true if it creates it or it already exists
+			false if it could not create the directory
+*/
+/* NOTE: might need to implement error message for required admin permission */
+bool windows_mkdir(const char * dir){
+	int retval;
+	retval = dirExists(dir);
+	if (retval != 1){
+		unsigned int i = 0;
+		char temp[MAX_LEN];
+		while (i < strlen(dir)){
+			temp[i] = dir[i];
+			if (dir[i] == '\\'){
+				temp[i + 1] = 0;
+				if (_mkdir(temp) == -1){
+					perror("couldn't make directory");
+					return false;
+				}
+			}
+			i++;
+		}
+	}
+	return true;
+}
+
+bool unix_mkdir(const char * dir){
+	printf("unix_mkdir() NOT YET IMPLEMENTED!\n");
+	return false;
+}
+
+bool my_mkdir(const char * dir){
+#ifdef OS_WINDOWS
+	return windows_mkdir(dir);
+#else
+	return unix_mkdir(dir);
+#endif
+}
+
+/**
+	Checks whether a directory exists
+	@return true if it exists
+			false if it does not exists
+*/
+bool dirExists(const char * dirName_in)
+{
+  DWORD ftyp = GetFileAttributesA(dirName_in);
+  if (ftyp == INVALID_FILE_ATTRIBUTES)
+    return false;  //something is wrong with your path!
+
+  if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
+    return true;   // this is a directory!
+
+  return false;    // this is not a directory!
 }
