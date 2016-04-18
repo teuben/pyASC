@@ -53,6 +53,7 @@ bool my_mkdir(const char *);
 bool windows_mkdir(const char *);
 bool unix_mkdir(const char *);
 bool dirExists(const char *);
+void correctDir(char dir[]);
 
 
 
@@ -186,14 +187,11 @@ int takeStandardImage(HANDLE handle, int camIndex, float exposure, USHORT *pixel
 int writeMultipleImages(HANDLE handle, int camIndex, USHORT *pixelArray){
 	
 	int imagesTaken = 0;
-	char path[MAX_LEN], newPath[MAX_LEN];
-	strcpy(path, dirname);
-	strcat(path, templateName);
-	printf("path and name: %s\n", path);
+	char newPath[MAX_LEN];
 	for (int i = 0; i < numImages; i++){
 		try{
 			/* <templateName>.fits */
-			sprintf_s(newPath, 100, path, imagesTaken + initialIndex);
+			sprintf_s(newPath, 100, templateName, imagesTaken + initialIndex);
 			writeImage(handle, camIndex, pixelArray, newPath);
 		}
 		catch(int e){
@@ -212,29 +210,36 @@ int writeMultipleImages(HANDLE handle, int camIndex, USHORT *pixelArray){
 	writes image to given pixelArray to path (NOTE: path does not include extension, that is added by the function).
 	@return - 0 if failed, 1 if successfully wrote image.
 */
-int writeImage(HANDLE handle, int camIndex, USHORT *pixelArray, char * path){
+int writeImage(HANDLE handle, int camIndex, USHORT *pixelArray, char * filename){
 
 	takeStandardImage(handle, 0, exposure, pixels);
 
 	/* set up a fits file with proper hdu to write to a file */
 	fitsfile *file;
 	int status = 0;
-	char newPath[MAX_LEN];
+	char newPath[MAX_LEN], finalPath[MAX_LEN];
 	/* if overwrite flag is true add an '!' to the front so that fitsio overwrites files of
 		of the same name */
+
+	printf("bout to start correctDir\n");
+	correctDir(dirname);
+	printf("correctDir worked, dirname = %s\n", dirname);
+	strcpy(newPath, dirname);
+	strcat(newPath, filename);
+	printf("path and name: %s\n", newPath);
 
 	my_mkdir(dirname);
 
 	if (overwrite == true){
-		strcpy(newPath, "!");
-		strcat(newPath, path);
+		strcpy(finalPath, "!");
+		strcat(finalPath, newPath);
 	}
 	else{
-		strcpy(newPath, path);
+		strcpy(finalPath, newPath);
 	}
 
-	printf("file name = %s\n", newPath);
-	if (fits_create_file(&file, newPath, &status)){
+	printf("file name = %s\n", finalPath);
+	if (fits_create_file(&file, finalPath, &status)){
 		/*fits_report_error(stdout, status);*/
 		printError(status, "writeImage, while creating file");
 	}
@@ -363,27 +368,30 @@ void printError(int status, const char * message){
 
 /**
 	Checks if the directory exists, if it does not, creates it
+	NOTE: will add a \ to the end of dir if it does not end in one
 	@return true if it creates it or it already exists
 			false if it could not create the directory
 */
 /* NOTE: might need to implement error message for required admin permission */
 bool windows_mkdir(const char * dir){
-	int retval;
-	retval = dirExists(dir);
-	if (retval != 1){
-		unsigned int i = 0;
-		char temp[MAX_LEN];
-		while (i < strlen(dir)){
-			temp[i] = dir[i];
-			if (dir[i] == '\\'){
-				temp[i + 1] = 0;
+	bool exist;	
+	unsigned int i = 0;
+	char temp[MAX_LEN];
+	while (i < strlen(dir)){
+		temp[i] = dir[i];
+		if (dir[i] == '\\'){
+			temp[i + 1] = 0;
+			exist = dirExists(temp);
+			if (!exist){
 				if (_mkdir(temp) == -1){
-					perror("couldn't make directory");
+					printf("Could not make directory %s ", *dir);
+					perror("");
+					printf("\n");
 					return false;
 				}
 			}
-			i++;
 		}
+		i++;
 	}
 	return true;
 }
@@ -416,4 +424,19 @@ bool dirExists(const char * dirName_in)
     return true;   // this is a directory!
 
   return false;    // this is not a directory!
+}
+
+void correctDir(char dir[]){
+#ifdef OS_WINDOWS
+	if (dir[strlen(dir) - 1] != '\\'){
+		printf("got past if statement\n");
+		dir[strlen(dir)] = '\\';
+		dir[strlen(dir) + 1] = 0;
+	}
+#else
+	if (dir[strlen(dir) - 1] != '/'){
+		dir[strlen(dir)] = '/';
+		dir[strlen(dir) + 1] = 0;
+	}
+#endif
 }
