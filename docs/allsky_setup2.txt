@@ -38,7 +38,9 @@ h) sudo make install
    csh> sudo chmod 0666 `lsusb | grep Starlight | sed -e 's/://' |\
         awk '{print "/dev/bus/usb/"$2"/"$4}' -`
 
-5) yum install tigervnc-server
+   this is now implemented in a script in doc/starlight_usb_on
+
+5) install a VNC viewer: (vncviewer)
 
 
 
