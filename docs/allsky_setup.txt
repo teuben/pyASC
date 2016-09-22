@@ -1,3 +1,59 @@
+
+Hi Peter,
+
+when we first got the starlight express camera, we set it up under Fedora
+Core 21 using code called GoQat which I retrieved from
+
+http://canburytech.net/GoQat/index.html
+
+It comes as source, and if memory serves is all in C++.
+Under linux, there are no camera specific drivers to load, though you need 
+a bunch of reasonably standard libraries and a few applications to be installed
+when you compiled the code.  They appear to have gotten access to
+the usb command set for the camera, and implemented it as a usb device.
+I've attached my notes (allsky_setup.txt) about what it originally took me 
+to get GoQat 1.0.3 up under FC21. They are just for reference really, but it was
+reasonably straightforward.
+At the time, I was using version 1.0.3 (where I think was the last 1.x rev.).
+They recently released version 2.0.  The two cameras we have running under 
+GoQat both started with version 1.0.3.  In both cases, they handle control of the
+camera from other applications by going through the GoQat scripting
+interface.  The GoQat authors document the syntax reasonably well in 
+the user manual.
+
+The first case we have is the slit viewing camera for a spectrograph.  In that
+case, the external application is home written IDL code that requests images
+from GoQat.  I believe we also wrote a short shell script to handle making
+sure the usb device line was rwx for the application trying to access the camera.
+That camera is still running under GoQat 1.0.3.  There were the intermittent
+code crashes when they first tried to let it free run in guide mode.  I think
+that currently they use it in single frame per script request, but I am not sure. I
+have not heard any recent issues with it, and the spectrograph is getting used
+reasonably regularly.
+
+The second case is the all sky camera.  That one also started with GoQat 1.0.3,
+but the person I turned it over to (Len Bright, lpb@lowell.edu) ran into instabilities 
+and just recently upgraded to GoQat 2.0.  He says that it is much more stable and 
+the crashes he was seeing have stopped.  He is running the camera also through 
+the scripting interface from python code.
+
+I'd be interested in hearing how your all sky network progresses.
+
+I hope this is some help.
+
+Best regards,
+ Stephen
+
+
+
+
+
+
+
+
+
+
+
 2015 Feb
 
 Mesa All Sky Camera setup notes:
@@ -58,4 +114,5 @@ On allsky.lowell.edu
         awk '{print "/dev/bus/usb/"$2"/"$4}' -`
 
 5) yum install tigervnc-server
+
 
