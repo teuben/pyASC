@@ -61,3 +61,7 @@ There are many ways to collaborate using git or in our case github
 	   and issue a PULL REQUEST
 	   Wait for an email when this was merged by the coordinater (Peter for now)
 	   When this is done, your b1 branch was merged into the master
+
+
+<< NOT DONE YET : also reviewing http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+<<                to see if they have a different view on the workflow  
