@@ -13,7 +13,8 @@ import os.path
 import logging
 import time
 
-def d(ff,box=[]):
+
+def d(ff, box=[]):
     #very specific for 16 bit data, since we want to keep the data in uint16
     h = fits.open(ff, do_not_scale_image_data=True)
     if len(box)==0:
@@ -53,8 +54,8 @@ def dsum(i0,i1,step = 1, box=[]):
             c[i - i0,:,:] = d1.reshape(ny,nx)
     sum1 = sum1 / sum0
     sum2 = sum2 / sum0 - sum1*sum1
-    print type(sum1), type(sum2)
-    return h,sum1,np.sqrt(sum2),c
+    print (type(sum1), type(sum2))    
+    return (h,sum1,np.sqrt(sum2),c)
 
 def show(sum):
     """ some native matplotlib display,
@@ -119,7 +120,8 @@ class Dtime(object):
     def show(self):
         if self.report:
             for r in self.dtimes:
-                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
+                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + 
+                    str(r[1]))
         return self.dtimes
 
     def end(self):
@@ -148,9 +150,15 @@ if __name__ == '__main__':
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 'Starting and ending parameters for the frames analyzed')
-    parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
-    parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, help = 'Controls whether to display or save graphics. 0: no graphics, 1: display graphics, 2: save graphics as .png')
+    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 
+        'Starting and ending parameters for the frames analyzed')
+    parser.add_argument('-b', '--box', nargs = 4, type = int, help = 
+        'Coordinates for the bottom left corner and' 
+       + 'top right corner of a rectangle of pixels to be analyzed from the' + 
+       ' data. In the structure x1, y1, x2, y2 (1 based numbers)')
+    parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
+        help = 'Controls whether to display or save graphics. 0: no graphics,' 
+        + '1: display graphics, 2: save graphics as .png')
     args = vars(parser.parse_args())
 
     if args['frame'] == None:
@@ -164,7 +172,8 @@ if __name__ == '__main__':
             #if start has not been found yet, and this file exists
             if start == None and os.path.isfile(filename):
                 start = count
-            #if start has been found and we finally found a file that doesn't exist, set end to the last file that existed (count - 1.FIT)
+            #if start has been found and we finally found a file that doesn't 
+            #exist, set end to the last file that existed (count - 1.FIT)
             elif start != None and not os.path.isfile(filename):
                 end = count - 1
             count += 1  
@@ -176,7 +185,7 @@ if __name__ == '__main__':
         else:
             step = 1
     else:
-        raise Exception,"-f needs 0, 2, or 3 arguments."
+        raise Exception("-f needs 0, 2, or 3 arguments.")
            
     box   = args['box']                # BLC and TRC
     if box == None:
@@ -184,7 +193,8 @@ if __name__ == '__main__':
 
     dt.tag("start")
     # compute the average and dispersion of the series        
-    h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
+    h1,sum1,sum2,cube = dsum(start,end,step,box=box)           
+    # end can be uninitialized here might throw an error?
     dt.tag("dsum")
     nz = cube.shape[0]
     
