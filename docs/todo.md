@@ -1,12 +1,14 @@
-# This is a **TODO** file
+# This is the **TODO** file
 
 This is where we record things we need to do. We use the MD (markdown)
 language for this.
 
-* item 1
-* item 2
-  * item 2a
-  * item 2b
+* Setting up the camera
+* Controlling the camera
+  * Windows
+  * Linux
+* Setting up the server
+  *
 
 # Task List
 
