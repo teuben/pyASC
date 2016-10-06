@@ -18,3 +18,5 @@ experiment with the finer resolution. FITS images are
 1040 pixels.
 
 ![Example allsky image](20151108_1323.png "fireball and moon and two planets, jupiter and venus")
+
+voila
