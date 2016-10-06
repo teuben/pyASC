@@ -62,6 +62,24 @@ There are many ways to collaborate using git or in our case github
 	   Wait for an email when this was merged by the coordinater (Peter for now)
 	   When this is done, your b1 branch was merged into the master
 
+        4) Fetch the new master now from the original provider, which we'll label as "upstream"
+
+	   git remote                                                   # see which ones you have
+	   git remote add upstream https://github.com/teuben/pyASC      # add this if you don't have it
+
+	   git checkout master                                          # make sure you're on your master
+	   git fetch upstream                                           # fetch it
+	   git merge upstream/master                                    # merge in 
+	   git status                                                   # there should be no new things
+	   git push                                                     # push it to your origin
+
+
+         5) If you really don't care about that branch "b1" anymore, it can be deleted.
+
+	    git checkout master
+	    git branch -D b1
+	    git push origin --delete b1
+
 
 << NOT DONE YET : also reviewing http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
 <<                to see if they have a different view on the workflow  
