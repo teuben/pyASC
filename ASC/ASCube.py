@@ -20,7 +20,9 @@ class ASCube(object):
     """
     day = 0
     pattern = 'IMG?????.FIT'
-    def __init__(self, dirname, box = [], slice = []):
+    def __init__(self, dirname, box = [], slices = []):
+        self.box = box
+        self.slices = slices
         print("initializing directoy %s" %dirname)
         print(type(dirname), type(self.pattern))
         files = glob.glob(dirname + '/' + self.pattern)
@@ -28,7 +30,9 @@ class ASCube(object):
         if len(files) == 0:
             print("warning: no files %s found" %self.pattern)
         else:
-            print("YAY! found %d files" %len(files))
+            print("Found %d files" %len(files))
+            print("Box: ", box)
+            print("Slices: ", slices)
 
     def show(self):
         print("show")
@@ -182,10 +186,14 @@ if __name__ == '__main__':
         + '1: display graphics, 2: save graphics as .png')
     parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = '.',
         help = 'say something here')
+    parser.add_argument('-s', '--slices', nargs = '*', type = int, default = [],
+        help = 'say something here')
     args = vars(parser.parse_args())
 
     dirname = args['dirname'][0]
-    c = ASCube(dirname)
+    slices = args['slices']
+    box = args['box']
+    c = ASCube(dirname, box, slices)
 
     """if args['frame'] == None:
         count = 0
