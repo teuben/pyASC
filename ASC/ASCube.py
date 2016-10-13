@@ -14,6 +14,8 @@ import logging
 import time
 import glob
 
+
+"""This is a meaningless comment."""
 class ASCube(object):
     """
     here be comments
