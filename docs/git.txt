@@ -84,7 +84,7 @@ There are many ways to collaborate using git or in our case github
 	    their (github) branch 
 
 	   git remote add benji https://github.com/BenjiCooper/pyASC          # subscribe to it, only needed once
-	   git checkout -b benji-dev                                          # get this stuff on your private branch
+	   git checkout -b benji-dev                                          # get this stuff on your private local branch
 	   git pull benji BenjiC1                                             # get his BenjiC1 branch
 
 
