@@ -38,6 +38,20 @@ class ASCube(object):
         print("show")
 
 
+"""converts a string of command line input into an int array 
+for us in determining which slices to use."""
+def strToIntArray(slices):
+    lst = []
+    for word in slices.split(','):
+        words = word.split(':')
+        if len(words) == 1:
+            lst.append(int(words[0]))
+        elif len(words) == 2:
+            lst = lst + list(range(int(words[0]), int(words[1])))
+        elif len(words) == 3:
+            lst = lst + list(range(int(words[0]), int(words[1]), int(words[2])))
+    return lst
+
 
 def d(ff, box=[]):
     #very specific for 16 bit data, since we want to keep the data in uint16
@@ -124,7 +138,7 @@ class Dtime(object):
         self.dtimes = []
         dt = self.init - self.init
         if self.report:
-            logging.info("Dtime: %s ADMIT " % self.label + str(self.start))
+            #logging.info("Dtime: %s ADMIT " % (self.label + self.start)) #here took out a '
             logging.info("Dtime: %s BEGIN " % self.label + str(dt))
 
     def reset(self, report=True):
@@ -171,8 +185,6 @@ if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO)
     dt = Dtime("mplot1") 
     
-    #--start, -s n
-    #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
     parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 
@@ -186,12 +198,12 @@ if __name__ == '__main__':
         + '1: display graphics, 2: save graphics as .png')
     parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = '.',
         help = 'say something here')
-    parser.add_argument('-s', '--slices', nargs = '*', type = int, default = [],
+    parser.add_argument('-s', '--slices', nargs = 1, type = str, default = '0',
         help = 'say something here')
     args = vars(parser.parse_args())
 
     dirname = args['dirname'][0]
-    slices = args['slices']
+    slices = strToIntArray(args['slices'][0])
     box = args['box']
     c = ASCube(dirname, box, slices)
 
