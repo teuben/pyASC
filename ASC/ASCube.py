@@ -25,20 +25,30 @@ class ASCube(object):
         self.slices = slices
         self.maxslices = maxslices
         self.template = template
+        self.numfiles = 0
         print("initializing directoy %s" %dirname)
         print(type(dirname), type(self.pattern))
-        files = glob.glob(dirname + '/' + self.pattern)
-        self.numFiles = len(files)
-        if len(files) == 0:
+        self.files = []
+
+        for s in self.slices:
+            fname = dirname + "/" + self.template % s
+
+            if os.path.isfile(fname):
+                self.numfiles += 1
+                self.files.append(fname)
+            else:
+                print("File not found %s" % fname)
+
+        #self.numFiles = len(files)
+        if len(self.files) == 0:
             print("warning: no files %s found" %self.pattern)
         else:
-            print("Found %d files" %len(files))
+            print("Found %d files" %len(self.files))
             print("Box: ", box)
             print("Slices: ", slices)
 
     def show(self):
         print("show")
-
 
 """converts a string of command line input into an int array 
 for us in determining which slices to use."""
@@ -222,7 +232,7 @@ if __name__ == '__main__':
     slices = strToIntArray(args['slices'][0])
     box = args['box']
     maxslices = args['maxslices']
-    template = args['template']
+    template = args['template'][0]
     c = ASCube(dirname, box, slices, maxslices, template)
 
     """if args['frame'] == None:
