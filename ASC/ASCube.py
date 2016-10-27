@@ -20,9 +20,11 @@ class ASCube(object):
     """
     day = 0
     pattern = 'IMG?????.FIT'
-    def __init__(self, dirname, box = [], slices = []):
+    def __init__(self, dirname = ".", box = [], slices = [], maxslices = 10000, template = "IMG%05d.FIT"):
         self.box = box
         self.slices = slices
+        self.maxslices = maxslices
+        self.template = template
         print("initializing directoy %s" %dirname)
         print(type(dirname), type(self.pattern))
         files = glob.glob(dirname + '/' + self.pattern)
@@ -40,6 +42,7 @@ class ASCube(object):
 
 """converts a string of command line input into an int array 
 for us in determining which slices to use."""
+#@todo going in reverse doesn't work
 def strToIntArray(slices):
     lst = []
     for word in slices.split(','):
@@ -47,9 +50,9 @@ def strToIntArray(slices):
         if len(words) == 1:
             lst.append(int(words[0]))
         elif len(words) == 2:
-            lst = lst + list(range(int(words[0]), int(words[1])))
+            lst = lst + list(range(int(words[0]), int(words[1])+1))
         elif len(words) == 3:
-            lst = lst + list(range(int(words[0]), int(words[1]), int(words[2])))
+            lst = lst + list(range(int(words[0]), int(words[1])+1, int(words[2])))
     return lst
 
 
@@ -187,25 +190,40 @@ if __name__ == '__main__':
     
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 
-        'Starting and ending parameters for the frames analyzed')
+
+    """parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 
+        'Starting and ending parameters for the frames analyzed')"""
+
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 
         'Coordinates for the bottom left corner and' 
        + 'top right corner of a rectangle of pixels to be analyzed from the' + 
        ' data. In the structure x1, y1, x2, y2 (1 based numbers)')
-    parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
+
+    """parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
         help = 'Controls whether to display or save graphics. 0: no graphics,' 
-        + '1: display graphics, 2: save graphics as .png')
+        + '1: display graphics, 2: save graphics as .png')"""
+
     parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = '.',
         help = 'say something here')
+
     parser.add_argument('-s', '--slices', nargs = 1, type = str, default = '0',
         help = 'say something here')
+
+    parser.add_argument('-m', '--maxslices', nargs = 1, type = int, default = 10000,
+        help = 'say something here')
+
+    parser.add_argument('-t', '--template', nargs = 1, type = str, default = "IMG%05d.FIT",
+        help = 'say something here')
+
+
     args = vars(parser.parse_args())
 
     dirname = args['dirname'][0]
     slices = strToIntArray(args['slices'][0])
     box = args['box']
-    c = ASCube(dirname, box, slices)
+    maxslices = args['maxslices']
+    template = args['template']
+    c = ASCube(dirname, box, slices, maxslices, template)
 
     """if args['frame'] == None:
         count = 0
