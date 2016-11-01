@@ -52,7 +52,6 @@ class ASCube(object):
 
 """converts a string of command line input into an int array 
 for us in determining which slices to use."""
-#@todo going in reverse doesn't work
 def strToIntArray(slices):
     lst = []
     for word in slices.split(','):
@@ -60,9 +59,15 @@ def strToIntArray(slices):
         if len(words) == 1:
             lst.append(int(words[0]))
         elif len(words) == 2:
-            lst = lst + list(range(int(words[0]), int(words[1])+1))
+            if int(words[0]) > int(words[1]):
+                lst = lst + list(range(int(words[0]), int(words[1])-1))
+            else:
+                lst = lst + list(range(int(words[0]), int(words[1])+1))
         elif len(words) == 3:
-            lst = lst + list(range(int(words[0]), int(words[1])+1, int(words[2])))
+            if int(words[0]) > int(words[1]):
+                lst = lst + list(range(int(words[0]), int(words[1])-1, int(words[2])))
+            else:
+                lst = lst + list(range(int(words[0]), int(words[1])+1, int(words[2])))
     return lst
 
 
