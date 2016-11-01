@@ -205,9 +205,10 @@ if __name__ == '__main__':
         'Starting and ending parameters for the frames analyzed')"""
 
     parser.add_argument('-b', '--box', nargs = 4, type = int, help = 
-        'Coordinates for the bottom left corner and' 
+        'Coordinates for the bottom left corner and ' 
        + 'top right corner of a rectangle of pixels to be analyzed from the' + 
-       ' data. In the structure x1, y1, x2, y2 (1 based numbers)')
+       ' data. In the structure x1, y1, x2, y2 (1 based numbers).' +
+       ' Box coordinates should be strictly positive or 0, with x1 ≤ x2 and y1 ≤ y2')
 
     """parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
         help = 'Controls whether to display or save graphics. 0: no graphics,' 
