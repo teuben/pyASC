@@ -20,17 +20,17 @@ class ASCube(object):
     """
     day = 0
     pattern = 'IMG?????.FIT'
-    def __init__(self, dirname = ".", box = [], slices = [], maxslices = 10000, template = "IMG%05d.FIT"):
+    def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, template = "IMG%05d.FIT"):
         self.box = box
-        self.slices = slices
-        self.maxslices = maxslices
+        self.frames = frames
+        self.maxframes = maxframes
         self.template = template
         self.numfiles = 0
         print("initializing directoy %s" %dirname)
         print(type(dirname), type(self.pattern))
         self.files = []
 
-        for s in self.slices:
+        for s in self.frames:
             fname = dirname + "/" + self.template % s
 
             if os.path.isfile(fname):
@@ -45,16 +45,16 @@ class ASCube(object):
         else:
             print("Found %d files" %len(self.files))
             print("Box: ", box)
-            print("Slices: ", slices)
+            print("Frames: ", frames)
 
     def show(self):
         print("show")
 
 """converts a string of command line input into an int array 
-for us in determining which slices to use."""
-def strToIntArray(slices):
+for us in determining which frames to use."""
+def strToIntArray(frames):
     lst = []
-    for word in slices.split(','):
+    for word in frames.split(','):
         words = word.split(':')
         if len(words) == 1:
             lst.append(int(words[0]))
@@ -198,7 +198,6 @@ class Dtime(object):
 
     
 
-
 if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO)
     dt = Dtime("mplot1") 
@@ -222,10 +221,10 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = '.',
         help = 'say something here')
 
-    parser.add_argument('-s', '--slices', nargs = 1, type = str, default = '0',
+    parser.add_argument('-f', '--frames', nargs = 1, type = str, default = '0',
         help = 'say something here')
 
-    parser.add_argument('-m', '--maxslices', nargs = 1, type = int, default = 10000,
+    parser.add_argument('-m', '--maxframes', nargs = 1, type = int, default = 10000,
         help = 'say something here')
 
     parser.add_argument('-t', '--template', nargs = 1, type = str, default = "IMG%05d.FIT",
@@ -235,11 +234,11 @@ if __name__ == '__main__':
     args = vars(parser.parse_args())
 
     dirname = args['dirname'][0]
-    slices = strToIntArray(args['slices'][0])
+    frames = strToIntArray(args['frames'][0])
     box = args['box']
-    maxslices = args['maxslices']
+    maxframes = args['maxframes']
     template = args['template'][0]
-    c = ASCube(dirname, box, slices, maxslices, template)
+    c = ASCube(dirname, box, frames, maxframes, template)
 
     """if args['frame'] == None:
         count = 0
