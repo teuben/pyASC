@@ -1,5 +1,7 @@
 #! /usr/bin/env python
+#
 
+from __future__ import print_function
 
 import time
 import numpy as np
@@ -12,10 +14,11 @@ import logging
 class Dtime(object):
     """ Class to help measuring the wall clock time between tagged events
         Typical usage:
-        dt = Dtime()
+    
+        dt = Dtime('some_label')
         ...
         dt.tag('a')
-        ...import logging 
+        ...
         dt.tag('b')
         dt.end()
     """
@@ -48,8 +51,7 @@ class Dtime(object):
     def show(self):
         if self.report:
             for r in self.dtimes:
-                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + 
-                    str(r[1]))
+                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
         return self.dtimes
 
     def end(self):
@@ -67,10 +69,19 @@ class Dtime(object):
         """
         return np.array([time.clock(), time.time()])
 
+    def get_mem(self):
+        """ Read memory usage info from /proc/pid/status
+            Return Virtual and Resident memory size in MBytes.
+
+            NOTE: not implemented here, see the ADMIT version if you need this.
+        """
+        return np.array([])       # NA yet
+
 if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO)
     dt = Dtime("testingDtime")
     dt.tag('one')
+    # print("Hello Dtime World")
     print("Hello Dtime World")
     dt.tag('two')
     dt.end()
