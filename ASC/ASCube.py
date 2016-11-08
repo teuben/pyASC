@@ -20,7 +20,9 @@ class ASCube(object):
     """
     day = 0
     pattern = 'IMG?????.FIT'
-    def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, template = "IMG%05d.FIT"):
+    def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
+        template = "IMG%05d.FIT", doload = True):
+        self.dtime = Dtime("ascube")
         self.box = box
         self.frames = frames
         self.maxframes = maxframes
@@ -29,7 +31,7 @@ class ASCube(object):
         print("initializing directoy %s" %dirname)
         print(type(dirname), type(self.pattern))
         self.files = []
-
+        self.dtime.tag("before iterating through frames")
         for s in self.frames:
             fname = dirname + "/" + self.template % s
 
@@ -38,7 +40,7 @@ class ASCube(object):
                 self.files.append(fname)
             else:
                 print("File not found %s" % fname)
-
+        self.dtime.tag("after iterating through frames")
         #self.numFiles = len(files)
         if len(self.files) == 0:
             print("warning: no files %s found" %self.pattern)
@@ -46,6 +48,40 @@ class ASCube(object):
             print("Found %d files" %len(self.files))
             print("Box: ", box)
             print("Frames: ", frames)
+        self.data = None
+        self.nx = 0
+        self.ny = 0
+        self.nf = len(self.frames)
+        self.dtime.tag("before loading")
+        if doload:
+            self.load()
+        self.dtime.tag("after loading")
+        self.dtime.end()
+
+    def load(self):
+        for k in range(self.nf):
+            (header, newData) = self.getData(self.files[k], self.box)
+            newData = newData * header["BSCALE"] + header["BZERO"]
+            if k == 0:
+                if self.nx == 0:
+                    self.nx = newData.shape[1]
+                    self.ny = newData.shape[0]
+                self.data = np.zeros((self.nf, self.ny, self.nx))
+            self.data[k,:,:] = newData
+        print(self.data)
+
+    def getData(self, fitsfile, box=[]):
+        #very specific for 16 bit data, since we want to keep the data in uint16
+        newData = fits.open(fitsfile, do_not_scale_image_data=True)
+        if len(box)==0:
+            return newData[0].header, newData[0].data
+        else:
+            # figure out 0 vs. 1 based offsets; box is 1 based
+            return newData[0].header, newData[0].data[box[1]:box[3], box[0]:box[2]]
+
+
+    
+
 
     def show(self):
         print("show")
@@ -71,15 +107,6 @@ def strToIntArray(frames):
     return lst
 
 
-def d(ff, box=[]):
-    #very specific for 16 bit data, since we want to keep the data in uint16
-    h = fits.open(ff, do_not_scale_image_data=True)
-    if len(box)==0:
-        return h[0].header, h[0].data
-    else:
-        # figure out 0 vs. 1 based offsets; box is 1 based
-        return h[0].header, h[0].data[box[1]:box[3], box[0]:box[2]]
-
 
 def dsum(i0,i1,step = 1, box=[]):
     """ for a range of fits files
@@ -87,7 +114,7 @@ def dsum(i0,i1,step = 1, box=[]):
     """
     for i in range(i0,i1+1,step):
         ff = 'IMG%05d.FIT' % i
-        h1, d1 = d(ff,box)
+        h1, d1 = getData(ff,box)
         #very specific for 16 bit data, since we want to keep the data in uint16
         bzero = h1['BZERO']
         bscale = h1['BSCALE']
@@ -212,7 +239,7 @@ if __name__ == '__main__':
         'Coordinates for the bottom left corner and ' 
        + 'top right corner of a rectangle of pixels to be analyzed from the' + 
        ' data. In the structure x1, y1, x2, y2 (1 based numbers).' +
-       ' Box coordinates should be strictly positive or 0, with x1 ≤ x2 and y1 ≤ y2')
+       ' Box coordinates should be strictly positive or 0, with x1 <= x2 and y1 <= y2')
 
     """parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
         help = 'Controls whether to display or save graphics. 0: no graphics,' 
@@ -230,16 +257,25 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--template', nargs = 1, type = str, default = "IMG%05d.FIT",
         help = 'say something here')
 
+    parser.add_argument('-n', '--noload', action="store_true", default = False, help = 'Flag to avoid loading the entire file')
 
     args = vars(parser.parse_args())
+
+    dt.tag("after parser")
 
     dirname = args['dirname'][0]
     frames = strToIntArray(args['frames'][0])
     box = args['box']
     maxframes = args['maxframes']
     template = args['template'][0]
-    c = ASCube(dirname, box, frames, maxframes, template)
+    if args['noload']:
+        doload = False
+    else:
+        doload = True
 
+    dt.tag("before ASCube")
+    c = ASCube(dirname, box, frames, maxframes, template, doload)
+    dt.end()
     """if args['frame'] == None:
         count = 0
         start = None
