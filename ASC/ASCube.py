@@ -14,6 +14,8 @@ import logging
 import time
 import glob
 
+# THIS IS A COMMENT
+
 class ASCube(object):
     """
     here be comments
