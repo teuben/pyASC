@@ -257,7 +257,8 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--template', nargs = 1, type = str, default = "IMG%05d.FIT",
         help = 'say something here')
 
-    parser.add_argument('-n', '--noload', action="store_true", default = False, help = 'Flag to avoid loading the entire file')
+    parser.add_argument('-n', '--noload', action="store_true", default = False, 
+        help = 'Flag to avoid loading the entire file')
 
     args = vars(parser.parse_args())
 
@@ -268,10 +269,7 @@ if __name__ == '__main__':
     box = args['box']
     maxframes = args['maxframes']
     template = args['template'][0]
-    if args['noload']:
-        doload = False
-    else:
-        doload = True
+    doload = not args['noload']
 
     dt.tag("before ASCube")
     c = ASCube(dirname, box, frames, maxframes, template, doload)
