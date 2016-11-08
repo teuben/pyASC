@@ -75,17 +75,23 @@ There are many ways to collaborate using git or in our case github
 
 
          5) If you really don't care about that branch "b1" anymore, it can be deleted.
+	    It takes an extra step to do this on the github.com site as well.
 
 	   git checkout master
 	   git branch -D b1
 	   git push origin --delete b1
 
 	 6) Here's a scenario where you want to peek what another developer is doing on
-	    their (github) branch 
+	    their (github) branch. It can also be used to shotcut between two developers
+	    co-developing before a merge on the upstream.
 
-	   git remote add benji https://github.com/BenjiCooper/pyASC          # subscribe to it, only needed once
-	   git checkout -b benji-dev                                          # get this stuff on your private local branch
-	   git pull benji BenjiC1                                             # get his BenjiC1 branch
+	   git remote add benji https://github.com/BenjiCooper/pyASC       # subscribe to it, only needed once
+	   git checkout -b benji-dev                                       # get this stuff on your private local branch
+	   git pull benji BenjiC1                                          # get his BenjiC1 branch
+
+	   git remote add bsosis https://github.com/bsosis/pyASC           # subscribe to it, only needed once
+	   git checkout -b baram-dev
+	   git pull bsosis BaramS1
 
 
 See also http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
