@@ -1,0 +1,24 @@
+# HDU 0 in Oculus-2016-11-10T10-39-12-823.fit:
+SIMPLE  =                    T / C# FITS: 11/10/2016 10:39:12 AM                
+BITPIX  =                   16 / Number of bits per data pixel                  
+NAXIS   =                    2 / Number of data axes                            
+NAXIS1  =                 1392 / Length of data axis 1                          
+NAXIS2  =                 1040 / Length of data axis 2                          
+OBSERVER= 'UMD Observatory'    / The Observer collection the data               
+FILTER  = 'None    '           / Filter Name                                    
+TELESCOP= 'Starlight Xpress Oculus' / Telescope Name                            
+CREATOR = 'AllSkEye 0.9.1.0'   / Image Capture Software                         
+OBJECT  = 'All-Sky Image'      / Object Name                                    
+INSTRUME= 'SuperStar-M'        / The camera instrument                          
+BSCALE  =                    1 / Default scaling factor                         
+BZERO   =                32768 / Offset if data is unsigned                     
+SITELAT =                    0 / Observation Site Latitude                      
+CRVAL1  =     18.9982848504918 / RA at image center in degrees                  
+DATE-LOC= '2016-11-10T10:39:12' / Local Observation Date/Time                   
+DATE-OBS= '2016-11-10T15:39:12' / UTC Observation Date/Time                     
+EXPTIME =                   10 / Exposure time in seconds                       
+YPIXSZ  =             6.449219 / Pixel Height in microns                        
+XPIXSZ  =             6.449219 / Pixel Width in microns                         
+EXTEND  =                    T / Extensions are permitted                       
+SITELONG=                    0 / Observation Site Longitude                     
+CRVAL2  = 3.50823878194633E-15 / Dec at image center in degrees                 
