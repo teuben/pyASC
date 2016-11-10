@@ -1,0 +1,10 @@
+#! /bin/bash
+#
+
+echo Setting permission on USB port for the camera
+../docs/starlight_usb_on
+echo Starting the observe program GoQat
+echo Reminder:
+echo "1)  Cameras -> Select CCD Camera"
+echo "2)  Cameras -> Connect to CCD camera"
+GoQat
