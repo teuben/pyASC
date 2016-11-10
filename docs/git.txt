@@ -76,10 +76,22 @@ There are many ways to collaborate using git or in our case github
 
          5) If you really don't care about that branch "b1" anymore, it can be deleted.
 
-	    git checkout master
-	    git branch -D b1
-	    git push origin --delete b1
+	   git checkout master
+	   git branch -D b1
+	   git push origin --delete b1
+
+	 6) And finally, to follow our fellow coders' branches, here is an example where
+	    Benji is working on his branch, and we like to view that code before it has
+	    been committed. 
+
+	    git remote add benji https://github.com/BenjiCooper/pyASC
+	    git checkout -b benji --track benji/BenjiC1
+
+	    git pull
+
+	    
 
 
-<< NOT DONE YET : also reviewing http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
-<<                to see if they have a different view on the workflow  
+Also review astropy's workflow:
+http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+
