@@ -1,3 +1,11 @@
 #  change permission on the USB where starlight was connected
-sudo chmod 0666 `lsusb | grep Starlight | sed -e 's/://' |\
+
+
+perm=0666
+port=`lsusb | grep Starlight | sed -e 's/://' |\
         awk '{print "/dev/bus/usb/"$2"/"$4}' -`
+
+echo Seting $perm on port $port
+
+
+sudo chmod $perm $port
