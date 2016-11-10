@@ -93,5 +93,6 @@ There are many ways to collaborate using git or in our case github
 	   git checkout -b baram-dev
 	   git pull bsosis BaramS1
 
+Also review astropy's workflow:
+http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
 
-See also http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
