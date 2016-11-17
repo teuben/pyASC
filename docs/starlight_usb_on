@@ -5,7 +5,7 @@ perm=0666
 port=`lsusb | grep Starlight | sed -e 's/://' |\
         awk '{print "/dev/bus/usb/"$2"/"$4}' -`
 
+ls -l $port
 echo Seting $perm on port $port
-
-
 sudo chmod $perm $port
+ls -l $port
