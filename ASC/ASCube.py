@@ -12,9 +12,7 @@ import argparse as ap
 import os.path
 import logging
 import time
-import glob
-
-# THIS IS A COMMEN
+#import glob
 
 class ASCube(object):
     """
@@ -24,6 +22,8 @@ class ASCube(object):
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
         template = "IMG%05d.FIT", doload = True):
+        self.dirname = dirname
+        self.doload = doload
         self.dtime = Dtime("ascube")
         self.box = box
         self.frames = frames
@@ -46,10 +46,10 @@ class ASCube(object):
         #self.numFiles = len(files)
         if len(self.files) == 0:
             print("warning: no files %s found" %self.pattern)
-        else:
+        """else:
             print("Found %d files" %len(self.files))
             print("Box: ", box)
-            print("Frames: ", frames)
+            print("Frames: ", frames)"""
         self.data = None
         self.nx = 0
         self.ny = 0
@@ -81,16 +81,24 @@ class ASCube(object):
             # figure out 0 vs. 1 based offsets; box is 1 based
             return newData[0].header, newData[0].data[box[1]:box[3], box[0]:box[2]]
 
-
-    
-
-
     def show(self):
         print("show")
 
-"""converts a string of command line input into an int array 
-for us in determining which frames to use."""
+    def __str__(self):
+        string = ""
+        string += "Directory: " + self.dirname + "\n"
+        string += "Box: " + str(self.box) + "\n"
+        string += "Frames: " + str(self.frames) + "\n"
+        string += "Max Frames: " + str(self.maxframes) + "\n"
+        string += "Template: " + str(self.template) + "\n"
+        string += "Load: " + str(self.doload) + "\n"
+        return string
+
+
 def strToIntArray(frames):
+    """ converts a string of command line input into an int array 
+        for us in determining which frames to use.
+    """
     lst = []
     for word in frames.split(','):
         words = word.split(':')
@@ -145,7 +153,7 @@ def dsum(i0,i1,step = 1, box=[]):
 
 def show(sum):
     """ some native matplotlib display,
-    doesn't show pointsources well at all
+        doesn't show pointsources well at all
     """
     ip = plt.imshow(sum)
     plt.show()
@@ -276,6 +284,8 @@ if __name__ == '__main__':
     dt.tag("before ASCube")
     c = ASCube(dirname, box, frames, maxframes, template, doload)
     dt.end()
+
+    print("\n"+str(c))
     """if args['frame'] == None:
         count = 0
         start = None
