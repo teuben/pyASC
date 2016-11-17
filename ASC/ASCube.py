@@ -16,7 +16,7 @@ import time
 
 class ASCube(object):
     """
-    here be comments
+    A cube object. Can load a cube and print its data currently.
     """
     day = 0
     pattern = 'IMG?????.FIT'
@@ -61,6 +61,8 @@ class ASCube(object):
         self.dtime.end()
 
     def load(self):
+        """ Load a cube into a 3-dimensional list of values 
+        """
         for k in range(self.nf):
             (header, newData) = self.getData(self.files[k], self.box)
             newData = newData * header["BSCALE"] + header["BZERO"]
@@ -85,6 +87,8 @@ class ASCube(object):
         print("show")
 
     def __str__(self):
+        """ to string function for printing out info about a cube
+        """
         string = ""
         string += "Directory: " + self.dirname + "\n"
         string += "Box: " + str(self.box) + "\n"
@@ -97,7 +101,7 @@ class ASCube(object):
 
 def strToIntArray(frames):
     """ converts a string of command line input into an int array 
-        for us in determining which frames to use.
+        for use in determining which frames to use.
     """
     lst = []
     for word in frames.split(','):
