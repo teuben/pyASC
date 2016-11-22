@@ -22,6 +22,7 @@ class ASCube(object):
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
         template = "IMG%05d.FIT", doload = True):
+
         self.dirname = dirname
         self.doload = doload
         self.dtime = Dtime("ascube")
@@ -73,6 +74,15 @@ class ASCube(object):
                 self.data = np.zeros((self.nf, self.ny, self.nx))
             self.data[k,:,:] = newData
         print(self.data)
+
+        arr = np.copy(self.data)
+
+        for z in range(self.nf):
+            if z == 0:
+                arr[0] = 0.0
+            else:
+                arr[z] = self.data[z] - self.data[z-1]
+        print(arr)
 
     def getData(self, fitsfile, box=[]):
         #very specific for 16 bit data, since we want to keep the data in uint16
@@ -259,17 +269,18 @@ if __name__ == '__main__':
         help = 'Controls whether to display or save graphics. 0: no graphics,' 
         + '1: display graphics, 2: save graphics as .png')"""
 
-    parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = '.',
-        help = 'say something here')
+    parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = ['.'],
+        help = 'Name of the directory containing data')
 
-    parser.add_argument('-f', '--frames', nargs = 1, type = str, default = '0',
-        help = 'say something here')
+    parser.add_argument('-f', '--frames', nargs = 1, type = str, default = ['0'],
+        help = 'The frames wanted, written in the form <start>:<end>:<step>,'+
+        '<start>:<end>:<step>,... Be sure to not put in any spaces')
 
     parser.add_argument('-m', '--maxframes', nargs = 1, type = int, default = 10000,
-        help = 'say something here')
+        help = 'The highest possible frame value')
 
-    parser.add_argument('-t', '--template', nargs = 1, type = str, default = "IMG%05d.FIT",
-        help = 'say something here')
+    parser.add_argument('-t', '--template', nargs = 1, type = str, default = ["IMG%05d.FIT"],
+        help = 'The template of file names for images taken.')
 
     parser.add_argument('-n', '--noload', action="store_true", default = False, 
         help = 'Flag to avoid loading the entire file')
