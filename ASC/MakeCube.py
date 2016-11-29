@@ -4,6 +4,7 @@
 
 
 import ASCube
+import Dtime
 import logging
 import argparse as ap
 import copy
@@ -11,7 +12,7 @@ from astropy.io import fits
 
 if __name__ == '__main__':
     logging.basicConfig(level = logging.INFO)
-    dt = ASCube.Dtime("mplot1") 
+    dt = Dtime.Dtime("mplot1") 
     
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
