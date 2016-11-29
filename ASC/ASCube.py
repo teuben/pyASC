@@ -34,6 +34,7 @@ class ASCube(object):
         print("initializing directoy %s" %dirname)
         print(type(dirname), type(self.pattern))
         self.files = []
+        self.headers = []
         self.dtime.tag("before iterating through frames")
         for s in self.frames:
             fname = dirname + "/" + self.template % s
@@ -67,6 +68,7 @@ class ASCube(object):
         for k in range(self.nf):
             (header, newData) = self.getData(self.files[k], self.box)
             newData = newData * header["BSCALE"] + header["BZERO"]
+            self.headers.append(header)
             if k == 0:
                 if self.nx == 0:
                     self.nx = newData.shape[1]
@@ -246,129 +248,3 @@ class Dtime(object):
         time.clock  :    cpu clock time
         """
         return np.array([time.clock(), time.time()])
-
-    
-
-if __name__ == '__main__':
-    logging.basicConfig(level = logging.INFO)
-    dt = Dtime("mplot1") 
-    
-    #--box x1 y1 x2 y2
-    parser = ap.ArgumentParser(description='Plotting .fits files.')
-
-    """parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 
-        'Starting and ending parameters for the frames analyzed')"""
-
-    parser.add_argument('-b', '--box', nargs = 4, type = int, help = 
-        'Coordinates for the bottom left corner and ' 
-       + 'top right corner of a rectangle of pixels to be analyzed from the' + 
-       ' data. In the structure x1, y1, x2, y2 (1 based numbers).' +
-       ' Box coordinates should be strictly positive or 0, with x1 <= x2 and y1 <= y2')
-
-    """parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
-        help = 'Controls whether to display or save graphics. 0: no graphics,' 
-        + '1: display graphics, 2: save graphics as .png')"""
-
-    parser.add_argument('-d', '--dirname', nargs = 1, type = str, default = ['.'],
-        help = 'Name of the directory containing data')
-
-    parser.add_argument('-f', '--frames', nargs = 1, type = str, default = ['0'],
-        help = 'The frames wanted, written in the form <start>:<end>:<step>,'+
-        '<start>:<end>:<step>,... Be sure to not put in any spaces')
-
-    parser.add_argument('-m', '--maxframes', nargs = 1, type = int, default = 10000,
-        help = 'The highest possible frame value')
-
-    parser.add_argument('-t', '--template', nargs = 1, type = str, default = ["IMG%05d.FIT"],
-        help = 'The template of file names for images taken.')
-
-    parser.add_argument('-n', '--noload', action="store_true", default = False, 
-        help = 'Flag to avoid loading the entire file')
-
-    args = vars(parser.parse_args())
-
-    dt.tag("after parser")
-
-    dirname = args['dirname'][0]
-    frames = strToIntArray(args['frames'][0])
-    box = args['box']
-    maxframes = args['maxframes']
-    template = args['template'][0]
-    doload = not args['noload']
-
-    dt.tag("before ASCube")
-    c = ASCube(dirname, box, frames, maxframes, template, doload)
-    dt.end()
-
-    print("\n"+str(c))
-    """if args['frame'] == None:
-        count = 0
-        start = None
-        end = None
-        step = 1
-        #while we have yet to find an end
-        while end == None:
-            filename = 'IMG%05d.FIT' % count
-            #if start has not been found yet, and this file exists
-            if start == None and os.path.isfile(filename):
-                start = count
-            #if start has been found and we finally found a file that doesn't 
-            #exist, set end to the last file that existed (count - 1.FIT)
-            elif start != None and not os.path.isfile(filename):
-                end = count - 1
-            count += 1  
-    elif len(args['frame']) >= 2 and len(args['frame']) <= 3:
-        start = args['frame'][0]           # starting frame (IMGnnnnn.FIT)
-        end   = args['frame'][1]           # ending frame
-        if len(args['frame']) == 3:
-            step = args['frame']
-        else:
-            step = 1
-    else:
-        raise Exception("-f needs 0, 2, or 3 arguments.")
-           
-    box   = args['box']                # BLC and TRC
-    if box == None:
-        box = []
-
-    dt.tag("start")
-    # compute the average and dispersion of the series        
-    h1,sum1,sum2,cube = dsum(start,end,step,box=box)           
-    # end can be uninitialized here might throw an error?
-    dt.tag("dsum")
-    nz = cube.shape[0]
-    
-    # delta X and Y images
-    dsumy = sum1 - np.roll(sum1, 1, axis = 0)    # change in the y axis
-    dsumx = sum1 - np.roll(sum1, 1, axis = 1)    # change in the x axis
-
-    # write them to FITS
-    fits.writeto('dsumx.fits', dsumx, h1, clobber=True)
-    fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
-    fits.writeto('sum1.fits', sum1, h1, clobber=True)
-    fits.writeto('sum2.fits', sum2, h1, clobber=True)
-    dt.tag("write2d")
-    # 3D cube to
-    h1['NAXIS']  = 3
-    h1['NAXIS3'] = nz
-    fits.writeto('cube.fits', cube, h1, clobber=True)
-    dt.tag("write3d")
-
-
-    if args['graphics'][0] == 1:
-        # plot the sum1 and sum2 correllation (glueviz should do this)
-        s1 = sum1.flatten()
-        s2 = sum2.flatten()
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.scatter(s1,s2)
-        plt.show()
-        show2(sum1)
-        show2(sum2)
-    if args['graphics'][0] == 2:
-        imsave('sum1.png', sum1)
-        imsave('sum2.png', sum2)
-    
-    dt.tag("done")
-    dt.end()
-    """
