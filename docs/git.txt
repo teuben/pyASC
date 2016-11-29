@@ -3,7 +3,8 @@ There are many ways to collaborate using git or in our case github
 
 1) direct clone the master (currently peter's) and push back into
    it.  This is dangerous, needs special permission from the owner
-   but is a very simple
+   but it would be very simple (don't worry, if you're not peter,
+   he won't give you permission to push into his repo):
 
 	git clone https://github.com/teuben/pyASC
 	cd pyASC
@@ -14,7 +15,7 @@ There are many ways to collaborate using git or in our case github
    This is the typical work if you work on your own repo.
 
 2) A variation on this theme is using a branch, so they could be more safely
-   merged into the master. So, instead of editing 'f1' in the master, we
+   merged into the master. This will clean  So, instead of editing 'f1' in the master, we
    create a branch and make changes on that:
 
 
@@ -22,18 +23,19 @@ There are many ways to collaborate using git or in our case github
 	git checkout b1
 	edit f1
 	git commit f1
-	git push                   # skip this if you want it only local
+	git push -u origin b1      # skip this if you want it only local
 
    When it comes time to merge, the following sequence can be followed
 
    	git checkout master        # start from a fresh master
-	git pull
+	git pull                   # ensure you are up to date
 	git merge b1               # merge in the b1 changes, watch for conflicts
-	git push                   # push this back to github
+	git push                   # push this new master back to github
 
 
-3) fork the master in your own GITHUB workspace, clone from that to your laptop,
-   work on a branch, and go a pull request on GITHUB from that branch, viz.
+3) fork a master that's not yours in your own GITHUB workspace, then
+   clone from that to your laptop, work on a branch, and do a pull
+   request on GITHUB from that branch, viz.
    (below your name on GITHUB is "gh_name")
 
    	1) go on GITHUB and fork my repo to your space
@@ -64,28 +66,35 @@ There are many ways to collaborate using git or in our case github
 
         4) Fetch the new master now from the original provider, which we'll label as "upstream"
 
-	   git remote                                                   # see which ones you have
-	   git remote add upstream https://github.com/teuben/pyASC      # add this if you don't have it
+	   git remote                                                # see which ones you have
+	   git remote add upstream https://github.com/teuben/pyASC   # add this one-time
 
-	   git checkout master                                          # make sure you're on your master
-	   git fetch upstream                                           # fetch it
-	   git merge upstream/master                                    # merge in 
-	   git status                                                   # there should be no new things
-	   git push                                                     # push it to your origin
+	   git checkout master                                       # ensure on master
+	   git fetch upstream                                        # fetch it
+	   git merge upstream/master                                 # merge in 
+	   git status                                                # should be no new things
+	   git push                                                  # push it to your origin
 
 
          5) If you really don't care about that branch "b1" anymore, it can be deleted.
+	    It takes an extra step to do this on the github.com site as well.
 
 	   git checkout master
 	   git branch -D b1
 	   git push origin --delete b1
 
 	 6) Here's a scenario where you want to peek what another developer is doing on
-	    their (github) branch 
+	    their (github) branch. It can also be used to shotcut between two developers
+	    co-developing before a merge on the upstream.
 
-	   git remote add benji https://github.com/BenjiCooper/pyASC          # subscribe to it, only needed once
-	   git checkout -b benji-dev                                          # get this stuff on your private local branch
-	   git pull benji BenjiC1                                             # get his BenjiC1 branch
+	   git remote add benji https://github.com/BenjiCooper/pyASC # one-time only
+	   git checkout -b benji-dev                                 # on your local branch
+	   git pull benji BenjiC1                                    # pull in his branch
 
+	   git remote add bsosis https://github.com/bsosis/pyASC 
+	   git checkout -b baram-dev
+	   git pull bsosis BaramS1
 
-See also http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+Also review astropy's workflow:
+http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+
