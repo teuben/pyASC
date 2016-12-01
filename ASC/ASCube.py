@@ -3,11 +3,10 @@
 #    quick and dirty processing of the MD All Sky images
 
 from astropy.io import fits
-from scipy.misc import imsave
+# from scipy.misc import imsave
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-import aplpy
 import argparse as ap
 import os.path
 import logging
@@ -178,6 +177,7 @@ def show(sum):
 def show2(sum):
     """ aplpy is the better viewer clearly
     """
+    import aplpy
     fig = aplpy.FITSFigure(sum)
     #fig.show_grayscale()
     fig.show_colorscale()
@@ -185,6 +185,7 @@ def show2(sum):
 def show3(sum1,sum2):
     """ aplpy is the better viewer clearly
     """
+    import aplpy
     fig = aplpy.FITSFigure(sum1,subplot=(2,2,1))
     #fig = aplpy.FITSFigure(sum2,subplot=(2,2,2),figure=1)
     #fig.show_grayscale()
