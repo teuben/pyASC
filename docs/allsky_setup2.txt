@@ -36,6 +36,8 @@ h) sudo make install
    install libXss for ds9
      yum install libXScrnSaver
 
+   Also install the XPA tools, place those in /usr/local/bin as well.
+
 4) Plug in the Oculus camera to a usb port.  
    The camera will show up on /dev/bus/usb/00M/0NN and the permission
    will need to be made world readable
