@@ -56,7 +56,11 @@ See also the examples in
    http://indilib.org/develop/tutorials/151-time-lapse-astrophotography-with-indi-python.html
 
 
-sudo apt-get install subversion libindi-dev  python-dev swig cmake indi-bin
+sudo apt-get install subversion python-dev swig cmake
+
+#  sudo apt-get install indi-bin libindi-dev
+sudo apt-get install indi-sx
+(if indi-sx doesn't exist,  you cannot use that default repository, see below for a private repo that has it)
 
 
 there's instructions for RPI as well.
