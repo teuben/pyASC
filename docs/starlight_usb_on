@@ -1,4 +1,8 @@
+#! /bin/bash
+#
 #  change permission on the USB where starlight was connected
+#  such that anybody can connect to it
+#
 
 
 perm=0666
