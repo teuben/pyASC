@@ -56,7 +56,7 @@ See also the examples in
    http://indilib.org/develop/tutorials/151-time-lapse-astrophotography-with-indi-python.html
 
 
-sudo apt-get install subversion libindi-dev python-dev swig cmake indi-bin
+sudo apt-get install subversion libindi-dev  python-dev swig cmake indi-bin
 
 
 there's instructions for RPI as well.
@@ -78,3 +78,36 @@ apt install:
   libxpa-dev
   git
 # 
+
+Sample dataset:   20151108_MD01_raw.zip
+
+
+
+
+Issues:   in later libindi  it does not come with the needed indi_sx_ccd driver,
+better to use this one:
+
+
+From : http://indilib.org/download/ubuntu.html
+
+From source:  http://indilib.org/download/source/send/2-source/11-3rd-party-indi-drivers.html
+
+From repo:
+  sudo apt-add-repository ppa:mutlaqja/ppa
+  sudo apt-get update
+  # sudo apt-get install indi-full
+  sudo apt-get install libindi1 indi-bin indi-sx
+       then installs: (~9MB)
+                indi-bin indi-sx libindi-data libindi1 libnova-0.14-0
+
+
+# http://indilib.org/forum/general/13-command-line-client-for-indiserver-indi-sx-ccd.html
+It seems, that driver is crashing for some reason.
+Usual reason is, that USB device is readonly because of missing 99-sx.rules in /etc/udev/rules.d. Peter
+
+Bus 001 Device 012: ID 1278:0509 Starlight Xpress
+
+
+
+# melissa:
+apt install  indi-bin  indi-sx         (does a few other needed)
