@@ -1,0 +1,8 @@
+https://arxiv.org/abs/1702.02656
+   DBSCAN:   Meteor Shower Detection with Density-Based Clustering
+
+https://arxiv.org/abs/1702.01393
+   Time Series Cube Data Model
+
+
+
