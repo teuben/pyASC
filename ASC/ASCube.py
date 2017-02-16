@@ -23,7 +23,7 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True):
+        template = "IMG%05d.FIT", doload = True, difference = False):
 
         self.dirname = dirname
         self.doload = doload
@@ -61,6 +61,8 @@ class ASCube(object):
         self.dtime.tag("before loading")
         if doload:
             self.load()
+            if difference:
+                self.computeDifference()
         self.dtime.tag("after loading")
         self.dtime.end()
 
@@ -79,17 +81,15 @@ class ASCube(object):
             self.data[k,:,:] = newData
         print(self.data)
 
-        arr = np.copy(self.data)
-
+    def computeDifference(self):
         for z in range(self.nf):
-            if z == 0:
-                arr[0] = 0.0
+            if z == self.nf-1:
+                self.data[z] = 0.0
             else:
-                arr[z] = self.data[z] - self.data[z-1]
-        print(arr)
+                self.data[z] = self.data[z] - self.data[z+1]
 
     def getData(self, fitsfile, box=[]):
-        #very specific for 16 bit data, since we want to keep the data in uint16
+        # very specific for 16 bit data, since we want to keep the data in uint16
         newData = fits.open(fitsfile, do_not_scale_image_data=True)
         if len(box)==0:
             return newData[0].header, newData[0].data
