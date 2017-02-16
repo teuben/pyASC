@@ -17,7 +17,8 @@ if __name__ == '__main__':
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
 
-    parser.add_argument('-b', '--box', nargs = 4, type = int, help = 
+    # todo: it allows us to index above and below the given boundaries
+    parser.add_argument('-b', '--box', nargs = 4, type = int, default = [1, 1, 1342, 1040], help = 
     	'Coordinates for the bottom left corner and ' 
        + 'top right corner of a rectangle of pixels to be analyzed from the' + 
        ' data. In the structure x1, y1, x2, y2 (1 based numbers).' +
@@ -46,6 +47,9 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--noload', action="store_true", default = False, 
         help = 'Flag to avoid loading the entire file')
 
+    parser.add_argument('-D', '--difference', action="store_true", default = False, 
+        help = 'Flag to determine if you want the difference cube')
+
     args = vars(parser.parse_args())
 
     dt.tag("after parser")
@@ -57,9 +61,10 @@ if __name__ == '__main__':
     template = args['template'][0]
     doload = not args['noload']
     outcube = args['outcube'][0]
+    difference = args['difference']
 
     dt.tag("before ASCube")
-    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload)
+    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference)
 
     header = copy.copy(cube.headers[0])
     header['NAXIS'] = 3
