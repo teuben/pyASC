@@ -50,6 +50,9 @@ if __name__ == '__main__':
     parser.add_argument('-D', '--difference', action="store_true", default = False, 
         help = 'Flag to determine if you want the difference cube')
 
+    parser.add_argument('-S', '--sig_frames', action="store_true", default = False, 
+        help = 'Flag to determine if you want the significant frames only')
+
     args = vars(parser.parse_args())
 
     dt.tag("after parser")
@@ -62,9 +65,10 @@ if __name__ == '__main__':
     doload = not args['noload']
     outcube = args['outcube'][0]
     difference = args['difference']
+    sig = args['sig_frames']
 
     dt.tag("before ASCube")
-    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference)
+    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig)
 
     header = copy.copy(cube.headers[0])
     header['NAXIS'] = 3

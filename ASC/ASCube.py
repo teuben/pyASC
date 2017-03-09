@@ -8,6 +8,7 @@ from scipy import ndimage
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+import numpy.ma as ma
 import aplpy
 import argparse as ap
 import os.path
@@ -23,7 +24,7 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True, difference = False):
+        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False):
 
         self.dirname = dirname
         self.doload = doload
@@ -63,6 +64,8 @@ class ASCube(object):
             self.load()
             if difference:
                 self.computeDifference()
+                if sig_frames:
+                    self.get_spec()
         self.dtime.tag("after loading")
         self.dtime.end()
 
@@ -79,7 +82,7 @@ class ASCube(object):
                     self.ny = newData.shape[0]
                 self.data = np.zeros((self.nf, self.ny, self.nx))
             self.data[k,:,:] = newData
-        print(self.data)
+        #print(self.data)
 
     def computeDifference(self):
         for z in range(self.nf):
@@ -87,6 +90,19 @@ class ASCube(object):
                 self.data[z] = 0.0
             else:
                 self.data[z] = self.data[z] - self.data[z+1]
+
+    def iterate(self, arr):
+        m = np.mean(arr)
+        s = np.std(arr)
+        ym = ma.masked_inside(arr, m-5*s, m+5*s)
+        return ym.count()
+
+    def get_spec(self):
+        modData = []
+        for z in range(self.nf):
+            if(self.iterate(self.data[z]) > 600):
+                modData.append(self.data[z])
+        self.data = modData
 
     def getData(self, fitsfile, box=[]):
         # very specific for 16 bit data, since we want to keep the data in uint16
