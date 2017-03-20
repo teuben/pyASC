@@ -1,4 +1,6 @@
 # download goqat 2.0.0
+#  (2.1.x is now available; things should be similar)
+
 
 # make sure you're up to date
 sudo apt-get update
