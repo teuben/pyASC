@@ -47,3 +47,5 @@ un-installed it again.   configured againn.   sx needs to be selected (starlight
 now it showed up. but now needs to be root?
 
 
+
+
