@@ -1,0 +1,47 @@
+# download goqat 2.0.0
+
+# make sure you're up to date
+sudo apt-get update
+
+# needs gtk+-3.0 and a few other things
+sudo apt-get install libgtk-3-dev
+sudo apt-get install libgoocanvas-2.0-dev
+sudo apt-get install libudev-dev
+sudo apt-get install libxpa-dev
+sudo apt-get install saods9
+
+# or download ds9 and xpa executables manually if you prefer the latest
+http://ds9.si.edu/site/Download.html
+
+# after this, one can do the usual
+
+cd goqat-2.0.0
+./configure
+make
+sudo make install
+#  check the correct USB device number
+sudo chmod 0666 /dev/bus/usb/002/009
+
+the executable GoQat (notice the mixed case name) will be in /usr/local/bin
+
+in /var/log/syslog:
+
+Apr 16 11:39:30 nikon810 kernel: [35565.692758] usb 2-1: new high-speed USB device number 8 using xhci_hcd
+Apr 16 11:39:31 nikon810 kernel: [35566.538060] usb 2-1: config 1 has an invalid interface number: 1 but max is 0
+Apr 16 11:39:31 nikon810 kernel: [35566.538064] usb 2-1: config 1 has no interface number 0
+Apr 16 11:39:31 nikon810 kernel: [35566.539133] usb 2-1: New USB device found, idVendor=1278, idProduct=0509
+Apr 16 11:39:31 nikon810 kernel: [35566.539136] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Apr 16 11:39:31 nikon810 kernel: [35566.539138] usb 2-1: Product: ECHO2
+Apr 16 11:39:31 nikon810 kernel: [35566.539140] usb 2-1: Manufacturer: Starlight Xpress
+Apr 16 11:39:31 nikon810 mtp-probe: checking bus 2, device 8: "/sys/devices/pci0000:00/0000:00:14.0/usb2/2-1"
+Apr 16 11:39:31 nikon810 mtp-probe: bus: 2, device: 8 was not an MTP device
+
+sudo apt-get install libindi-dev
+sudo apt-get install indi-bin
+
+but now the command "indiserver indi_sx_ccd" can't find the driver?
+
+un-installed it again.   configured againn.   sx needs to be selected (starlight express)
+now it showed up. but now needs to be root?
+
+
