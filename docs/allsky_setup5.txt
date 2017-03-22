@@ -1,0 +1,47 @@
+March 2017:  setup notes for raspberry pi 3
+===========================================
+
+0) Sadly, the RP3 that we got was preloaded with some annoying
+   (citrix?) bloatware, with no root access that made us go through
+   hoops to even run "apt install".  So decided to grab the latest
+   true RASPIAN distro:
+
+1) grab the full raspian version, not the lite, for development. This
+   version has the PIXEL windowing system. The lite version has no
+   graphical interface. Both have username "pi" as default, and if you
+   need a password, it's "raspberry".
+
+   It's possible we will give instructions how to deal with the lite
+   version, as this may be a more efficient way to distribute production
+   images.
+
+   wget -c http://director.downloads.raspberrypi.org/......zip
+   unzip ...zip
+   dd bs=1M if=...img of=/dev/mm...
+
+   This microSD is now ready for boot in your RP3.
+
+2) Boot the RP3 with this freshly imaged RP3.  During the boot this image will be modified.
+
+3) A number of tools will be needed for INDI development. This will cost some download time, be
+   prepared for long waits if you're on a slow link to the internet.
+
+   sudo apt install cdbs libcfitsio3-dev libnova-dev libusb-1.0-0-dev libjpeg-dev libusb-dev libtiff5-dev libftdi-dev fxload libkrb5-dev libcurl4-gnutls-dev libraw-dev libgphoto2-dev libgsl0-dev dkms libboost-regex-dev libgps-dev libdc1394-22-dev
+
+   then grab the latest libinfi for RPI
+
+   tar -xzf libindi_1.4.1_rpi.tar.gz
+   cd libindi_1.4.1_rpi
+   sudo dpkg -i *.deb
+
+4) For the python interface, pyindi-client is the preferred route, but you will need two more tools for this.
+
+   sudo apt install swig python-dev
+   sudo pip install pyindi-client
+
+
+   wget -c http://indilib.org/download/raspberry-pi/send/6-raspberry-pi/9-indi-library-for-raspberry-pi.html
+   mv 9-indi-library-for-raspberry-pi.html libindi_1.4.1_rpi.tar.gz 
+   tar -xzf libindi_1.4.1_rpi.tar.gz
+   cd libindi_1.4.1_rpi
+   sudo dpkg -i *.deb
