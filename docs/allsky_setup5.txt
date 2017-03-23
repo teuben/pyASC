@@ -45,3 +45,44 @@ March 2017:  setup notes for raspberry pi 3
    tar -xzf libindi_1.4.1_rpi.tar.gz
    cd libindi_1.4.1_rpi
    sudo dpkg -i *.deb
+
+
+5) To test out if INDI works, you can use the CCD simulator. You will need 3 terminal windows.
+
+   5-1) start the indiserver with the simulator:
+
+      	    indiserver -vvv indi_simulator_ccd
+
+   5-2) grab properties while the next command(s) will be running, lets say with a 60 second window
+
+   	     indi_getprop -t 60
+
+   5-3) turn the CCD on, and set an exposure time
+
+   	     indi_setprop "CCD Simulator.CONNECTION.CONNECT=On"
+	     indi_setprop "CCD Simulator.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=1.0"
+
+        You will then see a file "CCD Simulator.CCD1.CCD1.fits" appear.
+
+
+
+6) Assuming this method works for the SX as well, we would repeat this, again in three different windows
+
+   6-1) start the server
+
+   	      indiserver -vvv indi_sx_ccd
+
+   6-2) grab properties for a window of time
+
+   	      indi_getprop -t 60
+
+   6-3) turn on CCD and set an exposure:
+
+   	      indi_setprop "SX CCD SuperStar.CONNECTION.CONNECT=On"
+   	      indi_setprop "SX CCD SuperStar.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=1.2"
+
+        now you should see a new fits file in this directory. I don't know the name yet.
+
+indi_setprop "SX CCD SuperStar.CONNECTION.CONNECT=On"
+No SX CCD SuperStar.CONNECTION.CONNECT from localhost:7624
+for 6
