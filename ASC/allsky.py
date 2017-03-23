@@ -1,9 +1,14 @@
 # based off pyindi-client-code/pip/pyindi-client/examples/tuto-scripts/tuto-ccd.py
 
-import PyIndi
 import time
 import sys
 import threading
+try:
+    import PyIndi
+except:
+    print "Cannot continue without PyIndi installed"
+    sys.exit(1)
+
     
 class IndiClient(PyIndi.BaseClient):
     def __init__(self):
@@ -34,6 +39,9 @@ class IndiClient(PyIndi.BaseClient):
     def serverDisconnected(self, code):
         pass
 
+# debug
+debug = True
+
 
 # connect the server
 indiclient=IndiClient()
@@ -46,24 +54,29 @@ if (not(indiclient.connectServer())):
 
 
 # Let's take some pictures
-ccd="CCD Simulator"
 ccd="SX CCD"
+
 device_ccd=indiclient.getDevice(ccd)
 while not(device_ccd):
+    if debug: print "getDevice"
     time.sleep(0.5)
     device_ccd=indiclient.getDevice(ccd)    
 
 ccd_connect=device_ccd.getSwitch("CONNECTION")
 while not(ccd_connect):
+    if debug: print "get CONNECTION"
     time.sleep(0.5)
     ccd_connect=device_ccd.getSwitch("CONNECTION")
+    
 if not(device_ccd.isConnected()):
+    if debug: print "not CONNECTED"
     ccd_connect[0].s=PyIndi.ISS_ON  # the "CONNECT" switch
     ccd_connect[1].s=PyIndi.ISS_OFF # the "DISCONNECT" switch
     indiclient.sendNewSwitch(ccd_connect)
 
 ccd_exposure=device_ccd.getNumber("CCD_EXPOSURE")
 while not(ccd_exposure):
+    if debug: print "get CCD_EXPOSURE"
     time.sleep(0.5)
     ccd_exposure=device_ccd.getNumber("CCD_EXPOSURE")
 
