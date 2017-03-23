@@ -56,17 +56,25 @@ if (not(indiclient.connectServer())):
 # Let's take some pictures
 ccd="SX CCD"
 
-device_ccd=indiclient.getDevice(ccd)
-while not(device_ccd):
-    if debug: print "getDevice"
+for i in range(10):
+    if debug: print "getDevice",ccd
+    device_ccd=indiclient.getDevice(ccd)
+    if device_ccd: break
     time.sleep(0.5)
-    device_ccd=indiclient.getDevice(ccd)    
+else:
+    print "cannot get device ",ccd
+    sys.exit(1)
 
-ccd_connect=device_ccd.getSwitch("CONNECTION")
-while not(ccd_connect):
+
+for i in range(10):    
     if debug: print "get CONNECTION"
-    time.sleep(0.5)
     ccd_connect=device_ccd.getSwitch("CONNECTION")
+    if ccd_connect: break
+    time.sleep(0.5)
+else:
+    print "cannot get connection"
+    sys.exit(1)
+    
     
 if not(device_ccd.isConnected()):
     if debug: print "not CONNECTED"
