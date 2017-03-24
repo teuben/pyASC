@@ -4,8 +4,10 @@
 
 exposure=$1
 filename=$2
-
+"SX CCD SuperStar.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=1.2"
 tmpfits="SX CCD SuperStar.CCD1.CCD1.fits"
+
+delay=`echo "12+"$exposure | bc`
 
 indi_getprop -t $delay &
 sleep 1
