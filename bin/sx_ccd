@@ -1,0 +1,15 @@
+#! /bin/bash
+#
+
+
+set exposure = $1
+set filename = $2
+
+set tmpfits = "SX CCD SuperStar.CCD1.CCD1.fits"
+
+#indi_getprop -t $delay &
+#indi_setprop "CCD Simulator.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=$exposure"
+
+sleep 'echo "6+"$exposure | bc'
+
+mv "$tmpfits" $filename

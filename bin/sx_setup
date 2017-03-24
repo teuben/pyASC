@@ -1,0 +1,13 @@
+#! /bin/bash
+#
+
+
+
+indiserver -l indi.log -vvv indi_simulator_ccd &
+sleep 1
+
+echo Looking for DRIVER_NAME:
+indi_getprop -1 "SX CCD SuperStar.DRIVER_INFO.DRIVER_NAME"
+
+sleep 2
+tail -f indi.log
