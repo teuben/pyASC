@@ -5,7 +5,7 @@
 
 # mkdir -p indilogs
 
-indiserver -vvv indi_sx_ccd > indi.log 2>&1    &
+indiserver -v indi_sx_ccd > indi.log 2>&1    &
 sleep 1
 
 echo Looking for DRIVER_NAME:
