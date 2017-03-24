@@ -5,11 +5,12 @@
 
 # mkdir -p indilogs
 
-indiserver -vvv indi_sx_ccd > indi.logs 2>&1    &
+indiserver -vvv indi_sx_ccd > indi.log 2>&1    &
 sleep 1
 
 echo Looking for DRIVER_NAME:
 indi_getprop -1 "SX CCD SuperStar.DRIVER_INFO.DRIVER_NAME"
-
-sleep 2
+sleep 1
+indi_setprop "SX CCD SuperStar.CONNECTION.CONNECT=On"
+sleep 1
 tail -f indi.log
