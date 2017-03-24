@@ -8,7 +8,8 @@ tmpfits="SX CCD SuperStar.CCD1.CCD1.fits"
 
 delay=`echo "12+"$exposure | bc`
 
-indi_getprop -t $delay &
+indi_getprop -t $delay > indi2.log 2&>1  &
+echo Running indi_getprop -t $delay
 sleep 1
 indi_setprop "SX CCD SuperStar.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=$exposure"
 
