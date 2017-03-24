@@ -3,9 +3,9 @@
 
 
 
-mkdir -p indilogs
+# mkdir -p indilogs
 
-indiserver -l indilogs -vvv indi_simulator_ccd &
+indiserver -vvv indi_simulator_ccd > indi.logs 2>&1    &
 sleep 1
 
 echo Looking for DRIVER_NAME:
