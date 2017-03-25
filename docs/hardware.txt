@@ -1,0 +1,10 @@
+The currrent all sky camera we describe here is the Oculus Starlight Xpress.
+
+This camera needs no power, just a 5V USB connection, unless you want to use the
+heater in certain moist environments to ensure that the dome does not fog up.
+
+
+For remote operations without power you could use as laptop or raspberry pi, perhaps
+aided with a daily charged solar cell array. Assuming you have large capacity storage,
+you can leave this setup unattended for several days or weeks.
+
