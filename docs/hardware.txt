@@ -1,10 +1,53 @@
-The currrent all sky camera we describe here is the Oculus Starlight Xpress.
+The currrent all sky camera we describe here is the Oculus Starlight
+Xpress and cost about $1000 in 2016. We want to highlight a few
+lessons we have learned about the hardware:
 
-This camera needs no power, just a 5V USB connection, unless you want to use the
-heater in certain moist environments to ensure that the dome does not fog up.
+
+The camera itself needs no power, just a 5V USB connection to a
+computer, which of course needs to be powered.  There is a a heater in
+the camera, which needs power to work. In certain moist environments
+this ensures that the dome does not fog up. Or after a rain storm
+(does this indeed speed up dome recovery?). For this, it has an
+adaptor that needs the regular 110V power.
+
+As long as you have power nearby, for the heater and the computer, everything
+is fine.  A simple male-female USB extension cord might be needed, but
+keep in mind these only operate fine up to 50ft (check #) without
+extra power.  Below we will describe some issues we found out while
+trying to be more remote.
+
+For remote operations without power one could use a laptop or
+raspberry pi, perhaps aided with a daily charged solar cell
+array. Assuming you have large capacity storage, you can leave this
+setup unattended for several days or weeks. Each image uses about
+2.8MB of storage. A long 10 hour winter night could be easily
+1000-2000 images (30-60 seconds exposure time) which amounts to about
+5GB/night, but 2-3GB however is more common. Very dark sites will need
+longer exposures, about 60 seconds, saving space.
+
+The big surprise with our remote setup was the USB extension
+cable. You can run USB over an ethernet cable using a "USB extender",
+they usually need to be powered and work up to about 50m. One
+fundamental problem did not appear until we look at the genders of the
+cable: the female USB-RJ45 unit had the power needs. The male USB-RJ45
+was a simple unit. However, the cable from the telescope is a male,
+and since we assumed we can't use power at the telescope side, the only
+solution was to get USB gender changers. Then it turned out these will
+make the USB cable inoperable, apparently USB cables - in this sense - are
+unidirectional, having a sending-receiving in one direction. Conclusion was
+that we could not run the camera withouth have a powersource nearby, so the
+RP3 (or other computer) can be powered
 
 
-For remote operations without power you could use as laptop or raspberry pi, perhaps
-aided with a daily charged solar cell array. Assuming you have large capacity storage,
-you can leave this setup unattended for several days or weeks.
+We tried 3 USB-extenders.
 
+One was advertised to need no power up to 150ft, but although it did
+seem to work with GoQat, the driver complained some data was not fully
+transferred.  We tried this on both a 1ft and 6ft ethernet cable.
+
+The other two more or less worked, although we had some issues with
+non-perfect connections.
+
+Again, as soon if we "reversed" the cables and used the gender
+changers, under all circumstances pluggin in the USB into the computer
+caused it not to recognize the device.
