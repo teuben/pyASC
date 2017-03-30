@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+ #! /usr/bin/env python
 #
 #    quick and dirty processing of the MD All Sky images
 
@@ -15,6 +15,7 @@ import os.path
 import logging
 import time
 import Dtime
+import networkx as nx
 #import glob
 
 class ASCube(object):
@@ -96,6 +97,44 @@ class ASCube(object):
         s = np.std(arr)
         ym = ma.masked_inside(arr, m-5*s, m+5*s)
         return ym.count()
+
+    def adj(self, i1, i2):
+        # Are the two indices adjacent
+        if (i1[0] == i2[0]):
+            return i1[1] == i2[1] + 1 or i1[1] == i2[1] - 1
+        elif (i1[1] == i2[1]):
+            return i1[0] == i2[0] + 1 or i1[0] == i2[0] - 1
+        else:
+            return False
+
+    def build_graph(self, arr):
+        # Build the graph, being sure to add every index
+        gr = nx.Graph()
+        for i in arr:
+            for j in arr:
+                if self.adj(i, j):
+                    gr.add_edge(i, j)
+            gr.add_node(i)
+        return gr
+
+    def dfs_mod(self, graph, node, arr):
+        # Do a DFS. Each time DFS is performed on a node, remove that node from the array.
+        visited, stack = set(), [node]
+        while stack:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.add(vertex)
+                stack.extend(graph.neighbors(vertex))
+                arr.remove(vertex)
+        return list(visited)
+
+    def find_shapes(self, arr):
+        # apply the modified DFS to each node
+        graph = self.build_graph(arr)
+        shapes = []
+        for i in arr:
+            shapes.insert(0, self.dfs_mod(graph, i, arr))
+        return shapes
 
     def get_spec(self):
         modData = []

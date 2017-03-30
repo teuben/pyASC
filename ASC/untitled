@@ -1,0 +1,37 @@
+    def adj(i1, i2):
+        # Are the two indices adjacent
+        if (i1[0] == i2[0]):
+            return i1[1] == i2[1] + 1 or i1[1] == i2[1] - 1
+        elif (i1[1] == i2[1]):
+            return i1[0] == i2[0] + 1 or i1[0] == i2[0] - 1
+        else:
+            return False
+
+    def build_graph(arr):
+        # Build the graph, being sure to add every index
+        gr = nx.Graph()
+        for i in arr:
+            for j in arr:
+                if adj(i, j):
+                    gr.add_edge(i, j)
+            gr.add_node(i)
+        return gr
+
+    def dfs_mod(graph, node, arr):
+        # Do a DFS. Each time DFS is performed on a node, remove that node from the array.
+        visited, stack = set(), [node]
+        while stack:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.add(vertex)
+                stack.extend(graph.neighbors(vertex))
+                arr.remove(vertex)
+        return list(visited)
+
+    def find_shapes(arr):
+        # apply the modified DFS to each node
+        graph = build_graph(arr)
+        shapes = []
+        for i in arr:
+            shapes.insert(0, dfs_mod(graph, i, arr))
+        return shapes
