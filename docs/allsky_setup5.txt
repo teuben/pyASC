@@ -47,6 +47,8 @@ to get one.
 
    (this was 229MB in my case)
 
+   I had some complaints about missing files, had to "sudo apt update" and do those missing ones again.
+
    missing:   sudo apt install   libtiff5-dev libraw-dev    libboost-regex-dev   
    
    then grab the latest libindi for RPI (no 
@@ -107,8 +109,6 @@ to get one.
    	      indi_setprop "SX CCD SuperStar.CONNECTION.CONNECT=On"
    	      indi_setprop "SX CCD SuperStar.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=1.2"
 
-        now you should see a new fits file in this directory. I don't know the name yet.
+        now you should see a new fits file in this directory. 
+	Probably "SX CCD SuperStar.CCD1.CCD1.fits"
 
-indi_setprop "SX CCD SuperStar.CONNECTION.CONNECT=On"
-No SX CCD SuperStar.CONNECTION.CONNECT from localhost:7624
-for 6
