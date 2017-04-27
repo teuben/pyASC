@@ -53,6 +53,9 @@ if __name__ == '__main__':
     parser.add_argument('-S', '--sig_frames', action="store_true", default = False, 
         help = 'Flag to determine if you want the significant frames only')
 
+    parser.add_argument('-M', '--meteors', action="store_true", default = False, 
+        help = 'Flag to find interesting time-variable objects.')
+
     args = vars(parser.parse_args())
 
     dt.tag("after parser")
@@ -66,6 +69,7 @@ if __name__ == '__main__':
     outcube = args['outcube'][0]
     difference = args['difference']
     sig = args['sig_frames']
+    met = args['meteors']
 
     dt.tag("before ASCube")
     cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig)

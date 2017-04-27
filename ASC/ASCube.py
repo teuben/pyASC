@@ -5,6 +5,7 @@
 from astropy.io import fits
 from scipy.misc import imsave
 from scipy import ndimage
+from scipy import stats
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
@@ -25,7 +26,7 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False):
+        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = False):
 
         self.dirname = dirname
         self.doload = doload
@@ -67,6 +68,9 @@ class ASCube(object):
                 self.computeDifference()
                 if sig_frames:
                     self.get_spec()
+            if meteor:
+                self.computeDifference()
+                self.find_met()
         self.dtime.tag("after loading")
         self.dtime.end()
 
@@ -93,10 +97,25 @@ class ASCube(object):
                 self.data[z] = self.data[z] - self.data[z+1]
 
     def iterate(self, arr):
+        # iterate through a matrix and accept or reject various indices
         m = np.mean(arr)
         s = np.std(arr)
         ym = ma.masked_inside(arr, m-5*s, m+5*s)
-        return ym.count()
+        return ma.where(ym == False)
+
+    def get_spec(self):
+        modData = []
+        for z in range(self.nf):
+            if(len(self.iterate(self.data[z])) > 600):
+                modData.append(self.data[z])
+        self.data = modData  
+
+    def find_met(self):
+        for z in range(self.nf):
+            ym = self.iterate(self.data[z])
+            shapes = self.find_shapes(ym)
+            for s in shapes:
+                print(linreg_accept(s))  
 
     def adj(self, i1, i2):
         # Are the two indices adjacent
@@ -128,20 +147,21 @@ class ASCube(object):
                 arr.remove(vertex)
         return list(visited)
 
-    def find_shapes(self, arr):
+    def find_shapes(self, tup):
         # apply the modified DFS to each node
+        arr = []
+        for (x,y) in zip(tup[0],tup[1]):
+            arr.append((x,y))
         graph = self.build_graph(arr)
         shapes = []
         for i in arr:
             shapes.insert(0, self.dfs_mod(graph, i, arr))
         return shapes
 
-    def get_spec(self):
-        modData = []
-        for z in range(self.nf):
-            if(self.iterate(self.data[z]) > 600):
-                modData.append(self.data[z])
-        self.data = modData
+    def linreg_accept(self, arr):
+        # apply linear regression
+        slope, intercept, r_value, p_value, std_err = stats.linregress(arr)
+        return r_value
 
     def getData(self, fitsfile, box=[]):
         # very specific for 16 bit data, since we want to keep the data in uint16
