@@ -13,13 +13,53 @@ my Dec 2016 notes to install INDI and such on Centos6.4 for HASC:
   yum install libusb-devel
   yum install tcsh autogen 
   yum install tigervnc-server
-  yum install gtk2-devel
+  yum install gtk2-devel               # yuck, goqat needs gtk3 now
+  yum install cfitsio-devel
+  yum install libv4l-devel
+  yum install libusb1-devel
+  yum install libcurl-devel
+  yum install libnova-devel
+  yum install libjpeg-devel
+  yum install gsl-devel
+  yum install emacs                    # just for me
+  yum install xorg-x11-server-Xvfb
 
 - recall rpm commands:
 
   rpm -ql PACKAGE       # lists files in a PACKAGE
   rpm -qa               # lists all packages
   rpm -qf FILE          # lists package that belongs to a FILE
+
+- wget http://canburytech.net/GoQat/download/goqat-2.1.1.tar.gz
+
+checking for LIBINDI... no
+configure: ******** No INDI library - compiling without INDI support!
+checking for connect in -lindiclient... no
+configure: ******** No INDI client library - compiling without INDI client support!
+
+but in /astromake/opt/indi/lib/pkgconfig/libindi.pc
+
+
+- INDI      http://www.indilib.org/
+
+  cd libindi_1.2.0
+  mkdir build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/opt/indi ..
+  make
+
+  -> this failed on libindi_1.1.0/drivers/weather/gason.cpp:  (using g++ version 4.4.7  20120313)
+     nullptr ?->  std::nullptr_t 
+     Support for nullptr was added in GCC 4.6.0: 
+     -std=c++0x
+     -std=gnu++0x
+
+Tried installing the fedora repo for INDI, http://www.indilib.org/download/fedora/category/8-fedora.html
+which starts with
+ /etc/yum.repos.d/lupinix-indi-bleeding.repo
+but
+	yum makecache
+has now lots errors. about "epel". 	
 
 2015 Feb
 
@@ -48,7 +88,7 @@ On allsky.lowell.edu
  yum install gtk2-devel
  yum install libusb-devel
  yum install libv4l-devel
- yum install goocanvas-devel (goocanvas)
+ yum install goocanvas-devel (goocanvas)                    # not on centos6.4
  yum install libudev-devel (gets systemd-devel)
  yum install libraw1394-devel
  yum install xpa-devel xpa
@@ -83,3 +123,26 @@ On allsky.lowell.edu
 5) yum install tigervnc-server
 
 
+====
+
+
+http://www.indilib.org/download/download/6-raspberry-pi/9-indi-library-for-raspberry-pi.html
+
+http://www.indilib.org/download/ubuntu.html
+
+https://github.com/indilib/indi/releases
+
+
+
+1) 3rd party
+
+
+
+2)
+
+  cd libindi_1.4.1
+  mkdir build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/astromake/opt/indi141 ..
+  make
+CMakeFiles/indi_wunderground_weather.dir/build.make:128: recipe for target 'indi_wunderground_weather' failed
