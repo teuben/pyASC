@@ -1,0 +1,24 @@
+#! /bin/bash
+#
+
+
+
+# this should also kill any outstanding indiserver's running.
+
+echo Finding old indiservers, and killing those
+sleep 2
+ps aux | grep indiserver
+killall indiserver
+killall indiserver
+
+# mkdir -p indilogs
+
+indiserver -v indi_sx_ccd > indi.log 2>&1    &
+sleep 1
+
+echo Looking for DRIVER_NAME:
+indi_getprop -1 "SX CCD SuperStar.DRIVER_INFO.DRIVER_NAME"
+sleep 1
+indi_setprop "SX CCD SuperStar.CONNECTION.CONNECT=On"
+sleep 1
+tail -f indi.log

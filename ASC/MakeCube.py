@@ -72,7 +72,7 @@ if __name__ == '__main__':
     met = args['meteors']
 
     dt.tag("before ASCube")
-    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig)
+    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig, met)
 
     header = copy.copy(cube.headers[0])
     header['NAXIS'] = 3

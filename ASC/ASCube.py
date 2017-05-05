@@ -26,7 +26,7 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = False):
+        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = True):
 
         self.dirname = dirname
         self.doload = doload
