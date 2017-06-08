@@ -1,10 +1,11 @@
 There are many ways to collaborate using git or in our case github
-(skip to the last one if you don't care about the others)
+(skip to the last one, #3, if you don't care about the others)
 
-1) direct clone the master (currently peter's) and push back into
-   it.  This is dangerous, needs special permission from the owner
+1) direct 'git clone' the master (currently peter's) and 'git push' back into
+   it.  This is dangerous, needs special permission from the owner anyways.
    but it would be very simple (don't worry, if you're not peter,
-   he won't give you permission to push into his repo):
+   he won't give you permission to push into his repo). This is how CVS
+   and SVN work, there is only one repo.
 
 	git clone https://github.com/teuben/pyASC
 	cd pyASC
@@ -12,10 +13,11 @@ There are many ways to collaborate using git or in our case github
         git commit f1
         git push
 
-   This is the typical work if you work on your own repo.
+   This is the typical workflow if you work on your own repo.
 
 2) A variation on this theme is using a branch, so they could be more safely
-   merged into the master. This will clean  So, instead of editing 'f1' in the master, we
+   merged into the master. This will be a clean approach.
+   So, instead of editing 'f1' in the master, we
    create a branch and make changes on that:
 
 
@@ -33,8 +35,8 @@ There are many ways to collaborate using git or in our case github
 	git push                   # push this new master back to github
 
 
-3) fork a master that's not yours in your own GITHUB workspace, then
-   clone from that to your laptop, work on a branch, and do a pull
+3) First in words: fork a master that's not yours in your own GITHUB workspace,
+   then clone from that to your laptop, work on a branch, and do a pull
    request on GITHUB from that branch, viz.
    (below your name on GITHUB is "gh_name")
 
@@ -98,3 +100,5 @@ There are many ways to collaborate using git or in our case github
 Also review astropy's workflow:
 http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
 
+Other git intros:
+http://physics.mnstate.edu/craig/git-novice-pyastro/
