@@ -32,3 +32,5 @@ FILTER  = 'Blank'
   Typical filename: 20150921_MD1_0002.fits
 
 
+- director stucture outline examples:
+  see also https://www.kennethreitz.org/essays/repository-structure-and-python
