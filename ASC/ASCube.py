@@ -1,17 +1,22 @@
-#! /usr/bin/env python
+ #! /usr/bin/env python
 #
 #    quick and dirty processing of the MD All Sky images
 
 from astropy.io import fits
-# from scipy.misc import imsave
+from scipy.misc import imsave
+from scipy import ndimage
+from scipy import stats
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+import numpy.ma as ma
+import aplpy
 import argparse as ap
 import os.path
 import logging
 import time
 import Dtime
+import networkx as nx
 #import glob
 
 class ASCube(object):
@@ -21,7 +26,7 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True):
+        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = True):
 
         self.dirname = dirname
         self.doload = doload
@@ -59,6 +64,13 @@ class ASCube(object):
         self.dtime.tag("before loading")
         if doload:
             self.load()
+            if difference:
+                self.computeDifference()
+                if sig_frames:
+                    self.get_spec()
+            if meteor:
+                self.computeDifference()
+                self.find_met()
         self.dtime.tag("after loading")
         self.dtime.end()
 
@@ -75,25 +87,93 @@ class ASCube(object):
                     self.ny = newData.shape[0]
                 self.data = np.zeros((self.nf, self.ny, self.nx))
             self.data[k,:,:] = newData
-        print(self.data)
+        #print(self.data)
 
-        arr = np.copy(self.data)
-
+    def computeDifference(self):
         for z in range(self.nf):
-            if z == 0:
-                arr[0] = 0.0
+            if z == self.nf-1:
+                self.data[z] = 0.0
             else:
-                arr[z] = self.data[z] - self.data[z-1]
-        print(arr)
+                self.data[z] = self.data[z] - self.data[z+1]
+
+    def iterate(self, arr):
+        # iterate through a matrix and accept or reject various indices
+        m = np.mean(arr)
+        s = np.std(arr)
+        ym = ma.masked_inside(arr, m-5*s, m+5*s)
+        return ma.where(ym == False)
+
+    def get_spec(self):
+        modData = []
+        for z in range(self.nf):
+            if(len(self.iterate(self.data[z])) > 600):
+                modData.append(self.data[z])
+        self.data = modData  
+
+    def find_met(self):
+        for z in range(self.nf):
+            ym = self.iterate(self.data[z])
+            shapes = self.find_shapes(ym)
+            for s in shapes:
+                print(linreg_accept(s))  
+
+    def adj(self, i1, i2):
+        # Are the two indices adjacent
+        if (i1[0] == i2[0]):
+            return i1[1] == i2[1] + 1 or i1[1] == i2[1] - 1
+        elif (i1[1] == i2[1]):
+            return i1[0] == i2[0] + 1 or i1[0] == i2[0] - 1
+        else:
+            return False
+
+    def build_graph(self, arr):
+        # Build the graph, being sure to add every index
+        gr = nx.Graph()
+        for i in arr:
+            for j in arr:
+                if self.adj(i, j):
+                    gr.add_edge(i, j)
+            gr.add_node(i)
+        return gr
+
+    def dfs_mod(self, graph, node, arr):
+        # Do a DFS. Each time DFS is performed on a node, remove that node from the array.
+        visited, stack = set(), [node]
+        while stack:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.add(vertex)
+                stack.extend(graph.neighbors(vertex))
+                arr.remove(vertex)
+        return list(visited)
+
+    def find_shapes(self, tup):
+        # apply the modified DFS to each node
+        arr = []
+        for (x,y) in zip(tup[0],tup[1]):
+            arr.append((x,y))
+        graph = self.build_graph(arr)
+        shapes = []
+        for i in arr:
+            shapes.insert(0, self.dfs_mod(graph, i, arr))
+        return shapes
+
+    def linreg_accept(self, arr):
+        # apply linear regression
+        slope, intercept, r_value, p_value, std_err = stats.linregress(arr)
+        return r_value
 
     def getData(self, fitsfile, box=[]):
-        #very specific for 16 bit data, since we want to keep the data in uint16
+        # very specific for 16 bit data, since we want to keep the data in uint16
         newData = fits.open(fitsfile, do_not_scale_image_data=True)
         if len(box)==0:
             return newData[0].header, newData[0].data
         else:
             # figure out 0 vs. 1 based offsets; box is 1 based
             return newData[0].header, newData[0].data[box[1]:box[3], box[0]:box[2]]
+
+    def downsample(self, zoom=0.5, order=3):
+        self.data = ndimage.zoom(self.data, [1,zoom,zoom], order=order)
 
     def show(self):
         print("show")
@@ -177,7 +257,6 @@ def show(sum):
 def show2(sum):
     """ aplpy is the better viewer clearly
     """
-    import aplpy
     fig = aplpy.FITSFigure(sum)
     #fig.show_grayscale()
     fig.show_colorscale()
@@ -185,7 +264,6 @@ def show2(sum):
 def show3(sum1,sum2):
     """ aplpy is the better viewer clearly
     """
-    import aplpy
     fig = aplpy.FITSFigure(sum1,subplot=(2,2,1))
     #fig = aplpy.FITSFigure(sum2,subplot=(2,2,2),figure=1)
     #fig.show_grayscale()
