@@ -1,0 +1,3 @@
+Possible software to deal with images and image cubes:
+
+http://hyperspy.org
