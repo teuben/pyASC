@@ -34,3 +34,5 @@ FILTER  = 'Blank'
 
 - director stucture outline examples:
   see also https://www.kennethreitz.org/essays/repository-structure-and-python
+
+- merge students work
