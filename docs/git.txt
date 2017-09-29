@@ -1,6 +1,8 @@
 There are many ways to collaborate using git or in our case github
 (skip to the last one, #3, if you don't care about the others)
 
+In the text below, f1 refers to a file and b1 refers to a branch.
+
 1) direct 'git clone' the master (currently peter's) and 'git push' back into
    it.  This is dangerous, needs special permission from the owner anyways.
    but it would be very simple (don't worry, if you're not peter,
