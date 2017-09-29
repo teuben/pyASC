@@ -104,3 +104,9 @@ http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
 
 Other git intros:
 http://physics.mnstate.edu/craig/git-novice-pyastro/
+
+Some GUI tips:
+https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/
+
+
+
