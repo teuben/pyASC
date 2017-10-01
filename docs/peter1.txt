@@ -1,1 +1,3 @@
 Outline for HASC2:
+
+- plan for pipeline class
