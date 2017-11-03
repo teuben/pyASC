@@ -100,8 +100,11 @@ In the text below, "f1" refers to a file and "b1" refers to a branch and "u1" to
 	   git checkout -b baram-dev
 	   git pull bsosis BaramS1
 
-Also review astropy's workflow:
-http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+Also some articles on workflows:
+astropy:
+    http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+atlassion tutorials:
+    https://www.atlassian.com/git/tutorials/comparing-workflows
 
 Other git intros:
 http://physics.mnstate.edu/craig/git-novice-pyastro/
