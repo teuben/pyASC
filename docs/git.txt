@@ -1,7 +1,8 @@
 There are many ways to collaborate using git or in our case github
 (skip to the last one, #3, if you don't care about the others)
 
-In the text below, f1 refers to a file and b1 refers to a branch.
+In the text below, "f1" refers to a file and "b1" refers to a branch and "u1" to a username
+For "edit" you will need to pick your favorite editor (vi, emacs, gedit, pico, ....)
 
 1) direct 'git clone' the master (currently peter's) and 'git push' back into
    it.  This is dangerous, needs special permission from the owner anyways.
@@ -40,7 +41,7 @@ In the text below, f1 refers to a file and b1 refers to a branch.
 3) First in words: fork a master that's not yours in your own GITHUB workspace,
    then clone from that to your laptop, work on a branch, and do a pull
    request on GITHUB from that branch, viz.
-   (below your name on GITHUB is "gh_name")
+   (below your name on GITHUB is "u1")
 
    	1) go on GITHUB and fork my repo to your space
 	   (see the fork button top right)
@@ -48,10 +49,10 @@ In the text below, f1 refers to a file and b1 refers to a branch.
 	   https://github.com/teuben/pyASC
 
 
-	2) now on your laptop get your own version (as "gh_name") where you edit
+	2) now on your laptop get your own version (as "u1") where you edit
 	   on the branch
 
-	   git clone https://github.com/gh_name/pyASC
+	   git clone https://github.com/u1/pyASC
 	   cd pyASC
 	   git branch b1
 	   git checkout b1 
@@ -69,12 +70,13 @@ In the text below, f1 refers to a file and b1 refers to a branch.
 	   When this is done, your b1 branch was merged into the master
 
         4) Fetch the new master now from the original provider, which we'll label as "upstream"
+	   but you can call it anything, it's just a convenient label
 
 	   git remote                                                # see which ones you have
 	   git remote add upstream https://github.com/teuben/pyASC   # add this one-time
 
-	   git checkout master                                       # ensure on master
-	   git fetch upstream                                        # fetch it
+	   git checkout master                                       # ensure on your master
+	   git fetch upstream                                        # fetch the upstream
 	   git merge upstream/master                                 # merge in 
 	   git status                                                # should be no new things
 	   git push                                                  # push it to your origin
@@ -99,8 +101,17 @@ In the text below, f1 refers to a file and b1 refers to a branch.
 	   git checkout -b baram-dev
 	   git pull bsosis BaramS1
 
-Also review astropy's workflow:
-http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+Also some articles on workflows:
+astropy:
+    http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+atlassion tutorials:
+    https://www.atlassian.com/git/tutorials/comparing-workflows
 
 Other git intros:
 http://physics.mnstate.edu/craig/git-novice-pyastro/
+
+Some GUI tips:
+https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/
+
+
+

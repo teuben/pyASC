@@ -16,6 +16,8 @@ experiment with the finer resolution. FITS images are
 1392 x 1040 in size, where the full sky (180 or 150 degrees) covers
 1040 pixels.
 
+github pages for this project are [here](https://teuben.github.io/pyASC/).
+
 ![Example allsky image](20151108_1323.png "fireball and moon and two planets, jupiter and venus")
 
 Frame 1329 from 20151108 (8-nov-2015) showing 3 planets, the moon and a meteor.

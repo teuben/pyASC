@@ -1,0 +1,18 @@
+Using the AllSkEye Oculus Software.
+
+See also https://groups.yahoo.com/neo/groups/allskeye/info
+
+
+basic installation procedure:
+
+- install the Oculus drivers  (e.g. StarlightXpress_CCD_Drivers_v1.3.7.2.zip)
+- install the AllSkeye app (e.g. from AllSkEye0.9.3.0.zip	)
+
+we then had "Aquisition cannot start because the aquisition has invalid path"
+
+
+https://www.sxccd.com/drivers-downloads
+ -> https://www.sxccd.com/downloads/StarlightXpress_CCD_Drivers_v1.2.2.0.zip
+ 
+https://www.microsoft.com/en-us/download/details.aspx?id=8328
+ -> vcredist_x86.exe

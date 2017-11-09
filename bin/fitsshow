@@ -1,0 +1,32 @@
+#! /usr/bin/env python
+#
+# plot a fits image in some color/grey scale
+#
+
+#from astropy.io import fits
+import pyfits as fits
+import matplotlib.pyplot as plt
+import numpy as np
+import sys
+
+file = sys.argv[1]                           # grab filename from commandline
+if len(sys.argv) < 3:                        
+    vmin = vmax = None
+else:                                        # if 2nd and 3rd argument present
+    vmin = float(sys.argv[2])                # use them as min and max for display
+    vmax = float(sys.argv[3])
+
+hdu = fits.open(file,                        # get the HDU's from the FITS file
+                ignore_missing_end=True)     
+
+header = hdu[0].header                       # H = header
+data = hdu[0].data.squeeze()                 # D = data (squeeze to get rid of redundant axes)
+print data.shape                             # the shape better be 2D now
+
+plt.figure()
+plt.imshow(data,vmin=vmin,vmax=vmax)
+plt.colorbar()
+plt.show()
+
+
+
