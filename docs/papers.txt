@@ -1,0 +1,13 @@
+https://arxiv.org/abs/1702.02656
+   DBSCAN:   Meteor Shower Detection with Density-Based Clustering
+
+https://arxiv.org/abs/1702.01393
+   Time Series Cube Data Model
+
+
+
+Intruder Detector With Raspberry Pi and Pushbullet
+    http://www.instructables.com/id/Intruder-Detector-With-Raspberry-Pi-and-Pushbullet/
+
+A Tour of Machine Learning Algorithms
+    http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/

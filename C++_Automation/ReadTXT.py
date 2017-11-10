@@ -13,8 +13,7 @@ import os.path
 import logging
 import time
 
-
-def d(ff, box=[]):
+def d(ff,box=[]):
     #very specific for 16 bit data, since we want to keep the data in uint16
     h = fits.open(ff, do_not_scale_image_data=True)
     if len(box)==0:
@@ -54,8 +53,8 @@ def dsum(i0,i1,step = 1, box=[]):
             c[i - i0,:,:] = d1.reshape(ny,nx)
     sum1 = sum1 / sum0
     sum2 = sum2 / sum0 - sum1*sum1
-    print (type(sum1), type(sum2))    
-    return (h,sum1,np.sqrt(sum2),c)
+    print type(sum1), type(sum2)
+    return h,sum1,np.sqrt(sum2),c
 
 def show(sum):
     """ some native matplotlib display,
@@ -120,8 +119,7 @@ class Dtime(object):
     def show(self):
         if self.report:
             for r in self.dtimes:
-                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + 
-                    str(r[1]))
+                logging.info("Dtime: %s " % self.label + str(r[0]) + "  " + str(r[1]))
         return self.dtimes
 
     def end(self):
@@ -150,15 +148,9 @@ if __name__ == '__main__':
     #--end, -e n
     #--box x1 y1 x2 y2
     parser = ap.ArgumentParser(description='Plotting .fits files.')
-    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 
-        'Starting and ending parameters for the frames analyzed')
-    parser.add_argument('-b', '--box', nargs = 4, type = int, help = 
-        'Coordinates for the bottom left corner and' 
-       + 'top right corner of a rectangle of pixels to be analyzed from the' + 
-       ' data. In the structure x1, y1, x2, y2 (1 based numbers)')
-    parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, 
-        help = 'Controls whether to display or save graphics. 0: no graphics,' 
-        + '1: display graphics, 2: save graphics as .png')
+    parser.add_argument('-f', '--frame', nargs = '*', type = int, help = 'Starting and ending parameters for the frames analyzed')
+    parser.add_argument('-b', '--box', nargs = 4, type = int, help = 'Coordinates for the bottom left corner and top right corner of a rectangle of pixels to be analyzed from the data. In the structure x1, y1, x2, y2 (1 based numbers)')
+    parser.add_argument('-g', '--graphics', nargs = 1, type = int, default = 0, help = 'Controls whether to display or save graphics. 0: no graphics, 1: display graphics, 2: save graphics as .png')
     args = vars(parser.parse_args())
 
     if args['frame'] == None:
@@ -172,8 +164,7 @@ if __name__ == '__main__':
             #if start has not been found yet, and this file exists
             if start == None and os.path.isfile(filename):
                 start = count
-            #if start has been found and we finally found a file that doesn't 
-            #exist, set end to the last file that existed (count - 1.FIT)
+            #if start has been found and we finally found a file that doesn't exist, set end to the last file that existed (count - 1.FIT)
             elif start != None and not os.path.isfile(filename):
                 end = count - 1
             count += 1  
@@ -185,7 +176,7 @@ if __name__ == '__main__':
         else:
             step = 1
     else:
-        raise Exception("-f needs 0, 2, or 3 arguments.")
+        raise Exception,"-f needs 0, 2, or 3 arguments."
            
     box   = args['box']                # BLC and TRC
     if box == None:
@@ -193,8 +184,7 @@ if __name__ == '__main__':
 
     dt.tag("start")
     # compute the average and dispersion of the series        
-    h1,sum1,sum2,cube = dsum(start,end,step,box=box)           
-    # end can be uninitialized here might throw an error?
+    h1,sum1,sum2,cube = dsum(start,end,step,box=box)           # end can be uninitialized here might throw an error?
     dt.tag("dsum")
     nz = cube.shape[0]
     
@@ -207,6 +197,35 @@ if __name__ == '__main__':
     fits.writeto('dsumy.fits', dsumy, h1, clobber=True)
     fits.writeto('sum1.fits', sum1, h1, clobber=True)
     fits.writeto('sum2.fits', sum2, h1, clobber=True)
+    
+    
+    pixelFile = open('pixels.txt')
+    pixelNumber = 0
+    pixelData = np.zeros((1392, 1040))
+    character  = ' '
+    idx = 0
+    number = 0
+    
+    for h in range(0, 1040):
+        line = pixelFile.readline()
+        for w in range(0, 1392):
+            character = line[idx]
+            idx = idx + 1
+            while character != ',':
+                if character != ' ':
+                    number = int(character)
+                    pixelNumber = (pixelNumber * 10) + number
+                character = line[idx]
+                idx = idx + 1
+            idx = idx + 1
+            pixelData[w, h] = pixelNumber 
+            pixelNumber = 0
+        idx = 0 
+    
+    fits.writeto('testingPixels.fits', pixelData, h1, clobber=True)      
+    
+    
+    
     dt.tag("write2d")
     # 3D cube to
     h1['NAXIS']  = 3
@@ -215,19 +234,19 @@ if __name__ == '__main__':
     dt.tag("write3d")
 
 
-    if args['graphics'][0] == 1:
+    #if args['graphics'][0] == 1:
         # plot the sum1 and sum2 correllation (glueviz should do this)
-        s1 = sum1.flatten()
-        s2 = sum2.flatten()
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.scatter(s1,s2)
-        plt.show()
-        show2(sum1)
-        show2(sum2)
-    if args['graphics'][0] == 2:
-        imsave('sum1.png', sum1)
-        imsave('sum2.png', sum2)
+   #     s1 = sum1.flatten()
+   #     s2 = sum2.flatten()
+    #    fig = plt.figure()
+    #    ax = fig.add_subplot(111)
+    #    ax.scatter(s1,s2)
+    #    plt.show()
+    #    show2(sum1)
+    #    show2(sum2)
+    #if args['graphics'][0] == 2:
+    #    imsave('sum1.png', sum1)
+    #    imsave('sum2.png', sum2)
     
     dt.tag("done")
     dt.end()

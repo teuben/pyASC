@@ -1,0 +1,7 @@
+Possible software to deal with images and image cubes:
+
+http://hyperspy.org
+
+
+
+PSFEx - PSF extractor - https://www.astromatic.net/software/psfex

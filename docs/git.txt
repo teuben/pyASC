@@ -1,0 +1,117 @@
+There are many ways to collaborate using git or in our case github
+(skip to the last one, #3, if you don't care about the others)
+
+In the text below, "f1" refers to a file and "b1" refers to a branch and "u1" to a username
+For "edit" you will need to pick your favorite editor (vi, emacs, gedit, pico, ....)
+
+1) direct 'git clone' the master (currently peter's) and 'git push' back into
+   it.  This is dangerous, needs special permission from the owner anyways.
+   but it would be very simple (don't worry, if you're not peter,
+   he won't give you permission to push into his repo). This is how CVS
+   and SVN work, there is only one repo.
+
+	git clone https://github.com/teuben/pyASC
+	cd pyASC
+	edit f1
+        git commit f1
+        git push
+
+   This is the typical workflow if you work on your own repo.
+
+2) A variation on this theme is using a branch, so they could be more safely
+   merged into the master. This will be a clean approach.
+   So, instead of editing 'f1' in the master, we
+   create a branch and make changes on that:
+
+
+   	git branch b1
+	git checkout b1
+	edit f1
+	git commit f1
+	git push -u origin b1      # skip this if you want it only local
+
+   When it comes time to merge, the following sequence can be followed
+
+   	git checkout master        # start from a fresh master
+	git pull                   # ensure you are up to date
+	git merge b1               # merge in the b1 changes, watch for conflicts
+	git push                   # push this new master back to github
+
+
+3) First in words: fork a master that's not yours in your own GITHUB workspace,
+   then clone from that to your laptop, work on a branch, and do a pull
+   request on GITHUB from that branch, viz.
+   (below your name on GITHUB is "u1")
+
+   	1) go on GITHUB and fork my repo to your space
+	   (see the fork button top right)
+	   
+	   https://github.com/teuben/pyASC
+
+
+	2) now on your laptop get your own version (as "u1") where you edit
+	   on the branch
+
+	   git clone https://github.com/u1/pyASC
+	   cd pyASC
+	   git branch b1
+	   git checkout b1 
+	   git branch               # shows you all branch names
+	   git branch -r            # shows all branches on remote
+	   edit f1
+	   git status
+	   git commit f1
+	   git push -u origin b1    # push it back to your GITHUB
+
+
+	3) now go back to your GITHUB.COM space, and pick your "b1" branch,
+	   and issue a PULL REQUEST
+	   Wait for an email when this was merged by the coordinater (Peter for now)
+	   When this is done, your b1 branch was merged into the master
+
+        4) Fetch the new master now from the original provider, which we'll label as "upstream"
+	   but you can call it anything, it's just a convenient label
+
+	   git remote                                                # see which ones you have
+	   git remote add upstream https://github.com/teuben/pyASC   # add this one-time
+
+	   git checkout master                                       # ensure on your master
+	   git fetch upstream                                        # fetch the upstream
+	   git merge upstream/master                                 # merge in 
+	   git status                                                # should be no new things
+	   git push                                                  # push it to your origin
+
+
+         5) If you really don't care about that branch "b1" anymore, it can be deleted.
+	    It takes an extra step to do this on the github.com site as well.
+
+	   git checkout master
+	   git branch -D b1
+	   git push origin --delete b1
+
+	 6) Here's a scenario where you want to peek what another developer is doing on
+	    their (github) branch. It can also be used to shotcut between two developers
+	    co-developing before a merge on the upstream.
+
+	   git remote add benji https://github.com/BenjiCooper/pyASC # one-time only
+	   git checkout -b benji-dev                                 # on your local branch
+	   git pull benji BenjiC1                                    # pull in his branch
+
+	   git remote add bsosis https://github.com/bsosis/pyASC 
+	   git checkout -b baram-dev
+	   git pull bsosis BaramS1
+
+Also some articles on workflows:
+astropy:
+    http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
+atlassion tutorials:
+    https://www.atlassian.com/git/tutorials/comparing-workflows
+
+Other git intros:
+http://physics.mnstate.edu/craig/git-novice-pyastro/
+
+Some GUI tips:
+https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/
+
+
+

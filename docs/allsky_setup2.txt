@@ -1,0 +1,117 @@
+2016 Apr
+
+Mesa All Sky Camera setup notes:
+--------------------------------
+On allsky.lowell.edu
+1) installed a vanilla version of Ubuntu 16.04 LTS
+2) GoQat:
+ a) I imported the goqat-2.0.0.tar.gz from canburytech.net/GoQat
+    wget http://canburytech.net/GoQat/download/goqat-2.0.0.tar.gz
+ b) tar xvfz goqat-2.0.0.tar.gz
+ c) Install a bunch of stuff that GoQat will need to compile:
+
+
+# needs gtk+-3.0 and a few other things
+sudo apt-get install libgtk-3-dev
+sudo apt-get install libgoocanvas-2.0-dev
+sudo apt-get install libudev-dev
+sudo apt-get install libxpa-dev
+
+# download ds9 and xpa executables
+http://ds9.si.edu/site/Download.html
+  e.g.  wget http://ds9.si.edu/download/linux64/ds9.linux64.7.4.tar.gz
+        wget http://ds9.si.edu/download/linux64/xpa.linux64.2.1.14.tar.gz
+
+  copy these binaries to /usr/local/bin
+
+f) ./configure
+g) make
+h) sudo make install
+    This installs everything under /usr/local/ by default.
+
+3) SAO DS9: Download ds9 from ds9.si.edu/site/Download.html
+   tar xvfz ds9*.gz
+   sudo mv ds9 /usr/local/bin
+
+   install libXss for ds9
+     yum install libXScrnSaver
+
+   Also install the XPA tools, place those in /usr/local/bin as well.
+
+4) Plug in the Oculus camera to a usb port.  
+   The camera will show up on /dev/bus/usb/00M/0NN and the permission
+   will need to be made world readable
+
+   csh> sudo chmod 0666 `lsusb | grep Starlight | sed -e 's/://' |\
+        awk '{print "/dev/bus/usb/"$2"/"$4}' -`
+
+   this is now implemented in a script in doc/starlight_usb_on
+
+5) install a VNC viewer: (vncviewer)
+
+
+
+To work in python you need a few more, if you don't have them:
+See also the examples in
+   http://indilib.org/develop/tutorials/151-time-lapse-astrophotography-with-indi-python.html
+
+
+sudo apt-get install subversion python-dev swig cmake
+
+#  sudo apt-get install indi-bin libindi-dev
+sudo apt-get install indi-sx
+(if indi-sx doesn't exist,  you cannot use that default repository, see below for a private repo that has it)
+
+
+there's instructions for RPI as well.
+
+
+
+Haiti computer from scratch
+
+apt install:
+  libindi-dev
+  subversion
+  python-dev
+  swig
+  cmake
+  indi-bin
+  libgtk-3-dev
+  libgoocanvas-2.0-dev
+  libudev-dev
+  libxpa-dev
+  git
+# 
+
+Sample dataset:   20151108_MD01_raw.zip
+
+
+
+
+Issues:   in later libindi  it does not come with the needed indi_sx_ccd driver,
+better to use this one:
+
+
+From : http://indilib.org/download/ubuntu.html
+
+From source:  http://indilib.org/download/source/send/2-source/11-3rd-party-indi-drivers.html
+
+From repo:
+  sudo apt-add-repository ppa:mutlaqja/ppa
+  sudo apt-get update
+  # sudo apt-get install indi-full
+  sudo apt-get install libindi1 indi-bin indi-sx
+       then installs: (~9MB)
+                indi-bin indi-sx libindi-data libindi1 libnova-0.14-0
+
+
+# http://indilib.org/forum/general/13-command-line-client-for-indiserver-indi-sx-ccd.html
+It seems, that driver is crashing for some reason.
+Usual reason is, that USB device is readonly because of missing 99-sx.rules in /etc/udev/rules.d. Peter
+
+Bus 001 Device 012: ID 1278:0509 Starlight Xpress
+
+
+
+# melissa:
+apt install  indi-bin  indi-sx         (does a few other needed)

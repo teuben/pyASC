@@ -1,0 +1,5 @@
+
+Example FITS headers from sample software we've tried out
+header1    Oculus-2016-11-10T10-39-12-823.fit   (windows, AllSkEye)
+header2    oculus.fits                          (linux, GoQat)
+header3    20151013/IMG00100.FIT                (windows, Starlight Xpress Oculus)

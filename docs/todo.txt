@@ -32,3 +32,12 @@ FILTER  = 'Blank'
   Typical filename: 20150921_MD1_0002.fits
 
 
+- director stucture outline examples:
+  see also https://www.kennethreitz.org/essays/repository-structure-and-python
+
+- merge students work
+
+
+- astrometry.net can perhaps be used to detect the constellations. 
+  Since we will not be able to see a lot of stars, maybe it's easy to
+  make a local copy of this software instead of relying on astrometry.net

@@ -1,0 +1,18 @@
+#! /bin/bash
+#
+
+echo Setting permission on USB port for the camera
+../docs/starlight_usb_on
+echo Starting the observe program GoQat
+echo Reminder:
+echo "1)  Cameras -> Select CCD Camera"
+echo "2)  Cameras -> Connect to CCD camera"
+GoQat
+
+
+# If you see messages such as this:
+#
+# 2016-12-20T14:55:00: Driver indi_sx_ccd: 2016-12-20T14:55:00: Driver indi_sx_ccd: execlp: No such file or directory
+# 2016-12-20T14:55:00: Driver indi_sx_ccd: stderr EOF
+#
+# the indiserver will run, but no avail
