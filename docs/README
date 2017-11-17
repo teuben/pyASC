@@ -1,5 +1,11 @@
+This directory also contains an index.html file, when it is used in
+"github pages", you will find this at
+	https://teuben.github.io/pyASC
+
+
 
 Example FITS headers from sample software we've tried out
+(we have learned not all fits files are exactly standard FITS files)
 header1    Oculus-2016-11-10T10-39-12-823.fit   (windows, AllSkEye)
 header2    oculus.fits                          (linux, GoQat)
 header3    20151013/IMG00100.FIT                (windows, Starlight Xpress Oculus)
