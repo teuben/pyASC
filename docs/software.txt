@@ -5,3 +5,6 @@ http://hyperspy.org
 
 
 PSFEx - PSF extractor - https://www.astromatic.net/software/psfex
+
+AUTOMATED STREAK DETECTION FOR ASTRONOMICAL IMAGES
+   https://github.com/dwkim78/ASTRiDE
