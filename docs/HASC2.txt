@@ -19,9 +19,15 @@ Students:
 
 Name                                 ESIH/TECHNO/UMD        email
 ----------------------------         ---------------        --------------------------
-Jesula Bernadin                    ESIH                 jesulabernadin30@gmail.com
-Peter Teuben                         U                      teuben@gmail.com
-Ezechiel DESTINE	           ESIH                 ezechiel.destine@esih.edu
-Edlyn EXAVIER			   ESIH			exavierrodelyn@gmail.com
-Ralph DEUS			   ESIH			rallralph.haver@gmail.com
-Jamesly FORTUNAT		   ESIH			jamesfort82@gmail.com
+Jesula Bernadin                    ESIH     		jesulabernadin30@gmail.com
+Peter Teuben                       UMD      		teuben@gmail.com
+Ezechiel DESTINE	           ESIH     		ezechiel.destine@esih.edu
+Edlyn EXAVIER			   ESIH	    		exavierrodelyn@gmail.com
+Ralph DEUS			   ESIH	    		rallralph.haver@gmail.com
+Jamesly FORTUNAT		   ESIH	    		jamesfort82@gmail.com
+Jude SAINT-NEGER                   ESIH     		judeneger65@gmail.com
+Joseph Cohen 			   UMD			jsc6121@gmail.com
+Elizabeth Warner		   UMD                  warnerem@astro.umd.edu
+
+
+We use "slack" for instant communications. See https://hasc2.slack.com
