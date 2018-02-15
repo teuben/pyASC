@@ -1,18 +1,25 @@
 #! /usr/bin/env python
 #
 #   1440 files took about 38 mins
+#
 
 from astride import Streak
 import glob
 
 
 def do_dir(d):
+    """
+    process a directory 'd'
+    """
     ffs = glob.glob(d+'/*.FIT*')     # results in a non-numeric order
     for ff in ffs:
         print ff
         do_one(ff,ff[:ff.rfind('.')])
 
 def do_one(ff,output_path=None):
+    """
+    process a directory one fits-file (ff)
+    """
     # Read a fits image and create a Streak instance.
     streak = Streak(ff,output_path=output_path)
 
