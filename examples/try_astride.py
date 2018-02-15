@@ -15,7 +15,7 @@ def do_dir(d):
     """
     ffs = glob.glob(d+'/*.FIT*')     # results in a non-numeric order
     for ff in ffs:
-        print(ff)
+        # print(ff)
         do_one(ff,ff[:ff.rfind('.')])
 
 def do_one(ff,output_path=None):
@@ -35,7 +35,16 @@ def do_one(ff,output_path=None):
     fp=open(streakfile)
     lines=fp.readlines()
     fp.close()
-    print("streaks found %d" % (len(lines)-1))
+    #print("streaks found %d" % (len(lines)-1))
+    #print("%d " % (len(lines)-1))
+    n = len(lines)-1
+    if n == 0:
+        sys.stdout.write('.')
+    elif n < 10:
+        sys.stdout.write('%d' % n)
+    else:
+        sys.stdout.write('*')
+    sys.stdout.flush()
 #do_one('20151108_MD01_raw/IMG00681.FIT')
 #do_dir('20151108_MD01_raw')
 
