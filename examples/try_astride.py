@@ -31,7 +31,11 @@ def do_one(ff,output_path=None):
     # Write outputs and plot figures.
     streak.write_outputs()
     streak.plot_figures()
-
+    streakfile=output_path+"/streaks.txt"
+    fp=open(streakfile)
+    lines=fp.readlines()
+    fp.close()
+    print("streaks found %d" % (len(lines)-1))
 #do_one('20151108_MD01_raw/IMG00681.FIT')
 #do_dir('20151108_MD01_raw')
 
