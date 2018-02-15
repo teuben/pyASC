@@ -7,12 +7,12 @@ from astride.detect import Streak
 from astride.utils.logger import Logger
 
 
-def test():
+def test(file_path = '/Users/Owner/Desktop/Fits Files/Fits'):
     logger = Logger().getLogger()
 
     logger.info('Start.')
     module_path = dirname(__file__)
-    file_path = '/Users/Owner/Desktop/Fits Files/Fits'
+    
     
     directory = os.fsencode(file_path)
     print(directory)
