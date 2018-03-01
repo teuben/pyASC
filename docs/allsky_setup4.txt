@@ -2,6 +2,7 @@ March 2017:  setup notes for Ubuntu 16.10
 
 
 http://canburytech.net/GoQat/download/goqat-2.1.1.tar.gz
+http://canburytech.net/GoQat/download/goqat-2.1.2.tar.gz    (oct 2017)
 
 
 # needs gtk+-3.0 and a few other things
