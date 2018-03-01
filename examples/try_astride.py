@@ -19,7 +19,8 @@ def do_dir(d):
     fileCount = 0
     zero = 0
     ffs = glob.glob(d+'/*.FIT*')     # results in a non-numeric order
-    f = open(d+'/summary.txt','w')  #Creates summary text file 
+    ffs.sort()                       # on linux wasn't sorted, on dos it was
+    f = open(d+'/summary.txt','w')   # Creates summary text file 
     f.write('Streaks found in files: \n')   #Creates first line for summary file
     for ff in ffs:
         # print(ff)
