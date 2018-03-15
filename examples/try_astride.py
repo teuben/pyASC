@@ -16,22 +16,23 @@ def get_arg(argv):
     if len(argv) == 1: 
         return get_int_arg(argv)
     else:
-        return get_cmd_arg(argv)
+        return get_cmd_arg(argv)    
  
 def get_cmd_arg(argv):
     import argparse as ap
-    print(argv)
     parser = ap.ArgumentParser()
+    parser.add_argument('-i','--filein', nargs=1,help = 'Directory to fits directory') 
+    parser.add_argument('-o','--fileout', nargs=1,help = 'Directory to detection folder') 
+    parser.add_argument('-s','--shape', nargs=1,help = 'Shape factor') 
+    parser.add_argument('-a','--area', nargs=1,help = 'Minimum area to be considered a streak')     
     parser.add_argument('-c','--contour',nargs=1,help = 'blah Control value')
     args=vars(parser.parse_args())
-    print(args)
     
+    if args['filein'] != None: file_pathin = (args['filein'][0])
+    if args['fileout'] != None: file_pathout = (args['fileout'][0])   
+    if args['shape'] != None: shape = float(args['shape'][0])
+    if args['area'] != None: area = float(args['area'][0])
     if args['contour'] != None: contour = float(args['contour'][0])
-    print(contour)
-    file_pathin = 'test'
-    file_pathout = 'junk'
-    shape = .14
-    area = 120
     
     return (file_pathin,file_pathout,shape,area,contour)
     
