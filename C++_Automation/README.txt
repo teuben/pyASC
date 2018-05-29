@@ -1,5 +1,9 @@
-WARNING:   this is a code we started, but never took into production.  Much better altnatives
-	   exist:
+WARNING:   this is a code we started, but never took into production. This is based off the
+           code/libraries that came with the camera. It only goes to show that open source
+	   is just the better way to go.  Nonetheless, we keep this code here in case it might
+	   become useful to somebody some day.
+
+	   Much better altnatives exist:
 	   - linux:             goQat
            - raspberry pi:      python code
 	   - windows            pre-built EXE executables (at least 2 projects)
