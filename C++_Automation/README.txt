@@ -1,7 +1,18 @@
+WARNING:   this is a code we started, but never took into production. This is based off the
+           code/libraries that came with the camera. It only goes to show that open source
+	   is just the better way to go.  Nonetheless, we keep this code here in case it might
+	   become useful to somebody some day.
+
+	   Much better altnatives exist:
+	   - linux:             goQat
+           - raspberry pi:      python code
+	   - windows            pre-built EXE executables (at least 2 projects)
+
+
 Other necessary files: fitsio.h and cfitsio.lib which can both be 
 found at http://heasarc.gsfc.nasa.gov/fitsio/fitsio.html
 
-This code currently can take images from an Oculus All-Sky camera and save that image into a FIT file.
+This code currently can take images from an Oculus All-Sky camera and save that image into a FIT/FITS file.
 
 int takeStandardImage(HANDLE handle, int camIndex, ULONG exposure, USHORT *pixelArray)
 	Prepares the camera to take an image with least amount of specifications.
