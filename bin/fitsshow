@@ -3,11 +3,22 @@
 # plot a fits image in some color/grey scale
 #
 
-#from astropy.io import fits
-import pyfits as fits
+from __future__ import print_function
+
+import sys
+
+try:
+    from astropy.io import fits
+except:
+    try:
+        import pyfits as fits
+    except:
+        print("It seems neither astropy not pyfits was installed in your python")
+        sys.exit(1)
+
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
+        
 
 file = sys.argv[1]                           # grab filename from commandline
 if len(sys.argv) < 3:                        
@@ -21,7 +32,7 @@ hdu = fits.open(file,                        # get the HDU's from the FITS file
 
 header = hdu[0].header                       # H = header
 data = hdu[0].data.squeeze()                 # D = data (squeeze to get rid of redundant axes)
-print data.shape                             # the shape better be 2D now
+print(data.shape)                            # the shape better be 2D now
 
 plt.figure()
 plt.imshow(data,vmin=vmin,vmax=vmax)
