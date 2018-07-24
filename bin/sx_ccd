@@ -6,7 +6,8 @@ exposure=$1
 filename=$2
 tmpfits="SX CCD SuperStar.CCD1.CCD1.fits"
 
-delay=`echo "12+"$exposure | bc`
+# delay=`echo "12+"$exposure | bc`
+delay=`python -c "print 12+$exposure"`
 
 indi_getprop -t $delay > indi2.log 2>&1  &
 echo Running indi_getprop -t $delay
@@ -14,7 +15,9 @@ sleep 1
 indi_setprop "SX CCD SuperStar.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=$exposure"
 
 
-sleep=`echo "10+"$exposure | bc`
+#sleep=`echo "10+"$exposure | bc`
+sleep=`python -c "print 10+$exposure"`
+
 echo Sleeping $sleep ...
 sleep $sleep
 
