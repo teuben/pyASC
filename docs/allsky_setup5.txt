@@ -1,5 +1,5 @@
-March 2017:  setup notes for raspberry pi 3
-===========================================
+July 2018:  setup notes for raspberry pi 3 (RP3)
+================================================
 
 We're assuming you have an RP3 in hand, fully assembled. There is plenty
 of information on https://www.raspberrypi.org and many other sites how
@@ -10,48 +10,102 @@ to get one.
    hoops to even run "apt install".  So decided to grab the latest
    true RASPIAN distro:
 
+   Also very useful (if not essential) is the following for setting up
+   the RP3:
+
+   - wired USB mouse and keyboard 
+   - HDMI screen
+   - a method to write an RP3 image to the micro-SD for booting
+
+   Please keep in mind the procedure outlined below can easily take 1-2 hours,
+   depending on your internet speed.
+
 1) grab the full raspian version, not the 'lite', for development. This
    version has the PIXEL windowing system. The 'lite' version has no
    graphical interface. Both have username "pi" as default, and if you
    need a password, it's "raspberry". The full version automagically
-   logs in as this user, so you don't even need a password yet.
+   logs in as this user, so you don't even need a password yet. This
+   can be dangerous if you have the RP3 on a public net, as people will
+   likely break in. So it's important to change the default password.
+   [TIP: write the password on a piece of paper stuck to the RP3]
+
 
    It's possible we will give instructions how to deal with the lite
    version, as this may be a more efficient way to distribute production
-   images.
+   images. Here is an example, fill in the ..., you must certainly should
+   not cut and paste what I could have written here.
 
    wget -c http://director.downloads.raspberrypi.org/......zip
    unzip ...zip
-   dd bs=1M if=...img of=/dev/mm...
+   sudo dd bs=1M if=...img of=/dev/...
 
    This microSD is now ready for boot in your RP3.
+   I used 2018-06-27-raspbian-stretch.img in July 2018.
+
 
 2) Boot the RP3 with this freshly imaged RP3.  During the boot this image will be modified.
+   The menus should be self-explanatory, otherwise the online guides should be able to
+   help you.
 
-   In my case my screen wasn't fully utilitize. I had to edit a config file and try out
-   a few video modes... each reboot was 30 seconds, but be sure to read up on
+   In one of my cases my screen wasn't fully utilitized. In another case it was fine.
+   In that case I had to edit a config file and try out a few video modes until it
+   looked good ... each reboot was 30 seconds, but be sure to read up on
      	 https://www.raspberrypi.org/documentation/configuration/config-txt/README.md
 
    sudo nano /boot/config.txt
    	# 
    	hdmi_group=1
 	hdmi_mode=16
+   worked for me in that case.  I bit painful if you need to do this.
+
+3) It's useful now to set up networking and allow ssh access, as you can then ssh into the RP3
+   and cut and paste the commands to finish the setup for the camera work.
+
+   In newer versions of RASPIAN you will be prompted for a), b), and c)
+
+   a) go into the Preferences -> Raspberry Pi Configuration -> System
+      -> change the password from the default raspberry to something better
+      [in newer versions of RASPIAN you will be prompted for this]            
+
+   b) go into the Preferences -> Raspberry Pi Configuration -> Localization
+      -> change whatever you need (Locale, Timezone, Keyboard, WiFi Country)
+      [in newer versions of RASPIAN you will be prompted for this]      
+
+   c) in the top right corner you should see some icons to setup the WiFi or Wired ethernet.
+      After a reboot of 3a) the VNC icon is also visible.  If you click on it, you will also
+      see the local IP you have on the RP3. In my case that was 192.168.1.214 on a local network.
+      [in newer versions of RASPIAN you will be prompted for this]
+
+   d) go into the Preferences -> Raspberry Pi Configuration -> Interfaces
+      -> check the SSH and VNC boxes
+
+      
+   When this is also working, you can now ssh into the RP3 as follows:
+      	   	ssh pi@192.168.1.214
 
 
-3) A number of tools will be needed for INDI development. This will cost some download time, be
+   In the newer versions of RASPIAN the initial setup is also followed up with downloading
+   some updates to RASPIAN. This could add time to your setup, especially on a slow link.
+	
+      
+
+4) A number of tools will be needed for INDI development. This will cost some download time, be
    prepared for long waits if you're on a slow link to the internet. I followed these instructions:
    	    http://indilib.org/support/tutorials/139-indi-library-on-raspberry-pi.html
 	    http://indilib.org/download/raspberry-pi/category/6-raspberry-pi.html
 
-   sudo apt install cdbs libcfitsio3-dev libnova-dev libusb-1.0-0-dev libjpeg-dev libusb-dev libtiff5-dev libftdi-dev fxload libkrb5-dev libcurl4-gnutls-dev libraw-dev libgphoto2-dev libgsl0-dev dkms libboost-regex-dev libgps-dev libdc1394-22-dev
+   sudo apt install cdbs libcfitsio-dev libnova-dev libusb-1.0-0-dev libjpeg-dev libusb-dev libtiff5-dev libftdi-dev fxload libkrb5-dev libcurl4-gnutls-dev libraw-dev libgphoto2-dev libgsl0-dev dkms libboost-regex-dev libgps-dev libdc1394-22-dev
+   
+   (this was about 230MB in my case)
 
-   (this was 229MB in my case)
+   If you ever get an error message like
+
+   E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
 
    I had some complaints about missing files, had to "sudo apt update" and do those missing ones again.
 
-   missing:   sudo apt install   libtiff5-dev libraw-dev    libboost-regex-dev   
-   
-   then grab the latest libindi for RPI (no 
+
+5) Now grab the latest libindi for RPI (no ....
 
    tar -xzf libindi_1.4.1_rpi.tar.gz
    cd libindi_1.4.1_rpi
@@ -62,18 +116,44 @@ to get one.
    wget -c http://indilib.org/download/raspberry-pi/send/6-raspberry-pi/9-indi-library-for-raspberry-pi.html
    mv 9-indi-library-for-raspberry-pi.html libindi_1.4.1_rpi.tar.gz 
    tar -xzf libindi_1.4.1_rpi.tar.gz
-   cd libindi_1.4.1_rpi
+   cd libindi_1.7.3_rpi
    sudo dpkg -i *.deb
 
-4) For the python interface, pyindi-client is the preferred route, but you will need two more tools for this.
+
+   You might get some error:
+   
+   Errors were encountered while processing:
+    libqsi7
+    libqsi-dbg
+    libqsi-dev
+    indi-qsi
+    indi-qsi-dbg
+
+
+
+
+
+   ???
+   A cautionary note again: when I mixed an older version of RASPIAN with the newer version of libindi (1.7.3)
+   this resulted in library conflicts which stopped any progress. Result was to go back to scratch and get the
+   latest RASPIAN and then install the new libindi into this.
+   ???
+
+6) For the python interface, pyindi-client is the preferred route, but you will need two more tools for this.
    You can skip this if you want to test the shell interface, and go to step 5)
+
+   It also came with errors from the previous apt install's, so had to do this first:
+
+   sudo apt --fix-broken install
+      this fixed libftdi1-2
+
 
    sudo apt install swig python-dev
    (this was 30.1MB in my case)
    
    sudo pip install pyindi-client
 
-
+   (might see some error messages, but in the end i saw "Successfully installed pyindi-client")
 
 5) To test out if INDI works, you can use the CCD simulator. You will need 3 terminal windows.
 
@@ -85,12 +165,14 @@ to get one.
 
    	     indi_getprop -t 60
 
-   5-3) turn the CCD on, and set an exposure time
+   5-3) turn the CCD on, and set an exposure time (in this order)
 
    	     indi_setprop "CCD Simulator.CONNECTION.CONNECT=On"
 	     indi_setprop "CCD Simulator.CCD_EXPOSURE.CCD_EXPOSURE_VALUE=1.0"
 
         You will then see a file "CCD Simulator.CCD1.CCD1.fits" appear.
+	
+	[in the 2017 version this worked, in the 2018 version I didn't see this file]
 
 
 
@@ -112,3 +194,26 @@ to get one.
         now you should see a new fits file in this directory. 
 	Probably "SX CCD SuperStar.CCD1.CCD1.fits"
 
+7) There are now some shortcut commands in the pyASC/bin directory that make observing easier, this will
+   only require two windows:
+
+   7-1) start the server in one window with the command
+
+      pyASC/bin/sx_setup
+
+        this window will show the running log from the indiserver
+	....
+
+   7-2) observe with the camera (this combines 6-2 and 6-3 in one simple command
+
+      pyASC/bin/sx_ccd 0.2 try001.fits
+
+        were 0.2 is the exposure time in seconds, and try001.fits the output fits file. There is currently
+	too much overhead in this, that should be fixed in a more integrated python script.
+
+        Each fits file is about 3MB. 
+
+*) Some final words:
+
+   - not every microSD card has the same number of blocks. So a straight "dd" may
+     give surprising results if you clone one system to the other.
