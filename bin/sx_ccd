@@ -21,4 +21,13 @@ sleep=`python -c "print 10+$exposure"`
 echo Sleeping $sleep ...
 sleep $sleep
 
+# give it a few more chances to finish ?
+for delta in 1 1 1 1; do
+    if [ -e $tmpfits ]; then
+	break
+    fi
+    echo Extra sleep $delta, no $tmpfits yet
+    sleep $delta
+done    
+
 mv "$tmpfits" $filename
