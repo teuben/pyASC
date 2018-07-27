@@ -16,11 +16,16 @@ to get one.
    - wired USB mouse and keyboard 
    - HDMI screen
    - a method to write an RP3 image to the micro-SD for booting
+   - a portable router if you want laptop and RP3 on same subnet. Either
+     wifi or wired, but this will speed up setup and testing.
+   - one ethernet cross-over cable. This is the alternative to a portable
+     router.
+   - two ethernet cables if you use the router for a local net
 
    Please keep in mind the procedure outlined below can easily take 1-2 hours,
    depending on your internet speed.
 
-1) grab the full raspian version, not the 'lite', for development. This
+1) grab the full RASPIAN version, not the 'lite', for development. This
    version has the PIXEL windowing system. The 'lite' version has no
    graphical interface. Both have username "pi" as default, and if you
    need a password, it's "raspberry". The full version automagically
@@ -41,7 +46,6 @@ to get one.
 
    This microSD is now ready for boot in your RP3.
    I used 2018-06-27-raspbian-stretch.img in July 2018.
-
 
 2) Boot the RP3 with this freshly imaged RP3.  During the boot this image will be modified.
    The menus should be self-explanatory, otherwise the online guides should be able to
