@@ -1,7 +1,8 @@
 Using the AllSkEye Oculus Software.
+AllSkEye is written by Michael Poelzl
 
 See also https://groups.yahoo.com/neo/groups/allskeye/info
-
+https://mpoelzl.exavault.com/share/view/e193-b008aesb
 
 basic installation procedure:
 
@@ -16,3 +17,7 @@ https://www.sxccd.com/drivers-downloads
  
 https://www.microsoft.com/en-us/download/details.aspx?id=8328
  -> vcredist_x86.exe
+
+
+Other info on MP:
+   https://www.astrobin.com/users/MikeP/
