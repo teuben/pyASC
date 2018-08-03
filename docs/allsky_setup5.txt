@@ -60,7 +60,9 @@ to get one.
    	# 
    	hdmi_group=1
 	hdmi_mode=16
-   worked for me in that case.  I bit painful if you need to do this.
+   worked for me in that case.  I bit painful if you need to do this. What helps is to your
+   the classy ctrl-alt-F1,F2,F3 to switch virtual terminals, edit in that one, reboot. No need
+   to take out the microSD and edit on another machine.
 
 3) It's useful now to set up networking and allow ssh access, as you can then ssh into the RP3
    and cut and paste the commands to finish the setup for the camera work.
@@ -198,7 +200,11 @@ to get one.
         now you should see a new fits file in this directory. 
 	Probably "SX CCD SuperStar.CCD1.CCD1.fits"
 
-7) There are now some shortcut commands in the pyASC/bin directory that make observing easier, this will
+7) Install pyASC from github:
+
+        git clone http://github.com/teuben/pyASC
+	
+   There are now some shortcut commands in the pyASC/bin directory that make observing easier, this will
    only require two windows:
 
    7-1) start the server in one window with the command
