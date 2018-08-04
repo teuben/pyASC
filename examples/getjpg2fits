@@ -4,6 +4,7 @@
 #   if no RP3 camera app found, it will convert a command line jpg to fits,
 #   assuming this jpg exist
 
+from __future__ import print_function
 import os, sys
 
 fn    = 'junk.jpg'
@@ -23,7 +24,6 @@ except:
 
 import numpy as np
 from PIL import Image
-import matplotlib.pyplot as plt
 #import pyfits as fits
 from astropy.io import fits
 
@@ -65,6 +65,7 @@ if len(data.shape) == 3:
     data = data.sum(axis=2)
 
 if debug:
+    import matplotlib.pyplot as plt
     plt.figure()
     plt.imshow(data)
     plt.show()
