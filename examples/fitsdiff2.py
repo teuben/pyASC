@@ -36,10 +36,14 @@ diff = d2 - d1
 
 max1 = d1.max()
 std1 = diff.std()
-fidelity = max1 / std1 
+fidelity = max1 / std1
 
-print("MEAN/STD:",diff.mean(), std1, fidelity)
+fid  = np.abs(d2) / np.max(np.abs(diff),std1/1.4)
+
+
+print("MEAN/STD/FID:",diff.mean(), std1, fidelity)
 fits.writeto('diff.fits',diff,h2,overwrite=True)
+fits.writeto('fidelity.fits',fid,h2,overwrite=True)
 
 try:
     import matplotlib.pyplot as plt
