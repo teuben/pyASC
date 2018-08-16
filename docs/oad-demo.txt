@@ -1,0 +1,64 @@
+            Haiti All Sky Camera (HASC) 
+
+This HASC demo keeps on taking two pictures, and screams out INTRUDER
+ALERT if the two images differ sufficiently.  This is a simplified
+demo of the code that takes sky images and then goes off and tries to
+find differences and see if there are planes, satellites, meteors, or
+other things that are different between images.
+
+
+
+The demo box comes with the following components:
+
+
+1) Raspberry Pi3 (RP3) with a tiny camera dangling off a small ribbon cable (CAREFUL!)
+2) Red Audio Cube (RAC)
+3) MicroUSB charger for RP3
+4) US-EU plug converter for the charger
+5) audio cable between RP3 and RAC
+5) USB-microUSB cable, which will charge the red audio cube from the RP3
+6) tiny little USB key that can hold a microSD. This unit comes apart,
+   and if you open it, you will see that the microSD card can fit alongside
+   the USB-A !!! ingeneous but very tricky.
+   
+   If for any reason you want to edit the /home/pi/demo2 script, this is the way
+   to do it. Mount it on a unix system, and check the contents of the /home/pi
+   directory. Find the demo2 script. Near the top of that script you will see
+   the variable (notice no spaces around the '=')
+
+      	     fidcrit=20.0
+	  
+   if the demo talks too much, set the critical value a bit lower, say 15.0
+   If not enough talking, set it higher, say 25.0    Experiment till happy.
+
+7) Few little manuals that you should not need. 
+
+
+When everything is connected, the RP3 boots in about 5-10 seconds. You
+will see the red light on the camera go on twice, then it computes a
+difference, and if the Fidelity of the two images is below a critical
+value, an "INTRUDER ALERT" will sound.  Simply hold your hand in front
+of the camera during one snapshot, and let it see the room the other,
+and there should be an ALERT.
+
+PROBLEMS:
+
+It does happen that the RP3 appears to hang. This appears overheating.
+Maybe take the cover off (the bigger heat sink can get really hot)
+
+
+The unit should go back via Alberto Bolatto (he only stays a week), or
+Alice Allen (she stays 2 weeks)
+
+
+ARP2:
+   
+processor       : 0
+model name      : ARMv7 Processor rev 4 (v7l)
+BogoMIPS        : 38.40
+Features        : half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer : 0x41
+CPU architecture: 7
+CPU variant     : 0x0
+CPU part        : 0xd03
+CPU revision    : 4
