@@ -23,13 +23,10 @@ if len(sys.argv) == 3:
 #  check file extension
 
 
-if fn[fn.rfind('jpg'):] == 'jpg':
-    # 
+if f1[f1.rfind('jpg'):] == 'jpg':
     use_fits = False
 else:
-    # assume it's fits
     use_fits = True
-
 
 
 if use_fits:
