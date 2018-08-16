@@ -19,9 +19,18 @@ while true; do
       $p/getjpg2fits  demo2a.jpg
       #espeak 'take two'                   2>/dev/null        
       $p/getjpg2fits  demo2b.jpg
+
+      sleep $sleep
+      if [ -e demo2.fast ]; then
+	  echo demo2.fast enountered, no diffing of images
+	  continue
+      fi
+
       #espeak 'compare'                    2>/dev/null        
       #$p/fitsdiff2.py demo2a.fits demo2b.fits | tee demo2.log
       $p/fitsdiff2.py demo2a.jpg demo2b.jpg | tee demo2.log
+      
+      
 
       # parse logfile for fidelity, and if it's low enough to report intruder
       fid=$(grep ^MEAN demo2.log | awk '{print $NF'})
@@ -47,8 +56,6 @@ while true; do
 	  echo demo2.stop enountered
 	  exit 1
       fi
-
-      sleep $sleep
       
 done      
 					       
