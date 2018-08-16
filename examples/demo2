@@ -1,0 +1,52 @@
+#! /bin/bash
+#
+
+p=pyASC/examples
+fidcrit=20.0
+audio=1
+sleep=1
+log=demo2.fidlog
+
+while true; do
+
+      echo "New observation: $(date)"
+      did=$(date +%Y%m%d_%H%M%S)
+      
+      # grab 2 camera images and compare
+      #espeak 'take one'                   2>/dev/null        
+      $p/getjpg2fits  demo2a.jpg
+      #espeak 'take two'                   2>/dev/null        
+      $p/getjpg2fits  demo2b.jpg
+      #espeak 'compare'                    2>/dev/null        
+      #$p/fitsdiff2.py demo2a.fits demo2b.fits | tee demo2.log
+      $p/fitsdiff2.py demo2a.jpg demo2b.jpg | tee demo2.log
+
+      # parse logfile for fidelity, and if it's low enough to report intruder
+      fid=$(grep ^MEAN demo2.log | awk '{print $NF'})
+      fidok=$(echo "$fid" \< "$fidcrit" | bc -l)
+
+      # debugging
+      echo "FID=$fid FIDCRIT=$fidcrit =>  FIDOK=$fidok"
+
+      # the final reporting via audio
+      if [ "$fidok" -eq "0" ]; then
+	  echo OK
+	  # espeak "$fid OK"                                       2>/dev/null        
+      else
+	  echo INTRUDER
+	  espeak "Intruder Alert $fid Intruder Alert"            2>/dev/null
+	  cp demo2a.jpg demo2a_$did.jpg
+	  cp demo2b.jpg demo2b_$did.jpg	  
+      fi
+
+      echo $did $fid >> $log
+
+      if [ -e demo2.stop ]; then
+	  echo demo2.stop enountered
+	  exit 1
+      fi
+
+      sleep $sleep
+      
+done      
+					       
