@@ -45,8 +45,8 @@ else:
     im1 = Image.open(f1)
     im2 = Image.open(f2)
 
-    d1 = np.asarray(im1).sum(axis=2)
-    d2 = np.asarray(im2).sum(axis=2)
+    d1 = np.asarray(im1).astype(np.float32).sum(axis=2)
+    d2 = np.asarray(im2).astype(np.float32).sum(axis=2)
 
 print(f1,d1.min(),d1.max())
 print(f2,d2.min(),d2.max())
