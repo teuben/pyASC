@@ -17,7 +17,7 @@ if len(sys.argv) > 1:
 
 # grab data
 try:
-    os.system('raspistill -o %s' % fn)
+    os.system('raspistill -n -w 1280 -h 960 -o %s' % fn)
 except:
     print("No command raspistill, trying to convert existing %s" % fn)
 
