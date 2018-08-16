@@ -41,7 +41,9 @@ fidelity = max1 / std1
 
 
 print("MEAN/STD/FID:",diff.mean(), std1, fidelity)
-fits.writeto('diff.fits',diff,h2,overwrite=True)
+
+if False:
+    fits.writeto('diff.fits',diff,h2,overwrite=True)
 #
 #fid  = np.abs(d2) / np.max(np.abs(diff),std1/1.4)
 #fits.writeto('fidelity.fits',fid,h2,overwrite=True)
