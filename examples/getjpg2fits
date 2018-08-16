@@ -22,6 +22,11 @@ except:
     print("No command raspistill, trying to convert existing %s" % fn)
 
 
+# if the requested extension is jpg, quit here, else assumed fits and continue
+
+if fn[fn.rfind('jpg'):] == 'jpg':
+    sys.exit(0)
+
 import numpy as np
 from PIL import Image
 #import pyfits as fits
