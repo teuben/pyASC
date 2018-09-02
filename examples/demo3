@@ -14,6 +14,7 @@ while true; do
       did=$(date +%Y%m%d_%H%M%S)
       
       # grab 1 camera images and compare
+      espeak 'cheese' 2>/dev/null              
       $p/getjpg2fits demo3_$did.jpg
 
       sleep $sleep
