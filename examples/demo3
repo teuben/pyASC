@@ -1,0 +1,29 @@
+#! /bin/bash
+#
+
+p=pyASC/examples
+audio=1
+sleep=5
+log=demo3.fidlog
+
+espeak 'demo3 starting' 2>/dev/null        
+
+while true; do
+
+      echo "New observation: $(date)"
+      did=$(date +%Y%m%d_%H%M%S)
+      
+      # grab 1 camera images and compare
+      $p/getjpg2fits demo3_$did.jpg
+
+      sleep $sleep
+
+      echo $did $fid >> $log
+
+      if [ -e demo3.stop ]; then
+	  echo demo3.stop enountered
+	  exit 1
+      fi
+      
+done      
+					       
