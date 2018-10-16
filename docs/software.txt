@@ -8,3 +8,12 @@ PSFEx - PSF extractor - https://www.astromatic.net/software/psfex
 
 AUTOMATED STREAK DETECTION FOR ASTRONOMICAL IMAGES
    https://github.com/dwkim78/ASTRiDE
+
+
+AstroImageJ:
+https://www.astro.louisville.edu/software/astroimagej/
+https://www.astro.louisville.edu/software/astroimagej/installation_packages/
+
+ds9:
+http://ds9.si.edu/site/Home.html
+http://ds9.si.edu/site/Download.html
