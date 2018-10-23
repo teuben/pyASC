@@ -6,9 +6,12 @@
 - Test is pyASC is working, type the commands in the terminal
 
      cd pyASC/ASC
+     git checkout master
+     git pull
      ./ASCube.py
 
-  and make sure there are no module errors.
+  and make sure there are no module errors.  Notice we are first
+  updating the pyASC software to make sure we're always up to date.
 
   Common problems could be:
 
