@@ -1,0 +1,27 @@
+- make sure you have something like anaconda3 installed,
+  in the terminal type
+     	 which python
+  and make sure you have that python3 from anaconda3
+
+- Test is pyASC is working, type the commands in the terminal
+
+     cd pyASC/ASC
+     ./ASCube.py
+
+  and make sure there are no module errors.
+
+  Common problems could be:
+
+  1) ImportError: No module named astropy.io
+
+  Solution:
+	pip install astropy
+
+  2) ModuleNotFoundError: No module named 'aplpy'
+
+  Solution:
+
+	pip install aplpy
+
+
+  
