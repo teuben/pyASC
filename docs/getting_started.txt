@@ -40,7 +40,11 @@
 
   Once you have unzipped it, you will see filenames such as
 
-  IMG01329.FIT 
+  IMG01329.FIT
+
+  Try the ds9 program to view this. You will notice the image is east-west flipped,
+  which is a "problem" with ds9.  To flip it, use "Zoom -> Invert X" from the top
+  tabs.
 
 - Install astride:
 
