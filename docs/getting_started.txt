@@ -54,4 +54,25 @@
   python setup.py install
          (this may need python to install something in scikit-image if your python doesn't have it yet)
          (this can also take a long time)
-         
+
+- make a test directory with only 20 fits files around the interesting IMG01329.FIT file:
+
+  cd pyASC/examples
+  mkdir test2015
+  cp ../../20151108_MD01_raw/IMG0132*.FIT test2015/
+  cp ../../20151108_MD01_raw/IMG0133*.FIT test2015/
+
+
+- To try astride on a series of images in the test2015
+  (again, if you have missing modules, try "pip install" those)
+
+
+
+  cd pyASC/examples/test2015
+  ../try_astride.pyp
+
+  Click on OK twice (why???? i dunno yet)
+  hit enter to pick the defaults on the questions you get, and observe what it's doing
+  ...
+  you should see it working on 20 files. will take a bit. Can take fewer, as long as
+  01329 is part of the series.
