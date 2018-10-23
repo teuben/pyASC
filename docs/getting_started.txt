@@ -76,3 +76,10 @@
   ...
   you should see it working on 20 files. will take a bit. Can take fewer, as long as
   01329 is part of the series.
+
+- try and understand the command line parameters via
+
+
+        ../try_astride.py --help
+
+  and see if you can get it working without the file browser
