@@ -6,7 +6,7 @@
 - Test is pyASC is working, type the commands in the terminal
 
      cd pyASC/ASC
-     git checkout master
+     git checkout master     (git fetch --all upstream; git merge upstream/master)
      git pull
      ./ASCube.py
 
@@ -28,3 +28,26 @@
 
 
   
+- To test some interesting modules to work with, we have two script
+
+      ./MakeCube.py --help
+  and
+  
+      ./MakeDownsampledCube.py  --help
+
+- grab a sample dataset e.g. 20151108_MD01_raw from:
+  from http://www.astro.umd.edu/openhouse/obs-data/allsky/20151108_MD01_raw.zip
+
+  Once you have unzipped it, you will see filenames such as
+
+  IMG01329.FIT 
+
+- Install astride:
+
+
+  git clone https://github.com/dwkim78/ASTRiDE
+  cd ASTRiDE
+  python setup.py install
+         (this may need python to install something in scikit-image if your python doesn't have it yet)
+         (this can also take a long time)
+         
