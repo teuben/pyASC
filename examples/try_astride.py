@@ -29,6 +29,7 @@ def mk_diff(f0,f1,diff):
 
     d0 = hdu0[0].data
     d1 = hdu1[0].data
+    print("DEBUG mean/std: %s %s %s %g %g" % (f0,f1,diff,d0.mean(),d0.std()))
 
     d2 = d1-d0
 
@@ -104,8 +105,11 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
     detected = 0
     fileCount = 0
     zero = 0
+
+    # debug/verbose
+    print('DEBUG: shape=%g area=%g contour=%g' % (shape,area,contour))
     
-    ffs = glob.glob(d+'/*.FIT*')     # results in a non-numeric order
+    ffs = glob.glob(d+'/*.FIT') + glob.glob(d+'/*.fit') + glob.glob(d+'/*.FTS') + glob.glob(d+'/*.fts') + glob.glob(d+'/*.FITS') + glob.glob(d+'/*.fits')     
     ffs.sort()                       # on linux wasn't sorted, on dos it was  
     f = open(dsum+'/summary.txt','w')   # Creates summary text file 
     f.write('Streaks found in files: \n')   #Creates first line for summary file
@@ -132,7 +136,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
         dfs = []
         print('Computing %d differences' % (len(ffs)-1))
         for i in range(len(ffs)-1):
-            dfs.append(ffs[i+1].replace('.fits','.diff.fits'))
+            dfs.append(ffs[i+1]+'.diff')
             mk_diff(ffs[i],ffs[i+1],dfs[i])
         print('Processing %d files' % (len(ffs)-1))
         for df in dfs:
@@ -245,9 +249,6 @@ if __name__ == '__main__':
     print("Running in data directory %s" % file_pathin)
     print("Outputting in data directory %s" % file_pathout)
     do_dir(file_pathin,file_pathout,shape,area,contour,diff=True)
-    
-    
-    
     
     #print("Running in data directory %s" % sys.argv[1])
     #do_dir(sys.argv[1],sys.argv[2])
