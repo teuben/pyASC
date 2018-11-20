@@ -130,7 +130,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
     # Produce and write summary file 
     f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
     f.write('Streaks detected: ' + str(detected) + '\n' )
-    f.write('Files with no detections: ' + str(zero) + '\n')
+    f.write('Files with no detections: ' + str(zero) + '\n\n\n')
     if diff:
         num = 0
         detected = 0
