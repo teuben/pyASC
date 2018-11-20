@@ -128,7 +128,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
     # Produce and write summary file 
     f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
     f.write('Streaks detected: ' + str(detected) + '\n' )
-    f.write('Files with no detections: ' + str(zero))
+    f.write('Files with no detections: ' + str(zero) + '\n')
     if diff:
         num = 0
         detected = 0
@@ -142,8 +142,6 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
         print('Processing %d files' % (len(ffs)-1))
         for df in dfs:
             num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
-            
-            
             if num == 0:
                 zero += 1
             else:
@@ -153,7 +151,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
         # Produce and write summary file 
         f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
         f.write('Streaks detected: ' + str(detected) + '\n' )
-        f.write('Files with no detections: ' + str(zero))
+        f.write('Files with no detections: ' + str(zero) + '\n')
         f.close()
     else:
         f.close()
