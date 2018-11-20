@@ -34,7 +34,7 @@ def mk_diff(f0,f1,diff):
 
     fits.writeto(diff,d2,h1,overwrite=True)
  
-def get_cmd_arg(argv):
+def get_cmd_arg(argv,shape=.14,area=120,contour=12):
     import argparse as ap
     parser = ap.ArgumentParser()
     parser.add_argument('-i','--filein', nargs=1,help = 'Directory to fits directory') 
@@ -44,7 +44,7 @@ def get_cmd_arg(argv):
     parser.add_argument('-c','--contour',nargs=1,help = 'blah Control value')
     args=vars(parser.parse_args())
     
-    if args['filein'] != None: file_pathin = (args['filein'][0])
+    if args['filein'] != None: file_pathin = (args['filein'][0])  
     if args['fileout'] != None: file_pathout = (args['fileout'][0])   
     if args['shape'] != None: shape = float(args['shape'][0])
     if args['area'] != None: area = float(args['area'][0])
@@ -90,7 +90,7 @@ def get_int_arg(argv):
         
     return(file_pathin,file_pathout,shape,area,contour)
 
-def do_dir(d,dsum=None,shape=.14,area=120,contour=12,diff=False):
+def do_dir(d,dsum,shape,area,contour,diff=False):
     """
     process a directory 'd'
     """
@@ -124,7 +124,6 @@ def do_dir(d,dsum=None,shape=.14,area=120,contour=12,diff=False):
     f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
     f.write('Streaks detected: ' + str(detected) + '\n' )
     f.write('Files with no detections: ' + str(zero))
-    f.close()
     if diff:
         num = 0
         detected = 0
@@ -151,7 +150,9 @@ def do_dir(d,dsum=None,shape=.14,area=120,contour=12,diff=False):
         f.write('Streaks detected: ' + str(detected) + '\n' )
         f.write('Files with no detections: ' + str(zero))
         f.close()
-        
+    else:
+        f.close()
+
 def do_one(ff,output_path=None,shape=None,area=None,contour=None):
     """
     process a directory one fits-file (ff)
