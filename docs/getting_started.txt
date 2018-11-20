@@ -1,0 +1,85 @@
+- make sure you have something like anaconda3 installed,
+  in the terminal type
+     	 which python
+  and make sure you have that python3 from anaconda3
+
+- Test is pyASC is working, type the commands in the terminal
+
+     cd pyASC/ASC
+     git checkout master     (git fetch --all upstream; git merge upstream/master)
+     git pull
+     ./ASCube.py
+
+  and make sure there are no module errors.  Notice we are first
+  updating the pyASC software to make sure we're always up to date.
+
+  Common problems could be:
+
+  1) ImportError: No module named astropy.io
+
+  Solution:
+	pip install astropy
+
+  2) ModuleNotFoundError: No module named 'aplpy'
+
+  Solution:
+
+	pip install aplpy
+
+
+  
+- To test some interesting modules to work with, we have two script
+
+      ./MakeCube.py --help
+  and
+  
+      ./MakeDownsampledCube.py  --help
+
+- grab a sample dataset e.g. 20151108_MD01_raw from:
+  from http://www.astro.umd.edu/openhouse/obs-data/allsky/20151108_MD01_raw.zip
+
+  Once you have unzipped it, you will see filenames such as
+
+  IMG01329.FIT
+
+  Try the ds9 program to view this. You will notice the image is east-west flipped,
+  which is a "problem" with ds9.  To flip it, use "Zoom -> Invert X" from the top
+  tabs.
+
+- Install astride:
+
+
+  git clone https://github.com/dwkim78/ASTRiDE
+  cd ASTRiDE
+  python setup.py install
+         (this may need python to install something in scikit-image if your python doesn't have it yet)
+         (this can also take a long time)
+
+- make a test directory with only 20 fits files around the interesting IMG01329.FIT file:
+
+  cd pyASC/examples
+  mkdir test2015
+  cp ../../20151108_MD01_raw/IMG0132*.FIT test2015/
+  cp ../../20151108_MD01_raw/IMG0133*.FIT test2015/
+
+
+- To try astride on a series of images in the test2015
+  (again, if you have missing modules, try "pip install" those)
+
+
+
+  cd pyASC/examples/test2015
+  ../try_astride.pyp
+
+  Click on OK twice (why???? i dunno yet)
+  hit enter to pick the defaults on the questions you get, and observe what it's doing
+  ...
+  you should see it working on 20 files. will take a bit. Can take fewer, as long as
+  01329 is part of the series.
+
+- try and understand the command line parameters via
+
+
+        ../try_astride.py --help
+
+  and see if you can get it working without the file browser
