@@ -109,7 +109,10 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
     # debug/verbose
     print('DEBUG: shape=%g area=%g contour=%g' % (shape,area,contour))
     
-    ffs = glob.glob(d+'/*.FIT') + glob.glob(d+'/*.fit') + glob.glob(d+'/*.FTS') + glob.glob(d+'/*.fts') + glob.glob(d+'/*.FITS') + glob.glob(d+'/*.fits')     
+    ffs = glob.glob(d+'/*.FIT') + glob.glob(d+'/*.fit') + \
+          glob.glob(d+'/*.FTS') + glob.glob(d+'/*.fts') + \
+          glob.glob(d+'/*.FITS') + glob.glob(d+'/*.fits')
+    ffs = list(set(ffs))             # needed for dos
     ffs.sort()                       # on linux wasn't sorted, on dos it was  
     f = open(dsum+'/summary.txt','w')   # Creates summary text file 
     f.write('Streaks found in files: \n')   #Creates first line for summary file
@@ -127,7 +130,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
     # Produce and write summary file 
     f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
     f.write('Streaks detected: ' + str(detected) + '\n' )
-    f.write('Files with no detections: ' + str(zero))
+    f.write('Files with no detections: ' + str(zero) + '\n\n\n')
     if diff:
         num = 0
         detected = 0
@@ -141,8 +144,6 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
         print('Processing %d files' % (len(ffs)-1))
         for df in dfs:
             num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
-            
-            
             if num == 0:
                 zero += 1
             else:
@@ -152,7 +153,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
         # Produce and write summary file 
         f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
         f.write('Streaks detected: ' + str(detected) + '\n' )
-        f.write('Files with no detections: ' + str(zero))
+        f.write('Files with no detections: ' + str(zero) + '\n')
         f.close()
     else:
         f.close()
