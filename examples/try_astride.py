@@ -29,7 +29,8 @@ def mk_diff(f0,f1,diff):
 
     d0 = hdu0[0].data
     d1 = hdu1[0].data
-    print("DEBUG mean/std: %s %s %s %g %g" % (f0,f1,diff,d0.mean(),d0.std()))
+    if v:
+	    print("DEBUG mean/std: %s %s %s %g %g" % (f0,f1,diff,d0.mean(),d0.std()))
 
     d2 = d1-d0
 
@@ -88,10 +89,23 @@ def get_int_arg(argv):
         contour = 12
     else:
         contour = float(ncontour)
-        
-    return(file_pathin,file_pathout,shape,area,contour)
+	
+    ndiff = input("Create difference images (default = False): ")
+    if ndiff == "":
+	    diff = False
+    else:
+	    diff = ndiff.lower() == 'true'
+    
+    nv = input("Enable verbose mode (default = False): ")
+    if nv == "":
+	    v = False
+    else:
+	    v = nv.lower() == 'true'
+    
+    
+    return(file_pathin,file_pathout,shape,area,contour,diff,v)
 
-def do_dir(d,dsum,shape,area,contour,diff=False):
+def do_dir(d,dsum,shape,area,contour,diff,v):
     """
     process a directory 'd'
     """
@@ -107,7 +121,8 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
     zero = 0
 
     # debug/verbose
-    print('DEBUG: shape=%g area=%g contour=%g' % (shape,area,contour))
+    if v:
+        print('DEBUG: shape=%g area=%g contour=%g' % (shape,area,contour))
     
     ffs = glob.glob(d+'/*.FIT') + glob.glob(d+'/*.fit') + \
           glob.glob(d+'/*.FTS') + glob.glob(d+'/*.fts') + \
@@ -143,7 +158,7 @@ def do_dir(d,dsum,shape,area,contour,diff=False):
             mk_diff(ffs[i],ffs[i+1],dfs[i])
         print('Processing %d files' % (len(ffs)-1))
         for df in dfs:
-            num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
+            num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF',shape,area,contour)
             if num == 0:
                 zero += 1
             else:
@@ -245,11 +260,11 @@ def do_one(ff,output_path=None,shape=None,area=None,contour=None):
 #do_dir('20151108_MD01_raw')
 
 if __name__ == '__main__':    
-    (file_pathin,file_pathout,shape,area,contour) = get_arg(sys.argv)
+    (file_pathin,file_pathout,shape,area,contour,diff,v) = get_arg(sys.argv)
     #Prints selected folders
     print("Running in data directory %s" % file_pathin)
     print("Outputting in data directory %s" % file_pathout)
-    do_dir(file_pathin,file_pathout,shape,area,contour,diff=True)
+    do_dir(file_pathin,file_pathout,shape,area,contour,diff,v)
     
     #print("Running in data directory %s" % sys.argv[1])
     #do_dir(sys.argv[1],sys.argv[2])
