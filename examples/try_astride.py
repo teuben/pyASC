@@ -172,7 +172,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v):
     else:
         f.close()
 
-def do_one(ff,output_path=None,shape=None,area=None,contour=None):
+def do_one(ff,output_path,shape,area,contour):
     """
     process a directory one fits-file (ff)
     """
