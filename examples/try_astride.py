@@ -190,16 +190,14 @@ def do_one(ff,output_path,shape,area,contour):
     streak.contour_threshold = contour
     
     streak.detect()
+
+    n = len(streak.streaks)
+    
+    if n > 0:
     # Write outputs and plot figures.
-    streak.write_outputs()
-    streak.plot_figures()
-    streakfile=output_path+"/streaks.txt"
-    fp=open(streakfile)
-    lines=fp.readlines()
-    fp.close()
-    #print("streaks found %d" % (len(lines)-1))
-    #print("%d " % (len(lines)-1))
-    n = len(lines)-1
+        streak.write_outputs()
+        streak.plot_figures()
+
     if n == 0:
         sys.stdout.write('.')
     elif n < 10:
@@ -207,10 +205,6 @@ def do_one(ff,output_path,shape,area,contour):
     else:
         sys.stdout.write('*')
     sys.stdout.flush()
-    
-    #Delete/move files
-    #if n == 0:
-       # shutil.rmtree(output_path)
     
     return int(n)
 #def do_one(ff,output_path=None,shape=None,area=None,contour=None):  BACKUP
@@ -231,6 +225,10 @@ def do_one(ff,output_path,shape,area,contour):
     streak.contour_threshold = contour
     
     streak.detect()
+
+    n = len(streak.streaks)
+
+
     # Write outputs and plot figures.
     streak.write_outputs()
     streak.plot_figures()
