@@ -29,7 +29,6 @@ def mk_diff(f0,f1,diff, v):
 
     d0 = hdu0[0].data
     d1 = hdu1[0].data
-
     if v:
         print("DEBUG mean/std: %s %s %s %g %g" % (f0,f1,diff,d0.mean(),d0.std()))
 
@@ -156,7 +155,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v):
             mk_diff(ffs[i],ffs[i+1],dfs[i],v)
         print('Processing %d files' % (len(ffs)-1))
         for df in dfs:
-           # num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
+            # num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
             num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF',shape,area,contour) 
             if num == 0:
                 zero += 1
@@ -257,11 +256,11 @@ def do_one(ff,output_path,shape,area,contour):
 #do_dir('20151108_MD01_raw')
 
 if __name__ == '__main__':    
-    (file_pathin,file_pathout,shape,area,contour, diff, v) = get_arg(sys.argv)
+    (file_pathin,file_pathout,shape,area,contour,diff,v) = get_arg(sys.argv)
     #Prints selected folders
     print("Running in data directory %s" % file_pathin)
     print("Outputting in data directory %s" % file_pathout)
-    do_dir(file_pathin,file_pathout,shape,area,contour,diff, v)
+    do_dir(file_pathin,file_pathout,shape,area,contour,diff,v)
     
     #print("Running in data directory %s" % sys.argv[1])
     #do_dir(sys.argv[1],sys.argv[2])
