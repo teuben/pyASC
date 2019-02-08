@@ -1,0 +1,17 @@
+-  MASN uses a filename convention to tell us which AllSky it was taken with
+
+-  feb 2019: Need a pipeline  that includes try_astride (and perhaps other methods)
+             to get an end-to-end solution
+
+
+- Annual report of streaks, something like this:
+
+      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+
+  1     *   1   .   .   .   .   .   .   .   .   .   .
+  2     3  12   .   .   .   .   .   .   .   .   .   .
+  3    33   *   .   .   .   .   .   .   .   .   .   .
+  4    12  10   .   .   .   .   .   .   .   .   .   .
+  .     *
+  .
+  .
