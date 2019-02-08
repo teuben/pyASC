@@ -9,7 +9,8 @@
 TESTDIR = test2015
 
 help:
-	@echo No help yet
+	@echo Some help:
+	@echo "  test1       small test"
 
 clean:
 	rm -rf test1
