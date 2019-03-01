@@ -22,8 +22,8 @@ def get_arg(argv):
         return get_cmd_arg(argv)    
  
 def mk_diff(f0,f1,diff, v):
-    hdu0 = fits.open(f0)
-    hdu1 = fits.open(f1)
+    hdu0 = fits.open(f0, ignore_missing_end=True)
+    hdu1 = fits.open(f1, ignore_missing_end=True)
 
     h1 = hdu1[0].header
 
@@ -36,7 +36,7 @@ def mk_diff(f0,f1,diff, v):
 
     fits.writeto(diff,d2,h1,overwrite=True)
  
-def get_cmd_arg(argv,shape=.14,area=120,contour=12,diff = False, v = False):
+def get_cmd_arg(argv,shape=.14,area=120,contour=12,diff = False, v = False, start_frame = -1, end_frame = -1):
     import argparse as ap
     parser = ap.ArgumentParser()
     parser.add_argument('-i','--filein', nargs=1,help = 'Directory to fits directory') 
@@ -46,17 +46,29 @@ def get_cmd_arg(argv,shape=.14,area=120,contour=12,diff = False, v = False):
     parser.add_argument('-c','--contour',nargs=1,help = 'blah Control value')
     parser.add_argument('-d','--difference',action = 'store_const',const = diff , help = 'Create difference images')
     parser.add_argument('-v','--verbose', action = 'store_const', const = v, help = 'Verbose')
+    parser.add_argument('-S','--start',nargs = 1, help = 'Start Frame')
+    parser.add_argument('-E','--end', nargs = 1, help = 'End Frame')
     args=vars(parser.parse_args())
     
     if args['filein'] != None: file_pathin = (args['filein'][0])  
-    if args['fileout'] != None: file_pathout = (args['fileout'][0])   
+    else:
+         list_dir = glob.glob('[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] to [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]')
+         file_pathin = max(list_dir, key = lambda f:datetime.date(int(f[0:4]),int(f[5:7]),int(f[8:10])))
+    if args['fileout'] != None: file_pathout = (args['fileout'][0]) 
+    else:
+        if file_pathin.endswith("/"):
+            file_pathout = file_pathin[0:len(file_pathin) -1] + "-output"
+        else:
+            file_pathout = file_pathin +"-output"
     if args['shape'] != None: shape = float(args['shape'][0])
     if args['area'] != None: area = float(args['area'][0])
     if args['contour'] != None: contour = float(args['contour'][0])
     if args['difference'] != None: diff = True
     if args['verbose'] != None: v = True
+    if args['start'] != None: start_frame = int(args['start'][0])
+    if args['end']   != None: end_frame   = int(args['end'][0])
 
-    return (file_pathin,file_pathout,shape,area,contour,diff, v)
+    return (file_pathin,file_pathout,shape,area,contour,diff, v, start_frame, end_frame)
     
 def get_int_arg(argv):
     #Creates folder input browsers
@@ -102,7 +114,7 @@ def get_int_arg(argv):
         
     return(file_pathin,file_pathout,shape,area,contour,diff)
 
-def do_dir(d,dsum,shape,area,contour,diff, v):
+def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
     """
     process a directory 'd'
     """
@@ -115,7 +127,8 @@ def do_dir(d,dsum,shape,area,contour,diff, v):
     num = 0
     detected = 0
     fileCount = 0
-    zero = 0
+    zero_image = 0
+    bad_image = 0
 
     # debug/verbose
     if v:
@@ -128,13 +141,32 @@ def do_dir(d,dsum,shape,area,contour,diff, v):
     ffs.sort()                       # on linux wasn't sorted, on dos it was  
     f = open(dsum+'/summary.txt','w')   # Creates summary text file 
     f.write('Streaks found in files: \n')   #Creates first line for summary file
-    print('Processing %d files' % len(ffs))
-    for ff in ffs:
+    
+    sf = start_frame
+    ef = end_frame
+    
+    if sf <= 0:
+        sf = 1
+    
+    if ef <= 0 or ef > len(ffs):
+        ef = len(ffs)
+    
+    if ef < sf:
+        temp = sf
+        sf = ef
+        ef = temp
+
+    print('Processing %d files from %d to %d' % ((ef-sf+1), sf, ef))
+    for ff in ffs[sf-1:ef]:
         # creates directory one directory back from the folder which contains fits files
+        
         num = do_one(ff,dsum+'/'+ff[ff.rfind(os.sep)+1:ff.rfind('.')],shape,area,contour) 
+
         
         if num == 0:
-            zero += 1
+            zero_image += 1
+        elif num < 0:
+            bad_image += 1
         else:
             detected += int(num)    #Counter of how many streaks detected
             f.write(ff + '\n') 
@@ -142,31 +174,41 @@ def do_dir(d,dsum,shape,area,contour,diff, v):
     # Produce and write summary file 
     f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
     f.write('Streaks detected: ' + str(detected) + '\n' )
-    f.write('Files with no detections: ' + str(zero) + '\n\n\n')
+    f.write('Files with no detections: ' + str(zero_image) + '\n')
+    f.write('Bad files: ' + str(bad_image)+ '\n\n\n')
     if diff:
         num = 0
         detected = 0
         fileCount = 0
-        zero = 0
+        zero_image = 0
+        bad_image = 0
         dfs = []
         print('Computing %d differences' % (len(ffs)-1))
         for i in range(len(ffs)-1):
-            dfs.append(ffs[i+1]+'.diff')
+            dfs.append(ffs[i+1]+'DIFF')
             mk_diff(ffs[i],ffs[i+1],dfs[i],v)
         print('Processing %d files' % (len(ffs)-1))
         for df in dfs:
             # num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
-            num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF',shape,area,contour) 
+            #diff_file = dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF'
+            
+            num = do_one(df,df,shape,area,contour) 
+
+
             if num == 0:
-                zero += 1
+                zero_image += 1
+            elif num < 0:
+                bad_image += 1
             else:
                 detected += int(num)    #Counter of how many streaks detected
                 f.write(df + '\n') 
             fileCount += 1   #Counter for how many files analyzed         
+            os.remove(df)
         # Produce and write summary file 
         f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
         f.write('Streaks detected: ' + str(detected) + '\n' )
         f.write('Files with no detections: ' + str(zero) + '\n')
+        f.write('Bad files: ' + str(bad_image)+ '\n\n\n')
         f.close()
     else:
         f.close()
@@ -175,23 +217,27 @@ def do_one(ff,output_path,shape,area,contour):
     """
     process a directory one fits-file (ff)
     """
-    # Read a fits image and create a Streak instance.
-    streak = Streak(ff,output_path=output_path)
-    # Detect streaks.
+    try:
+        # Read a fits image and create a Streak instance.
+        streak = Streak(ff,output_path=output_path)
+        # Detect streaks.
+        
+        # streak.shape_cut = .14
+        # streak.area_cut = 120
+        # streak.contour_threshold = 12
+        
+        # Customization of values
+        streak.shape_cut = shape
+        streak.area_cut = area
+        streak.contour_threshold = contour
+        
+        streak.detect()
+        
+        n = len(streak.streaks)
     
-    # streak.shape_cut = .14
-    # streak.area_cut = 120
-    # streak.contour_threshold = 12
-    
-    #Customization of values
-    streak.shape_cut = shape
-    streak.area_cut = area
-    streak.contour_threshold = contour
-    
-    streak.detect()
+    except:
+        n = -1
 
-    n = len(streak.streaks)
-    
     if n > 0:
     # Write outputs and plot figures.
         streak.write_outputs()
@@ -199,13 +245,15 @@ def do_one(ff,output_path,shape,area,contour):
 
     if n == 0:
         sys.stdout.write('.')
+    elif n < 0:
+        sys.stdout.write('X')
     elif n < 10:
         sys.stdout.write('%d' % n)
     else:
         sys.stdout.write('*')
     sys.stdout.flush()
     
-    return int(n)
+    return n
 #def do_one(ff,output_path=None,shape=None,area=None,contour=None):  BACKUP
     """
     process a directory one fits-file (ff)
@@ -256,11 +304,11 @@ def do_one(ff,output_path,shape,area,contour):
 #do_dir('20151108_MD01_raw')
 
 if __name__ == '__main__':    
-    (file_pathin,file_pathout,shape,area,contour,diff,v) = get_arg(sys.argv)
+    (file_pathin,file_pathout,shape,area,contour,diff,v, start_frame, end_frame) = get_arg(sys.argv)
     #Prints selected folders
     print("Running in data directory %s" % file_pathin)
     print("Outputting in data directory %s" % file_pathout)
-    do_dir(file_pathin,file_pathout,shape,area,contour,diff,v)
+    do_dir(file_pathin,file_pathout,shape,area,contour,diff,v, start_frame, end_frame)
     
     #print("Running in data directory %s" % sys.argv[1])
     #do_dir(sys.argv[1],sys.argv[2])
