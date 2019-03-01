@@ -10,11 +10,15 @@ TESTDIR = test2015
 
 help:
 	@echo Some help:
-	@echo "  test1       small test"
+	@echo "run python try_astride -h for input flag descriptions"
 
 clean:
 	rm -rf test1
 
 test1:
 	./try_astride.py -i $(TESTDIR) -o test1
+latest:
+	./try_astride.py
+cleanall:
+	rm -rf *-output
 
