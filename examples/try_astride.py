@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+# /usr/bin/env python
 #
 #   1440 files took about 38 mins
 #
@@ -129,6 +129,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
     fileCount = 0
     zero_image = 0
     bad_image = 0
+    bad_image_paths = []
 
     # debug/verbose
     if v:
@@ -167,48 +168,83 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
             zero_image += 1
         elif num < 0:
             bad_image += 1
+            bad_image_paths.append(ff)
         else:
             detected += int(num)    #Counter of how many streaks detected
             f.write(ff + '\n') 
         fileCount += 1   #Counter for how many files analyzed         
+    print("\n")
     # Produce and write summary file 
     f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
     f.write('Streaks detected: ' + str(detected) + '\n' )
     f.write('Files with no detections: ' + str(zero_image) + '\n')
-    f.write('Bad files: ' + str(bad_image)+ '\n\n\n')
+    f.write('Bad files: ' + str(bad_image)+ '\n')
+    
+    temp_string = "\n"
+    temp_string = temp_string.join(bad_image_paths)
+    f.write(temp_string)
+    
+    f.write('\n\n')
+
     if diff:
+        f.write('Streaks found in Files: \n')
         num = 0
         detected = 0
         fileCount = 0
         zero_image = 0
         bad_image = 0
+        bad_image_paths = []
         dfs = []
-        print('Computing %d differences' % (len(ffs)-1))
+        print('Computing %d differences' % (ef-sf))
         for i in range(len(ffs)-1):
-            dfs.append(ffs[i+1]+'DIFF')
+            dfs.append(dsum+'/'+ffs[i+1][len(d)+1:]+'DIFF')
+#            mk_diff(ffs[i],ffs[i+1],dfs[i],v)
+
+        if sf <= 0:
+            sf = 1
+
+        if ef <= 0 or ef > len(dfs):
+            ef = len(dfs)
+        
+        if ef < sf:
+            temp = sf
+            sf = ef
+            ef = temp
+
+        print('Processing %d files from %d to %d' % ((ef-sf+1), sf, ef))
+        i = sf-1
+        for df in dfs[sf-1:ef]:
             mk_diff(ffs[i],ffs[i+1],dfs[i],v)
-        print('Processing %d files' % (len(ffs)-1))
-        for df in dfs:
             # num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
             #diff_file = dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF'
             
-            num = do_one(df,df,shape,area,contour) 
+            #directory one directory back
+            new_dir = dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')]+'DIFF'
+            num = do_one(df,new_dir,shape,area,contour) 
+            os.remove(df)
 
 
             if num == 0:
                 zero_image += 1
             elif num < 0:
                 bad_image += 1
+                bad_image_paths.append(df)
             else:
                 detected += int(num)    #Counter of how many streaks detected
                 f.write(df + '\n') 
             fileCount += 1   #Counter for how many files analyzed         
-            os.remove(df)
+            i += 1
+        print("\n")
         # Produce and write summary file 
         f.write('\n' 'Files analyzed: ' + str(fileCount)+ '\n' )
         f.write('Streaks detected: ' + str(detected) + '\n' )
-        f.write('Files with no detections: ' + str(zero) + '\n')
-        f.write('Bad files: ' + str(bad_image)+ '\n\n\n')
+        f.write('Files with no detections: ' + str(zero_image) + '\n')
+        f.write('Bad files: ' + str(bad_image)+ '\n')
+
+        temp_string = "\n"
+        temp_string = temp_string.join(bad_image_paths)
+        f.write(temp_string)
+
         f.close()
     else:
         f.close()
