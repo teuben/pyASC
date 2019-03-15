@@ -197,7 +197,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
         dfs = []
 #        print('Computing %d differences' % (ef-sf+1))
         for i in range(len(ffs)-1):
-            dfs.append(dsum+'/'+ffs[i+1].replace('/','')[len(d):]+'DIFF')
+            dfs.append(dsum+'/'+ffs[i+1][len(d):]+'DIFF')
 #            mk_diff(ffs[i],ffs[i+1],dfs[i],v)
             
         if sf <= 0:
