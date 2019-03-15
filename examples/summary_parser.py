@@ -14,7 +14,7 @@ if __name__ == "__main__":
         file_path = (args['filein'][0])
     else:
         # example directory match "2019-12-02 to 2019-12-03"
-        list_dir = glob.glob('[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] to [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]')
+        list_dir = glob.glob(path)
         #module called filepath that can use instead of glob.glob
         file_path = max(list_dir, key = lambda f:datetime.date(int(f[0:4]),int(f[5:7]),int(f[8:10])))
         
