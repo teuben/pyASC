@@ -111,8 +111,28 @@ def get_int_arg(argv):
         diff = False
     else:
         diff = ndiff.lower() == 'true'
+		
+    nv = input("Verbose mode (enter t or f) (default = false)")
+    if nv == "":
+        v = False
+    if nv == "t":
+        v = True
+    if nv == "f":
+        v = False
+    
+    nstart_frame = input("Frame at which to start (default = 1)")
+    if nstart_frame == "":
+        start_frame = -1
+    else:
+        start_frame=float(nstart_frame)
         
-    return(file_pathin,file_pathout,shape,area,contour,diff)
+    nend_frame = input("Last frame (does not process last frame) (default goes to end)")
+    if nend_frame == "":
+        end_frame = -1
+    else:
+        end_frame=float(nend_frame)
+        
+    return(file_pathin,file_pathout,shape,area,contour,diff,v,start_frame,end_frame)
 
 def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
     """
@@ -347,4 +367,4 @@ if __name__ == '__main__':
     do_dir(file_pathin,file_pathout,shape,area,contour,diff,v, start_frame, end_frame)
     
     #print("Running in data directory %s" % sys.argv[1])
-    #do_dir(sys.argv[1],sys.argv[2])
+#do_dir(sys.argv[1],sys.argv[2])
