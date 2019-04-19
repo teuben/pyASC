@@ -6,7 +6,7 @@
 #TESTDIR = ../../20151108_MD01_raw/
 
 #  simple test with 20 files IMG01320.FIT .. IMG01339.FIT from the 20151108_MD01_raw sample
-TESTDIR = test2015
+TESTDIR = Test2015
 
 help:
 	@echo Some help:
