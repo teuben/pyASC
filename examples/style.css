@@ -1,0 +1,76 @@
+body{
+    margin: 0;
+    background-color: lightsteelblue;
+}
+
+header{
+    text-align: center; 
+    color: white;
+    background-image:url("Starsinthesky.jpg");
+    min-height: 100px;
+    font-size: 40px;
+    border-bottom:  black 11px solid;
+}
+
+footer{
+    width: 100%;
+    background-color:  black;
+    margin-top: 1000px;
+}
+
+section{
+    margin-left: 10px;
+}
+
+.box h1{
+    margin-left: 15px;
+}
+
+.box p{
+    margin-left: 10px;
+}
+
+.box{
+    float: left;
+    margin: 15px;
+    width: 40%;
+    background-color: white;
+    border: black solid 3px;
+}
+
+
+.sidebox{
+    background-image: url("sample_image.png");
+    width: 50%;
+    background-position: -30px -70px;
+    min-height: 250px;
+    box-sizing: border-box;
+    border: white solid 3px;
+    margin: 15px 15px 0px 0px;
+    padding:10px;
+    float: right;
+}
+
+.subtitle{
+    font-size: 35px;
+}
+
+.container{
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+
+a{
+    font-size:  20px;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+b{
+    font-size:  20px;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+
