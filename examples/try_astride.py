@@ -24,7 +24,7 @@ def get_arg(argv):
 def mk_diff(f0,f1,diff, v):
     hdu0 = fits.open(f0, ignore_missing_end=True)
     hdu1 = fits.open(f1, ignore_missing_end=True)
-
+ 
     h1 = hdu1[0].header
 
     d0 = hdu0[0].data
@@ -46,7 +46,7 @@ def get_cmd_arg(argv,shape=.14,area=120,contour=12,diff = False, v = False, star
     parser.add_argument('-c','--contour',nargs=1,help = 'blah Control value')
     parser.add_argument('-d','--difference',action = 'store_const',const = diff , help = 'Create difference images')
     parser.add_argument('-v','--verbose', action = 'store_const', const = v, help = 'Verbose')
-    parser.add_argument('-S','--start',nargs = 1, help = 'Start Frame')
+    parser.add_argument('-S','--start',nargs = 1, help = 'Start Frame (starts at 1)')
     parser.add_argument('-E','--end', nargs = 1, help = 'End Frame')
     args=vars(parser.parse_args())
     
@@ -182,7 +182,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
         # creates directory one directory back from the folder which contains fits files
         
         num = do_one(ff,dsum+'/'+ff[ff.rfind(os.sep)+1:ff.rfind('.')],shape,area,contour) 
-
+        
         
         if num == 0:
             zero_image += 1
@@ -215,18 +215,18 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
         bad_image = 0
         bad_image_paths = []
         dfs = []
-        print('Computing %d differences' % (ef-sf))
+#        print('Computing %d differences' % (ef-sf+1))
         for i in range(len(ffs)-1):
-            dfs.append(dsum+'/'+ffs[i+1][len(d)+1:]+'DIFF')
+            dfs.append(dsum+'/'+ffs[i+1][len(d):]+'DIFF')
 #            mk_diff(ffs[i],ffs[i+1],dfs[i],v)
-
+            
         if sf <= 0:
             sf = 1
 
         if ef <= 0 or ef > len(dfs):
             ef = len(dfs)
         
-        if ef < sf:
+        if ef <= sf:
             temp = sf
             sf = ef
             ef = temp
