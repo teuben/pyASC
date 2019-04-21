@@ -6,6 +6,7 @@ from astropy.table import Column
 from astropy.io import ascii
 import numpy as np
 import os
+import time
 
 
 parser = ap.ArgumentParser()
@@ -16,11 +17,12 @@ args = vars(parser.parse_args())
 
 all = False
 
-table_set = {}
+table_set = []
 
 if args['filein'] != None: 
     file_path = (args['filein'][0])
-    
+    table_set.append(time.gmtime(os.path.getctime(file_path)).tm_year)
+
 
 if args['alldir'] != None:
     file_path = (args['alldir'][0])
@@ -44,6 +46,11 @@ except:
 if all:
     list = os.listdir(file_path)
     list.sort()
+
+    for file in list:
+        table_set.append(time.gmtime(os.path.getctime(file_path)).tm_year)
+
+    table_set = list(set(table_set))
 
     for file in list:
         row = [file]
