@@ -145,7 +145,6 @@ def get_int_arg(arguments):
                      onvalue=1, offvalue=0 )
     C2 = Checkbutton(top, text = "Verbose mode (default = false)", variable = nv, \
                  onvalue = 1, offvalue = 0 )
-
     
 
     def save(nshape, narea, ncontour, nstart_frame, nend_frame, ndiff, nv):
@@ -176,8 +175,7 @@ def get_int_arg(arguments):
     C2.pack()
     s.pack()
     top.mainloop()
-    
-        
+          
     return(arguments)
 
 def do_dir(arguments):
@@ -428,6 +426,7 @@ if __name__ == '__main__':
     do_dir(arguments)
     
     #print("Running in data directory %s" % sys.argv[1])
+
     #do_dir(sys.argv[1],sys.argv[2])
 
 
