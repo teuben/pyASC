@@ -8,62 +8,10 @@ import numpy as np
 import os
 import time
 
+def listdir_fullpath(d):
+    return [os.path.join(d, f) for f in os.listdir(d)]
 
-parser = ap.ArgumentParser()
-parser.add_argument('-i','--filein', nargs=1, help = 'Directory of outputs of try_astride.py')
-parser.add_argument('-a', '--alldir', nargs=1, help = 'All sub directories in given path')
-parser.add_argument('-l', '--latest', nargs=1, help = 'looks at latest directory in given path')
-args = vars(parser.parse_args())
-
-all = False
-
-table_set = []
-
-if args['filein'] != None: 
-    file_path = (args['filein'][0])
-    table_set.append(time.gmtime(os.path.getctime(file_path)).tm_year)
-
-
-if args['alldir'] != None:
-    file_path = (args['alldir'][0])
-    all = True
-
-if args['latest'] != None:
-    list = os.listdir(args['latest'][0])
-    for i in range(len(list)):
-        list[i] = args['latest'][0] + list[i]
-    file_path = max(list, key=os.path.getctime)
-
-
-try:
-    t = ascii.read("table1.html")
-except:
-    arr = np.arange(3).reshape(1,3)
-    t = Table(arr, names=('file', 'reg', 'diff'),dtype=('S32', 'S2', 'S2'))
-    t.remove_row(0)
-
-
-if all:
-    list = os.listdir(file_path)
-    list.sort()
-
-    for file in list:
-        table_set.append(time.gmtime(os.path.getctime(file_path)).tm_year)
-
-    table_set = list(set(table_set))
-
-    for file in list:
-        row = [file]
-        summary = open(file_path+file+"/summary.txt", 'r')
-        for line in summary:
-            line = line.strip()
-            if line.startswith("Streaks detected:"):
-                row.append(line[18:])
-        while len(row) < 3:
-            row.append('0')
-        t.add_row(row)        
-else:
-
+def get_row(file_path):
     summary = open(file_path+"/summary.txt", 'r')
     row = [file_path]
     for line in summary:
@@ -72,62 +20,56 @@ else:
                 row.append(line[18:])
     while len(row) < 3:
         row.append('0')
-    t.add_row(row)
+
+    return row
+
+parser = ap.ArgumentParser()
+parser.add_argument('-i','--filein', nargs=1, help = 'Directory of outputs of try_astride.py')
+parser.add_argument('-a', '--alldir', nargs=1, help = 'All sub directories in given path')
+parser.add_argument('-l', '--latest', nargs=1, help = 'looks at latest directory in given path')
+args = vars(parser.parse_args())
+
+time_set = []
+table_set = []
+file_paths = []
+
+if args['filein'] != None: 
+    file_paths = [(args['filein'][0])]
+    time_set.append(time.gmtime(os.path.getctime(file_paths[0])).tm_year)
+
+if args['alldir'] != None:
+    file_paths = listdir_fullpath(args['alldir'][0])
+    file_paths.sort()
+    for file in file_paths:
+        time_set.append(time.gmtime(os.path.getctime(file)).tm_year)
+    time_set = list(set(time_set))
+    time_set.sort()
+
+if args['latest'] != None:
+    file_paths = listdir_fullpath(args['latest'][0])
+    file_paths = [max(file_paths, key=os.path.getctime)]
+    time_set.append(time.gmtime(os.path.getctime(file_paths[0])).tm_year)
 
 
-t.write("table1.html", format="html", overwrite = True)
 
-print(t)
+min_year = time_set[0]
 
-# if args['filein'] != None: 
-#     file_path = (args['filein'][0])
+for counter, year in enumerate(time_set):
+    try:
+        table_set.append(ascii.read("table"+year+".html"))
+    except:
+        arr = np.arange(3).reshape(1,3)
+        table_set.append(Table(arr, names=('file', 'reg', 'diff'),dtype=('S32', 'S2', 'S2')))
+        table_set[counter].remove_row(0)
 
-# if args['alldir'] != None:
-#     file_path = (args['alldir'][0])
-#     all = True
+for file in file_paths:
+    year = time.gmtime(os.path.getctime(file)).tm_year
+    table_set[year-min_year].add_row(get_row(file))
 
-# if args['latest'] != None:
-#     list = os.listdir(args['latest'][0])
-#     for i in range(len(list)):
-#         list[i] = args['latest'][0] + list[i]
-#     file_path = max(list, key=os.path.getctime)
-
-# try:
-#     t = ascii.read("table1.html")
-# except:
-#     arr = np.arange(3).reshape(1,3)
-#     t = Table(arr, names=('file', 'reg', 'diff'),dtype=('S32', 'S2', 'S2'))
-#     t.remove_row(0)
+for counter, table in enumerate(table_set):
+    table.write("table"+str(time_set[counter])+".html", format="html", overwrite = True)
 
 
-# if all:
-#     list = os.listdir(file_path)
-#     list.sort()
-
-#     for file in list:
-#         row = [file]
-#         summary = open(file_path+file+"/summary.txt", 'r')
-#         for line in summary:
-#             line = line.strip()
-#             if line.startswith("Streaks detected:"):
-#                 row.append(line[18:])
-#         while len(row) < 3:
-#             row.append('0')
-#         t.add_row(row)        
-# else:
-
-#     summary = open(file_path+"/summary.txt", 'r')
-#     row = [file_path]
-#     for line in summary:
-#             line = line.strip()
-#             if line.startswith("Streaks detected:"):
-#                 row.append(line[18:])
-#     while len(row) < 3:
-#         row.append('0')
-#     t.add_row(row)
 
 
-# t.write("table1.html", format="html", overwrite = True)
-
-# print(t)
 
