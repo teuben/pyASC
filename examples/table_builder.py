@@ -23,13 +23,21 @@ def get_row(file_path):
 
     return row
 
+ 
+date = False
+
 parser = ap.ArgumentParser()
 parser.add_argument('-i','--filein', nargs=1, help = 'Directory of outputs of try_astride.py')
 parser.add_argument('-a', '--alldir', nargs=1, help = 'All sub directories in given path')
 parser.add_argument('-l', '--latest', nargs=1, help = 'looks at latest directory in given path')
+parser.add_argument('-d', '--date', action = 'store_const', const = date, help = 'tell program what year each file was made in') 
 args = vars(parser.parse_args())
 
+if args['date'] != None:
+    date = True
+
 time_set = []
+times = []
 table_set = []
 file_paths = []
 
@@ -50,7 +58,12 @@ if args['latest'] != None:
     file_paths = [max(file_paths, key=os.path.getctime)]
     time_set.append(time.gmtime(os.path.getctime(file_paths[0])).tm_year)
 
-
+if date:
+    for file in file_paths:
+        year = input('Enter year for directory ' + file + '\n')
+        times.append(int(year))
+    time_set = list(set(times))
+    time_set.sort()
 
 min_year = time_set[0]
 
@@ -62,8 +75,11 @@ for counter, year in enumerate(time_set):
         table_set.append(Table(arr, names=('file', 'reg', 'diff'),dtype=('S32', 'S2', 'S2')))
         table_set[counter].remove_row(0)
 
-for file in file_paths:
-    year = time.gmtime(os.path.getctime(file)).tm_year
+for counter, file in enumerate(file_paths):
+    if date:
+        year = times[counter]
+    else:
+        year = time.gmtime(os.path.getctime(file)).tm_year
     table_set[year-min_year].add_row(get_row(file))
 
 for counter, table in enumerate(table_set):
