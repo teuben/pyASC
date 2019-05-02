@@ -37,7 +37,6 @@ if args['date'] != None:
     date = True
 
 time_set = []
-times = []
 table_set = []
 file_paths = []
 
@@ -47,7 +46,7 @@ if args['filein'] != None:
 
 if args['alldir'] != None:
     file_paths = listdir_fullpath(args['alldir'][0])
-    file_paths.sort()
+    file_paths.sort(key = lambda x: int(x[len(args['alldir'][0]):]))
     for file in file_paths:
         time_set.append(time.gmtime(os.path.getctime(file)).tm_year)
     time_set = list(set(time_set))
@@ -58,12 +57,17 @@ if args['latest'] != None:
     file_paths = [max(file_paths, key=os.path.getctime)]
     time_set.append(time.gmtime(os.path.getctime(file_paths[0])).tm_year)
 
+# if date:
+#     for file in file_paths:
+#         year = input('Enter year for directory ' + file + '\n')
+#         times.append(int(year))
+#     time_set = list(set(times))
+#     time_set.sort()
+
 if date:
-    for file in file_paths:
-        year = input('Enter year for directory ' + file + '\n')
-        times.append(int(year))
-    time_set = list(set(times))
-    time_set.sort()
+    time_set = []
+    year = input('Enter year for directory\n')
+    time_set.append(int(year))
 
 min_year = time_set[0]
 
@@ -77,7 +81,7 @@ for counter, year in enumerate(time_set):
 
 for counter, file in enumerate(file_paths):
     if date:
-        year = times[counter]
+        year = time_set[0]
     else:
         year = time.gmtime(os.path.getctime(file)).tm_year
     table_set[year-min_year].add_row(get_row(file))
