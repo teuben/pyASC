@@ -1,20 +1,26 @@
 a{
     font-size:  20px;
-    margin-right: 1%;
+    margin-right: 4%;
     text-decoration: none;
 }
 
+a:any-link{
+    color: lightblue;
+}
+
 body{
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
     margin: 0;
-    background-color: aliceblue;
+    background-color: #546488;
 }
 
 .box h1{
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .box p{
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .box{
@@ -26,11 +32,12 @@ body{
 }
 
 .box2 h1{
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .box2 p{
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .box2{
@@ -43,11 +50,12 @@ body{
 
 
 .box3 h1{
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .box3 p{
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .box3{
@@ -90,7 +98,7 @@ header{
 .links{
     width: 100%;
     display:inline-block;
-    margin-left: 1%;
+    margin-left: 2%;
     margin-top: 5%;
 }
 
@@ -107,7 +115,7 @@ section{
    width: 58%;
    height: auto;
    margin: 1%;
-   margin-right: -1%;
+   margin-right: -1.25%;
 }
 
 .subtitle{
