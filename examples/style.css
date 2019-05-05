@@ -1,6 +1,89 @@
+a{
+    font-size:  20px;
+    margin-right: 4%;
+    text-decoration: none;
+}
+
+a:any-link{
+    color: lightblue;
+}
+
 body{
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
     margin: 0;
-    background-color: lightsteelblue;
+    background-color: #546488;
+}
+
+.box h1{
+    margin-left: 20px;
+}
+
+.box p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box{
+    float: left;
+    margin: 1%;
+    width: 35%;
+    background-color: white;
+    
+}
+
+.box2 h1{
+    margin-left: 20px;
+}
+
+.box2 p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box2{
+    float: right;
+    margin: 1%;
+    width: 58%;
+    background-color: white;
+    
+}
+
+
+.box3 h1{
+    margin-left: 20px;
+}
+
+.box3 p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box3{
+    float: left;
+    margin: 1%;
+    width: 35%;
+    background-color: white;
+    
+}
+
+.container img{
+    width: 45%;
+    height: auto; 
+}
+
+.container{
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+
+
+footer{
+    width: 100%;
+    background-color:  black;
+    margin-top: 300px;
+	color: white;
+	text-align: center;
 }
 
 header{
@@ -12,58 +95,29 @@ header{
     border-bottom:  black 11px solid;
 }
 
-footer{
+.links{
     width: 100%;
-    background-color:  black;
-    margin-top: 1000px;
+    display:inline-block;
+    margin-left: 2%;
+    margin-top: 5%;
 }
 
 section{
-    margin-left: 10px;
+    margin-left: .7%;
 }
 
-.box h1{
-    margin-left: 15px;
+.sideimg{
+	margin-right: 15px;
 }
-
-.box p{
-    margin-left: 10px;
-}
-
-.box{
-    float: left;
-    margin: 15px;
-    width: 40%;
-    background-color: white;
-    border: black solid 3px;
-}
-
 
 .sidebox{
-    background-image: url("sample_image.png");
-    width: 50%;
-    background-position: -30px -70px;
-    min-height: 250px;
-    box-sizing: border-box;
-    border: black solid 3px;
-    margin: 15px 15px 0px 0px;
-    padding:10px;
-    float: right;
+   float: right;
+   width: 58%;
+   height: auto;
+   margin: 1%;
+   margin-right: -1.25%;
 }
 
 .subtitle{
     font-size: 35px;
 }
-
-.container{
-    width: 100%;
-    overflow: hidden;
-    margin: auto;
-}
-
-a{
-    font-size:  20px;
-    margin-left: 15px;
-    text-decoration: none;
-}
-

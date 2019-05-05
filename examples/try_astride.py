@@ -27,6 +27,7 @@ class _Args:
     v = False
     start_frame = -1
     end_frame = -1
+    
 def get_arg(argv):
     
     arguments = _Args()
@@ -66,9 +67,6 @@ def get_cmd_arg(argv, arguments):
     args=vars(parser.parse_args())
     
     if args['filein'] != None: arguments.file_pathin = (args['filein'][0])  
-    else:
-         list_dir = glob.glob('[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] to [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]')
-         arguments.file_pathin = max(list_dir, key = lambda f:datetime.date(int(f[0:4]),int(f[5:7]),int(f[8:10])))
     if args['fileout'] != None: arguments.file_pathout = (args['fileout'][0]) 
     else:
         if arguments.file_pathin.endswith("/"):
@@ -205,8 +203,6 @@ def do_dir(arguments):
     ffs.sort()                       # on linux wasn't sorted, on dos it was  
     f = open(arguments.file_pathout+'/summary.txt','w')   # Creates summary text file
     f.write('Streaks found in files: \n')   #Creates first line for summary file
-
-
 
     sf = arguments.start_frame
     ef = arguments.end_frame
