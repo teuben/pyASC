@@ -1,0 +1,6 @@
+
+ESA Sky:   
+https://www.cosmos.esa.int/web/esdc/esasky-for-education
+
+CCD reduction book:
+https://mwcraig.github.io/ccd-as-book/00-00-Preface.html
