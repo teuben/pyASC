@@ -1,10 +1,11 @@
-# /usr/bin/env python
+#! /usr/bin/env python
 #
 #   1440 files took about 38 mins
 #
 
 from __future__ import print_function
 from tkinter import filedialog
+from tkinter import *
 from astride import Streak
 import glob
 import sys
@@ -15,11 +16,26 @@ import matplotlib.pyplot as plt
 from astropy.io import fits
 import numpy as np
 
+
+class _Args:
+    file_pathin = ""
+    file_pathout = ""
+    shape = 0.14
+    area = 120
+    contour = 12
+    diff = False
+    v = False
+    start_frame = -1
+    end_frame = -1
+    
 def get_arg(argv):
+    
+    arguments = _Args()
+    
     if len(argv) == 1: 
-        return get_int_arg(argv)
+        return get_int_arg(arguments)
     else:
-        return get_cmd_arg(argv)    
+        return get_cmd_arg(argv, arguments)    
  
 def mk_diff(f0,f1,diff, v):
     hdu0 = fits.open(f0, ignore_missing_end=True)
@@ -36,94 +52,139 @@ def mk_diff(f0,f1,diff, v):
 
     fits.writeto(diff,d2,h1,overwrite=True)
  
-def get_cmd_arg(argv,shape=.14,area=120,contour=12,diff = False, v = False, start_frame = -1, end_frame = -1):
+def get_cmd_arg(argv, arguments):
     import argparse as ap
     parser = ap.ArgumentParser()
-    parser.add_argument('-i','--filein', nargs=1,help = 'Directory to fits directory') 
-    parser.add_argument('-o','--fileout', nargs=1,help = 'Directory to detection folder') 
+    parser.add_argument('-i','--filein', nargs=1,help = 'Directory to input fits directory') 
+    parser.add_argument('-o','--fileout', nargs=1,help = 'Directory to output folder') 
     parser.add_argument('-s','--shape', nargs=1,help = 'Shape factor') 
     parser.add_argument('-a','--area', nargs=1,help = 'Minimum area to be considered a streak')     
-    parser.add_argument('-c','--contour',nargs=1,help = 'blah Control value')
-    parser.add_argument('-d','--difference',action = 'store_const',const = diff , help = 'Create difference images')
-    parser.add_argument('-v','--verbose', action = 'store_const', const = v, help = 'Verbose')
+    parser.add_argument('-c','--contour',nargs=1,help = 'Control value')
+    parser.add_argument('-d','--difference',action = 'store_const',const = arguments.diff , help = 'Create difference images')
+    parser.add_argument('-v','--verbose', action = 'store_const', const = arguments.v, help = 'Verbose')
     parser.add_argument('-S','--start',nargs = 1, help = 'Start Frame (starts at 1)')
     parser.add_argument('-E','--end', nargs = 1, help = 'End Frame')
     args=vars(parser.parse_args())
     
-    if args['filein'] != None: file_pathin = (args['filein'][0])  
+    if args['filein'] != None: arguments.file_pathin = (args['filein'][0])  
+    if args['fileout'] != None: arguments.file_pathout = (args['fileout'][0]) 
     else:
-         list_dir = glob.glob('[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] to [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]')
-         file_pathin = max(list_dir, key = lambda f:datetime.date(int(f[0:4]),int(f[5:7]),int(f[8:10])))
-    if args['fileout'] != None: file_pathout = (args['fileout'][0]) 
-    else:
-        if file_pathin.endswith("/"):
-            file_pathout = file_pathin[0:len(file_pathin) -1] + "-output"
+        if arguments.file_pathin.endswith("/"):
+            arguments.file_pathout = arguments.file_pathin[0:len(arguments.file_pathin) -1] + "-output"
         else:
-            file_pathout = file_pathin +"-output"
-    if args['shape'] != None: shape = float(args['shape'][0])
-    if args['area'] != None: area = float(args['area'][0])
-    if args['contour'] != None: contour = float(args['contour'][0])
-    if args['difference'] != None: diff = True
-    if args['verbose'] != None: v = True
-    if args['start'] != None: start_frame = int(args['start'][0])
-    if args['end']   != None: end_frame   = int(args['end'][0])
+            arguments.file_pathout = arguments.file_pathin +"-output"
+    if args['shape'] != None: arguments.shape = float(args['shape'][0])
+    if args['area'] != None: arguments.area = float(args['area'][0])
+    if args['contour'] != None: arguments.contour = float(args['contour'][0])
+    if args['difference'] != None: arguments.diff = True
+    if args['verbose'] != None: arguments.v = True
+    if args['start'] != None: arguments.start_frame = int(args['start'][0])
+    if args['end']   != None: arguments.end_frame   = int(args['end'][0])
 
-    return (file_pathin,file_pathout,shape,area,contour,diff, v, start_frame, end_frame)
+    return arguments
     
-def get_int_arg(argv):
+def get_int_arg(arguments):
+    
     #Creates folder input browsers
     winin = tk.Tk()
     winin.withdraw()
     winin.attributes('-topmost', True)
-    file_pathin = filedialog.askdirectory(title = "Select input")
+    arguments.file_pathin = filedialog.askdirectory(title = "Select input")
     
     #Creates folder output browsers   
     winout = tk.Tk()
     winout.withdraw()
     winout.attributes('-topmost', True)
-    file_pathout = filedialog.askdirectory(title = "Select output")
+    arguments.file_pathout = filedialog.askdirectory(title = "Select output")
     
     winout.destroy()
     winin.destroy()
     
-    #ask user for remaining arguments
-    print("\nClicking enter will apply default values, entering a value will change it.")
-    nshape = input("Shape value (1=circle, .1=thin oval) (default = 0.14): ")
-    if nshape == "":
-        shape = .14
-    else:
-        shape = float(nshape)
+    top = tk.Tk()
+    nshape = tk.StringVar()
+    narea = tk.StringVar()
+    ncontour = tk.StringVar()
+    nstart_frame = tk.StringVar()
+    nend_frame = tk.StringVar()
+    ndiff = tk.IntVar()
+    nv = tk.IntVar()
     
-    narea = input("Minimum area (default = 120): ")
-    if narea == "":
-        area = 120
-    else:
-        area = float(narea)
-        
-    ncontour = input("Contour value (higher=only brighter streaks detected)(default = 12): ")
-    if ncontour == "":
-        contour = 12
-    else:
-        contour = float(ncontour)
+    L1 = Label(top, text="Shape value (1=circle, .1=thin oval) (default = 0.14): ")
+    L1.pack()
+    eshape = Entry(top, textvariable=nshape)
+    #nshape = float(nshape.get())
+    eshape.pack()
+    
+    L2 = Label(top, text="Minimum area (default = 120): ")
+    L2.pack()
+    earea = Entry(top, textvariable=narea)
+    #narea = float(narea.get())
+    earea.pack()
+    
+    L3 = Label(top, text="Contour value (higher=only brighter streaks detected)(default = 12): ")
+    L3.pack()
+    econtour = Entry(top, textvariable=ncontour)
+    #ncontour = float(ncontour.get())
+    econtour.pack()
+    
+    L4 = Label(top, text="Frame at which to start (default = 1)")
+    L4.pack()
+    estart_frame = Entry(top, textvariable=nstart_frame)
+    #nstart_frame = float(nstart_frame.get())
+    estart_frame.pack()
+    
+    L5 = Label(top, text="Last frame (does not process last frame) (default goes to end)")
+    L5.pack()
+    eend_frame = Entry(top, textvariable=nend_frame)
+    #nend_frame = float(nend_frame.get())
+    eend_frame.pack()
+    
+    C1 = Checkbutton(top, text = "Difference imaging (default = false)", variable = ndiff, \
+                     onvalue=1, offvalue=0 )
+    C2 = Checkbutton(top, text = "Verbose mode (default = false)", variable = nv, \
+                 onvalue = 1, offvalue = 0 )
+    
 
-    ndiff = input("Difference imaging (default = false)")
-    if ndiff == "":
-        diff = False
-    else:
-        diff = ndiff.lower() == 'true'
+    def save(nshape, narea, ncontour, nstart_frame, nend_frame, ndiff, nv):
+        if len(nshape.get()) != 0:
+            arguments.shape = float(nshape.get())
+  
+        if len(narea.get()) != 0:
+            arguments.area = float(narea.get())
+            
+        if len(ncontour.get()) != 0:
+            arguments.contour = float(ncontour.get())
+           
+        if len(nstart_frame.get()) != 0:
+            arguments.start_frame = int(nstart_frame.get())
+            
+        if len(nend_frame.get()) != 0:
+            arguments.end_frame = int(nend_frame.get())
         
-    return(file_pathin,file_pathout,shape,area,contour,diff)
+        arguments.diff = ndiff.get()
+      
+        arguments.v = nv.get()
+        
+        top.destroy()
+    
+    s = Button(top, text="Save Values", command=lambda: save(nshape, narea, ncontour, nstart_frame, nend_frame, ndiff, nv))
+    
+    C1.pack()
+    C2.pack()
+    s.pack()
+    top.mainloop()
+          
+    return(arguments)
 
-def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
+def do_dir(arguments):
     """
     process a directory 'd'
     """
     #print("Outputting in directory: " + dsum)
-    if dsum == None:
-        dsum = d
-    else:
-        if not os.path.exists(dsum):    
-            os.mkdir(dsum)
+   
+    if not os.path.exists(arguments.file_pathout):    
+        os.mkdir(arguments.file_pathout)
+
     num = 0
     detected = 0
     fileCount = 0
@@ -132,19 +193,19 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
     bad_image_paths = []
 
     # debug/verbose
-    if v:
-          print('DEBUG: shape=%g area=%g contour=%g' % (shape,area,contour))
+    if arguments.v:
+          print('DEBUG: shape=%g area=%g contour=%g' % (arguments.shape,arguments.area,arguments.contour))
     
-    ffs = glob.glob(d+'/*.FIT') + glob.glob(d+'/*.fit') + \
-          glob.glob(d+'/*.FTS') + glob.glob(d+'/*.fts') + \
-          glob.glob(d+'/*.FITS') + glob.glob(d+'/*.fits')
+    ffs = glob.glob(arguments.file_pathin+'/*.FIT') + glob.glob(arguments.file_pathin+'/*.fit') + \
+          glob.glob(arguments.file_pathin+'/*.FTS') + glob.glob(arguments.file_pathin+'/*.fts') + \
+          glob.glob(arguments.file_pathin+'/*.FITS') + glob.glob(arguments.file_pathin+'/*.fits')
     ffs = list(set(ffs))             # needed for dos
     ffs.sort()                       # on linux wasn't sorted, on dos it was  
-    f = open(dsum+'/summary.txt','w')   # Creates summary text file 
+    f = open(arguments.file_pathout+'/summary.txt','w')   # Creates summary text file
     f.write('Streaks found in files: \n')   #Creates first line for summary file
-    
-    sf = start_frame
-    ef = end_frame
+
+    sf = arguments.start_frame
+    ef = arguments.end_frame
     
     if sf <= 0:
         sf = 1
@@ -161,7 +222,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
     for ff in ffs[sf-1:ef]:
         # creates directory one directory back from the folder which contains fits files
         
-        num = do_one(ff,dsum+'/'+ff[ff.rfind(os.sep)+1:ff.rfind('.')],shape,area,contour) 
+        num = do_one(ff,arguments.file_pathout+'/'+ff[ff.rfind(os.sep)+1:ff.rfind('.')],arguments.shape,arguments.area,arguments.contour)
         
         
         if num == 0:
@@ -186,7 +247,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
     
     f.write('\n\n')
 
-    if diff:
+    if arguments.diff:
         f.write('Streaks found in Files: \n')
         num = 0
         detected = 0
@@ -197,7 +258,7 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
         dfs = []
 #        print('Computing %d differences' % (ef-sf+1))
         for i in range(len(ffs)-1):
-            dfs.append(dsum+'/'+ffs[i+1][len(d):]+'DIFF')
+            dfs.append(arguments.file_pathout+'/'+ffs[i+1][len(arguments.file_pathin):]+'DIFF')
 #            mk_diff(ffs[i],ffs[i+1],dfs[i],v)
             
         if sf <= 0:
@@ -214,14 +275,20 @@ def do_dir(d,dsum,shape,area,contour,diff, v, start_frame, end_frame):
         print('Processing %d files from %d to %d' % ((ef-sf+1), sf, ef))
         i = sf-1
         for df in dfs[sf-1:ef]:
-            mk_diff(ffs[i],ffs[i+1],dfs[i],v)
-            # num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
-            #diff_file = dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF'
+            try:
+                mk_diff(ffs[i],ffs[i+1],dfs[i],arguments.v)
+                # num = do_one(df,dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')],shape,area,contour)
+                #diff_file = dsum+'/'+df[df.rfind(os.sep)+1:df.find('.')]+'DIFF'
             
-            #directory one directory back
-            new_dir = dsum+'/'+df[df.rfind(os.sep)+1:df.rfind('.')]+'DIFF'
-            num = do_one(df,new_dir,shape,area,contour) 
-            os.remove(df)
+                #directory one directory back
+                new_dir = arguments.file_pathout+'/'+df[df.rfind(os.sep)+1:df.rfind('.')]+'DIFF'
+                num = do_one(df,new_dir,arguments.shape,arguments.area,arguments.contour)
+                os.remove(df)
+                
+            except:
+                num=-1
+                sys.stdout.write('X')
+            
 
 
             if num == 0:
@@ -340,11 +407,22 @@ def do_one(ff,output_path,shape,area,contour):
 #do_dir('20151108_MD01_raw')
 
 if __name__ == '__main__':    
-    (file_pathin,file_pathout,shape,area,contour,diff,v, start_frame, end_frame) = get_arg(sys.argv)
+    try:
+        arguments = get_arg(sys.argv)
+    except:
+        print("An error occored getting the arguments for the function\n")
+        sys.exit(0)
+        
+    
+
+
     #Prints selected folders
-    print("Running in data directory %s" % file_pathin)
-    print("Outputting in data directory %s" % file_pathout)
-    do_dir(file_pathin,file_pathout,shape,area,contour,diff,v, start_frame, end_frame)
+    print("Running in data directory %s" % arguments.file_pathin)
+    print("Outputting in data directory %s" % arguments.file_pathout)
+    do_dir(arguments)
     
     #print("Running in data directory %s" % sys.argv[1])
+
     #do_dir(sys.argv[1],sys.argv[2])
+
+

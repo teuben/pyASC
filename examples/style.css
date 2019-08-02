@@ -1,0 +1,123 @@
+a{
+    font-size:  20px;
+    margin-right: 4%;
+    text-decoration: none;
+}
+
+a:any-link{
+    color: lightblue;
+}
+
+body{
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+    margin: 0;
+    background-color: #546488;
+}
+
+.box h1{
+    margin-left: 20px;
+}
+
+.box p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box{
+    float: left;
+    margin: 1%;
+    width: 35%;
+    background-color: white;
+    
+}
+
+.box2 h1{
+    margin-left: 20px;
+}
+
+.box2 p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box2{
+    float: right;
+    margin: 1%;
+    width: 58%;
+    background-color: white;
+    
+}
+
+
+.box3 h1{
+    margin-left: 20px;
+}
+
+.box3 p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box3{
+    float: left;
+    margin: 1%;
+    width: 35%;
+    background-color: white;
+    
+}
+
+.container img{
+    width: 45%;
+    height: auto; 
+}
+
+.container{
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+
+
+footer{
+    width: 100%;
+    background-color:  black;
+    margin-top: 300px;
+	color: white;
+	text-align: center;
+}
+
+header{
+    text-align: center; 
+    color: white;
+    background-image:url("Starsinthesky.jpg");
+    min-height: 100px;
+    font-size: 40px;
+    border-bottom:  black 11px solid;
+}
+
+.links{
+    width: 100%;
+    display:inline-block;
+    margin-left: 2%;
+    margin-top: 5%;
+}
+
+section{
+    margin-left: .7%;
+}
+
+.sideimg{
+	margin-right: 15px;
+}
+
+.sidebox{
+   float: right;
+   width: 58%;
+   height: auto;
+   margin: 1%;
+   margin-right: -1.25%;
+}
+
+.subtitle{
+    font-size: 35px;
+}
