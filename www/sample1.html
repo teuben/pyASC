@@ -1,26 +1,78 @@
 <html>
 <head>
-<meta http-equiv="refresh" content="30"></meta>
+<meta></meta>
 <title>MASN_01</title>
+
+<!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
+<script language="JavaScript">
+// <!--
+var camera = 1;
+
+function load_image()
+{
+	document.animation.src = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+	setTimeout("load_image()", 15000);
+}
+
+function change_image(num)
+{
+	if(num > 0)
+	{
+		camera = num;
+	}
+} 
+
+// -->
+</script>
+
 </head>
-<body>
+<body onload="load_image(1)">
 
 <h2 style="text-align:center">MASN_01 HOMEPAGE</h2>
 
-<table style="margin-left:auto; margin-right:auto">
-<tr><td><a href="sample2.html">MASN_02</a></td>
-<td><a href="sample3.html">MASN_03</a></td>
-<td><a href="sample4.html">MASN_04</a></td>
-<td><a href="sample5.html">MASN_05</a></td>
+<a href="sample-home.html">
+	<h4 style="text-align:center;">Return home
+	</h4>
+</a>
+
+<table style="margin-left: auto; margin-right:auto">
+<tr>
+	<td>
+		<button type="button" onclick=
+			"document.getElementById('img_anchor').href = 'http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?';
+			document.getElementById('img_self').src = 'http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?'; change_image(1)">
+		MASN_01</button>
+	</td>
+	<td>
+		<button type="button" onclick=
+			"document.getElementById('img_anchor').href = 'https://cdn.mos.cms.futurecdn.net/pAWXMnvfQPyfdthf6ZeUaM-320-80.jpg';
+			document.getElementById('img_self').src = 'https://cdn.mos.cms.futurecdn.net/pAWXMnvfQPyfdthf6ZeUaM-320-80.jpg'">
+		MASN_02</button>
+	</td>
+	<td>
+		<button type="button" onclick=
+			"change_image(3);">
+		MASN_03</button>
+	</td>
+	<td>
+		<button type="button" onclick=
+			"change_image(4);">
+		MASN_04</button>
+	</td>
+	<td>
+		<a href="sample5.html">MASN_05</a>
+	</td>
 </tr>
 </table>
 
 <div style="background-color:lightpink; text-align:center">
-<a href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg#">
-	<img src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg#" style="width:50%">
+<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+	<img id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" style="width:50%">
 	</img>
 </a>
 </div>
+
+<p></p>
 
 <a href="https://astro.umd.edu">
 UMD Astro homepage
