@@ -1,0 +1,185 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="colors.css">
+<title>MASN_01</title>
+
+<!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
+<script language="JavaScript">
+// <!--
+var camera = 1;
+
+function load_image()
+{
+
+	var link = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+	document.getElementById("img_anchor").href = link;
+	document.getElementById("img_self").src = link;
+	setTimeout("load_image()", 15000);
+}
+
+// Loads the image immediately rather than after a 15s delay
+// (used for the buttons)
+function force_load_image(num){
+	if(num !== undefined){
+		camera = num;
+	}
+	load_image();
+}
+
+// -->
+</script>
+
+</head>
+<body onload="load_image()">
+
+<div class="container-fluid">
+	<h2 class="text-center">
+		MARYLAND ALL-SKY NETWORK
+	</h2>
+
+	<div class="container">
+		<nav class="navbar navbar-light">
+			<a class="navbar-brand" href="#">Home</a>
+	  		<a class="nav-item nav-link disabled" href="#">Image archives</a>
+	  		<a class="nav-item nav-link disabled" href="#">Video archives</a>
+	  		<a class="nav-item nav-link disabled" href="#">Tech stuff</a>
+	  		<a class="nav-item nav-link disabled" href="#">Other</a>
+		</nav> <!--Closes the top navbar-->
+	</div>
+
+	<div class="row UMD-Der-silver align-items-center">
+		<div class="col-1">
+			<ul class="nav flex-column">
+				<li class="nav-item">
+					<a class="nav-link active" href="#" onclick="force_load_image(1)">
+						MASN 01 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="#" onclick="force_load_image(2)">
+						MASN 02 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" onclick="force_load_image(3)">
+						MASN 03 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" onclick="force_load_image(4)">
+						MASN 04 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" onclick="force_load_image(5)">
+						MASN 05 Camera
+					</a>
+				</li>
+			</ul>
+		</div> <!--Closing camera nav-->
+
+		<div class="col-8">
+			<div class="tab-content">
+				<div class="tab-pane show active" id="MASN_01">
+					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+						</img>
+					</a>
+				</div>
+			</div>
+		</div> <!--Closing camera image-->
+
+		<div class= "col-3">
+
+			<div class="align-items-center">
+				<p class="text-justify">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+		</div> <!--Closing camera text-->
+	</div> <!--Closing Camera info row div-->
+
+	<div class="row">
+	<a href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+		<img alt="Video goes here">
+	</a>
+	</div>
+
+	<div class="card-deck UMD-Der-red py-2">
+		 <div class="card">
+			<img src="#" alt="hardware photo">
+			<div class="card-body">
+				<h5>Hardware</h5>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+		</div>
+		<div class="card">
+			<img src="#" alt="tech photo">
+			<div class="card-body">
+				<h6>Software</h6>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+		</div>
+		 <div class="card">
+			<img src="#" alt="team photo">
+			<div class="card-body">
+				<p class="lead">Team</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			</div>
+		</div>
+	</div> <!--CLoses card deck-->
+
+	<div class="row text-center">
+		<div class="col">
+			<a href="https://www.astro.umd.edu/openhouse/">
+				UMD Observatory homepage
+			</a>
+		</div>
+		<div class="col">
+			<a href="https://www.astro.umd.edu/">
+				UMD astro homepage
+			</a>
+		</div>
+		<div class="col">
+			<a href="https://www.umd.edu">
+				UMD homepage
+			</a>
+		</div>
+		<div class="col">
+			<a href="https://www.cmns.umd.edu/">
+				UMD CMNS homepage
+			</a>
+		</div>
+	</div><!--ends footer-->
+
+<!--broke
+	<footer>
+		<a href="https://www.astro.umd.edu/openhouse/">
+			UMD Observatory homepage
+		</a>
+		<a href="https://www.astro.umd.edu/">
+			UMD astro homepage
+		</a>
+		<a href="https://www.umd.edu">
+			UMD homepage
+		</a>
+		<a href="https://www.cmns.umd.edu/">
+			UMD CMNS homepage
+		</a>
+	</footer>
+-->
+	<br></br>
+
+</div> <!--Closing main div-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
