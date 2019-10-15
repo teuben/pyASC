@@ -1,0 +1,164 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="colors.css">
+<title>MASN_01</title>
+
+<!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
+<script language="JavaScript">
+// <!--
+var camera = 1;
+
+function load_image()
+{
+
+	document.animation.src = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+	setTimeout("load_image()", 15000);
+}
+
+// Loads the image immediately rather than after a 15s delay
+// (used for the buttons)
+function force_load_image(num){
+	if(num !== undefined){
+		camera = num;
+	}
+	document.animation.src = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+}
+
+// -->
+</script>
+
+</head>
+<body onload="load_image()">
+
+<div class="container-fluid">
+	<h2 style="text-align:center;">
+		MARYLAND ALL-SKY NETWORK
+	</h2>
+
+	<a href="sample-home.html">
+		<h4 style="text-align:center;">Return home
+		</h4>
+	</a>
+
+	<div class="row UMD-Der-silver">
+		<div class="col-2">
+			<ul class="nav nav-tabs justify-content-fill">
+				<li class="nav-item">
+					<a class="nav-link active" href="MASN_01#">
+						MASN 01 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="MASN_02#">
+						MASN 02 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						MASN 03 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						MASN 04 Camera
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						MASN 05 Camera
+					</a>
+				</li>
+			</ul>
+		</div> <!--Closing camera nav-->
+
+		<div class="col-7">
+			<div class="tab-content">
+				<div class="tab-pane show active" id="MASN_01">
+					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+						</img>
+					</a>
+				</div>
+				<div class="tab-pane" id="MASN_02">
+					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn02-latest/AllSkEyeLatest.jpg?">
+						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn02-latest/AllSkEyeLatest.jpg?">
+						</img>
+					</a>
+				</div>
+			</div>
+		</div> <!--Closing camera image-->
+
+		<div class= "col-3">
+			<div class="UMD-Der-black align-items-center">
+				<p style="color:white">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+		</div> <!--Closing camera text-->
+	</div> <!--Closing Camera info row div-->
+
+	<!--
+	<div class = "btn-group btn-group-justified">
+		<div class="btn-group">
+			<button type="button btn-outline-primary" class="btn" onclick="force_load_image(1)">
+				MASN_01
+			</button>
+		</div>
+	</div>
+	-->
+
+	<div class="row" style="text-align:center">
+	<a href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+		<img alt="Video goes here">
+	</a>
+	</div>
+
+	<div class="card-deck UMD-Der-red py-2">
+		 <div class="card">
+			<img src="#" alt="hardware photo">
+			<div class="card-body">
+				<h6>Hardware</h6>
+				<p>some hardware info</p>
+			</div>
+		</div>
+
+		<div class="card">
+			<img src="#" alt="tech photo">
+			<div class="card-body">
+				<h6>Tech</h6>
+				<p>some tech info</p>
+			</div>
+		</div>
+		 <div class="card">
+			<img src="#" alt="hardware photo">
+			<div class="card-body">
+				<h6>Hardware</h6>
+				<p>some hardware info</p>
+			</div>
+		</div>
+	</div>
+
+	<p></p>
+	<div class="row">
+		<a href="https://astro.umd.edu">
+			UMD Astro homepage
+		</a>
+	</div>
+
+	<br></br>
+
+</div> <!--Closing main div-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+
+</body>
+</html>
