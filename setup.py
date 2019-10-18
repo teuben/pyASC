@@ -10,7 +10,7 @@ with open("README.md", "r") as f:
 setup(
     name='pyASC',
     version=version['__version__'],
-    author='Peter Teuben',
+    author='Peter Teuben and Geoffrey Ryan',
     author_email='teuben@astro.umd.edu',
     description='Package for managing an all-sky camera network',
     long_description=long_description,
@@ -18,6 +18,7 @@ setup(
     license='MIT',
     url='https://github.com/teuben/pyASC',
     packages=['pyASC'],
+    scripts=['scripts/testArchive', 'scripts/testMovie'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

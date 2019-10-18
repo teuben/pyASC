@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+import pyASC
+import sys
+
+usage = "usage: $ testMovie <dirName> <date>"
+
+if __name__ == "__main__":
+
+    if len(sys.argv) < 3:
+        print(usage)
+        sys.exit()
+
+    a = pyASC.archive.Archive(sys.argv[1])
+
+    pyASC.analysis.makeNightlyMovie(a, 'MASN-01', sys.argv[2], "movie.mp4")
