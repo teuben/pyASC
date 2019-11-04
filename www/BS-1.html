@@ -31,24 +31,29 @@ function force_load_image(num){
 </script>
 
 </head>
-<body onload="load_image()">
+<body onload="load_image()" style="background: url('Banner_3.png') no-repeat center center; background-position: top">
 
-<div class="container-fluid">
-	<h2 class="text-center">
+<!--Main Div-->
+<div class="container-fluid text-info">
+
+	<!--Title-->
+	<h2 class="text-center py-3">
 		MARYLAND ALL-SKY NETWORK
 	</h2>
 
-	<div class="container">
-		<nav class="navbar navbar-light">
-			<a class="navbar-brand" href="#">Home</a>
-	  		<a class="nav-item nav-link disabled" href="#">Image archives</a>
-	  		<a class="nav-item nav-link disabled" href="#">Video archives</a>
-	  		<a class="nav-item nav-link disabled" href="#">Tech stuff</a>
-	  		<a class="nav-item nav-link disabled" href="#">Other</a>
-		</nav> <!--Closes the top navbar-->
-	</div>
+	<!--Top Navbar-->
+	<nav class="navbar navbar-light justify-content-center">
+		<a class="navbar-brand text-light" href="#">Home</a>
+  		<a class="nav-item nav-link text-light" href="#">Image archives</a>
+  		<a class="nav-item nav-link text-light" href="#">Video archives</a>
+  		<a class="nav-item nav-link text-light" href="#">Tech stuff</a>
+  		<a class="nav-item nav-link text-light" href="#">Other</a>
+	</nav> 
+	<!--Closes the top navbar-->
 
+	<!--Camera row-->
 	<div class="row UMD-Der-silver align-items-center justify-content">
+		<!--Camera nav-->
 		<div class="col-lg-1">
 			<ul class="nav flex-lg-column">
 				<li class="nav-item">
@@ -81,8 +86,10 @@ function force_load_image(num){
 					</a>
 				</li>
 			</ul>
-		</div> <!--Closing camera nav-->
+		</div> 
+		<!--Closing camera nav-->
 
+		<!--Camera-->
 		<div class="col-lg-7 col-xs-12">
 			<div class="tab-content">
 				<div class="tab-pane show active" id="MASN_01">
@@ -91,58 +98,76 @@ function force_load_image(num){
 					</a>
 				</div>
 			</div>
-		</div> <!--Closing camera image-->
+		</div> 
+		<!--Closing camera image-->
 
+		<!--Camera text-->
 		<div class= "col-lg-4 col-xs-12">
 
 			<div class="align-items-center">
-				<p class="text-justify">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				<p class="text-justify text-dark">
+					Text text text
 				</p>
 			</div>
-		</div> <!--Closing camera text-->
+		</div> 
+		<!--Closing camera text-->
 	</div> <!--Closing Camera info row div-->
 
-	<div class="row">
-		<!--
-		<a href="">
-			<video controls>
-				<source src="http://mdallsky.astro.umd.edu/masn01-latest/LatestVideo.mp4" type="video/mp4" />
-			Your browser does not support the video tag. :(
-			</video>
-		</a>
-		-->
-		<div class="col-lg-4 col-sm-12">
+
+
+	<!--Video div-->
+	<div class="row UMD-Der-Tan align-items-center justify-content-center">
+		<!--Video text-->
+		<div class="col-lg-4 col-sm-12 order-2 order-lg-1 text-justify">
+			<p>
+				Video of previous night timelapse 
+			</p>
 		</div>
-		<div class="col-lg-8 col-sm-12">
-			<div class="embed-responsive embed-responsive-16by9">
+		<!--Video-->
+		<div class="col-lg-8 col-sm-12 order-1 order-lg-2">
+			<div class="embed-responsive embed-responsive-4by3">
   				<iframe class="embed-responsive-item" src="http://mdallsky.astro.umd.edu/masn01-latest/LatestVideo.mp4" allowfullscreen>
   				</iframe>
 			</div>
 		</div>
+	</div> 
+	<!--End video div-->
 
-	</div> <!--End video div-->
-
-	<div class="row">
-		<div class="col-lg-6 col-sm-12">
+	<!--Pictures of the month-->
+	<div class="row UMD-Der-Black">
+		<div class="col-lg-6 col-sm-12 text-center">
 			<div class="container">
-				<img class="img" alt="meteor picture" />
+				<img src="Meteor.png" class="img w-75" alt="meteor picture" />
+				<p>
+					Meteor Picture of the Month
+				</p>
+				<p>
+					Text text text
+				</p>
 			</div>
 		</div>
-		<div class="col-lg-6 col-sm-12 ">
+		<div class="col-lg-6 col-sm-12 text-center">
 			<div class="container">
-				<img class="img" alt="weird picture" />
+				<img src="Weird.png" class="img w-75" alt="weird picture" />
+				<p>
+					Weird Picture of the Month
+				</p>
+				<p>
+					Text text text
+				</p>
 			</div>
 		</div>
 	</div>
+	<!--End pictures of the month-->
 
-	<div class="row UMD-Der-red py-1">
+	<!--Tech and team info-->
+	<div class="row UMD-Der-red py-1 text-dark">
 		 <div class="col-lg-4 col-sm-12 my-1">
 		 	<div class="card">
 				<img src="#" alt="hardware photo">
 				<div class="card-body">
 					<h5>Hardware</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p>Text</p>
 				</div>
 			</div>
 		</div>
@@ -151,7 +176,7 @@ function force_load_image(num){
 				<img src="#" alt="tech photo">
 				<div class="card-body">
 					<h5>Software</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p>Text</p>
 				</div>
 			</div>
 		</div>
@@ -160,11 +185,12 @@ function force_load_image(num){
 				<img src="#" alt="team photo">
 				<div class="card-body">
 					<h5>Team</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p>Text</p>
 				</div>
 			</div>
 		</div>
-	</div> <!--CLoses card deck-->
+	</div> 
+	<!--End tech and team info-->
 
 
 	<footer class="footer">
