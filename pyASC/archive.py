@@ -12,7 +12,8 @@ class Archive:
         return "Archive(rootdir={0:s})".format(repr(self.rootdir))
 
     def getNodeNames(self):
-        return self.nodes.keys()
+        names = [k for k in self.nodes.keys()]
+        return names
 
     def getFITS(self, node, yyyymmdd):
         # yyyymm = yyyymmdd[:6]

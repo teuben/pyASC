@@ -18,8 +18,9 @@ setup(
     license='MIT',
     url='https://github.com/teuben/pyASC',
     packages=['pyASC'],
-    scripts=['scripts/testArchive', 'scripts/testMovie'],
-    install_requires=['numpy', 'opencv-contrib-python-headless'],
+    scripts=['scripts/testArchive', 'scripts/testMovie', 'scripts/pyASC-run'],
+    install_requires=['numpy', 'opencv-contrib-python-headless',
+                      'pyyaml >= 3.08'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import argparse as ap
+import pyASC
+
+if __name__ == "__main__":
+
+    desc = "Run a pyASC instance."
+    config_help = "A YAML configuration file. Defaults to config.yaml"
+
+    parser = ap.ArgumentParser(description=desc)
+    parser.add_argument('config', default='config.yaml', nargs='?',
+                        help=config_help)
+
+    arg = parser.parse_args()
+
+    pyASC.runYAML(arg.config)
