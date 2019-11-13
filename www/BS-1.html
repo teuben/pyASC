@@ -37,25 +37,90 @@ function force_load_image(num){
 <div class="container-fluid text-info">
 
 	<!--Title-->
+	<div class="container-fluid text-light" style="background-color: rgba(0, 0, 0, 0.5)">
+
 	<h2 class="text-center py-3">
 		MARYLAND ALL-SKY NETWORK
 	</h2>
 
 	<!--Top Navbar-->
-	<nav class="navbar navbar-light justify-content-center">
-		<a class="navbar-brand text-light" href="#">Home</a>
-  		<a class="nav-item nav-link text-light" href="#">Image archives</a>
-  		<a class="nav-item nav-link text-light" href="#">Video archives</a>
-  		<a class="nav-item nav-link text-light" href="#">Tech stuff</a>
-  		<a class="nav-item nav-link text-light" href="#">Other</a>
-	</nav> 
+	<nav class="navbar navbar-expand-md navbar-dark">
+		<div class="">
+			<a class="navbar-brand text-light" href="#">
+				MASN Home
+			</a>
+		</div>
+  		
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+ 		</button>
+
+	  	<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+	    	<ul class="navbar-nav">
+		      	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        	Cameras
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          	<a class="dropdown-item" href="#">MASN&nbsp;01</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;02</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;03</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;04</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;05</a>
+			        </div>
+			    </li>
+
+			    <li class="nav-item dropright d-md-none d-lg-auto">
+			    				        <!--Smaller Camera dropdown-->
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        	Cameras
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          	<a class="dropdown-item" href="#">MASN&nbsp;01</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;02</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;03</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;04</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;05</a>
+			        </div>
+				</li>
+
+		      	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Archives
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          	<a class="dropdown-item" href="#">Videos</a>
+			          	<a class="dropdown-item" href="#">Meteors</a>
+			          	<a class="dropdown-item disabled" href="#">Non-meteors(?)</a>
+			        </div>
+			    </li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="#">Technical</a>
+		      	</li>
+		     	<li class="nav-item">
+		        	<a class="nav-link" href="#">Project</a>
+		      	</li>
+    			<li class="nav-item">
+		        	<a class="nav-link" href="#">Misc.</a>
+		      	</li>
+	    	</ul>
+	<!--
+	    <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+	-->
+	  	</div>
+	</nav>
+</div>
 	<!--Closes the top navbar-->
 
 	<!--Camera row-->
 	<div class="row UMD-Der-silver align-items-center justify-content">
 		<!--Camera nav-->
 		<div class="col-lg-1">
-			<ul class="nav flex-lg-column">
+
+			<ul class="nav flex-lg-column justify-content-center">
 				<li class="nav-item">
 					<a class="nav-link active" href="#" onclick="force_load_image(1)">
 						MASN&nbsp;01
