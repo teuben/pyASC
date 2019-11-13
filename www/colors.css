@@ -41,3 +41,5 @@
 .UMD-Der-black { background-color: #1E1E1E; }
 .UMD-Der-red { background-color: #CF3239; }
 .UMD-Der-silver { background-color: #ACACAC; }
+
+ul.navbar-nav li.nav-item a.nav-link {color:#FFF;}
