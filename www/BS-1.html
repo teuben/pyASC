@@ -1,0 +1,290 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="colors.css">
+<title>MASN_01</title>
+
+<!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
+<script language="JavaScript">
+// <!--
+var camera = 1;
+
+function load_image()
+{
+
+	var link = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+	document.getElementById("img_anchor").href = link;
+	document.getElementById("img_self").src = link;
+	setTimeout("load_image()", 15000);
+}
+
+// Loads the image immediately rather than after a 15s delay
+// (used for the buttons)
+function force_load_image(num){
+	if(num !== undefined){
+		camera = num;
+	}
+	load_image();
+}
+
+// -->
+</script>
+
+</head>
+<body onload="load_image()" style="background: url('Banner_3.png') no-repeat center center; background-position: top">
+
+<!--Main Div-->
+<div class="container-fluid text-info">
+
+	<!--Title-->
+	<div class="container-fluid text-light" style="background-color: rgba(0, 0, 0, 0.5)">
+
+	<h2 class="text-center py-3">
+		MARYLAND ALL-SKY NETWORK
+	</h2>
+
+	<!--Top Navbar-->
+	<nav class="navbar navbar-expand-md navbar-dark">
+		<div class="">
+			<a class="navbar-brand text-light" href="#">
+				MASN Home
+			</a>
+		</div>
+  		
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+ 		</button>
+
+	  	<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+	    	<ul class="navbar-nav">
+		      	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        	Cameras
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          	<a class="dropdown-item" href="#">MASN&nbsp;01</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;02</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;03</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;04</a>
+			          	<a class="dropdown-item" href="#">MASN&nbsp;05</a>
+			        </div>
+			    </li>
+
+		      	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Archives
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          	<a class="dropdown-item" href="#">Videos</a>
+			          	<a class="dropdown-item" href="#">Meteors</a>
+			          	<a class="dropdown-item disabled" href="#">Non-meteors(?)</a>
+			        </div>
+			    </li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="#">Technical</a>
+		      	</li>
+		     	<li class="nav-item">
+		        	<a class="nav-link" href="#">Project</a>
+		      	</li>
+    			<li class="nav-item">
+		        	<a class="nav-link" href="#">Misc.</a>
+		      	</li>
+	    	</ul>
+	<!--
+	    <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+	-->
+	  	</div>
+	</nav>
+</div>
+	<!--Closes the top navbar-->
+
+	<!--Camera row-->
+	<div class="row UMD-Der-silver align-items-center justify-content">
+		<!--Camera nav-->
+		<div class="col-lg-1">
+
+			<ul class="nav flex-lg-column justify-content-center">
+				<li class="nav-item">
+					<a class="nav-link active" href="#" onclick="force_load_image(1)">
+						MASN&nbsp;01
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="#" onclick="force_load_image(2)">
+						MASN&nbsp;02
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" onclick="force_load_image(3)">
+						MASN&nbsp;03
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" onclick="force_load_image(4)">
+						MASN&nbsp;04
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" onclick="force_load_image(5)">
+						MASN&nbsp;05
+					</a>
+				</li>
+			</ul>
+		</div> 
+		<!--Closing camera nav-->
+
+		<!--Camera-->
+		<div class="col-lg-7 col-xs-12">
+			<div class="tab-content">
+				<div class="tab-pane show active" id="MASN_01">
+					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+					</a>
+				</div>
+			</div>
+		</div> 
+		<!--Closing camera image-->
+
+		<!--Camera text-->
+		<div class= "col-lg-4 col-xs-12">
+
+			<div class="align-items-center">
+				<p class="text-justify text-dark">
+					Text text text
+				</p>
+			</div>
+		</div> 
+		<!--Closing camera text-->
+	</div> <!--Closing Camera info row div-->
+
+
+
+	<!--Video div-->
+	<div class="row UMD-Der-Tan align-items-center justify-content-center">
+		<!--Video text-->
+		<div class="col-lg-4 col-sm-12 order-2 order-lg-1 text-justify">
+			<p>
+				Video of previous night timelapse 
+			</p>
+		</div>
+		<!--Video-->
+		<div class="col-lg-8 col-sm-12 order-1 order-lg-2">
+			<div class="embed-responsive embed-responsive-4by3">
+  				<iframe class="embed-responsive-item" src="http://mdallsky.astro.umd.edu/masn01-latest/LatestVideo.mp4" allowfullscreen>
+  				</iframe>
+			</div>
+		</div>
+	</div> 
+	<!--End video div-->
+
+	<!--Pictures of the month-->
+	<div class="row UMD-Der-Black">
+		<div class="col-lg-6 col-sm-12 text-center">
+			<div class="container">
+				<img src="Meteor.png" class="img w-75" alt="meteor picture" />
+				<p>
+					Meteor Picture of the Month
+				</p>
+				<p>
+					Text text text
+				</p>
+			</div>
+		</div>
+		<div class="col-lg-6 col-sm-12 text-center">
+			<div class="container">
+				<img src="Weird.png" class="img w-75" alt="weird picture" />
+				<p>
+					Weird Picture of the Month
+				</p>
+				<p>
+					Text text text
+				</p>
+			</div>
+		</div>
+	</div>
+	<!--End pictures of the month-->
+
+	<!--Tech and team info-->
+	<div class="row UMD-Der-red py-1 text-dark">
+		 <div class="col-lg-4 col-sm-12 my-1">
+		 	<div class="card">
+				<img src="#" alt="hardware photo">
+				<div class="card-body">
+					<h5>Hardware</h5>
+					<p>Text</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-sm-12 my-1">
+				<div class="card">
+				<img src="#" alt="tech photo">
+				<div class="card-body">
+					<h5>Software</h5>
+					<p>Text</p>
+				</div>
+			</div>
+		</div>
+		 <div class="col-lg-4 col-sm-12 my-1">
+			 <div class="card">
+				<img src="#" alt="team photo">
+				<div class="card-body">
+					<h5>Team</h5>
+					<p>Text</p>
+				</div>
+			</div>
+		</div>
+	</div> 
+	<!--End tech and team info-->
+
+
+	<footer class="footer">
+		<div class="container-fluid text-center">
+			<p>
+				<a href="https://www.astro.umd.edu/openhouse/">
+					Astronomy Observatory
+				</a> |
+
+				<a href="https://www.astro.umd.edu/">
+					Dept. of Astronomy
+				</a> |
+				
+				<a href="https://www.cmns.umd.edu/">
+					CMNS
+				</a> | 
+				
+				<a href="https://www.umd.edu">
+					UMD
+				</a>
+				
+				
+				<br />
+
+				<em><strong><a href="https://umd.edu/web-accessibility" target="_blank">Web Accessibility</a></strong></em>
+
+				<br />
+
+				Copyright &copy; 2019. All rights reserved.
+
+				<br />
+
+				Updated: <!--#config timefmt="%d-%h-%Y" --><!--#echo var="LAST_MODIFIED" -->
+			</p>
+		</div>
+	</footer>
+
+
+</div> <!--Closing main div-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

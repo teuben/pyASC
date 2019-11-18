@@ -1,0 +1,129 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="colors.css">
+<title>MASN_01</title>
+
+<!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
+<script language="JavaScript">
+// <!--
+var camera = 1;
+
+function load_image()
+{
+
+	document.animation.src = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+	setTimeout("load_image()", 15000);
+}
+
+// Loads the image immediately rather than after a 15s delay
+// (used for the buttons)
+function force_load_image(num){
+	if(num !== undefined){
+		camera = num;
+	}
+	document.animation.src = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+}
+
+// -->
+</script>
+
+</head>
+<body onload="load_image()">
+
+<h2 class="container-fluid Lantic-Gin-orange" style="text-align:center">MASN_01 HOMEPAGE</h2>
+
+<a href="sample-home.html">
+	<h4 style="text-align:center;">Return home
+	</h4>
+</a>
+
+<div class = "btn-group btn-group-justified">
+	<div class="btn-group">
+		<button type="button btn-outline-primary" class="btn" onclick="force_load_image(1)">
+			MASN_01
+		</button>
+	</div>
+	<div class="btn-group">
+		<button type="button" class="btn" onclick="force_load_image(2)">
+			MASN_02
+		</button>
+	</div>
+	<div class="btn-group">
+		<button type="button" class="btn" onclick="force_load_image(3)">
+			MASN_03
+		</button>
+	</div>
+	<div class="btn-group">
+		<button type="button" class="btn" onclick="force_load_image(4)">
+			MASN_04
+		</button>
+	</div>
+	<div class="btn-group">
+		<button type="button" class="btn" onclick="force_load_image(5)">
+			MASN_05
+		</button>
+	</div>
+</div>
+
+<!--antiquated?
+
+<table style="margin-left: auto; margin-right:auto">
+<tr>
+	<td>
+		<button type="button" onclick=
+			"document.getElementById('img_anchor').href = 'http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?';
+			document.getElementById('img_self').src = 'http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?'; load_image(1)">
+		MASN_01</button>
+	</td>
+	<td>
+		<button type="button" onclick=
+			"document.getElementById('img_anchor').href = 'https://cdn.mos.cms.futurecdn.net/pAWXMnvfQPyfdthf6ZeUaM-320-80.jpg';
+			document.getElementById('img_self').src = 'https://cdn.mos.cms.futurecdn.net/pAWXMnvfQPyfdthf6ZeUaM-320-80.jpg'">
+		MASN_02</button>
+	</td>
+	<td>
+		<button type="button" onclick=
+			"load_image(3);">
+		MASN_03</button>
+	</td>
+	<td>
+		<button type="button" onclick=
+			"load_image(4);">
+		MASN_04</button>
+	</td>
+	<td>
+		<a href="sample5.html">MASN_05</a>
+	</td>
+</tr>
+</table>
+
+-->
+
+<div class="container-fluid Lantic-Gin-blue" style="background-color:lightblue; text-align:center">
+<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+	<img id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" style="width:50%">
+	</img>
+</a>
+</div>
+
+<p></p>
+
+<a href="https://astro.umd.edu">
+UMD Astro homepage
+</a>
+
+<br></br>
+
+<div class="container-fluid">
+	<a href="palette-testing.html">CLICK ME</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+
+</body>
+</html>
