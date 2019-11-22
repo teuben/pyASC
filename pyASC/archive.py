@@ -47,7 +47,7 @@ class Archive:
         dayPattern = r"[0-9]{8}"
 
         for node in self.nodes:
-            path = os.path.join(self.rootdir, node)
+            path = os.path.join(self.rootdir, node, 'archive')
             dirs = os.listdir(path)
             for mo in dirs:
                 if re.fullmatch(monthPattern, mo) is not None:
@@ -76,7 +76,7 @@ class Archive:
                 month = node[ym]
                 for ymd in month:
                     day = month[ymd]
-                    path = os.path.join(self.rootdir, n, ym, ymd)
+                    path = os.path.join(self.rootdir, n, 'archive', ym, ymd)
                     count = 0
                     files = os.listdir(path)
                     for filename in files:
@@ -87,5 +87,5 @@ class Archive:
     def _getDayPath(self, node, yyyymmdd):
 
         yyyymm = yyyymmdd[:6]
-        path = os.path.join(self.rootdir, node, yyyymm, yyyymmdd)
+        path = os.path.join(self.rootdir, node, 'archive', yyyymm, yyyymmdd)
         return path
