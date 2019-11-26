@@ -31,6 +31,7 @@ function force_load_image(num){
 </script>
 
 </head>
+
 <body onload="load_image()" style="background: url('Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
@@ -39,11 +40,9 @@ function force_load_image(num){
 	<!--Title-->
 	<div class="container-fluid text-light" style="background-color: rgba(0, 0, 0, 0.5)">
 
-		<a class="text-light text-decoration-none" href="BS-1.html">
-			<h2 class="text-center py-3">
-				MARYLAND ALL-SKY NETWORK
-			</h2>
-		</a>
+		<h2 class="text-center py-3">
+			MARYLAND ALL-SKY NETWORK
+		</h2>
 
 		<!--Breakpoint debug
 		<div class="container d-xl-none" style="background-color: #000">	
@@ -63,7 +62,7 @@ function force_load_image(num){
 		<!--Top Navbar-->
 		<nav class="navbar navbar-expand-md navbar-dark">
 			<div class="">
-				<a class="navbar-brand text-light" href="BS-1.html">
+				<a class="navbar-brand text-light" href="#">
 					MASN Home
 				</a>
 			</div>
@@ -79,7 +78,7 @@ function force_load_image(num){
 				        	Cameras
 				        </a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				          	<a class="dropdown-item" href="MASN-Camera-1.html">MASN&nbsp;01</a>
+				          	<a class="dropdown-item" href="#">MASN&nbsp;01</a>
 				          	<a class="dropdown-item" href="#">MASN&nbsp;02</a>
 				          	<a class="dropdown-item" href="#">MASN&nbsp;03</a>
 				          	<a class="dropdown-item" href="#">MASN&nbsp;04</a>
@@ -107,7 +106,7 @@ function force_load_image(num){
 			        	<a class="nav-link" href="#">Misc.</a>
 			      	</li>
 		    	</ul>
-		<!--possible search bar
+		<!--
 		    <form class="form-inline my-2 my-lg-0">
 		      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -118,193 +117,26 @@ function force_load_image(num){
 	</div>
 	<!--Closes the top navbar-->
 
-	<!--Spacing debug
-	<div class="container-fluid no-gutters row UMD-Der-silver text-justify">
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-	</div>
-	-->
+	<!--Camera Jumbotron-->
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h2 class="text-left">All Sky Camera 1</h2>
+			<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+				<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+			</a>
+			
+			<p class="text-left py-2">Details about camera's location and links to archives from this camera.</p>
 
-	<!--Camera row-->
-	<div class="row container-fluid no-gutters UMD-Der-silver">
-		<div class="col-md-12 col-lg-8 align-items-center">
-			<!--Camera nav-->
-			<div class="row align-items-center">
-				<div class="container col-lg-2 col-md-12">
-					<ul class="nav flex-lg-column nav-pills nav-fill">
-						<li class="nav-item">
-							<a class="nav-link active" data-toggle="pill" href="#" onclick="force_load_image(1)">
-								MASN&nbsp;01
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="pill" href="#" onclick="force_load_image(2)">
-								MASN&nbsp;02
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link disabled" data-toggle="pill" href="#" onclick="force_load_image(3)">
-								MASN&nbsp;03
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link disabled" data-toggle="pill" href="#" onclick="force_load_image(4)">
-								MASN&nbsp;04
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link disabled" data-toggle="pill" href="#" onclick="force_load_image(5)">
-								MASN&nbsp;05
-							</a>
-						</li>
-					</ul>
-				</div> 
-				<!--Closing camera nav-->
-
-				<!--Camera-->
-				<div class="container col-lg-10 col-md-12">
-					<div class="tab-content">
-						<div class="tab-pane show active" id="MASN_01">
-							<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-								<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-							</a>
-						</div>
-					</div>
-				</div> 
-				<!--Closing camera image-->
-			</div>
-		</div>
-		<!--Camera text-->
-		<div class= "col-md-12 col-lg-4">
-
-			<div class="align-items-center">
-				<h2>Camera Text</h2>
-				<p class="text-justify text-dark">
-					Text text text
-				</p>
-			</div>
-		</div> 
-		<!--Closing camera text-->
-	</div> <!--Closing Camera info row div-->
-
-
-
-	<!--Video div-->
-	<div class="row UMD-Der-Tan align-items-start justify-content-center">
-		<!--Video text-->
-		<div class="col-lg-4 col-sm-12 order-2 order-lg-1 text-justify">
-			<h2>Video Text</h2>
-			<p>
-				Video of previous night timelapse 
+			<hr class="my-4">
+			<p>More information here.</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
 			</p>
 		</div>
-		<!--Video-->
-		<div class="col-lg-8 col-sm-12 order-1 order-lg-2">
-			<div class="embed-responsive embed-responsive-4by3">
-  				<iframe class="embed-responsive-item" src="http://mdallsky.astro.umd.edu/masn01-latest/LatestVideo.mp4" allowfullscreen>
-  				</iframe>
-			</div>
-		</div>
-	</div> 
-	<!--End video div-->
-
-	<!--Pictures of the month-->
-	<div class="row UMD-Der-Black text-light">
-		<div class="col-lg-6 col-sm-12 text-center">
-			<div class="container">
-				<img src="Meteor.png" class="img w-75" alt="meteor picture" />
-				<p>
-					Meteor Picture of the Month
-				</p>
-				<p>
-					Text text text
-				</p>
-			</div>
-		</div>
-		<div class="col-lg-6 col-sm-12 text-center">
-			<div class="container">
-				<img src="Weird.png" class="img w-75" alt="weird picture" />
-				<p>
-					Weird Picture of the Month
-				</p>
-				<p>
-					Text text text
-				</p>
-			</div>
-		</div>
 	</div>
-	<!--End pictures of the month-->
+	<!--Closing camera-->
 
-	<!--Tech and team info-->
-	<div class="row UMD-Der-red py-1 text-dark">
-		 <div class="col-lg-4 col-sm-12 my-1">
-		 	<div class="card">
-				<img src="#" alt="hardware photo">
-				<div class="card-body">
-					<h5>Hardware</h5>
-					<p>Text</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-sm-12 my-1">
-				<div class="card">
-				<img src="#" alt="tech photo">
-				<div class="card-body">
-					<h5>Software</h5>
-					<p>Text</p>
-				</div>
-			</div>
-		</div>
-		 <div class="col-lg-4 col-sm-12 my-1">
-			 <div class="card">
-				<img src="#" alt="team photo">
-				<div class="card-body">
-					<h5>Team</h5>
-					<p>Text</p>
-				</div>
-			</div>
-		</div>
-	</div> 
-	<!--End tech and team info-->
-
+	<!--Footer-->
 	<div class="container-fluid text-light" style="background-color: rgba(0, 0, 0, 0.5)">
 		<footer class="footer">
 			<div class="container-fluid text-center">
@@ -349,4 +181,5 @@ function force_load_image(num){
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
+
 </html>
