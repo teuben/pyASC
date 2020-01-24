@@ -31,34 +31,20 @@ function force_load_image(num){
 </script>
 
 </head>
+
 <body onload="load_image()" style="background: url('Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
-<div class="text-dark">
+<div class="container-fluid transparent-black-bg text-dark">
 
 	<!--Title-->
-	<div class="container-fluid text-light transparent-black-bg">
+	<div class="container-fluid transparent-black-bg text-light">
 
 		<a class="text-light text-decoration-none" href="Home.html">
 			<h2 class="text-center py-3">
 				MARYLAND ALL-SKY NETWORK
 			</h2>
 		</a>
-
-		<!--Breakpoint debug
-		<div class="container d-xl-none" style="background-color: #000">	
-			<p>LG</p>
-			<div class="container d-lg-none" style="background-color: #F00">
-				<p>MD</p>
-				<div class="container d-md-none" style="background-color: #0F0">
-					<p>SM</p>
-					<div class="container d-sm-none" style="background-color: #00F">
-						<p>XS</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		-->
 
 		<!--Top Navbar-->
 		<nav class="navbar navbar-expand-md navbar-dark">
@@ -118,64 +104,95 @@ function force_load_image(num){
 	</div>
 	<!--Closes the top navbar-->
 
-	<!--Spacing debug
-	<div class="container-fluid no-gutters row UMD-Der-silver text-justify">
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
-		</div>
-		<div class="col-1">
-			<p>stuff</p>
+	<!--Content-->
+	<div class="container-fluid UMD-Der-grey py-2">
+		<div class="jumbotron my-0">
+			<div class="container">
+				<h2 class="text-left pb-3">Technical info</h2>
+				<hr class="my-2" />
+				<!--Row 1 -->
+				<h4>MASN Hardware</h4>
+				<div class="container">
+					<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+					    	<li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+						    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+						    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+					  	</ol>
+					  	<!--The carousel captions are d-md-block because it is too large for phones to see past the text
+					  		This means that the captions are only visible on larger screens-->
+					  	<div class="carousel-inner">
+					    	<div class="carousel-item active">
+					      		<img src="https://scx1.b-cdn.net/csz/news/800/2019/cometgateway.jpg" class="d-block w-100" alt="...">
+					      		<div class="carousel-caption d-none d-md-block">
+				        			<h5>Image of hardware 1</h5>
+				        			<p>Probably something related to the cameras/picture of the camera itself</p>
+				      			</div>
+					    	</div>
+						    <div class="carousel-item">
+						      	<img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/25/13/halleys-comet.jpg?w968h681" class="d-block w-100" alt="...">
+							    	<div class="carousel-caption d-none d-md-block">
+								    	<h5>Image of hardware 2</h5>
+								    	<p>Some things related to how the camera's set up (like a stand or case)</p>
+							      	</div>
+						    </div>
+						    <div class="carousel-item">
+							    <img src="https://miro.medium.com/max/960/1*UTz2_Pxgs4VCXAw-r0xbeg.jpeg" class="d-block w-100" alt="...">
+							    <div class="carousel-caption d-none d-md-block">
+							       	<h5>Image of hardware 3</h5>
+							        <p>Probably something related to computer hardware</p>
+							    </div>
+						    </div>
+					  	</div>
+						<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+
+				<p>(Pictures of hardware ^) Text text text(?)</p>
+				<!--End Row 1-->
+				<hr class="my-4" />
+				<!--Row 2 -->
+				<h4>MASN Software</h4>
+				<div class="container-fluid">
+					<div class="row justify-content-center">
+						<div class="col-sm-12 col-lg-4">
+							<a href="#">
+								<img src="#" />
+							</a>
+						</div>
+						<div class="col-sm-12 col-lg-4">
+							<a href="#">
+								<img src="#" />
+							</a>
+						</div>
+						<div class="col-sm-12 col-lg-4">
+							<a href="#">
+								<img src="#" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--End Row 2-->
+
+				<p class="text-left py-2">
+					Text describing all the pictures and the general pipeline for the project.
+				</p>
+				<a href="https://github.com/teuben/pyASC">
+					Link to the github repo
+				</a>
+			</div>
 		</div>
 	</div>
-	-->
+	<!--Closing content-->
 
-	<div class="container-fluid UMD-Der-Tan">
-		<h2 class="text-center py-2">Technical info</h2>
-		<hr class="my-2" />
-		<div class="container text-center">
-			<img src="#" alt="Album of hardware pictures"/>
-			<h5 class="py-2">Hardware</h5>
-			<p>Text text text.</p>
-		</div>
-		<div class="container text-center">
-			<img src="#" alt="Software-related pictures"/>
-			<h5 class="py-2">Software</h5>
-			<p>Text text text.</p>
-		</div>
-	</div>
-
-
-
+	<!--Footer-->
 	<div class="container-fluid text-light transparent-black-bg">
 		<footer class="footer">
 			<div class="container-fluid text-center">
@@ -220,4 +237,5 @@ function force_load_image(num){
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

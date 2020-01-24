@@ -43,5 +43,8 @@
 .UMD-Der-silver { background-color: #ACACAC; }
 
 .transparent-black-bg { background-color: rgba(0, 0, 0, 0.5);}
+.white-bg{ background-color: #EEEEEE }
 
 ul.navbar-nav li.nav-item a.nav-link {color:#FFF;}
+
+.c1 { UMD-Der-grey; }

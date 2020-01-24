@@ -35,31 +35,16 @@ function force_load_image(num){
 <body onload="load_image()" style="background: url('Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
-<div class="text-dark">
+<div class="container-fluid transparent-black-bg text-dark">
 
 	<!--Title-->
-	<div class="container-fluid text-light transparent-black-bg">
+	<div class="container-fluid transparent-black-bg text-light">
 
 		<a class="text-light text-decoration-none" href="Home.html">
 			<h2 class="text-center py-3">
 				MARYLAND ALL-SKY NETWORK
 			</h2>
 		</a>
-
-		<!--Breakpoint debug
-		<div class="container d-xl-none" style="background-color: #000">	
-			<p>LG</p>
-			<div class="container d-lg-none" style="background-color: #F00">
-				<p>MD</p>
-				<div class="container d-md-none" style="background-color: #0F0">
-					<p>SM</p>
-					<div class="container d-sm-none" style="background-color: #00F">
-						<p>XS</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		-->
 
 		<!--Top Navbar-->
 		<nav class="navbar navbar-expand-md navbar-dark">
@@ -120,44 +105,50 @@ function force_load_image(num){
 	<!--Closes the top navbar-->
 
 	<!--Camera Jumbotron-->
-	<div class="jumbotron jumbotron-fluid my-0">
-		<div class="container">
-			<h2 class="text-left pb-3">All Sky Camera 1</h2>
-			<!--Row 1 -->
-			<div class="row">
-				<div class="col-lg-6">
-					<h4>Latest Image</h4>
-					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-					</a>
+	<div class="container-fluid UMD-Der-Silver">
+		<div class="container-fluid white-bg py-4">
+			<div class="container">
+				<h2 class="text-center pb-3">All Sky Camera 1</h2>
+				<!--Row 1 -->
+				<div class="row">
+					<div class="col-lg-6">
+						<h4 class="text-center">Latest Image</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+					<div class="col-lg-6">
+						<h4 class="text-center">Map/Location</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
 				</div>
-				<div class="col-lg-6">
-					<h4>Map?</h4>
-					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-					</a>
-				</div>
-			</div>
-			<!--End Row 1-->
-			<hr class="my-4" /> <!--Text could go here?-->
-			<!--Row 2 -->
-			<div class="row">
-				<div class="col-lg-6">
-					<h4>Latest Meteor</h4>
-					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-					</a>
-				</div>
-				<div class="col-lg-6">
-					<h4>Latest Video</h4>
-					<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-						<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-					</a>
-				</div>
-			</div>
-			<!--End Row 2-->
+				<!--End Row 1-->
 
-			<p class="text-left py-2">Text text text.</p>
+				<p class="text-left py-2">Text text text.</p>
+
+				<hr class="my-4" />
+
+				<!--Row 2 -->
+				<div class="row">
+					<div class="col-lg-6">
+						<h4 class="text-center">Latest Meteor</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+					<div class="col-lg-6">
+						<h4 class="text-center">Other info</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+				</div>
+				<!--End Row 2-->
+
+				<p class="text-left py-2">Text text text.</p>
+			</div>
 		</div>
 	</div>
 	<!--Closing camera jumbotron-->
