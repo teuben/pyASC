@@ -1,0 +1,101 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
+<title>MASN_01</title>
+
+<!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
+<script language="JavaScript">
+// <!--
+var camera = 1;
+
+function load_image()
+{
+
+	var link = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
+	document.getElementById("img_anchor").href = link;
+	document.getElementById("img_self").src = link;
+	setTimeout("load_image()", 15000);
+}
+
+// Loads the image immediately rather than after a 15s delay
+// (used for the buttons)
+function force_load_image(num){
+	if(num !== undefined){
+		camera = num;
+	}
+	load_image();
+}
+
+// -->
+</script>
+
+</head>
+
+<body onload="load_image()" style="background: url('/pics/Banner_3.png') center center; background-position: top">
+
+<!--Main Div-->
+<div class="container-fluid transparent-black-bg text-dark">
+
+	<!--#include virtual="/css-n-inc/nav.inc"-->
+
+	<!--Camera Jumbotron-->
+	<div class="container-fluid UMD-Der-Silver">
+		<div class="container-fluid white-bg py-4">
+			<div class="container">
+				<h2 class="text-center pb-3">All Sky Camera 1</h2>
+				<!--Row 1 -->
+				<div class="row">
+					<div class="col-lg-6">
+						<h4 class="text-center">Latest Image</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+					<div class="col-lg-6">
+						<h4 class="text-center">Map/Location</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+				</div>
+				<!--End Row 1-->
+
+				<p class="text-left py-2">Text text text.</p>
+
+				<hr class="my-4" />
+
+				<!--Row 2 -->
+				<div class="row">
+					<div class="col-lg-6">
+						<h4 class="text-center">Latest Meteor</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+					<div class="col-lg-6">
+						<h4 class="text-center">Other info</h4>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
+							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
+						</a>
+					</div>
+				</div>
+				<!--End Row 2-->
+
+				<p class="text-left py-2">Text text text.</p>
+			</div>
+		</div>
+	</div>
+	<!--Closing camera jumbotron-->
+
+	<!--#include virtual="/css-n-inc/footer.inc"-->
+
+</div> <!--Closing main div-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

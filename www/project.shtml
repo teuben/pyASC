@@ -1,0 +1,91 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
+<title>MASN_01</title>
+
+
+</head>
+<body style="background: url('/pics/Banner_3.png') center center; background-position: top">
+
+<!--Main Div-->
+<div class="container-fluid transparent-black-bg text-dark">
+
+	<!--#include virtual="/css-n-inc/nav.inc"-->
+
+	<!--Content-->
+	<div class="container-fluid UMD-Der-grey py-2">
+		<div class="jumbotron my-0">
+			<div class="container">
+				<h2 class="text-left pb-3">Project info</h2>
+				<hr class="my-2" />
+
+				<!--Row 1 -->
+				<h4>Team</h4>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-lg-4">
+							<div class="card shadow-sm m-2">
+								<a href="pics/Weird.png">
+									<img class="img-fluid rounded-circle" src="pics/Weird.png" alt="hardware photo">
+								</a>
+								<div class="card-body">
+									<h5>Important person</h5>
+									<p>Text text text.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-lg-4">
+							<div class="card shadow-sm m-2">
+								<a href="pics/Weird.png">
+									<img class="img-fluid rounded-circle" src="pics/Weird.png" alt="hardware photo">
+								</a>
+								<div class="card-body">
+									<h5>Important person 2</h5>
+									<p>Text text text.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-lg-4">
+							<div class="card shadow-sm m-2">
+								<a href="pics/Weird.png">
+									<img class="img-fluid rounded-circle" src="pics/Weird.png" alt="hardware photo">
+								</a>
+								<div class="card-body">
+									<h5>Important person 3</h5>
+									<p>Text text text.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--End row 1-->
+
+				<hr class="my-2" />
+
+				<!--Row 2-->
+				<h4>Sponsors</h4>
+				<div class="container-fluid">
+					<a class="border float-left" href="#">
+						<img class="rounded-sm" src="#" />
+					</a>
+
+					<p>Text about LaunchUMD. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text.</p>
+				</div>
+				<!--End row 2-->
+
+			</div>
+		</div>
+	</div>
+
+	<!--#include virtual="/css-n-inc/footer.inc"-->
+
+</div> <!--Closing main div-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
