@@ -20,7 +20,7 @@ setup(
     packages=['pyASC'],
     scripts=['scripts/testArchive', 'scripts/testMovie', 'scripts/pyASC-run'],
     install_requires=['numpy', 'opencv-contrib-python-headless',
-                      'pyyaml >= 3.08'],
+                      'pyyaml >= 3.08', 'astropy >= 4.0'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

@@ -36,7 +36,7 @@ class Analysis:
 
         handle = None
 
-        if self.cadence is not None:
+        if self.cadence is not None or self.cadence is not 'once':
 
             t = time.time()
             i0 = int((t - self.t0) / self.cadence) + 1
