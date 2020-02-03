@@ -2,6 +2,7 @@ from pathlib import Path
 import re
 import sqlite3
 import datetime
+import numpy as np
 import astropy.coordinates as coordinates
 import astropy.io.fits as fits
 import astropy.units as u
@@ -11,12 +12,12 @@ class Archive:
 
     nodePattern = r"MASN-([0-9]{2})"
     yearmonthPattern = r"([0-9]{4})([01][0-9])"
-    dayPattern1 = (r"([0-9]{4})-([01][0-9])-([0-3][0-9]) to "
+    dayPattern1 = r"([0-9]{4})([01][0-9])([0-3][0-9])"
+    obsPattern1 = r"IMG([0-9]{5}).FIT"
+    dayPattern2 = (r"([0-9]{4})-([01][0-9])-([0-3][0-9]) to "
                    r"([0-9]{4})-([01][0-9])-([0-3][0-9])")
-    obsPattern1 = (r"MASN([0-9]{2})-([0-9]{4})-([0-9]{2})-([0-9]{2})"
+    obsPattern2 = (r"MASN([0-9]{2})-([0-9]{4})-([0-9]{2})-([0-9]{2})"
                    r"T([0-9]{2})-([0-9]{2})-([0-9]{2})-([0-9]{3})Z.fits")
-    dayPattern2 = r"([0-9]{4})([01][0-9])([0-3][0-9])"
-    obsPattern2 = r"IMG([0-9]{5}).FIT"
     
     nodeData = {1: {'lat': 39.0021*u.deg, 'lon': -76.956*u.deg}}
 
@@ -31,13 +32,27 @@ class Archive:
         return "Archive(rootdir={0:s}, db={1:s})".format(repr(self.rootdir),
                                                          repr(self.dbFilename))
 
+    def getFITSByDate(self, yyyymmdd, c=None):
+
+        if c is None:
+            conn = sqlite3.connect(self.dbFilename)
+            c = conn.cursor()
+
+        c.execute('SELECT fitsfile from masndata where obsdate=?',
+                  (yyyymmdd, ))
+        file_list = np.array([result[0] for result in c])
+
+        return np.array(file_list)
+
+
+
     def _setup(self):
 
         conn = sqlite3.connect(self.dbFilename)
         c = conn.cursor()
 
         c.execute('''CREATE TABLE IF NOT EXISTS masndata
-                     (node INT, obstime TEXT, exptime REAL,
+                     (node INT, obsdate TEXT, obstime TEXT, exptime REAL,
                       ra_zenith REAL, fitsfile TEXT)''')
 
         conn.commit()
@@ -49,6 +64,8 @@ class Archive:
                     node = int(match.group(1))
                     self.nodes.append(node)
                     self._setupNode(c, node, nodedir)
+        
+        conn.commit()
         
         conn.close()
 
@@ -73,19 +90,30 @@ class Archive:
 
         for obsdir in ymdir.iterdir():
             if obsdir.is_dir():
-                match = re.fullmatch(self.dayPattern1, obsdir.name)
+                match = re.fullmatch(self.dayPattern2, obsdir.name)
                 if match:
-                    self._setupObs_v1(c, node, year, month, obsdir,
-                                      self.obsPattern1)
+                    day = int(match.group(6))
+                    self._setupDay(c, node, year, month, day, obsdir,
+                                   self.obsPattern2,
+                                   self._generate_db_entry_v2)
+                """
                 else:
-                    match = re.fullmatch(self.dayPattern2, obsdir.name)
+                    match = re.fullmatch(self.dayPattern1, obsdir.name)
                     if match:
-                        self._setupObs_v2(c, node, year, month, obsdir,
-                                          self.obsPattern2)
+                        day = int(match.group(3))
+                        self._setupDay(c, node, year, month, day, obsdir,
+                                       self.obsPattern1,
+                                       self._generate_db_entry_v1)
+                """
 
-    def _setupObs_v1(self, c, node, year, month, obsdir, obsPattern):
+    def _setupDay(self, c, node, year, month, day, obsdir, obsPattern,
+                  dbEntryFunc):
 
         samples = []
+
+        yyyymmdd = "{0:04d}{1:02d}{2:02d}".format(year, month, day)
+
+        known_files = self.getFITSByDate(yyyymmdd, c)
 
         for filepath in obsdir.iterdir():
             if not filepath.is_file():
@@ -96,59 +124,59 @@ class Archive:
             match = re.fullmatch(obsPattern, filename)
 
             if match:
-                print(node, year, month, match.groups())
-                with fits.open(filepath) as hdul:
-                    if len(hdul) == 0:
-                        print("{0:s} has no primary HDU.".format(filepath))
-                    header = hdul[0].header
+    
+                if (len(known_files) > 0 and 
+                        (str(filepath.resolve()) == known_files).any()):
+                    continue
 
-                date_obs = header['DATE-OBS']  # this is already in UTC time
-                exptime = header['EXPTIME']
-                RA_center = header['CRVAL1']
+                print(node, yyyymmdd, match.groups())
 
-                time_utc_string = date_obs + "+00:00"
-
-                entry = (node, time_utc_string, exptime, RA_center,
-                         str(filepath.resolve()))
+                entry = dbEntryFunc(node, yyyymmdd, filepath)
                 samples.append(entry)
 
-        c.executemany('INSERT INTO masndata VALUES (?,?,?,?,?)',
+        c.executemany('INSERT INTO masndata VALUES (?,?,?,?,?,?)',
                       samples)
 
-    def _setupObs_v2(self, c, node, year, month, obsdir, obsPattern):
+    def _generate_db_entry_v2(self, node, yyyymmdd, filepath):
 
-        samples = []
-        
-        loc = self.nodeData[node]['loc']
+        with fits.open(filepath) as hdul:
+            if len(hdul) == 0:
+                print("{0:s} has no primary HDU.".format(filepath))
+            header = hdul[0].header
 
-        for filepath in obsdir.iterdir():
-            if not filepath.is_file():
-                continue
 
-            filename = filepath.name
+        date_obs = header['DATE-OBS']  # this is already in UTC time
+        exptime = header['EXPTIME']
+        RA_center = header['CRVAL1']
 
-            match = re.fullmatch(obsPattern, filename)
+        time_utc_string = date_obs + "+00:00"
 
-            if match:
-                print(node, year, month, match.groups())
-                with fits.open(filepath) as hdul:
-                    if len(hdul) == 0:
-                        print("{0:s} has no primary HDU.".format(filepath))
-                    header = hdul[0].header
+        entry = (node, yyyymmdd, time_utc_string, exptime, RA_center,
+                 str(filepath.resolve()))
 
-                date_loc = header['DATE-OBS']
-                time_loc = header['TIME-OBS']
-                exptime = header['EXPTIME']
+        return entry
 
-                time_str = date_loc + 'T' + time_loc
-                time = Time(time_str, location=loc)
+    def _generate_db_entry_v1(self, node, yyyymmdd, filepath):
 
-                zenith = coordinates.AltAz(alt=0.0*u.deg, az=0.0*u.deg,
-                                           obstime=time, location=loc)
-                zenith_icrs = zenith.transform_to(coordinates.ICRS)
+        with fits.open(filepath) as hdul:
+            if len(hdul) == 0:
+                print("{0:s} has no primary HDU.".format(filepath))
+            header = hdul[0].header
 
-                samples.append((node, time.to_value('isot'), exptime,
-                                zenith_icrs.ra, str(filepath.resolve())))
+        date_loc = header['DATE-OBS']
+        time_loc = header['TIME-OBS']
+        exptime = header['EXPTIME']
 
-        c.executemany('INSERT INTO masndata VALUES (?,?,?,?,?)',
-                      samples)
+        time_str = date_loc + 'T' + time_loc + "-05:00"
+        time = Time(time_str, format='isot', scale='utc',
+                    location=self.nodeData[node]['loc'])
+
+        zenith = coordinates.AltAz(alt=0.0*u.deg, az=0.0*u.deg,
+                                   obstime=time,
+                                   location=self.nodeData[node]['loc'])
+        zenith_icrs = zenith.transform_to(coordinates.ICRS)
+
+        entry = (node, yyyymmdd, time.to_value('isot'), exptime,
+                 zenith_icrs.ra, str(filepath.resolve()))
+
+        return entry
