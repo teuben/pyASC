@@ -1,13 +1,16 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
+
+	
 <title>MASN_01</title>
 
 
 </head>
 
-<body style="background: url('/pics/Banner_3.png') center center; background-position: top">
+<body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -20,6 +23,7 @@
 			<div class="container">
 				<h2 class="text-left pb-3">Technical info</h2>
 				<hr class="my-2" />
+
 				<!--Row 1 -->
 				<h4>MASN Hardware</h4>
 				<div class="container">
@@ -29,26 +33,27 @@
 						    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
 						    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
 					  	</ol>
+
 					  	<!--The carousel captions are d-md-block because it is too large for phones to see past the text
 					  		This means that the captions are only visible on larger screens-->
 					  	<div class="carousel-inner">
 					    	<div class="carousel-item active">
-					      		<img src="https://scx1.b-cdn.net/csz/news/800/2019/cometgateway.jpg" class="d-block w-100" alt="...">
-					      		<div class="carousel-caption d-none d-md-block">
+					      		<img src="/webdings/allsky-camera.jpg" class="d-block w-100" alt="...">
+					      		<div class="carousel-caption d-none d-md-block transparent-black-bg">
 				        			<h5>Image of hardware 1</h5>
 				        			<p>Probably something related to the cameras/picture of the camera itself</p>
 				      			</div>
 					    	</div>
 						    <div class="carousel-item">
-						      	<img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/04/25/13/halleys-comet.jpg?w968h681" class="d-block w-100" alt="...">
-							    	<div class="carousel-caption d-none d-md-block">
-								    	<h5>Image of hardware 2</h5>
-								    	<p>Some things related to how the camera's set up (like a stand or case)</p>
-							      	</div>
+						      	<img src="/webdings/idle-screenshot.png" class="d-block w-100" alt="...">
+						    	<div class="carousel-caption d-none d-md-block transparent-black-bg">
+							    	<h5>Image of hardware 2</h5>
+							    	<p>Some things related to how the camera's set up (like a stand or case)</p>
+						      	</div>
 						    </div>
 						    <div class="carousel-item">
-							    <img src="https://miro.medium.com/max/960/1*UTz2_Pxgs4VCXAw-r0xbeg.jpeg" class="d-block w-100" alt="...">
-							    <div class="carousel-caption d-none d-md-block">
+							    <img src="/webdings/chart.png" class="d-block w-100" alt="...">
+							    <div class="carousel-caption d-none d-md-block transparent-black-bg">
 							       	<h5>Image of hardware 3</h5>
 							        <p>Probably something related to computer hardware</p>
 							    </div>
@@ -65,38 +70,32 @@
 					</div>
 				</div>
 
-				<p>(Pictures of hardware ^) Text text text(?)</p>
+				<p>Here there will be a more detailed description of the hardware used to set up the all-sky camera network.</p>
+
 				<!--End Row 1-->
 				<hr class="my-4" />
+				
 				<!--Row 2 -->
 				<h4>MASN Software</h4>
 				<div class="container-fluid">
 					<div class="row justify-content-center">
-						<div class="col-sm-12 col-lg-4">
-							<a href="#">
-								<img src="#" />
-							</a>
+						<div class="col-sm-12 col-lg-6">
+							<p class="text-left py-2">Here there will be text describing the general pipeline for the project on the camera side of things, specifically the use of the AllSkEye program for controlling and automating camera functionality.</p>
+							<a href="https://www.allskeye.com/">Link to the AllSkEye program</a>
+							<br />
+							<a href="https://www.allskeye.com/userdoc/index.html"> Link to the documentation</a>
 						</div>
-						<div class="col-sm-12 col-lg-4">
-							<a href="#">
-								<img src="#" />
-							</a>
+						<div class="col-sm-12 col-lg-6">
+							<p>Here there will be text describing the Python scripts that were written to extract information from the images taken by the all-sky camera(s).</p>
+							<a href="https://github.com/teuben/pyASC">Link to the github repo</a>
 						</div>
-						<div class="col-sm-12 col-lg-4">
-							<a href="#">
-								<img src="#" />
-							</a>
-						</div>
+						<!--<div class="col-sm-12 col-lg-6">
+							<p></p>
+						</div>-->
 					</div>
 				</div>
 				<!--End Row 2-->
 
-				<p class="text-left py-2">
-					Text describing all the pictures and the general pipeline for the project.
-				</p>
-				<a href="https://github.com/teuben/pyASC">
-					Link to the github repo
-				</a>
 			</div>
 		</div>
 	</div>

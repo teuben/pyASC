@@ -1,12 +1,13 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
 
 </head>
-<body style="background: url('/pics/Banner_3.png') center center; background-position: top">
+<body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -23,42 +24,107 @@
 				<!--Row 1 -->
 				<h4>Team</h4>
 
+				<br />
+				<h6>Project Leaders</h6>
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-xs-12 col-lg-4">
+						<div class="col-xs-12 col-md-4">
 							<div class="card shadow-sm m-2">
-								<a href="pics/Weird.png">
-									<img class="img-fluid rounded-circle" src="pics/Weird.png" alt="hardware photo">
-								</a>
+								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Elizabeth Warner"></a>
 								<div class="card-body">
-									<h5>Important person</h5>
-									<p>Text text text.</p>
+									<h5>Elizabeth Warner</h5>
+									<p>Short description of position + role in project</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-lg-4">
+						<div class="col-xs-12 col-md-4">
 							<div class="card shadow-sm m-2">
-								<a href="pics/Weird.png">
-									<img class="img-fluid rounded-circle" src="pics/Weird.png" alt="hardware photo">
-								</a>
+								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Dr teuben"></a>
 								<div class="card-body">
-									<h5>Important person 2</h5>
-									<p>Text text text.</p>
+									<h5>Peter Teuben</h5>
+									<p>Short description of position + role in project</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-lg-4">
+						<div class="col-xs-12 col-md-4">
 							<div class="card shadow-sm m-2">
-								<a href="pics/Weird.png">
-									<img class="img-fluid rounded-circle" src="pics/Weird.png" alt="hardware photo">
-								</a>
+								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Another person"></a>
 								<div class="card-body">
-									<h5>Important person 3</h5>
-									<p>Text text text.</p>
+									<h5>Another person</h5>
+									<p>Short description of position + role in project</p>
 								</div>
 							</div>
 						</div>
 					</div>
+				
+					<h6>Other contributors</h6>
+					<div class="container-fluid overflow-auto UMD-Der-silver" style="max-height: 400px">
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-lg-3">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<div class="card-body">
+										<h5>Spring 2015: Eric Lyness, Steve Ryan</h5>
+										<p>Short description of position + role in project</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-3">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<div class="card-body">
+										<h5>2015-2016: James Gaitan, Anna Kraft</h5>
+										<p>Short description of position + role in project</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-3">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<div class="card-body">
+										<h5>2016-2017: Baram Sosis, Benji Cooper</h5>
+										<p>Short description of position + role in project</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-3">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<div class="card-body">
+										<h5>2017-2018: Joe Cohen</h5>
+										<p>Short description of position + role in project</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-3">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<div class="card-body">
+										<h5>2018-2019: Zach Rabin, Dmitriy Yarunin</h5>
+										<p>Short description of position + role in project</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-3">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<div class="card-body">
+										<h5>2019-2020: Sam Wills</h5>
+										<p>That's me :D</p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<p>Also currently, Dr Geoff Ryan, Ramsey Karim [grad student], & Zach Rabin</p>
 				</div>
 				<!--End row 1-->
 
@@ -66,12 +132,12 @@
 
 				<!--Row 2-->
 				<h4>Sponsors</h4>
-				<div class="container-fluid">
-					<a class="border float-left" href="#">
-						<img class="rounded-sm" src="#" />
-					</a>
-
-					<p>Text about LaunchUMD. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text. Text text text.</p>
+				<div class="container-fluid justify-content-center">
+					<img class="float-left" style="max-width: 30%;" src="/webdings/launch.png" />
+					<a href="https://launch.umd.edu/project/482"><img class="img-fluid" src="/webdings/logo.png" /></a>
+					
+					<h6 class="py-2">Text about LaunchUMD.</h6>
+					<p>LaunchUMD sponsors paid for this project :)</p>
 				</div>
 				<!--End row 2-->
 

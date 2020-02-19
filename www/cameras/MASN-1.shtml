@@ -1,6 +1,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
@@ -32,7 +33,7 @@ function force_load_image(num){
 
 </head>
 
-<body onload="load_image()" style="background: url('/pics/Banner_3.png') center center; background-position: top">
+<body onload="load_image()" style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -48,20 +49,16 @@ function force_load_image(num){
 				<div class="row">
 					<div class="col-lg-6">
 						<h4 class="text-center">Latest Image</h4>
-						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-						</a>
+						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?"><img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" /></a>
 					</div>
 					<div class="col-lg-6">
 						<h4 class="text-center">Map/Location</h4>
-						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-						</a>
+						<a id="img_anchor" href="https://goo.gl/maps/iK9h21GHbJ6cVb1S6"><img class="img-fluid" id="img_self" src="webdings/umd-obs-map.png" /></a>
 					</div>
 				</div>
 				<!--End Row 1-->
 
-				<p class="text-left py-2">Text text text.</p>
+				<p class="text-left py-2"></p>
 
 				<hr class="my-4" />
 
@@ -75,14 +72,13 @@ function force_load_image(num){
 					</div>
 					<div class="col-lg-6">
 						<h4 class="text-center">Other info</h4>
-						<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?">
-							<img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" />
-						</a>
+						<p>Allsky1, the first camera in the Maryland All-Sky Camera Network, was
+made possible by a very generous donation from UMD alum Dr. Ralph Pass. <br /> </p>
 					</div>
 				</div>
 				<!--End Row 2-->
 
-				<p class="text-left py-2">Text text text.</p>
+				<p class="text-left py-2"></p>
 			</div>
 		</div>
 	</div>

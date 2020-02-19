@@ -1,13 +1,14 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
 
 </head>
 
-<body style="background: url('/pics/Banner_3.png') center center; background-position: top">
+<body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -17,7 +18,9 @@
 	<!--Camera Jumbotron-->
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
-			Text text text.
+			<h2>Meteor Archives</h2>
+			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
+			<img src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>
 		</div>
 	</div>
 	<!--Closing camera jumbotron-->

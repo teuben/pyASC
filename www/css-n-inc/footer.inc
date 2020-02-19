@@ -2,22 +2,13 @@
 	<footer class="footer">
 		<div class="container-fluid text-center">
 			<p>
-				<a href="https://www.astro.umd.edu/openhouse/">
-					Astronomy Observatory
-				</a> |
+				<a href="https://www.astro.umd.edu/openhouse/">Astronomy Observatory</a> |
 
-				<a href="https://www.astro.umd.edu/">
-					Dept. of Astronomy
-				</a> |
+				<a href="https://www.astro.umd.edu/">Dept. of Astronomy</a> |
 				
-				<a href="https://www.cmns.umd.edu/">
-					CMNS
-				</a> | 
+				<a href="https://www.cmns.umd.edu/">CMNS</a> | 
 				
-				<a href="https://www.umd.edu">
-					UMD
-				</a>
-				
+				<a href="https://www.umd.edu">UMD</a>
 				
 				<br />
 
@@ -25,7 +16,7 @@
 
 				<br />
 
-				Copyright &copy; 2019. All rights reserved.
+				Copyright &copy; 2020. All rights reserved.
 
 				<br />
 

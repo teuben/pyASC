@@ -7,7 +7,7 @@
 
 </head>
 
-<body style="background: url('/pics/Banner_3.png') center center; background-position: top">
+<body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -17,7 +17,10 @@
 	<!--Camera Jumbotron-->
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
-			Text text text.
+			<h2>Other Archives</h2>
+			<p>This is where we will have a collection of other interesting images taken by the all-sky camera.</p>
+			<img src="/gallery/weird/Bug-20191028.png" alt="Weird picture"/>
+			<img src="/gallery/weird/Rain-20200207.jpeg" alt="Rainy picture" />
 		</div>
 	</div>
 	<!--Closing camera jumbotron-->

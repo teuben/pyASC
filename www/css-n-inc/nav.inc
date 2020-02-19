@@ -2,30 +2,25 @@
 <div class="container-fluid transparent-black-bg text-light">
 
 	<!--MASN Title banner-->
-	<a class="text-light text-decoration-none" href="/index.shtml">
-		<h2 class="text-center py-3">
-			MARYLAND ALL-SKY NETWORK
-		</h2>
-	</a>
+	<a class="text-light text-decoration-none" href="/index.shtml"><h2 class="text-center py-3">MARYLAND ALL-SKY NETWORK</h2></a>
 
 	<!--Navbar-->
 	<nav class="navbar navbar-expand-md navbar-dark">
 		<div class="">
-			<a class="navbar-brand text-light" href="/index.shtml">
-				MASN Home
-			</a>
+			<a class="navbar-brand text-light" href="/index.shtml">MASN Home</a>
 		</div>
   		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
  		</button>
 
+ 		<!--Collapsable part-->
 	  	<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 	    	<ul class="navbar-nav">
 		      	<li class="nav-item dropdown">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			        	Cameras
-			        </a>
+
+		      		<!--Camera submenu-->
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cameras</a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			          	<a class="dropdown-item" href="/cameras/MASN-1.shtml">MASN&nbsp;01</a>
 			          	<a class="dropdown-item" href="#">MASN&nbsp;02</a>
@@ -35,6 +30,7 @@
 			        </div>
 			    </li>
 
+			    <!--Archives submenu-->
 		      	<li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          Archives
@@ -45,6 +41,8 @@
 			          	<a class="dropdown-item" href="/archives/other.shtml">Others</a>
 			        </div>
 			    </li>
+
+			    <!--Technical and Project info-->
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="/technical.shtml">Technical</a>
 		      	</li>
