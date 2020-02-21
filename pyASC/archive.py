@@ -22,10 +22,12 @@ class Archive:
     nodeData = {1: {'lat': 39.0021*u.deg, 'lon': -76.956*u.deg}}
 
 
-    def __init__(self, dataPath, dbFilename):
+    def __init__(self, dataPath, dbFilename, debug=False):
         self.dbFilename = Path(dbFilename)
         self.rootdir = Path(dataPath)
         self.nodes = []
+        self.obsdates = []
+        self.debug = debug
         self._setup()
 
     def __repr__(self):
@@ -34,16 +36,109 @@ class Archive:
 
     def getFITSByDate(self, yyyymmdd, c=None):
 
+        close = False
+        conn = None
+
         if c is None:
             conn = sqlite3.connect(self.dbFilename)
             c = conn.cursor()
+            close = True
+
 
         c.execute('SELECT fitsfile from masndata where obsdate=?',
                   (yyyymmdd, ))
         file_list = np.array([result[0] for result in c])
 
-        return np.array(file_list)
+        if close:
+            conn.close()
 
+        return file_list
+
+
+    def getFITSByRAz(self, RAz, tol=1.0, c=None):
+        close = False
+        conn = None
+
+        if c is None:
+            conn = sqlite3.connect(self.dbFilename)
+            c = conn.cursor()
+            close = True
+
+        file_list = []
+        dates = self.getObsDates()
+        for date in dates:
+            fits = self.getFITSByRAzDate(RAz, date, tol, c)
+            if fits is not None:
+                file_list.append(fits)
+
+        if close:
+            conn.close()
+
+        return file_list
+
+
+    def getFITSByRAzDate(self, RAz, yyyymmdd, tol=1.0, c=None):
+        close = False
+        conn = None
+
+        if c is None:
+            conn = sqlite3.connect(self.dbFilename)
+            c = conn.cursor()
+            close = True
+
+        c.execute('SELECT RA_zenith, fitsfile from masndata where obsdate=?',
+                  (yyyymmdd, ))
+        result = c.fetchall()
+        if close:
+            conn.close()
+
+        RA = np.array([x[0] for x in result])
+        file_list = np.array([x[1] for x in result])
+
+        diffRA = RA-RAz
+        diffRA[diffRA > 180] -= 360
+        diffRA[diffRA < -180] += 360
+        diffRA = np.fabs(diffRA)
+        imin = np.argmin(diffRA)
+        if diffRA[imin] > tol:
+            return None
+
+        return file_list[imin]
+
+
+    def update(self):
+
+        conn = sqlite3.connect(self.dbFilename)
+        c = conn.cursor()
+
+        for nodedir in sorted(self.rootdir.iterdir()):
+            if nodedir.is_dir():
+                match = re.fullmatch(self.nodePattern, nodedir.name)
+                if match:
+                    node = int(match.group(1))
+                    if node not in self.nodes:
+                        self.nodes.append(node)
+                        ndata = self.nodeData[node]
+                        ndata['loc'] = coordinates.EarthLocation(
+                            lat=ndata['lat'], lon=ndata['lon'])
+                    self._updateNode(c, node, nodedir)
+        
+        conn.commit()
+        
+        conn.close()
+
+
+    def getObsDates(self):
+
+        conn = sqlite3.connect(self.dbFilename)
+        c = conn.cursor()
+
+        c.execute('''SELECT DISTINCT obsdate FROM masndata''')
+        obsdates = [result[0] for result in c]
+
+        conn.close()
+
+        return obsdates
 
 
     def _setup(self):
@@ -54,68 +149,66 @@ class Archive:
         c.execute('''CREATE TABLE IF NOT EXISTS masndata
                      (node INT, obsdate TEXT, obstime TEXT, exptime REAL,
                       ra_zenith REAL, fitsfile TEXT)''')
-
         conn.commit()
 
-        for nodedir in self.rootdir.iterdir():
-            if nodedir.is_dir():
-                match = re.fullmatch(self.nodePattern, nodedir.name)
-                if match:
-                    node = int(match.group(1))
-                    self.nodes.append(node)
-                    self._setupNode(c, node, nodedir)
-        
-        conn.commit()
-        
+        self._setupNodes(c)
+
         conn.close()
 
     
-    def _setupNode(self, c, node, nodedir):
+    def _setupNodes(self, c):
 
-        ndata = self.nodeData[node]
-        ndata['loc'] = coordinates.EarthLocation(lat=ndata['lat'],
-                                                 lon=ndata['lon'])
+        c.execute('''SELECT DISTINCT node from masndata''')
+        for result in c:
+            node = result[0]
+            self.nodes.append(node)
+            ndata = self.nodeData[node]
+            ndata['loc'] = coordinates.EarthLocation(lat=ndata['lat'],
+                                                     lon=ndata['lon'])
+
+
+    def _updateNode(self, c, node, nodedir):
 
         datadir = nodedir / "archive"
-        for ymdir in datadir.iterdir():
+        for ymdir in sorted(datadir.iterdir()):
             if ymdir.is_dir():
                 match = re.fullmatch(self.yearmonthPattern, ymdir.name)
                 if match:
                     year = int(match.group(1))
                     month = int(match.group(2))
                     if month >= 1 and month <= 12:
-                        self._setupMonth(c, node, year, month, ymdir)
+                        self._updateMonth(c, node, year, month, ymdir)
 
-    def _setupMonth(self, c, node, year, month, ymdir):
+    def _updateMonth(self, c, node, year, month, ymdir):
 
-        for obsdir in ymdir.iterdir():
+        for obsdir in sorted(ymdir.iterdir()):
             if obsdir.is_dir():
                 match = re.fullmatch(self.dayPattern2, obsdir.name)
                 if match:
                     day = int(match.group(6))
-                    self._setupDay(c, node, year, month, day, obsdir,
-                                   self.obsPattern2,
-                                   self._generate_db_entry_v2)
+                    self._updateDay(c, node, year, month, day, obsdir,
+                                    self.obsPattern2,
+                                    self._generate_db_entry_v2)
                 """
                 else:
                     match = re.fullmatch(self.dayPattern1, obsdir.name)
                     if match:
                         day = int(match.group(3))
-                        self._setupDay(c, node, year, month, day, obsdir,
-                                       self.obsPattern1,
-                                       self._generate_db_entry_v1)
+                        self._updateDay(c, node, year, month, day, obsdir,
+                                        self.obsPattern1,
+                                        self._generate_db_entry_v1)
                 """
 
-    def _setupDay(self, c, node, year, month, day, obsdir, obsPattern,
+    def _updateDay(self, c, node, year, month, day, obsdir, obsPattern,
                   dbEntryFunc):
-
+        
         samples = []
 
         yyyymmdd = "{0:04d}{1:02d}{2:02d}".format(year, month, day)
 
         known_files = self.getFITSByDate(yyyymmdd, c)
 
-        for filepath in obsdir.iterdir():
+        for filepath in sorted(obsdir.iterdir()):
             if not filepath.is_file():
                 continue
 
@@ -129,7 +222,8 @@ class Archive:
                         (str(filepath.resolve()) == known_files).any()):
                     continue
 
-                print(node, yyyymmdd, match.groups())
+                if self.debug:
+                    print(node, yyyymmdd, match.groups())
 
                 entry = dbEntryFunc(node, yyyymmdd, filepath)
                 samples.append(entry)

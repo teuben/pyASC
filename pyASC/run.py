@@ -1,8 +1,9 @@
+import numbers
 import sched
 import time
 import yaml
 from . import archive
-from . import analysis
+from . import action
 
 
 def checkConfig(config):
@@ -17,14 +18,19 @@ def checkConfig(config):
         good = False
         print("config: no localRoot")
 
-    if 'analyses' in config:
-        for a in config['analyses']:
+    if 'databaseFile' not in config:
+        good = False
+        print("config: no databaseFile")
+
+    if 'actions' in config:
+        for a in config['actions']:
             if len(a) != 1:
                 good = False
-                print("config: analysis requires single top-level entry"
+                print("config: action requires single top-level entry"
                       " - {0:s}".format(str(a.keys())))
                 continue
 
+            """
             (name, pars), = a.items()
 
             if pars is None or len(pars) <= 0:
@@ -39,6 +45,7 @@ def checkConfig(config):
             if 'outputDir' not in pars:
                 good = False
                 print("config: analysis {0:s} has no outputDir".format(name))
+            """
 
     return good
 
@@ -59,37 +66,94 @@ def runYAML(configFile):
 
     print(config)
 
-    arch = archive.Archive(config['localRoot'])
+    arch = archive.Archive(config['localRoot'], config['databaseFile'],
+                           debug=True)
 
     print(arch)
-    print(arch.getNodeNames())
 
     s = sched.scheduler(time.time, time.sleep)
 
-    for entry in config['analyses']:
+    updateCadence = config['update']
+    a = action.UpdateArchive(s, "Update", updateCadence, None)
+    s.enter(1.0, 0, a.run, (arch, ))
+
+    for entry in config['actions']:
         (name, pars), = entry.items()
-        a = buildAnalysis(s, name, pars, arch)
-        if a.cadence is not None:
-            s.enter(a.cadence, 1, a.run, (arch, ))
+        a = buildAction(s, name, pars, arch)
+        if isinstance(a.cadence, numbers.Real):
+            s.enter(a.cadence, 2, a.run, (arch, ))
         else:
-            s.enter(1.0, 1, a.run, (arch, ), None)
+            s.enter(1.1, 2, a.run, (arch, ))
 
     print(s.queue)
 
     s.run()
 
 
-def buildAnalysis(scheduler, name, pars, arch):
+def buildAction(scheduler, name, pars, arch):
 
-    cadenceStr = pars['cadence']
+    cadence = pars['cadence']
     outputDir = pars['outputDir']
-
-    cadence = float(cadenceStr)
 
     maxIter = None
     if 'maxIter' in pars:
         maxIter = pars['maxIter']
 
-    a = analysis.Analysis(scheduler, name, cadence, outputDir, maxIter)
+    if name == 'MakeImage':
+        label = None
+        if 'label' in pars:
+            label = pars['label']
+        target = pars['target']
+        overwrite = None
+        if 'overwrite' in pars:
+            overwrite = pars['overwrite']
+        inputDir = None
+        if 'inputDir' in pars:
+            inputDir = pars['inputDir']
+        blackVal = None
+        if 'blackVal' in pars:
+            blackVal = pars['blackVal']
+        whiteVal = None
+        if 'whiteVal' in pars:
+            whiteVal = pars['whiteVal']
+
+        a = action.MakeImage(scheduler, name, cadence, outputDir, maxIter,
+                             target, label=label, overwrite=overwrite,
+                             inputDir=inputDir, blackVal=blackVal,
+                             whiteVal=whiteVal)
+
+    elif name == 'MakeHist':
+        label = None
+        if 'label' in pars:
+            label = pars['label']
+        target = pars['target']
+        overwrite = None
+        if 'overwrite' in pars:
+            overwrite = pars['overwrite']
+        bitDepth = None
+        if 'bitDepth' in pars:
+            bitDepth = pars['bitDepth']
+        binWidth = None
+        if 'binWidth' in pars:
+            binWidth = pars['binWidth']
+        inputDir = None
+        if 'inputDir' in pars:
+            inputDir = pars['inputDir']
+        a = action.MakeHist(scheduler, name, cadence, outputDir, maxIter,
+                             target, label=label, overwrite=overwrite,
+                             bitDepth=bitDepth, binWidth=binWidth,
+                             inputDir=inputDir)
+
+    elif name == 'CopyByRA':
+        label = None
+        if 'label' in pars:
+            label = pars['label']
+        targetRA = pars['targetRA']
+        targetDate = pars['targetDate']
+        RAtolerance = pars['RAtolerance']
+        a = action.CopyByRA(scheduler, name, cadence, outputDir, maxIter,
+                            targetRA, targetDate, RAtolerance, label=label)
+    else:
+        a = action.Action(scheduler, name, cadence, outputDir, maxIter)
 
     return a
