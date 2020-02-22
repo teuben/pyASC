@@ -22,3 +22,4 @@ http://ds9.si.edu/site/Download.html
 Other efforts:
 
 https://github.com/thomasjacquin/allsky
+http://indigo-astronomy.org
