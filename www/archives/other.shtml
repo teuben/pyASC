@@ -19,14 +19,13 @@
 		<div class="container-fluid white-bg py-4">
 			<h2>Other Archives</h2>
 			<p>This is where we will have a collection of other interesting images taken by the all-sky camera.</p>
-			<img src="/gallery/weird/Bug-20191028.png" alt="Weird picture"/>
-			<img src="/gallery/weird/Rain-20200207.jpeg" alt="Rainy picture" />
+			<img class="img img-fluid" src="/gallery/weird/Bug-20191028.png" alt="Bug picture"/>
+			<img class="img img-fluid" src="/gallery/weird/Rain-20200207.jpeg" alt="Rainy picture" />
 		</div>
 	</div>
 	<!--Closing camera jumbotron-->
 
-	<!--#include virtual="/css-n-inc/footer.in
-c"-->
+	<!--#include virtual="/css-n-inc/footer.inc"-->
 
 </div> <!--Closing main div-->
 

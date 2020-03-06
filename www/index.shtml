@@ -40,73 +40,6 @@ function force_load_image(num){
 
 	<!--#include virtual="/css-n-inc/nav.inc"-->
 
-	<!--Top bar-->
-	<div class="container-fluid transparent-black-bg text-light">
-
-		<!--MASN Title banner-->
-		<a class="text-light text-decoration-none" href="/index.shtml"><h2 class="text-center py-3">MARYLAND ALL-SKY NETWORK</h2></a>
-
-		<!--Navbar-->
-		<nav class="navbar navbar-expand-md navbar-dark">
-			<div class="">
-				<a class="navbar-brand text-light" href="/index.shtml">MASN Home</a>
-			</div>
-	  		
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-	 		</button>
-
-	 		<!--Collapsable part-->
-		  	<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-		    	<ul class="navbar-nav">
-			      	<li class="nav-item dropdown">
-
-			      		<!--Camera submenu-->
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cameras</a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				          	<a class="dropdown-item" href="/cameras/MASN-1.shtml">MASN&nbsp;01</a>
-				          	<a class="dropdown-item" href="#">MASN&nbsp;02</a>
-				          	<a class="dropdown-item" href="#">MASN&nbsp;03</a>
-				          	<a class="dropdown-item" href="#">MASN&nbsp;04</a>
-				          	<a class="dropdown-item" href="#">MASN&nbsp;05</a>
-				        </div>
-				    </li>
-
-				    <!--Archives submenu-->
-			      	<li class="nav-item dropdown">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				          Archives
-				        </a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				          	<a class="dropdown-item" href="/archives/video.shtml">Videos</a>
-				          	<a class="dropdown-item" href="/archives/meteor.shtml">Meteors</a>
-				          	<a class="dropdown-item" href="/archives/other.shtml">Others</a>
-				        </div>
-				    </li>
-
-				    <!--Technical and Project info-->
-			      	<li class="nav-item">
-			        	<a class="nav-link" href="/technical.shtml">Technical</a>
-			      	</li>
-			     	<li class="nav-item">
-			        	<a class="nav-link" href="/project.shtml">Project</a>
-			      	</li>
-	    			<li class="nav-item">
-			        	<a class="nav-link" href="#">Misc.</a>
-			      	</li>
-		    	</ul>
-		<!--possible search bar
-		    <form class="form-inline my-2 my-lg-0">
-		      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		    </form>
-		-->
-		  	</div>
-		</nav>
-		<!--Closes navbar-->
-	</div>
-	<!--Closes the top div-->
-
 	<!--Camera and Video background div-->
 	<div class="container-fluid white-bg">
 
@@ -201,15 +134,15 @@ function force_load_image(num){
 	<div class="container-fluid">
 		<!--Pictures of the month-->
 		<div class="row UMD-Der-Black text-light py-2">
-			<div class="container col-lg-6 col-sm-12 text-center">
-				<a href="/webdings/Meteor.png"><img src="/webdings/Meteor.png" class="img border border-light rounded w-75" alt="meteor picture" /></a>
+			<div class="container col-md-6 col-xs-12 text-center">
+				<a href="/webdings/Meteor.png"><img src="/webdings/Meteor.png" class="img img-fluid border border-light rounded" alt="meteor picture" /></a>
 				<h5 class="py-2">Meteor Picture of the Month</h5>
 				<h6>January 2020</h6>
 				<p>The meteor is in the top left of the image, going diagonally, and is somewhat faint.</p>
 			</div>
 
-			<div class="container col-lg-6 col-sm-12 text-center">
-				<a href="/webdings/Weird.png"><img src="/webdings/Weird.png" class="border border-light rounded img w-75" alt="weird picture" /></a>
+			<div class="container col-md-6 col-xs-12 text-center">
+				<a href="/webdings/Weird.png"><img src="/webdings/Weird.png" class="img img-fluid border border-light rounded" alt="weird picture" /></a>
 				<h5 class="py-2">Weird Picture of the Month</h5>
 				<h6>January 2020</h6>
 				<p>An insect of some sort has decided to crawl around on the camera.</p>
@@ -219,41 +152,72 @@ function force_load_image(num){
 
 		<!--Tech and team info-->
 		<div class="row UMD-Der-red py-1 text-dark">
+			<div class="card-deck p-2">
+				<div class="card shadow">
+				    <img class="card-img-top" src="/webdings/masn-1-thumb.jpg" alt="hardware photo" />
+					<div class="card-body">
+						<h5>Hardware</h5>
+						<p>The Maryland All-Sky Network utilizes a Starlight Xpress Oculus camera.</p>
+						<a href="technical.shtml#hardware" class="btn btn-primary stretched-link">View Hardware info</a>
+					</div>
+				</div>
+				<div class="card shadow">
+					<img class="card-img-top" src="/webdings/preview-screenshot-thumb.png" alt="tech photo">
+					<div class="card-body">
+						<h5>Software</h5>
+						<p>For camera control, image capture, and meteor detection, we are using the AllSkEye program written by Michael Poelzl. We are also in the process of writing our python scripts for meteor detection and other image analysis.</p>
+						<a href="technical.shtml#software" class="btn btn-primary stretched-link">View Software info</a>
+					</div>
+				</div>
+				<div class="card shadow">
+				    <img class="card-img-top" src="/webdings/double-logo.png" alt="team photo">
+					<div class="card-body">
+						<h5>Project</h5>
+						<p>Funded through a LaunchUMD initiative, MASN has been a project for many students over the years.</p>
+						<a href="project.shtml" class="btn btn-primary stretched-link">View Project info</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--
+		<div class="row UMD-Der-red py-1 text-dark">
 			 <div class="col-lg-4 col-sm-12">
 			 	<div class="card shadow m-2">
-					<img class="img-fluid" src="/webdings/allsky-camera.jpg" alt="hardware photo">
+					<img class="img-fluid" src="/webdings/masn-1-thumb.jpg" alt="hardware photo">
 					<div class="card-body">
 						<h5>Hardware</h5>
 						<hr class="my-4" /> 
-						<p>Here there will be an overview of the hardware used for the all-sky camera network.</p>
-						<a href="technical.shtml" class="btn btn-primary stretched-link">View Hardware info</a>
+						<p>The Maryland All-Sky Network utilizes a Starlight Xpress Oculus camera.</p>
+						<a href="technical.shtml#hardware" class="btn btn-primary stretched-link">View Hardware info</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-4 col-sm-12">
 				<div class="card shadow m-2">
-					<img class="img-fluid" src="/webdings/idle-screenshot.png" alt="tech photo">
+					<img class="img-fluid" src="/webdings/preview-screenshot-thumb.png" alt="tech photo">
 					<div class="card-body">
 						<h5>Software</h5>
 						<hr class="my-4" /> 
-						<p>Here there will be an overview of the software used for the all-sky camera network.</p>
-						<a href="technical.shtml" class="btn btn-primary stretched-link">View Software info</a>
+						<p>For camera control, image capture, and meteor detection, we are using the AllSkEye program written by Michael Poelzl. We are also in the process of writing our python scripts for meteor detection and other image analysis.</p>
+						<a href="technical.shtml#software" class="btn btn-primary stretched-link">View Software info</a>
 					</div>
 				</div>
 			</div>
 			 <div class="col-lg-4 col-sm-12">
 				 <div class="card shadow m-2">
-					<img class="img-fluid" src="/webdings/launch.png" alt="team photo">
-					<img class="img-fluid" src="/webdings/logo.png" alt="logo photo">
+					<img class="img-fluid" src="/webdings/double-logo.png" alt="team photo">
 					<div class="card-body">
-						<h5>Team</h5>
+						<h5>Project</h5>
 						<hr class="my-4" /> 
-						<p>Here there will be a brief summary of the team that worked on this project and the sponsors that funded it.</p>
+						<p>Funded through a LaunchUMD initiative, MASN has been a project for many students over the years.</p>
 						<a href="project.shtml" class="btn btn-primary stretched-link">View Project info</a>
 					</div>
 				</div>
 			</div>
-		</div> 
+		</div>
+		-->
+
 		<!--End tech and team info-->
 	</div>
 

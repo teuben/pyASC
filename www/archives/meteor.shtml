@@ -5,6 +5,13 @@
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
+<script>
+	//Change this when new cameras are installed!
+	var num_cameras = 1
+
+</script>
+
+
 
 </head>
 
@@ -20,7 +27,7 @@
 		<div class="container-fluid white-bg py-4">
 			<h2>Meteor Archives</h2>
 			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
-			<img src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>
+			<img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>
 		</div>
 	</div>
 	<!--Closing camera jumbotron-->
