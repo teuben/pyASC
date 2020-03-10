@@ -5,10 +5,28 @@
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
+<!--
+<script>
+	//Change this when new cameras are installed
+	var num_cameras = 1
+	function load_images(date)
+	{
+		//type is the folder for a given date
+		var base1 = "<div class=\"card\"><img class=\"img-fluid\" src=\""
+		var base2 = "\" /></div>"
+		var files = [] //Acquire them based on storage
+		for (var i = 0; i < files.length; i++) {
+			//Concat + addChild
+		}
+	}
+
+</script>
+-->
+
 
 </head>
 
-<body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
+<body onload ="load_images(0)" style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -20,7 +38,9 @@
 		<div class="container-fluid white-bg py-4">
 			<h2>Meteor Archives</h2>
 			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
-			<img src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>
+			<div class="container-fluid">
+				<img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>
+			</div>
 		</div>
 	</div>
 	<!--Closing camera jumbotron-->

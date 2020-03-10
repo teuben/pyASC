@@ -49,9 +49,11 @@
 		     	<li class="nav-item">
 		        	<a class="nav-link" href="/project.shtml">Project</a>
 		      	</li>
+    			<!--
     			<li class="nav-item">
 		        	<a class="nav-link" href="#">Misc.</a>
 		      	</li>
+		      	-->
 	    	</ul>
 	<!--possible search bar
 	    <form class="form-inline my-2 my-lg-0">

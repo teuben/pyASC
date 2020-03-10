@@ -25,7 +25,6 @@
 				<hr class="my-2" />
 
 				<!--Row 1 -->
-				<h4>MASN Hardware</h4>
 				<div class="container">
 					<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
@@ -38,24 +37,24 @@
 					  		This means that the captions are only visible on larger screens-->
 					  	<div class="carousel-inner">
 					    	<div class="carousel-item active">
-					      		<img src="/webdings/allsky-camera.jpg" class="d-block w-100" alt="...">
+					      		<img src="/webdings/masn-1.jpg" class="d-block w-100" alt="...">
 					      		<div class="carousel-caption d-none d-md-block transparent-black-bg">
-				        			<h5>Image of hardware 1</h5>
-				        			<p>Probably something related to the cameras/picture of the camera itself</p>
+				        			<h5>Starlight Xpress Oculus</h5>
+				        			<p>MASN-1 is installed on the roof of the UMD Astronomy Observatory.</p>
 				      			</div>
 					    	</div>
 						    <div class="carousel-item">
-						      	<img src="/webdings/idle-screenshot.png" class="d-block w-100" alt="...">
+						      	<img src="/webdings/preview-screenshot-crop.png" class="d-block w-100" alt="...">
 						    	<div class="carousel-caption d-none d-md-block transparent-black-bg">
-							    	<h5>Image of hardware 2</h5>
-							    	<p>Some things related to how the camera's set up (like a stand or case)</p>
+							    	<h5>M. Poelzl's AllSkEye</h5>
+							    	<p>Camera control and image capture software</p>
 						      	</div>
 						    </div>
 						    <div class="carousel-item">
-							    <img src="/webdings/chart.png" class="d-block w-100" alt="...">
+							    <img src="/webdings/chart-crop.png" class="d-block w-100" alt="...">
 							    <div class="carousel-caption d-none d-md-block transparent-black-bg">
-							       	<h5>Image of hardware 3</h5>
-							        <p>Probably something related to computer hardware</p>
+							       	<h5>System schematic</h5>
+							        <p>Data flow from camera to presentation on web</p>
 							    </div>
 						    </div>
 					  	</div>
@@ -70,24 +69,77 @@
 					</div>
 				</div>
 
-				<p>Here there will be a more detailed description of the hardware used to set up the all-sky camera network.</p>
-
 				<!--End Row 1-->
 				<hr class="my-4" />
 				
 				<!--Row 2 -->
-				<h4>MASN Software</h4>
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-sm-12 col-lg-6">
-							<p class="text-left py-2">Here there will be text describing the general pipeline for the project on the camera side of things, specifically the use of the AllSkEye program for controlling and automating camera functionality.</p>
+							<a name="hardware"></a>
+							<h4>MASN Hardware</h4>
+							<p class="text-left py-2">The  Maryland All-Sky Network uses the Starlight Xpress Oculus all-sky
+camera. The monochrome camera has the ICX205AL Sony SuperHAD interline
+CCD chip with1392 x 1040 pixels that are 4.65&micro;m x 4.65&micro;m in size. The
+camera is USB powered with a separate dewheater (definitely needed here
+in MD). The lens is a 1.55mm f2 180 degree 'Fish-Eye' under a 3"
+polycarbonate dome. The entire unit is about 15cm tall and 9.5 cm wide.
+The domes last about 3 years.
+<br /> <br />
+The USB cable from the camera is not long enough to reach to the control
+computer, so we have a 15' extension that is plugged into a USB isolator
+before the computer. The computer is a Dell OptiPlex 9020 Minitower
+currently running Win 10 Pro.
+								<br />
+								<br />
+
+								More specs:
+
+								<a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16812423100&cm_re=usb_extension_cable-_-12-423-100-_-Product">15' USB extension</a>
+|
+
+								<a href="http://www.cooldrives.com/index.php/usb-isolator-3000-vrms-rugged-metal-chassis.html">USB Isolator</a>
+|
+								<a href="https://www.sxccd.com/Oculus/Oculus_Product_Brochure.pdf">Camera brochure</a>
+							</p>
+
+							CCD Specs:
+
+							<ul>
+								<li>CCD type: ICX205AL Sony SuperHAD interline CCD with low dark current and
+								vertical antiblooming.</li>
+								<li>CCD Pixel size: 4.65uM x 4.65uM</li>
+								<li>Image format: 1392 x 1040 pixels</li>
+							</ul>
+						</div>
+						<div class="col-sm-12 col-lg-6">
+							<a name="software"></a>
+							<h4>MASN Software</h4>
+							<p>Although the Starlight Xpress Oculus came with proprietary software, it
+was somewhat difficult to use remotely and required a great deal of
+daily work. The first students to work on the project were tasked with
+trying to write better camera control software. We didn't get very far
+as we had to first understand the camera SDK. In our second year of
+working on the project, we learned about <a href="https://www.allskeye.com/">AllSkEye</a>, written by Michael
+Poelzl. He also had an Oculus camera and had
+similar difficulties. He was a more experienced coder and got a program
+written before we did. Rather than recreating the wheel, we started
+using his program to control our camera. He has continued to make
+improvements in the software, even expanding it to control other all-sky
+cameras. With a good camera control program now in place, we decided to
+have students focus on meteor detection algorithms instead. So over the
+past several years, students have been learning Python and then trying
+to expand on the previous year's work. Their work is in a <a href="https://github.com/teuben/pyASC">GitHub
+repository</a>. During the current year
+(2019-2020) the student focused on building this website to showcase the
+camera data.</p>
+						<!--
+							<a href="https://github.com/teuben/pyASC">Link to the github repo</a>
+							<br />
 							<a href="https://www.allskeye.com/">Link to the AllSkEye program</a>
 							<br />
 							<a href="https://www.allskeye.com/userdoc/index.html"> Link to the documentation</a>
-						</div>
-						<div class="col-sm-12 col-lg-6">
-							<p>Here there will be text describing the Python scripts that were written to extract information from the images taken by the all-sky camera(s).</p>
-							<a href="https://github.com/teuben/pyASC">Link to the github repo</a>
+						-->
 						</div>
 						<!--<div class="col-sm-12 col-lg-6">
 							<p></p>
