@@ -128,7 +128,7 @@ using his program to control our camera. He has continued to make
 improvements in the software, even expanding it to control other all-sky
 cameras. With a good camera control program now in place, we decided to
 have students focus on meteor detection algorithms instead. So over the
-past several years, students have been learning python and then trying
+past several years, students have been learning Python and then trying
 to expand on the previous year's work. Their work is in a <a href="https://github.com/teuben/pyASC">GitHub
 repository</a>. During the current year
 (2019-2020) the student focused on building this website to showcase the

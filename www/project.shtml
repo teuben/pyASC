@@ -27,7 +27,34 @@
 				<br />
 				<h6>Project Leaders</h6>
 				<div class="container-fluid">
-					<div class="row">
+
+					<div class="container">
+						<div class="card-deck p-2">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Elizabeth Warner"></a>
+								<div class="card-body">
+									<h5>Elizabeth Warner</h5>
+									<p>A Principal Faculty Specialist in the Department of Astronomy and the Observatory Director, Elizabeth spearheaded the LaunchUMD campaign to acquire the cameras. Her primary role in the project has been as a science advisor.</p>
+								</div>
+							</div>
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="rounded-circle img-fluid img-thumbnail" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr. Teuben"></a>
+								<div class="card-body">
+									<h5>Dr. Peter Teuben</h5>
+									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department
+of Astronomy. Although his main interests are in galactic dynamics,
+hydrodynamics, and radio astronomy software, it was his interest in
+community software development that led him to join MASN in
+Summer 2015. He has been the Python coding advisor over the years
+training CPS-SDU students in using Python and GitHub. He also led
+an IAU/OAD sponsored project to take an All Sky Camera to Haiti
+and teach astronomy there.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--
 						<div class="col-xs-12 col-md-6">
 							<div class="card shadow-sm m-2">
 								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Elizabeth Warner"></a>
@@ -47,87 +74,88 @@
 							</div>
 						</div>
 					</div>
+				-->
 				
 					<h6>Other contributors</h6>
-					<div class="container-fluid overflow-auto UMD-Der-silver" style="max-height: 400px">
+					<div class="container-fluid overflow-auto UMD-Der-silver" style="max-height: 500px">
 
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<a href="/webdings/Weird.png"><img class="card-img-top" src="/webdings/Weird.png" alt="..."></a>
 									<div class="card-body">
-										<h5>GRAD-MAP: Maggie McAdam, Ashlee Wilkins</h5>
-										<p>Short description of position + role in project</p>
+										<h5>GRAD-MAP: Ashlee Wilkins</h5>
+										<p>Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="..."></a>
+									<a href="/webdings/Weird.png"><img class="card-img-top" src="/webdings/Weird.png" alt="..."></a>
 									<div class="card-body">
 										<h5>Spring 2015: Eric Lyness, Steve Ryan</h5>
-										<p>Short description of position + role in project</p>
+										<p>For their SDU Capstone project, Steve and Eric were the content creators for the LaunchUMD campaign.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/Weird.png"><img class="img-fluid" src="/webdings/Weird.png" alt="..."></a>
+									<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>Summer 2015: Shawn Foster</h5>
-										<p>Short description of position + role in project</p>
+										<p>As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20152016.jpg"><img class="img-fluid" src="/webdings/capstone-20152016.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20152016.jpg"><img class="card-img-top" src="/webdings/capstone-20152016-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>2015-2016: James Gaitan, Anna Kraft</h5>
-										<p>Short description of position + role in project</p>
+										<p>As SDU students, Anna and James tried writing an improved camera control program as an alternative to the proprietary software.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20162017.jpg"><img class="img-fluid" src="/webdings/capstone-20162017.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20162017.jpg"><img class="card-img-top" src="/webdings/capstone-20162017-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>2016-2017: Baram Sosis, Benji Cooper</h5>
-										<p>Short description of position + role in project</p>
+										<p>Initially, Benji and his friend Baram were focused on completing the work Anna and James had started. After discovering AllSkEye, Benji continued with the project and worked on writing a better meteor detection algorithm.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20172018.jpg"><img class="img-fluid" src="/webdings/capstone-20172018.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20172018.jpg"><img class="card-img-top" src="/webdings/capstone-20172018-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>2017-2018: Joe Cohen</h5>
-										<p>Short description of position + role in project</p>
+										<p>Joe continued working on the meteor detection program that Benji started.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20182019.jpg"><img class="img-fluid" src="/webdings/capstone-20182019.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20182019.jpg"><img class="card-img-top" src="/webdings/capstone-20182019-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>2018-2019: Zach Rabin, Dmitriy Yarunin</h5>
-										<p>Short description of position + role in project</p>
+										<p>Zach and Dmitriy also worked on the meteor detection algorithms, but they also started looking at how to present the results on a webpage.</p>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-6 col-lg-3">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20192020.jpg"><img class="img-fluid" src="/webdings/capstone-20192020.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20192020.jpg"><img class="card-img-top" src="/webdings/capstone-20192020-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>2019-2020: Sam Wills</h5>
-										<p>That's me :D</p>
+										<p>For his SDU Capstone, Sam designed and built the MASN website.</p>
 									</div>
 								</div>
 							</div>
@@ -143,10 +171,10 @@
 
 				<!--LaunchUMD info-->
 				<h4>Sponsors</h4>
-				<div class="col-md-4 float-left"><a href="https://launch.umd.edu/project/482"><img class="img-fluid" src="webdings/Launch.png" /></a></div>
+				<div class="col-md-4 float-left"><a href="https://launch.umd.edu/project/482"><img class="img-fluid" src="/webdings/Launch.png" /></a></div>
 				<p>LaunchUMD is the crowdfunding platform for the University of Maryland. In early 2015, Observatory staff with the support of the Astronomy department, GRAD-MAP, and CMNS successfully proposed a project to raise $5,000 to acquire 2 cameras (and their control computers). The campaign was a great success, raising $8,745 or 174% of the goal. In addition, by taking advantage of educational discounts and bulk purchasing, the team was able to purchase 5 cameras.</p>
 
-				<a href="https://launch.umd.edu"><img class="img-fluid" src="webdings/logo.png" /></a>
+				<a href="https://launch.umd.edu"><img class="img-fluid" src="/webdings/logo.png" /></a>
 				<!--End LaunchUMD-->
 
 			</div>

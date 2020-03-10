@@ -32,6 +32,10 @@ function force_load_image(num){
 // -->
 </script>
 
+
+<!--Mobile viewport fix?-->
+<meta name="viewport" content="initial-scale=1" />
+
 </head>
 <body onload="load_image()" style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
