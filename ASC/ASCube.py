@@ -1,6 +1,6 @@
- #! /usr/bin/env python
+#! /usr/bin/env python
 #
-#    quick and dirty processing of the MD All Sky images
+#    quick and dirty processing of the All Sky images
 
 from astropy.io import fits
 from scipy.misc import imsave
@@ -26,20 +26,21 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = True):
+                 template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = True, debug = True):
 
-        self.dirname = dirname
-        self.doload = doload
-        self.dtime = Dtime.Dtime("ascube")
-        self.box = box
-        self.frames = frames
+        self.dirname   = dirname
+        self.doload    = doload
+        self.dtime     = Dtime.Dtime("ascube")
+        self.debug     = debug
+        self.box       = box
+        self.frames    = frames
         self.maxframes = maxframes
-        self.template = template
-        self.numfiles = 0
-        print("initializing directoy %s" %dirname)
+        self.template  = template
+        self.numfiles  = 0
+        self.files     = []
+        self.headers   = []
+        print("initializing directory %s" %dirname)
         print(type(dirname), type(self.pattern))
-        self.files = []
-        self.headers = []
         self.dtime.tag("before iterating through frames")
         for s in self.frames:
             fname = dirname + "/" + self.template % s
@@ -53,10 +54,10 @@ class ASCube(object):
         #self.numFiles = len(files)
         if len(self.files) == 0:
             print("warning: no files %s found" %self.pattern)
-        """else:
+        else:
             print("Found %d files" %len(self.files))
             print("Box: ", box)
-            print("Frames: ", frames)"""
+            print("Frames: ", frames)
         self.data = None
         self.nx = 0
         self.ny = 0

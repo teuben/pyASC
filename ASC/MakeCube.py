@@ -60,16 +60,17 @@ if __name__ == '__main__':
 
     dt.tag("after parser")
 
-    dirname = args['dirname'][0]
-    frames = ASCube.strToIntArray(args['frames'][0])
-    box = args['box']
-    maxframes = args['maxframes']
-    template = args['template'][0]
-    doload = not args['noload']
-    outcube = args['outcube'][0]
+    dirname    = args['dirname'][0]
+    box        = args['box']
+    frames     = ASCube.strToIntArray(args['frames'][0])
+    maxframes  = args['maxframes']
+    template   = args['template'][0]
+    doload     = not args['noload']
     difference = args['difference']
-    sig = args['sig_frames']
-    met = args['meteors']
+    sig        = args['sig_frames']
+    met        = args['meteors']
+    
+    outcube    = args['outcube'][0]
 
     dt.tag("before ASCube")
     cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig, met)
