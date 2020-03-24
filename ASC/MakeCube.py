@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 #
 #	load a cube with the given command line arguments
-
+#       can also make keograms, if you pick xslice or yslice
+#       or the radial option
 
 import ASCube
 import Dtime
@@ -31,8 +32,14 @@ if __name__ == '__main__':
         help = 'The frames wanted, written in the form <start>:<end>:<step>,'+
         '<start>:<end>:<step>,... Be sure to not put in any spaces.')
 
-    parser.add_argument('-m', '--maxframes', nargs = 1, type = int, default = 10000,
+    parser.add_argument('-m', '--maxframes', type = int, default = 10000,
         help = 'The highest possible frame value')
+
+    parser.add_argument('-x', '--xslice', type = int, default = -1,
+        help = 'Slice at this X coordinate')
+
+    parser.add_argument('-y', '--yslice', type = int, default = -1,
+        help = 'Slice at this Y coordinate')
 
     parser.add_argument('-t', '--template', nargs = 1, type = str, default = ["IMG%05d.FIT"],
         help = 'The template of file names for images taken.')
@@ -56,6 +63,8 @@ if __name__ == '__main__':
     parser.add_argument('-M', '--meteors', action="store_true", default = False, 
         help = 'Flag to find interesting time-variable objects.')
 
+
+
     # radial:   rmax=450   center=(716,465)
     # center
 
@@ -72,19 +81,28 @@ if __name__ == '__main__':
     difference = args['difference']
     sig        = args['sig_frames']
     met        = args['meteors']
+    xslice     = args['xslice']
+    yslice     = args['yslice']
+    print('PJT',xslice,yslice,maxframes,template)
     
     outcube    = args['outcube'][0]
 
     dt.tag("before ASCube")
-    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig, met)
+    cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig, met, xslice, yslice)
+    print(cube)
 
-    if cube.data != None:
+    if cube.ndim == 3:
         header = copy.copy(cube.headers[0])
         header['NAXIS'] = 3
         header['NAXIS3'] = cube.numfiles
         fits.writeto( outcube, cube.data, header, clobber=True )
+    elif cube.ndim == 2:
+        header = copy.copy(cube.headers[0])        
+        header['NAXIS1'] = cube.data.shape[1]
+        header['NAXIS2'] = cube.data.shape[0]    
+        fits.writeto( outcube, cube.data, header, clobber=True )        
 
-    if True:
+    if False:
         header2 = copy.copy(cube.headers[0])
         map1 = cube.mean
         map2 = cube.std
@@ -98,5 +116,4 @@ if __name__ == '__main__':
     
 
     dt.end()
-
 
