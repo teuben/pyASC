@@ -17,6 +17,7 @@ import logging
 import time
 import Dtime
 import networkx as nx
+from radial_data import radial_data
 #import glob
 
 class ASCube(object):
@@ -39,6 +40,10 @@ class ASCube(object):
         self.numfiles  = 0
         self.files     = []
         self.headers   = []
+        self.radial    = True   # hack
+        self.rmax      = 450
+        self.center    = (716,465)
+        self.nxy       = (1392,1040)
         print("initializing directory %s" %dirname)
         print(type(dirname), type(self.pattern))
         self.dtime.tag("before iterating through frames")
@@ -82,12 +87,34 @@ class ASCube(object):
             (header, newData) = self.getData(self.files[k], self.box)
             newData = newData * header["BSCALE"] + header["BZERO"]
             self.headers.append(header)
+            if self.radial:
+                if k==0:
+                    nx = newData.shape[1]
+                    ny = newData.shape[0]
+                    x1 = np.arange(1,nx+1) - self.center[0]
+                    y1 = np.arange(1,ny+1) - self.center[1]
+                    x,y = np.meshgrid(y1,x1)
+                    print('pjt',newData.shape)
+                r = radial_data(newData.T,x=x,y=y,rmax=self.rmax)
             if k == 0:
                 if self.nx == 0:
                     self.nx = newData.shape[1]
                     self.ny = newData.shape[0]
-                self.data = np.zeros((self.nf, self.ny, self.nx))
-            self.data[k,:,:] = newData
+                if self.radial:
+                    self.nr = len(r.r)
+                    self.mean   = np.zeros((self.nf, self.nr))
+                    self.std    = np.zeros((self.nf, self.nr))
+                    self.median = np.zeros((self.nf, self.nr))
+                else:
+                    self.data = np.zeros((self.nf, self.ny, self.nx))
+            if self.radial:
+                self.mean[k,:]   = r.mean
+                self.std[k,:]    = r.std
+                self.median[k,:] = r.median
+                print(k)
+            else:
+                self.data[k,:,:] = newData
+                                         
         #print(self.data)
 
     def computeDifference(self):

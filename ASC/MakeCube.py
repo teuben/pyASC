@@ -56,6 +56,9 @@ if __name__ == '__main__':
     parser.add_argument('-M', '--meteors', action="store_true", default = False, 
         help = 'Flag to find interesting time-variable objects.')
 
+    # radial:   rmax=450   center=(716,465)
+    # center
+
     args = vars(parser.parse_args())
 
     dt.tag("after parser")
@@ -75,10 +78,24 @@ if __name__ == '__main__':
     dt.tag("before ASCube")
     cube = ASCube.ASCube(dirname, box, frames, maxframes, template, doload, difference, sig, met)
 
-    header = copy.copy(cube.headers[0])
-    header['NAXIS'] = 3
-    header['NAXIS3'] = cube.numfiles
-    fits.writeto( outcube, cube.data, header, clobber=True )
+    if cube.data != None:
+        header = copy.copy(cube.headers[0])
+        header['NAXIS'] = 3
+        header['NAXIS3'] = cube.numfiles
+        fits.writeto( outcube, cube.data, header, clobber=True )
+
+    if True:
+        header2 = copy.copy(cube.headers[0])
+        map1 = cube.mean
+        map2 = cube.std
+        map3 = cube.median
+        header2['NAXIS1'] = map1.shape[1]
+        header2['NAXIS2'] = map1.shape[0]    
+        print('map',map1.shape)
+        fits.writeto('map1.fits', map1, header2, clobber=True)
+        fits.writeto('map2.fits', map2, header2, clobber=True)
+        fits.writeto('map3.fits', map3, header2, clobber=True)
+    
 
     dt.end()
 
