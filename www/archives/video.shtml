@@ -4,6 +4,8 @@
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
+<!--Mobile viewport fix!-->
+<meta name="viewport" content="initial-scale=1" />
 
 </head>
 

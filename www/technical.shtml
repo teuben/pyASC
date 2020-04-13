@@ -7,6 +7,8 @@
 	
 <title>MASN_01</title>
 
+<!--Mobile viewport fix!-->
+<meta name="viewport" content="initial-scale=1" />
 
 </head>
 
@@ -37,7 +39,7 @@
 					  		This means that the captions are only visible on larger screens-->
 					  	<div class="carousel-inner">
 					    	<div class="carousel-item active">
-					      		<img src="/webdings/masn-1.jpg" class="d-block w-100" alt="...">
+					      		<img src="/webdings/masn-1-crop.jpg" class="d-block w-100" alt="...">
 					      		<div class="carousel-caption d-none d-md-block transparent-black-bg">
 				        			<h5>Starlight Xpress Oculus</h5>
 				        			<p>MASN-1 is installed on the roof of the UMD Astronomy Observatory.</p>
