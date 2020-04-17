@@ -7,7 +7,9 @@
 
 <!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
 <script language="JavaScript">
-// <!--
+//******************************
+//CHANGE THIS WHEN ADDING NEW PAGES (or set up a form to handle it)
+//******************************
 var camera = 1;
 
 function load_image()
@@ -27,9 +29,10 @@ function force_load_image(num){
 	}
 	load_image();
 }
-
-// -->
 </script>
+
+<!--Mobile viewport fix!-->
+<meta name="viewport" content="initial-scale=1" />
 
 </head>
 

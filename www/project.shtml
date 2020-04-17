@@ -5,6 +5,8 @@
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 <title>MASN_01</title>
 
+<!--Mobile viewport fix!-->
+<meta name="viewport" content="initial-scale=1" />
 
 </head>
 <body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
@@ -145,7 +147,7 @@ and teach astronomy there.</p>
 									<a href="/webdings/capstone-20182019.jpg"><img class="card-img-top" src="/webdings/capstone-20182019-crop.jpg" alt="..."></a>
 									<div class="card-body">
 										<h5>2018-2019: Zach Rabin, Dmitriy Yarunin</h5>
-										<p>Zach and Dmitriy also worked on the meteor detection algorithms, but they also started looking at how to present the results on a webpage.</p>
+										<p>Zach and Dmitriy also worked on the meteor detection algorithms and started looking at how to present the results on a webpage.</p>
 									</div>
 								</div>
 							</div>
@@ -159,7 +161,6 @@ and teach astronomy there.</p>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 
