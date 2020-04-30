@@ -31,16 +31,18 @@
 				<div class="container-fluid">
 
 					<div class="container">
-						<div class="card-deck p-2">
+						<div class="card-deck px-4">
 							<div class="card shadow-sm m-2">
-								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Elizabeth Warner"></a>
+								<a href="/webdings/Warner_Elizabeth2.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Warner_Elizabeth2-crop.jpg" alt="Elizabeth Warner"></a>
 								<div class="card-body">
 									<h5>Elizabeth Warner</h5>
 									<p>A Principal Faculty Specialist in the Department of Astronomy and the Observatory Director, Elizabeth spearheaded the LaunchUMD campaign to acquire the cameras. Her primary role in the project has been as a science advisor.</p>
 								</div>
 							</div>
 							<div class="card shadow-sm m-2">
-								<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="rounded-circle img-fluid img-thumbnail" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr. Teuben"></a>
+								<div class="container p-2">
+									<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr. Teuben"></a>
+								</div>
 								<div class="card-body">
 									<h5>Dr. Peter Teuben</h5>
 									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department
@@ -57,6 +59,47 @@ and teach astronomy there.</p>
 					</div>
 
 					<!--
+						<div class="card-deck p-2">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Warner_Elizabeth2.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Warner_Elizabeth2-crop.jpg" alt="Mrs. Warner"></a>
+								<div class="card-body">
+									<h5>Elizabeth Warner</h5>
+									<p>A Principal Faculty Specialist in the Department of Astronomy and the Observatory Director, Elizabeth spearheaded the LaunchUMD campaign to acquire the cameras. Her primary role in the project has been as a science advisor.</p>
+								</div>
+							</div>
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr. Teuben"></a>
+								<div class="card-body">
+									<h5>Dr. Peter Teuben</h5>
+									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department
+of Astronomy. Although his main interests are in galactic dynamics,
+hydrodynamics, and radio astronomy software, it was his interest in
+community software development that led him to join MASN in
+Summer 2015. He has been the Python coding advisor over the years
+training CPS-SDU students in using Python and GitHub. He also led
+an IAU/OAD sponsored project to take an All Sky Camera to Haiti
+and teach astronomy there.</p>
+								</div>
+							</div>
+
+						<div class="card shadow-sm m-2">
+								<a href="/webdings/Ryan_Geoff.png"><img class="rounded-circle img-thumbnail" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
+								<div class="card-body">
+									<h5>Dr. Geoff Ryan</h5>
+									<p>TEXT</p>
+								</div>
+							</div>
+						<div class="card shadow-sm m-2">
+								<a href="/webdings/Karim_Ramsey.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Karim_Ramsey-crop.jpg" alt="Ramsey Karim"></a>
+								<div class="card-body">
+									<h5>Ramsey Karim</h5>
+									<p>TEXT</p>
+								</div>
+							</div>
+						</div>
+					-->
+
+					<!--columns instead of cards; outdated
 						<div class="col-xs-12 col-md-6">
 							<div class="card shadow-sm m-2">
 								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Elizabeth Warner"></a>
@@ -77,24 +120,17 @@ and teach astronomy there.</p>
 						</div>
 					</div>
 				-->
+
+					<hr class="my-2" />
 				
-					<h6>Other contributors</h6>
-					<div class="container-fluid overflow-auto UMD-Der-silver" style="max-height: 500px">
+					<h6>College Park Scholars Participants</h6>
+					<div class="container-fluid round UMD-Der-Silver">
 
 						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-lg-3">
-								<div class="card shadow-sm m-2">
-									<a href="/webdings/Weird.png"><img class="card-img-top" src="/webdings/Weird.png" alt="..."></a>
-									<div class="card-body">
-										<h5>GRAD-MAP: Ashlee Wilkins</h5>
-										<p>Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>
-									</div>
-								</div>
-							</div>
 
-							<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/Weird.png"><img class="card-img-top" src="/webdings/Weird.png" alt="..."></a>
+									<a href="/webdings/Weird.png"><img class="card-img-top" src="/webdings/Weird.png" alt="Eric Lyness and Steve Ryan"></a>
 									<div class="card-body">
 										<h5>Spring 2015: Eric Lyness, Steve Ryan</h5>
 										<p>For their SDU Capstone project, Steve and Eric were the content creators for the LaunchUMD campaign.</p>
@@ -102,19 +138,9 @@ and teach astronomy there.</p>
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="..."></a>
-									<div class="card-body">
-										<h5>Summer 2015: Shawn Foster</h5>
-										<p>As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xs-12 col-sm-6 col-lg-3">
-								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20152016.jpg"><img class="card-img-top" src="/webdings/capstone-20152016-crop.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20152016.jpg"><img class="card-img-top" src="/webdings/capstone-20152016-crop.jpg" alt="James Gaitan and Anna Kraft at their Academic Showcase"></a>
 									<div class="card-body">
 										<h5>2015-2016: James Gaitan, Anna Kraft</h5>
 										<p>As SDU students, Anna and James tried writing an improved camera control program as an alternative to the proprietary software.</p>
@@ -122,19 +148,19 @@ and teach astronomy there.</p>
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20162017.jpg"><img class="card-img-top" src="/webdings/capstone-20162017-crop.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20162017.jpg"><img class="card-img-top" src="/webdings/capstone-20162017-crop.jpg" alt="Benji Cooper presenting his capstone work"></a>
 									<div class="card-body">
-										<h5>2016-2017: Baram Sosis, Benji Cooper</h5>
-										<p>Initially, Benji and his friend Baram were focused on completing the work Anna and James had started. After discovering AllSkEye, Benji continued with the project and worked on writing a better meteor detection algorithm.</p>
+										<h5>2016-2017: Benji Cooper, Baram Sosis</h5>
+										<p>Benji and his friend Baram started by continuing the work Anna and James had started, but after discovering AllSkEye, Benji alone worked on coding a better meteor detection algorithm.</p>
 									</div>
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20172018.jpg"><img class="card-img-top" src="/webdings/capstone-20172018-crop.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20172018.jpg"><img class="card-img-top" src="/webdings/capstone-20172018-crop.jpg" alt="Joe Cohen presenting for his Academic Showcase"></a>
 									<div class="card-body">
 										<h5>2017-2018: Joe Cohen</h5>
 										<p>Joe continued working on the meteor detection program that Benji started.</p>
@@ -142,9 +168,9 @@ and teach astronomy there.</p>
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20182019.jpg"><img class="card-img-top" src="/webdings/capstone-20182019-crop.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20182019.jpg"><img class="card-img-top" src="/webdings/capstone-20182019-crop.jpg" alt="Zach Rabin and Dmitriy Yarunin at the Academic Showcase for their capstone"></a>
 									<div class="card-body">
 										<h5>2018-2019: Zach Rabin, Dmitriy Yarunin</h5>
 										<p>Zach and Dmitriy also worked on the meteor detection algorithms and started looking at how to present the results on a webpage.</p>
@@ -152,9 +178,9 @@ and teach astronomy there.</p>
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="/webdings/capstone-20192020.jpg"><img class="card-img-top" src="/webdings/capstone-20192020-crop.jpg" alt="..."></a>
+									<a href="/webdings/capstone-20192020.jpg"><img class="card-img-top" src="/webdings/capstone-20192020-crop.jpg" alt="Sam Wills designing the layout of the home page"></a>
 									<div class="card-body">
 										<h5>2019-2020: Sam Wills</h5>
 										<p>For his SDU Capstone, Sam designed and built the MASN website.</p>
@@ -163,10 +189,51 @@ and teach astronomy there.</p>
 							</div>
 						</div>
 					</div>
+					<hr class="my-2" />
 
-					<p>Also currently, Dr Geoff Ryan, Ramsey Karim [grad student], & Zach Rabin</p>
+					<h6>Other Contributors</h6>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Ryan_Geoff.jpg"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.jpg" alt="Dr. Ryan"></a>
+								<div class="card-body">
+									<h5>Dr. Geoff Ryan</h5>
+									<p>Dr. Ryan handles the database.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Karim_Ramsey.jpg"><img class="card-img-top" src="/webdings/Karim_Ramsey-crop.jpg" alt="Ramsey Karim"></a>
+								<div class="card-body">
+									<h5>Ramsey Karim</h5>
+									<p>A grad student that is helping with the project.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Weird.png"><img class="card-img-top" src="/webdings/Weird.png" alt="Ashlee Wilkins"></a>
+								<div class="card-body">
+									<h5>Ashlee Wilkins</h5>
+									<p>Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="Shawn Foster in front of a box containing the first all-sky camera"></a>
+								<div class="card-body">
+									<h5>Shawn Foster</h5>
+									<p>As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<!--End row 1-->
+
+
 
 				<hr class="my-2" />
 

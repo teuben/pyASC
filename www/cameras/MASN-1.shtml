@@ -60,7 +60,7 @@ made possible by a very generous donation from UMD alum Dr. Ralph Pass.</p>
 					<div class="col-lg-6">
 						<h4 class="text-center">About this Camera</h4>
 						<p><ul>
-							<li>Description of the setup.</li>
+							<li>This camera is currently located at the University of Maryland Observatory. It is placed on top of a wooden pole to get a clear view of the sky above it. The surrounding foliage and relative isolation of the observatory help to decrease the amount of light pollution affecting the camera.</li>
 						</ul></p>
 					</div>
 				</div>
@@ -79,7 +79,7 @@ made possible by a very generous donation from UMD alum Dr. Ralph Pass.</p>
 					</div>
 					<div class="col-lg-6">
 						<h4 class="text-center">Location</h4>
-						<a id="img_anchor" href="https://goo.gl/maps/iK9h21GHbJ6cVb1S6"><img class="img-fluid" id="img_self" src="/webdings/umd-obs-map.png" /></a>
+						<a href="https://goo.gl/maps/iK9h21GHbJ6cVb1S6"><img class="img-fluid" src="/webdings/umd-obs-map.png" /></a>
 					</div>
 				</div>
 				<!--End Row 2-->
