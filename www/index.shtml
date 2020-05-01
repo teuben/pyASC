@@ -3,6 +3,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
+	<link rel="stylesheet" type="text/css" href="css-n-inc/classes.css">
+	<link rel="stylesheet" type="text/css" href="/css-n-inc/classes.css">
 
 <title>MASN_01</title>
 
@@ -13,7 +15,6 @@ var camera = 1;
 
 function load_image()
 {
-
 	var link = "http://mdallsky.astro.umd.edu/masn0" + camera + "-latest/AllSkEyeLatest.jpg"+ '?' + (new Date()).getTime();
 	document.getElementById("img_anchor").href = link;
 	document.getElementById("img_self").src = link;
@@ -37,7 +38,7 @@ function force_load_image(num){
 <meta name="viewport" content="initial-scale=1" />
 
 </head>
-<body onload="load_image()" style="background: url('/webdings/Banner_3.png') center center; background-position: top">
+<body onload="load_image()" class="banner-bg" style="">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
@@ -61,17 +62,18 @@ function force_load_image(num){
 						<div class="container col-md-12 col-lg-2 py-2">
 							<h4 class="text-center text-light">Select Camera</h4>
 
+							<!--Camera selector-->
 							<ul class="nav flex-lg-column flex-fill nav-pills nav-justified text-monospace">
 								<li class="nav-item">
 									<a class="nav-link active border white-bg" data-toggle="pill" href="#" onclick="force_load_image(1)"><p class="text-dark">MASN&nbsp;01</p></a>
 								</li>
 
 								<li class="nav-item">
-									<a class="nav-link border white-bg" data-toggle="pill" href="#" onclick="force_load_image(2)">
-										<p class="text-dark">MASN&nbsp;02</p>
+									<a class="nav-link border white-bg" data-toggle="pill" href="#" onclick="force_load_image(2)"><p class="text-dark">MASN&nbsp;02</p>
 									</a>
 								</li>
 
+								<!--Delete disabled class when a new camera is added-->
 								<li class="nav-item">
 									<a class="nav-link disabled border white-bg" data-toggle="pill" href="#" onclick="force_load_image(3)"><p class="text-dark">MASN&nbsp;03</p></a>
 								</li>
@@ -90,8 +92,8 @@ function force_load_image(num){
 						<!--Camera-->
 						<div class="container col-md-12 col-lg-10">
 							<div class="tab-content">
-								<div class="tab-pane show active" id="MASN_01">
-									<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?"><img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" /></a>
+								<div class="tab-pane show active" id="MASN_0X">
+									<a id="img_anchor" href="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?"><img class="img-fluid" id="img_self" name="animation" src="http://mdallsky.astro.umd.edu/masn01-latest/AllSkEyeLatest.jpg?" alt="Most recent image taken from the currently selected camera"/></a>
 								</div>
 							</div>
 						</div> 
@@ -139,14 +141,14 @@ function force_load_image(num){
 		<!--Pictures of the month-->
 		<div class="row UMD-Der-Black text-light py-2">
 			<div class="container col-md-6 col-xs-12 text-center">
-				<a href="/webdings/Meteor.png"><img src="/webdings/Meteor.png" class="img img-fluid border border-light rounded" alt="meteor picture" /></a>
+				<a href="/webdings/Meteor.png"><img src="/webdings/Meteor.png" class="img img-fluid border border-light rounded" alt="Special image from the Meteor Archives from the past month" /></a>
 				<h5 class="py-2">Meteor Picture of the Month</h5>
 				<h6>January 2020</h6>
 				<p>The meteor is in the top left of the image, going diagonally, and is somewhat faint.</p>
 			</div>
 
 			<div class="container col-md-6 col-xs-12 text-center">
-				<a href="/webdings/Weird.png"><img src="/webdings/Weird.png" class="img img-fluid border border-light rounded" alt="weird picture" /></a>
+				<a href="/webdings/Weird.png"><img src="/webdings/Weird.png" class="img img-fluid border border-light rounded" alt="Special image from the 'Other' Archives from the past month" /></a>
 				<h5 class="py-2">Weird Picture of the Month</h5>
 				<h6>January 2020</h6>
 				<p>An insect of some sort has decided to crawl around on the camera.</p>
@@ -158,7 +160,7 @@ function force_load_image(num){
 		<div class="row UMD-Der-red py-1 text-dark">
 			<div class="card-deck p-2">
 				<div class="card shadow">
-				    <img class="card-img-top" src="/webdings/masn-1-thumb.jpg" alt="hardware photo" />
+				    <img class="card-img-top" src="/webdings/masn-1-thumb.jpg" alt="Photo of MASN hardware" />
 					<div class="card-body">
 						<h5>Hardware</h5>
 						<p>The Maryland All-Sky Network utilizes a Starlight Xpress Oculus camera.</p>
@@ -166,7 +168,7 @@ function force_load_image(num){
 					</div>
 				</div>
 				<div class="card shadow">
-					<img class="card-img-top" src="/webdings/preview-screenshot-thumb.png" alt="tech photo">
+					<img class="card-img-top" src="/webdings/preview-screenshot-thumb.png" alt="Photo of AllSkEye software used in MASN">
 					<div class="card-body">
 						<h5>Software</h5>
 						<p>For camera control, image capture, and meteor detection, we are using the AllSkEye program written by Michael Poelzl. We are also in the process of writing our python scripts for meteor detection and other image analysis.</p>
@@ -174,7 +176,7 @@ function force_load_image(num){
 					</div>
 				</div>
 				<div class="card shadow">
-				    <img class="card-img-top" src="/webdings/double-logo.png" alt="team photo">
+				    <img class="card-img-top" src="/webdings/double-logo.png" alt="MASN's sponsor, LaunchUMD's logo">
 					<div class="card-body">
 						<h5>Project</h5>
 						<p>Funded through a LaunchUMD initiative, MASN has been a project for many students over the years.</p>

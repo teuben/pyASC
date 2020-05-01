@@ -6,47 +6,32 @@
 <title>MASN_01</title>
 
 <!--The beginnings of a script idea for populating the page with cards-->
-<script>
-	
-	//Change this when new cameras are installed
-	var num_cameras = 1
-	//To be input via form data if images will be separated by date taken
-	var curr_date = 0
+<script language="JavaScript">
 
-	function load_content()
+	function load_month(mo)
 	{
-		//These are for formatting the images
-		//Constants so they should be all-CAPS but I forgot
-		var row_base = "<div class=\"row\">"
-		var column_base = "<div class=\"col-lg-4 col-xs-12\"><div class=\"container\">"
-		var max_columns_per_row = 3
-		var img_base1 = "<a href=\""
-		var img_base2 = "\"><img class=\"img img-fluid\" src=\""
-		var img_base3 = "\" alt=\"Meteor picture\" /></a>"
-		var text_base = ""
-		var closing_tags = "</div></div>"
-
-
-		//The string that will be innerHTML-appended to the div with id img-wall
-		var formatted = ""
-		//var files = [] //Acquire them based on storage
-		//Example:
-		var files = ["/gallery/meteor/Meteor-20191028.png"]
-		for (var i = 0; i < files.length; i++) {
-			if(i % max_columns_per_row == 0){
-				formatted += row_base
-			}
-			formatted += column_base + img_base1 + files[i] + img_base2 + files[i] + img_base3 + closing_tags
-			if(i % max_columns_per_row == 2){
-				formatted += "</div>"
-			}
-		}
-		if(i % max_columns_per_row != 0){
-			formatted += "</div>"
-		}
-		document.getElementById("img-wall").innerHTML = formatted
+		//Set submit-month button to redirect user to month folder 
 	}
 
+	function load_date(da)
+	{
+		//Set submit-date button to redirect user to date folder
+	}
+
+	function jumpto(moda)
+	{
+		if(moda === "month"){
+			//send user to month folder
+		}
+		else{
+			//send user to date folder
+		}
+	}
+
+	function init_forms()
+	{
+		//set the values for the forms
+	}
 </script>
 
 <!--Mobile viewport fix!-->
@@ -54,19 +39,45 @@
 
 </head>
 
-<body onload ="load_content()" style="background: url('/webdings/Banner_3.png') center center; background-position: top">
+<body onload="init_forms()" style="background: url('/webdings/Banner_3.png') center center; background-position: top">
 
 <!--Main Div-->
 <div class="container-fluid transparent-black-bg text-dark">
 
 	<!--#include virtual="/css-n-inc/nav.inc"-->
 
-	<!--Camera Jumbotron-->
+	<!--Content-->
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
 			<h2>Meteor Archives</h2>
 			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
+			<h5>Access to all archives</h5>
+			<form>
+				<div class="form-group row">
+					<label class="col-lg-2">Select Month</label>
+					<div class="col-lg-3">
+						<input onchange="load_month(this.value)" class="form-control" id="month-input" type="month" name="month" min="2016-01" max="" value="" />
+					</div>
+					<div class="col-lg-1">
+						<button id="submit-month" class="btn btn-primary">Jump to Month</button>
+					</div>
+					<label class="col-lg-2">Select Date</label>
+					<div class="col-lg-3">
+						<input onchange="load_date(this.value)" class="form-control" id="date-input" type="date" name="date" min="2015-12-31" max="" value="" />
+					</div>
+					<div class="col-lg-1">
+						<a href="#" onclick="jumpto('month')">
+							<button id="submit-date" class="btn btn-primary">Jump to Date</button>
+						</a>
+					</div>
+				</div>
+			</form>
+
 			<div id="img-wall" class="container-fluid">
+				<a id="link" href="/masn01-archive/">
+					<p>Link to the archives</p>
+				</a>
+				<!--
 				<div class="row">
 					<div class="col-lg-4 col-xs-12">
 						<div class="container-fluid">
@@ -74,6 +85,8 @@
 						</div>
 					</div>
 				</div>
+				-->
+
 				<!--
 				<img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>-->
 			</div>
