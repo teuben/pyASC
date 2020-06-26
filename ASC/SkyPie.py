@@ -15,14 +15,19 @@ t1 =  6.0
 t0 = 17.0
 t1 =  7.0
 
-# degrees for polar plot
-tmin = (t0-12.0)*180/12.0
-tmax = 360 - (12-t1)*180/12.0
-
 #   table of time index (1...N) and median sky brightness (50,000 is very bright)
 (t,s) = np.loadtxt(table).T
 print("Sky: ",s.min(),s.max())
 print("Time:",t.min(),t.max())
+
+t0 = t[0]
+t1 = t[-1]
+print(t0,t1)
+# degrees for polar plot
+tmin = (t0-12.0)*180/12.0
+tmax = 360 - (12-t1)*180/12.0
+
+
 
 x = (12+24-t) * twopi / 24.0
 #x = t * twopi / 24.0 
