@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 #
+# Takes about 15" fpr 1400 images on laptop with a local fast disk
+#
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
@@ -8,13 +10,6 @@ date = ''
 table = sys.argv[1]
 png   = table + '.png'
 twopi = 2*np.pi
-
-# hours
-t0 = 18.0
-t1 =  6.0
-
-t0 = 17.0
-t1 =  7.0
 
 #   table of time index (1...N) and median sky brightness (50,000 is very bright)
 (t,s) = np.loadtxt(table).T
@@ -28,11 +23,7 @@ print(t0,t1)
 tmin = (t0-12.0)*180/12.0
 tmax = 360 - (12-t1)*180/12.0
 
-
-
 x = (12+24-t) * twopi / 24.0
-#x = t * twopi / 24.0 
-
 y = s.max()-s
 
 print(x.min(),x.max())
@@ -61,16 +52,13 @@ ax.fill_between(x,yc,yd,facecolor='green',alpha=0.7)
 ax.fill_between(x,yd,ye,facecolor='green',alpha=0.85)
 ax.fill_between(x,ye,y ,facecolor='green',alpha=1)
 
-
-#fig1, ax1 = plt.subplots(1, 1)
-#plt.plot([0,1],[0,1])
-
+# needs tweaking
 plt.text(3.14,50000,'midnight',horizontalalignment='center')
 plt.text(1.1,42000,'sunrise')
 plt.text(5.1,48000,'sunset')
-plt.text(5.5,20000,'image a moon')
+plt.text(5.5,20000,'imagine a moon')
 
-plt.title("%s sky: %g %g  %g-%g h" % (date,s.min(),s.max(),t0,t1))
+plt.title("%s sky: %g %g  %g-%g h" % (table,s.min(),s.max(),t0,t1))
 plt.savefig(png)
 plt.show()
 
