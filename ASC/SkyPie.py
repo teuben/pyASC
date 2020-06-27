@@ -1,17 +1,17 @@
 #! /usr/bin/env python
 #
-# Takes about 15" fpr 1400 images on laptop with a local fast disk
+# Takes about 15" for 1400 images on laptop with a local fast disk (100% cpu)
+# But 60" on the Xeon, but at 300% cpu
 #
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-date = ''
 table = sys.argv[1]
 png   = table + '.png'
 twopi = 2*np.pi
 
-#   table of time index (1...N) and median sky brightness (50,000 is very bright)
+#   table of decimal hour time and median sky brightness (50,000 is very bright)
 (t,s) = np.loadtxt(table).T
 print("Sky: ",s.min(),s.max())
 print("Time:",t.min(),t.max())
@@ -19,11 +19,14 @@ print("Time:",t.min(),t.max())
 t0 = t[0]
 t1 = t[-1]
 print(t0,t1)
-# degrees for polar plot
-tmin = (t0-12.0)*180/12.0
-tmax = 360 - (12-t1)*180/12.0
 
-x = (12+24-t) * twopi / 24.0
+# tmin is the sunrise, from t1 (6), should be near 90
+# tmax is the sunset, from t0 (18)                270
+tmin = (6-t1)*15  +  90
+tmax = (18-t0)*15 + 270
+
+print(tmin,tmax)
+x = (12-t) * twopi / 24.0
 y = s.max()-s
 
 print(x.min(),x.max())
@@ -37,6 +40,12 @@ ax.xaxis.set_major_formatter(plt.NullFormatter())
 ax.xaxis.set_major_formatter(plt.NullFormatter())
 ax.yaxis.set_major_formatter(plt.NullFormatter())
 ax.yaxis.set_major_formatter(plt.NullFormatter())
+
+if False:
+    # always same pie, an extra hour either side
+    tmin=75
+    tmax=285
+print(tmin,tmax)
 ax.set_thetamin(tmin)
 ax.set_thetamax(tmax)
     
@@ -51,6 +60,8 @@ ax.fill_between(x,yb,yc,facecolor='green',alpha=0.5)
 ax.fill_between(x,yc,yd,facecolor='green',alpha=0.7)
 ax.fill_between(x,yd,ye,facecolor='green',alpha=0.85)
 ax.fill_between(x,ye,y ,facecolor='green',alpha=1)
+
+
 
 # needs tweaking
 plt.text(3.14,50000,'midnight',horizontalalignment='center')
