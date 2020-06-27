@@ -6,6 +6,7 @@ import sys
 
 date = ''
 table = sys.argv[1]
+png   = table + '.png'
 twopi = 2*np.pi
 
 # hours
@@ -70,6 +71,8 @@ plt.text(5.1,48000,'sunset')
 plt.text(5.5,20000,'image a moon')
 
 plt.title("%s sky: %g %g  %g-%g h" % (date,s.min(),s.max(),t0,t1))
-plt.savefig("allsky-polar.png")
+plt.savefig(png)
 plt.show()
+
+print("Written ",png)
 
