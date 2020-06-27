@@ -7,9 +7,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
+#   plt.rcParams.update({'font.size': 10})
+SMALL_SIZE = 8
+MEDIUM_SIZE = 8
+BIGGER_SIZE = 8
+
+
+
 twopi = 2*np.pi
 
-def plot1(table,ax,Qtitle):
+def plot1(table,ax,Qtitle,title=None):
     #   table of decimal hour time and median sky brightness (50,000 is very bright)
     (t,s) = np.loadtxt(table).T
     print("Sky: ",s.min(),s.max())
@@ -66,9 +73,19 @@ def plot1(table,ax,Qtitle):
     ax.fill_between(x,yc,yd,facecolor='green',alpha=0.7)
     ax.fill_between(x,yd,ye,facecolor='green',alpha=0.85)
     ax.fill_between(x,ye,y ,facecolor='green',alpha=1)
+    if title != None:
+        ax.text(0,smax/2,title,horizontalalignment='center')
+        #ax.set_title(title)
 
     if Qtitle:
         plt.title("%s sky: %g-%g  %.3f-%.3f h" % (table,s.min(),s.max(),t0,t1))
+
+        # needs tweaking
+        plt.text(3.14,smax*1.1,'midnight',horizontalalignment='center')
+        plt.text(1.2,smax,'sunrise',horizontalalignment='left')
+        plt.text(twopi-1.2,smax,'sunset',horizontalalignment='right')
+        plt.text(0,smax/4,'imagine a moon',horizontalalignment='center')
+        
 
 
 ntable = len(sys.argv[1:])
@@ -80,6 +97,17 @@ if ntable == 1:
 else:
     Qtitle = False
 
+
+if ntable > 1:
+    plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+    plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+    plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+    plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+    plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+    plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+
 nx = int(np.sqrt(ntable))
 ny = ntable // nx
 
@@ -87,22 +115,23 @@ print(nx,ny)
 
 fig, ax = plt.subplots(ny, nx, subplot_kw=dict(projection='polar'))
 
+if ntable > 1:
+    plt.subplots_adjust(hspace = .001,wspace=0.001, left=0.01, right=0.99, bottom=0.01, top=0.99)
+#      left  = 0.125  # the left side of the subplots of the figure
+#      right = 0.9    # the right side of the subplots of the figure
+#      bottom = 0.1   # the bottom of the subplots of the figure
+#      top = 0.9      # the top of the subplots of the figure
+#      wspace = 0.2   # the amount of width reserved for blank space between subplots
+#      hspace = 0.2   # the amount of height reserved for white space between subplots
+
 if Qtitle:
     plot1(table,ax,True)
 else:    
     k = 1
     for i in range(nx):
         for j in range(ny):
-            plot1(sys.argv[k],ax[j][i],False)
+            plot1(sys.argv[k],ax[j][i],False,sys.argv[k])
             k = k+1
-
-
-if Qtitle:            
-    # needs tweaking
-    plt.text(3.14,50000,'midnight',horizontalalignment='center')
-    plt.text(1.1,42000,'sunrise')
-    plt.text(5.1,48000,'sunset')
-    plt.text(5.5,20000,'imagine a moon')
 
 
 plt.savefig(png)
