@@ -1,3 +1,4 @@
+import datetime
 import time
 import shutil
 import numpy as np
@@ -22,6 +23,9 @@ class Action:
         self.count = 0
         self.maxIter = maxIter
         self.t0 = time.time()
+        self.processed = {}
+
+        self.timezone = datetime.timezone(datetime.timedelta(hours=-5))
 
 
 
@@ -56,53 +60,92 @@ class Action:
         return handle
 
     def kernel(self, archive):
-        return
+        pass
 
 
-    def _getFileList(self, archive, targetDate, inputDir=None):
-       
-        files = []
+    def _getFileDict(self, archive, inputDir=None):
+      
+        files = {}
 
         if inputDir is not None:
             inpath = Path(inputDir)
+            files['input'] = []
             for path in sorted(inpath.iterdir()):
                 if (path.exists() and path.is_file()
                         and (path.suffix == '.fits' or path.suffix == '.FIT')):
-                    files.append(str(path.resolve()))
+                    files['input'].append(str(path.resolve()))
             return files
+
+        targetDate = self.getTargetDate()
 
         if targetDate == 'all':
             dates = archive.getObsDates()
-            for date in dates:
-                files.extend(archive.getFITSByDate(date))
-
         elif isinstance(targetDate, list):
-            for date in targetDate:
-                files.extend(archive.getFITSByDate(str(date)))
-        
+            dates = [str[d] for d in targetDates]
         else:
-            files.extend(archive.getFITSByDate(str(targetDate)))
+            dates = [str(targetDate)]
+
+        for date in dates:
+            newfiles = archive.getFITSByDate(date)
+            if date in self.processed
+                newfiles = list(set(newfiles)
+                                - set(self.processed[date]))
+            if len(newfiles) > 0:
+                files[date] = newfiles
 
         return files
 
 
-    def _getFileListRAz(self, archive, targetRA, targetDate, RAtol):
+    def _getFileDictRAz(self, archive, targetRA, RAtol):
+
+
+        files = {}
        
-        if targetDate == 'all':
-            files = archive.getFITSByRAz(targetRA, RAtol)
+        targetDate = self._getTargetDate()
 
+        if targetDate == 'all':
+            dates = archive.getObsDates()
         elif isinstance(targetDate, list):
-            files = []
-            for date in targetDate:
-                fits = archive.getFITSByRAzDate(targetRA, str(date), RAtol)
-                if fits is not None:
-                    files.append(fits)
-        
+            dates = [str[d] for d in targetDates]
         else:
-            files = [archive.getFITSByRAzDate(targetRA, str(self.targetDate),
-                                              RAtol)]
+            dates = [str(targetDate)]
+
+        for date in dates:
+            fits = archive.getFITSByRAzDate(targetRA, str(date), RAtol)
+            if fits is None:
+                continue
+
+            if date in self.processed
+                fits = list(set(fits) - set(self.processed[date]))
+
+            if len(fits) > 0:
+                files[date] = fits
 
         return files
+
+
+    def _getTargetDate(self):
+
+        if self.targetDate == 'current':
+            # Get the yyyymmdd code for current observations,
+            # ie. the date in the morning.
+            # Do this by getting the date 12 hours from now
+            # in the evening this is tomorrow, in the morning it is today
+            now = datetime.datetime.now(self.timezone)
+            delta = datetime.timedelta(hours=12)
+            ref = now + delta
+            date = "{0:04d}{1:02m}{2:02d}".format(ref.year, ref.month, ref.day)
+            return date
+
+        return self.targetDate
+
+
+    def _markProcessed(self, targetDate, fileList):
+
+        if targetDate in self.processed:
+            self.processed[targetDate].extend(files)
+        else:
+            self.processed[targetDate] = list(fileList)
 
 
 class UpdateArchive(Action):
@@ -125,7 +168,8 @@ class UpdateArchive(Action):
 
 class MakeImage(Action):
 
-    def __init__(self, scheduler, name, cadence, outputDir, maxIter, target,
+    def __init__(self, scheduler, name, cadence, outputDir, maxIter,
+                 targetDate,
                  label=None, overwrite=False, inputDir=None,
                  blackVal=None, whiteVal=None):
 
@@ -134,7 +178,7 @@ class MakeImage(Action):
             myname += '-' + label
         self.label = label
 
-        self.target = target
+        self.targetDate = targetDate
         self.overwrite = overwrite
 
         self.inputDir = inputDir
@@ -145,10 +189,13 @@ class MakeImage(Action):
 
     def kernel(self, archive):
 
-        files = self._getFileList(archive, self.target, self.inputDir)
+        files = self._getFileDict(archive, self.inputDir)
 
-        for f in files:
-            self._makeImage(f)
+        for date in files:
+            for f in files[date]:
+                self._makeImage(f)
+
+        self._markProcessed(files)
 
     
     def _makeImage(self, filename):
@@ -176,7 +223,8 @@ class MakeImage(Action):
 
 class MakeHist(Action):
 
-    def __init__(self, scheduler, name, cadence, outputDir, maxIter, target,
+    def __init__(self, scheduler, name, cadence, outputDir, maxIter,
+                 targetDate,
                  label=None, overwrite=False, bitDepth=16, binWidth=4,
                  inputDir=None):
 
@@ -185,7 +233,7 @@ class MakeHist(Action):
             myname += '-' + label
         self.label = label
 
-        self.target = target
+        self.targetDate = targetDate
         self.inputDir = inputDir
         self.overwrite = overwrite
         self.bitDepth = bitDepth
@@ -195,10 +243,13 @@ class MakeHist(Action):
 
     def kernel(self, archive):
 
-        files = self._getFileList(archive, self.target, self.inputDir)
+        files = self._getFileDict(archive, self.inputDir)
 
-        for f in files:
-            self._makeHist(f)
+        for key in files:
+            for f in files[key]:
+                self._makeHist(f)
+
+        self._markProcessed(files)
 
     
     def _makeHist(self, filename):
@@ -246,14 +297,16 @@ class CopyByRA(Action):
 
     def kernel(self, archive):
 
-        files = self._getFileListRAz(archive, self.targetRA, self.targetDate,
-                                     self.RAtolerance)
+        files = self._getFileDictRAz(archive, self.targetRA, self.RAtolerance)
 
         outDirStr = str(self.outputDir)
 
-        for f in files:
-            print("Copying", Path(f).name, "to", outDirStr)
-            shutil.copy2(f, outDirStr)
+        for date in files:
+            for f in files[date]:
+                print("Copying", Path(f).name, "to", outDirStr)
+                shutil.copy2(f, outDirStr)
+
+        self._markProcessed(files)
     
 
 def parseCadence(cadence):

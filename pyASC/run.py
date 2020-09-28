@@ -103,7 +103,7 @@ def buildAction(scheduler, name, pars, arch):
         label = None
         if 'label' in pars:
             label = pars['label']
-        target = pars['target']
+        targetDate = pars['targetDate']
         overwrite = None
         if 'overwrite' in pars:
             overwrite = pars['overwrite']
@@ -118,7 +118,7 @@ def buildAction(scheduler, name, pars, arch):
             whiteVal = pars['whiteVal']
 
         a = action.MakeImage(scheduler, name, cadence, outputDir, maxIter,
-                             target, label=label, overwrite=overwrite,
+                             targetDate, label=label, overwrite=overwrite,
                              inputDir=inputDir, blackVal=blackVal,
                              whiteVal=whiteVal)
 
@@ -126,7 +126,7 @@ def buildAction(scheduler, name, pars, arch):
         label = None
         if 'label' in pars:
             label = pars['label']
-        target = pars['target']
+        targetDate = pars['targetDate']
         overwrite = None
         if 'overwrite' in pars:
             overwrite = pars['overwrite']
@@ -140,7 +140,7 @@ def buildAction(scheduler, name, pars, arch):
         if 'inputDir' in pars:
             inputDir = pars['inputDir']
         a = action.MakeHist(scheduler, name, cadence, outputDir, maxIter,
-                             target, label=label, overwrite=overwrite,
+                             targetDate, label=label, overwrite=overwrite,
                              bitDepth=bitDepth, binWidth=binWidth,
                              inputDir=inputDir)
 
