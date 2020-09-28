@@ -87,7 +87,7 @@ class Action:
 
         for date in dates:
             newfiles = archive.getFITSByDate(date)
-            if date in self.processed
+            if date in self.processed:
                 newfiles = list(set(newfiles)
                                 - set(self.processed[date]))
             if len(newfiles) > 0:
@@ -115,7 +115,7 @@ class Action:
             if fits is None:
                 continue
 
-            if date in self.processed
+            if date in self.processed:
                 fits = list(set(fits) - set(self.processed[date]))
 
             if len(fits) > 0:
