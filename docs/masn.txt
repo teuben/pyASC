@@ -15,3 +15,7 @@
   .     *
   .
   .
+
+
+- identify from flight info websites what airplane was visible
+  interesting parameter: height will be related how far they are

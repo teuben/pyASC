@@ -1,6 +1,6 @@
- #! /usr/bin/env python
+#! /usr/bin/env python
 #
-#    quick and dirty processing of the MD All Sky images
+#    quick and dirty processing of the All Sky images
 
 from astropy.io import fits
 from scipy.misc import imsave
@@ -17,6 +17,7 @@ import logging
 import time
 import Dtime
 import networkx as nx
+from radial_data import radial_data
 #import glob
 
 class ASCube(object):
@@ -26,20 +27,33 @@ class ASCube(object):
     day = 0
     pattern = 'IMG?????.FIT'
     def __init__(self, dirname = ".", box = [], frames = [], maxframes = 10000, 
-        template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = True):
+                 template = "IMG%05d.FIT", doload = True, difference = False, sig_frames = False, meteor = True,
+                 xslice = -1, yslice = -1,
+                 debug = True):
 
-        self.dirname = dirname
-        self.doload = doload
-        self.dtime = Dtime.Dtime("ascube")
-        self.box = box
-        self.frames = frames
+        self.dirname   = dirname
+        self.doload    = doload
+        self.dtime     = Dtime.Dtime("ascube")
+        self.debug     = debug
+        self.box       = box
+        self.frames    = frames
         self.maxframes = maxframes
-        self.template = template
-        self.numfiles = 0
-        print("initializing directoy %s" %dirname)
+        self.template  = template
+        self.numfiles  = 0
+        self.files     = []
+        self.headers   = []
+        self.xslice    = xslice
+        self.yslice    = yslice
+        print('PJT',xslice,yslice)
+        if xslice>0 or yslice>0:
+            self.radial   = False
+        else:
+            self.radial   = True   # hack
+            self.rmax     = 450            # fixme
+            self.center   = (716,465)      # fixme
+            self.nxy      = (1392,1040)    # fixme
+        print("initializing directory %s" %dirname)
         print(type(dirname), type(self.pattern))
-        self.files = []
-        self.headers = []
         self.dtime.tag("before iterating through frames")
         for s in self.frames:
             fname = dirname + "/" + self.template % s
@@ -53,10 +67,10 @@ class ASCube(object):
         #self.numFiles = len(files)
         if len(self.files) == 0:
             print("warning: no files %s found" %self.pattern)
-        """else:
+        else:
             print("Found %d files" %len(self.files))
             print("Box: ", box)
-            print("Frames: ", frames)"""
+            print("Frames: ", frames)
         self.data = None
         self.nx = 0
         self.ny = 0
@@ -81,12 +95,46 @@ class ASCube(object):
             (header, newData) = self.getData(self.files[k], self.box)
             newData = newData * header["BSCALE"] + header["BZERO"]
             self.headers.append(header)
+            if self.radial:
+                if k==0:
+                    nx = newData.shape[1]
+                    ny = newData.shape[0]
+                    x1 = np.arange(1,nx+1) - self.center[0]
+                    y1 = np.arange(1,ny+1) - self.center[1]
+                    x,y = np.meshgrid(y1,x1)
+                    print('pjt',newData.shape)
+                    self.ndim = 0                    
+                r = radial_data(newData.T,x=x,y=y,rmax=self.rmax)
             if k == 0:
                 if self.nx == 0:
                     self.nx = newData.shape[1]
                     self.ny = newData.shape[0]
-                self.data = np.zeros((self.nf, self.ny, self.nx))
-            self.data[k,:,:] = newData
+                if self.radial:
+                    self.nr = len(r.r)
+                    self.mean   = np.zeros((self.nf, self.nr))
+                    self.std    = np.zeros((self.nf, self.nr))
+                    self.median = np.zeros((self.nf, self.nr))
+                elif self.xslice > 0:
+                    self.data = np.zeros((self.nf, self.ny))
+                    self.ndim = 2
+                elif self.yslice > 0:
+                    self.data = np.zeros((self.nf, self.nx))
+                    self.ndim = 2                    
+                else:
+                    self.data = np.zeros((self.nf, self.ny, self.nx))
+                    self.ndim = 3                    
+            if self.radial:
+                self.mean[k,:]   = r.mean
+                self.std[k,:]    = r.std
+                self.median[k,:] = r.median
+                print(k)
+            elif self.xslice > 0:
+                self.data[k,:] = newData[:,self.xslice]
+            elif self.yslice > 0:
+                self.data[k,:] = newData[self.yslice,:]
+            else:
+                self.data[k,:,:] = newData
+                                         
         #print(self.data)
 
     def computeDifference(self):
@@ -188,6 +236,8 @@ class ASCube(object):
         string += "Max Frames: " + str(self.maxframes) + "\n"
         string += "Template: " + str(self.template) + "\n"
         string += "Load: " + str(self.doload) + "\n"
+        string += "Ndim: " + str(self.ndim) + "\n"
+        string += "Data: " + str(self.data) + "\n"
         return string
 
 
