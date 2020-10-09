@@ -11,3 +11,8 @@ Intruder Detector With Raspberry Pi and Pushbullet
 
 A Tour of Machine Learning Algorithms
     http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/
+
+Accuracy of meteor positioning from space- and ground-based observations
+    Chen, Rambaux, Vaubaillon
+    https://www.aanda.org/articles/aa/abs/2020/10/aa39014-20/aa39014-20.html
+    https://doi.org/10.1051/0004-6361/202039014
