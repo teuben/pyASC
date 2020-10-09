@@ -4,3 +4,8 @@ https://www.cosmos.esa.int/web/esdc/esasky-for-education
 
 CCD reduction book:
 https://mwcraig.github.io/ccd-as-book/00-00-Preface.html
+
+interesting projects:
+
+https://github.com/thomasjacquin/allsky
+A Raspberry Pi operated Wireless Allsky Camera 
