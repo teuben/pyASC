@@ -227,3 +227,24 @@ to get one.
 
    - not every microSD card has the same number of blocks. So a straight "dd" may
      give surprising results if you clone one system to the other.
+
+
+8) Networking with a ethernet cross cable:
+
+   If you have a RP3 without peripherals, and are "in the field" with a laptop, one way to reconfigure
+   your RP3 is to take the microSD card into the laptop, if you have the right adaptors, and edit the
+   appropriate files.
+   Another way is to use a router (but they you might need power) or simply a special ethernet cross
+   cable. This is not the normal patch cable, but a special cross cable that allows you to connect
+   two PCs (laptop and RP3) directly together.
+
+   Here is an Ubuntu 18 solution, by installing a DHCP server.
+   https://www.server-world.info/en/note?os=Ubuntu_18.04&p=dhcp&f=1
+   https://linoxide.com/linux-how-to/install-configure-dhcp-ubuntu/
+
+
+   Basically:
+	sudo apt -y install isc-dhcp-server
+	sudo vim /etc/default/isc-dhcp-server
+	sudo vim /etc/dhcp/dhcpd.conf
+	sudo systemctl restart isc-dhcp-server 
