@@ -16,6 +16,7 @@ if len(sys.argv) > 1:
 
 
 # grab data
+# the full resolution version can overheat your RP3
 try:
     os.system('raspistill -n -w 1280 -h 960 -o %s' % fn)
 except:
