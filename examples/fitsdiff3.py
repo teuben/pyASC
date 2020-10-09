@@ -31,6 +31,12 @@ else:
     f2 = 'MASN01-2018-03-24T01-56-33-509Z.fits'
     f3 = 'MASN01-2018-03-24T01-57-31-931Z.fits'
 
+if len(sys.argv) == 4:
+    f1 = sys.argv[1]
+    f2 = sys.argv[2]
+    f3 = sys.argv[3]
+    print("Using %s %s %s" % (f1,f2,f3))
+
 hdu1 = fits.open(f1)
 hdu2 = fits.open(f2)
 hdu3 = fits.open(f3)
