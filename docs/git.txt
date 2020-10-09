@@ -106,7 +106,8 @@ astropy:
     http://docs.astropy.org/en/stable/development/workflow/development_workflow.html
 atlassion tutorials:
     https://www.atlassian.com/git/tutorials/comparing-workflows
-
+    https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+    
 Other git intros:
 http://physics.mnstate.edu/craig/git-novice-pyastro/
 
