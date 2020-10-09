@@ -6,12 +6,16 @@ demo of the code that takes sky images and then goes off and tries to
 find differences and see if there are planes, satellites, meteors, or
 other things that are different between images.
 
+Within 10 seconds of booting the first picture will be taken (right light
+on), then every 30 seconds this repeats.
 
+Warning: the unit seems to overheat, and may have to be turned off
+or more actively cooled down if possible.
 
 The demo box comes with the following components:
 
-
-1) Raspberry Pi3 (RP3) with a tiny camera dangling off a small ribbon cable (CAREFUL!)
+1) Raspberry Pi3 (RP3) with a tiny camera dangling off a small ribbon cable
+   (CAREFUL with this)
 2) Red Audio Cube (RAC)
 3) MicroUSB charger for RP3
 4) US-EU plug converter for the charger
@@ -29,10 +33,15 @@ The demo box comes with the following components:
       	     fidcrit=20.0
 	  
    if the demo talks too much, set the critical value a bit lower, say 15.0
-   If not enough talking, set it higher, say 25.0    Experiment till happy.
+   If not enough talking, set it higher, say 25.0    Experiment till happy!
+
+   PASSWORDS:
+
+   The RP3 ethernet port will respond to DHCP, and once you have the IP,
+   ssh to the "pi" account, with the password "raspberry4me". That's a faster
+   way to edit the demo2 script settings.
 
 7) Few little manuals that you should not need. 
-
 
 When everything is connected, the RP3 boots in about 5-10 seconds. You
 will see the red light on the camera go on twice, then it computes a
@@ -41,21 +50,46 @@ value, an "INTRUDER ALERT" will sound.  Simply hold your hand in front
 of the camera during one snapshot, and let it see the room the other,
 and there should be an ALERT.
 
+Make sure the dangling camera is steady, it tends to wobble if freely
+hanging loose, and then it will nearly always find an intrudor.
+
 PROBLEMS:
 
 It does happen that the RP3 appears to hang. This appears overheating.
-Maybe take the cover off (the bigger heat sink can get really hot)
+Maybe take the cover off (the bigger heat sink can get really hot), but
+perhaps turning it off a bit is another solution.
+I tried bypassing the fits conversion, so the current version only deals
+with jpg. Still too hot.
+Moving the unit also does not seem to help.
+When the attached RAC make noise as if it's turned off, usually this means
+the RP3 has frozen.
+
+The unit should go back via Alice Allen (she stays 2 weeks) or
+Alberto Bolatto (he only stays a week), or James Gerber.
+Questions to  Peter Teuben   teuben@gmail.com
 
 
-The unit should go back via Alberto Bolatto (he only stays a week), or
-Alice Allen (she stays 2 weeks)
 
 
-ARP2:
-   
+
+
+ARP2 cpuinfo:
+-------------   
 processor       : 0
 model name      : ARMv7 Processor rev 4 (v7l)
 BogoMIPS        : 38.40
+Features        : half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
+CPU implementer : 0x41
+CPU architecture: 7
+CPU variant     : 0x0
+CPU part        : 0xd03
+CPU revision    : 4
+
+ARP3 cpuinfo:
+-------------
+processor       : 0
+model name      : ARMv7 Processor rev 4 (v7l)
+BogoMIPS        : 89.60
 Features        : half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 
 CPU implementer : 0x41
 CPU architecture: 7
