@@ -23,9 +23,10 @@
 from __future__ import print_function
 from tkinter import filedialog
 from tkinter import *
-# astride_edited is same as astride but makes it so that background removal does not interfere with streak detection
+# To use masking, please use my version of astride by using the command pip install git+https://github.com/shwaylay/ASTRiDE.git@allow-masking
+# My version of astride is same as astride but makes it so that background removal does not interfere with streak detection
 # does cause errors with connectivity angle though so change back to astride if you want to use connectivity angle and not masking.
-from astride_edited import Streak
+from astride import Streak
 import glob
 import sys
 import shutil
