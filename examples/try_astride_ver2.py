@@ -48,6 +48,8 @@ from astropy import wcs
 from astropy.nddata import Cutout2D
 from astropy.wcs import WCS
 
+
+file_sep = os.path.sep
 # sets the default values for the arguments
 class _Args:
     file_pathin = ""
@@ -121,8 +123,8 @@ def mk_diff(f0, f1, diff, cutout):
             sizes.append((w+30,h+30))
 
     # this is used for naming the differenced files later
-    f0_slash = f0.rindex('\\')
-    f1_slash = f1.rindex('\\')
+    f0_slash = f0.rindex(file_sep)
+    f1_slash = f1.rindex(file_sep)
     # if not making cutouts make the files with the mask
     if not cutout:
         # this code is based on code from:
@@ -135,17 +137,17 @@ def mk_diff(f0, f1, diff, cutout):
         hdu0[0].data = image_data0
         hdu1[0].data = image_data1
 
-        diff0 = diff + "\\" + f0[f0_slash+1:]
+        diff0 = diff + file_sep + f0[f0_slash+1:]
         hdu0.writeto(diff0,overwrite=True)
-        diff1 = diff + "\\" + f1[f1_slash+1:]
+        diff1 = diff + file_sep + f1[f1_slash+1:]
         hdu1.writeto(diff1,overwrite=True)
     # otherwise make the cutout files
     else:
         i = 0
         for rect in rects:
-            diff0 = diff + "\\" + f0[f0_slash+1:]
+            diff0 = diff + file_sep + f0[f0_slash+1:]
             save_cutout(f0, rect[0], sizes[i], diff0, i)
-            diff1 = diff + "\\" + f1[f1_slash+1:]
+            diff1 = diff + file_sep + f1[f1_slash+1:]
             save_cutout(f1, rect[0], sizes[i], diff1, i)
             i += 1
 
@@ -170,9 +172,9 @@ def save_cutout(ff, position, size, output_path, num):
     hdu.header.update(cutout.wcs.to_header())
 
     # Write the cutout to a new FITS file
-    out_slash = output_path.rindex('\\')
-    ff_slash = ff.rindex('\\')
-    cutout_filename = output_path[:out_slash] + '\\' + str(num) + ff[ff_slash+1:]
+    out_slash = output_path.rindex(file_sep)
+    ff_slash = ff.rindex(file_sep)
+    cutout_filename = output_path[:out_slash] + file_sep + str(num) + ff[ff_slash+1:]
     hdu.writeto(cutout_filename, overwrite=True)
 
 # makes a masked copy of the fits file. Currently, only circle mask is implemented
@@ -202,7 +204,7 @@ def make_mask(ff, output_path, mask, mask_args):
                     image_data[y,x] = 0
 
         # Write the cutout to a new FITS file
-        f_slash = ff.rindex('\\')
+        f_slash = ff.rindex(file_sep)
         mask_filename = output_path + ff[f_slash:]
         hdu.writeto(mask_filename, overwrite=False)
 
@@ -544,7 +546,7 @@ def do_dir(arguments, diff):
     #        print('Computing %d differences' % (ef-sf+1))
             # creates a file path for each differenced fits file
             for i in range(len(ffs)-1):
-                dfs.append(arguments.file_pathout+'/'+ffs[i+1][len(arguments.file_pathin):]+'DIFF')
+                dfs.append(arguments.file_pathout+file_sep+ffs[i+1][len(arguments.file_pathin):]+'DIFF')
     #            mk_diff(ffs[i],ffs[i+1],dfs[i],v)
 
             if sf <= 0:

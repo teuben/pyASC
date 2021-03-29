@@ -10,11 +10,6 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import *
 
-'''
-ccd = CCDData.read('MASN01-2016-12-09T04-54-59-592.fit', unit="adu")
-print(ccd.header["EXPTIME"])
-'''
-
 winin = tk.Tk()
 winin.withdraw()
 winin.attributes('-topmost', True)
@@ -36,7 +31,7 @@ for ff in ffs:
     hdu  = fits.open(ff,ignore_missing_end=True)
     data = hdu[0].data.astype(np.float32)
     dmean = data[175:780,400:1000].mean()
-    f_slash = ff.rindex('\\')
+    f_sep = ff.rindex(os.path.sep)
     f_dot = ff.rindex('.')
     print(ff[f_slash+1:f_dot] + "\t" + str(dmean))
 
@@ -44,4 +39,4 @@ for ff in ffs:
 
     if dmean > threshold:
         # Move a file by renaming it's path
-        os.rename(ff, overexposed + ff[f_slash:])
+        os.rename(ff, overexposed + ff[f_sep:])
