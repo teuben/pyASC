@@ -19,10 +19,7 @@
 #   - was worked on my Michael Suehle for his SDU Capstone
 
 
-
 from __future__ import print_function
-from tkinter import filedialog
-from tkinter import *
 # To use masking, please use my version of astride by using the command pip install git+https://github.com/shwaylay/ASTRiDE.git@allow-masking
 # My version of astride is same as astride but makes it so that background removal does not interfere with streak detection
 # does cause errors with connectivity angle though so change back to astride if you want to use connectivity angle and not masking.
@@ -32,6 +29,7 @@ import sys
 import shutil
 import os
 import tkinter as tk
+from tkinter import Label, Entry, Checkbutton, Button, filedialog
 import matplotlib.pyplot as plt
 from astropy.io import fits
 # this website is a good source for working with fits
@@ -237,7 +235,7 @@ def get_cmd_arg(argv, arguments):
     if args['filein'] != None: arguments.file_pathin = (args['filein'][0])
     if args['fileout'] != None: arguments.file_pathout = (args['fileout'][0])
     else:
-        if arguments.file_pathin.endswith("/"):
+        if arguments.file_pathin.endswith(file_sep):
             arguments.file_pathout = arguments.file_pathin[0:len(arguments.file_pathin) -1] + "-output"
         else:
             arguments.file_pathout = arguments.file_pathin +"-output"
@@ -443,6 +441,14 @@ def get_int_arg(arguments):
 
     return(arguments)
 
+def get_all_fits(path):
+    ffs = glob.glob(path+file_sep+'*.FIT') + glob.glob(path+file_sep+'*.fit') + \
+          glob.glob(path+file_sep+'*.FTS') + glob.glob(path+file_sep+'*.fts') + \
+          glob.glob(path+file_sep+'*.FITS') + glob.glob(path+file_sep+'*.fits')
+    ffs = list(set(ffs))             # needed for dos
+    ffs.sort()                       # on linux wasn't sorted, on dos it was
+    return ffs
+
 # processes all fits images in the directory stored in arguments.file_pathin
 def do_dir(arguments, diff):
     """
@@ -464,17 +470,14 @@ def do_dir(arguments, diff):
     if arguments.v:
           print('DEBUG: shape=%g area=%g contour=%g' % (arguments.shape,arguments.area,arguments.contour))
 
-    ffs = glob.glob(arguments.file_pathin+'/*.FIT') + glob.glob(arguments.file_pathin+'/*.fit') + \
-          glob.glob(arguments.file_pathin+'/*.FTS') + glob.glob(arguments.file_pathin+'/*.fts') + \
-          glob.glob(arguments.file_pathin+'/*.FITS') + glob.glob(arguments.file_pathin+'/*.fits')
-    ffs = list(set(ffs))             # needed for dos
-    ffs.sort()                       # on linux wasn't sorted, on dos it was
+    ffs = get_all_fits(arguments.file_pathin)
+
     f = open(arguments.file_pathout+'/summary.txt','w')   # Creates summary text file
     f.write('Streaks found in files: \n')   #Creates first line for summary file
 
     # if masking, create a folder for the masks and store the masked fits files in there
     if arguments.mask.casefold() != "none":
-        new_output_path = arguments.file_pathout + '\\Masks'
+        new_output_path = arguments.file_pathout + file_sep + 'Masks'
         os.mkdir(new_output_path)
 
         # convert mask_args to an array of values

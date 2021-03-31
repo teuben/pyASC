@@ -3,12 +3,10 @@
 import os
 import glob
 import numpy as np
-from astropy.wcs import WCS
 from astropy.io import fits
 from astropy.nddata import CCDData
 import tkinter as tk
 from tkinter import filedialog
-from tkinter import *
 
 winin = tk.Tk()
 winin.withdraw()
