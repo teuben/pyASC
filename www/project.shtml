@@ -130,7 +130,7 @@ and teach astronomy there.</p>
 
 							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="#"><img class="card-img-top" src="#" alt="Eric Lyness and Steve Ryan"></a>
+									<a href="#"><img class="card-img-top" src="/webdings/Meteor.png" alt="Eric Lyness and Steve Ryan"></a>
 									<div class="card-body">
 										<h5>Spring 2015: Eric Lyness, Steve Ryan</h5>
 										<p>For their SDU Capstone project, Steve and Eric were the content creators for the LaunchUMD campaign.</p>
@@ -195,7 +195,7 @@ and teach astronomy there.</p>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
-								<a href="/webdings/Ryan_Geoff.jpg"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.jpg" alt="Dr. Ryan"></a>
+								<a href="/webdings/Ryan_Geoff.png"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
 								<div class="card-body">
 									<h5>Dr. Geoff Ryan</h5>
 									<p>Dr. Ryan handles the database.</p>
@@ -213,7 +213,7 @@ and teach astronomy there.</p>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
-								<a href="#"><img class="card-img-top" src="#" alt="Ashlee Wilkins"></a>
+								<a href="#"><img class="card-img-top" src="/webdings/Launch.png" alt="Ashlee Wilkins"></a>
 								<div class="card-body">
 									<h5>Ashlee Wilkins</h5>
 									<p>Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>
