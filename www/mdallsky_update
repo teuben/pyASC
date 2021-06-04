@@ -1,0 +1,47 @@
+#! /usr/bin/bash
+#
+#    mdallsky_update:   update the mdallsky web site from its github source
+#
+#    server is luna.astro.umd.edu, but via /n it's accessible anywhere on astro machines
+#    we keep the github tree in /n/www/mdallsky.git
+#    root directory of server is on /n/www/mdallsky, but it symlinks to /n/www/mdallsky.git/www
+#    permissions should be group=www, so any of us in www can update it
+#
+
+
+#                      default keywords
+     www=/n/www
+mdallsky=mdallsky
+
+#                      parse any optional command line args
+for arg in $*; do
+  export $arg
+done
+
+#                      check if directories exist
+
+if [ ! -e $www ]; then
+   echo "mdallsky_update: there is no www=$www web root here, nothing to update"
+   exit 1
+else
+   echo Found $www
+fi
+
+mdir=$www/$mdallsky
+if [ ! -e $mdir ]; then
+   echo "mdallsky_update: there is no $mdir directory here, nothing to update"
+   exit 1
+else
+   echo "mdallsky_update: found $mdir, going to update it in a few seconds"
+   sleep 2
+fi
+
+#                      finally then, update the git tree, yes, even this can still fail
+
+cd $mdir
+git pull
+
+
+
+
+
