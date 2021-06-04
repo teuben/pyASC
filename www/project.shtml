@@ -58,68 +58,6 @@ and teach astronomy there.</p>
 						</div>
 					</div>
 
-					<!--
-						<div class="card-deck p-2">
-							<div class="card shadow-sm m-2">
-								<a href="/webdings/Warner_Elizabeth2.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Warner_Elizabeth2-crop.jpg" alt="Mrs. Warner"></a>
-								<div class="card-body">
-									<h5>Elizabeth Warner</h5>
-									<p>A Principal Faculty Specialist in the Department of Astronomy and the Observatory Director, Elizabeth spearheaded the LaunchUMD campaign to acquire the cameras. Her primary role in the project has been as a science advisor.</p>
-								</div>
-							</div>
-							<div class="card shadow-sm m-2">
-								<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr. Teuben"></a>
-								<div class="card-body">
-									<h5>Dr. Peter Teuben</h5>
-									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department
-of Astronomy. Although his main interests are in galactic dynamics,
-hydrodynamics, and radio astronomy software, it was his interest in
-community software development that led him to join MASN in
-Summer 2015. He has been the Python coding advisor over the years
-training CPS-SDU students in using Python and GitHub. He also led
-an IAU/OAD sponsored project to take an All Sky Camera to Haiti
-and teach astronomy there.</p>
-								</div>
-							</div>
-
-						<div class="card shadow-sm m-2">
-								<a href="/webdings/Ryan_Geoff.png"><img class="rounded-circle img-thumbnail" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
-								<div class="card-body">
-									<h5>Dr. Geoff Ryan</h5>
-									<p>TEXT</p>
-								</div>
-							</div>
-						<div class="card shadow-sm m-2">
-								<a href="/webdings/Karim_Ramsey.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Karim_Ramsey-crop.jpg" alt="Ramsey Karim"></a>
-								<div class="card-body">
-									<h5>Ramsey Karim</h5>
-									<p>TEXT</p>
-								</div>
-							</div>
-						</div>
-					-->
-
-					<!--columns instead of cards; outdated
-						<div class="col-xs-12 col-md-6">
-							<div class="card shadow-sm m-2">
-								<a href="/webdings/Weird.png"><img class="img-fluid rounded-circle" src="/webdings/Weird.png" alt="Elizabeth Warner"></a>
-								<div class="card-body">
-									<h5>Elizabeth Warner</h5>
-									<p>Short description of position + role in project</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<div class="card shadow-sm m-2">
-								<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="img-fluid rounded-circle" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr teuben"></a>
-								<div class="card-body">
-									<h5>Peter Teuben</h5>
-									<p>Short description of position + role in project</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				-->
 
 					<hr class="my-2" />
 				
@@ -130,7 +68,7 @@ and teach astronomy there.</p>
 
 							<div class="col-xs-12 col-sm-6 col-lg-4">
 								<div class="card shadow-sm m-2">
-									<a href="#"><img class="card-img-top" src="#" alt="Eric Lyness and Steve Ryan"></a>
+									<a href="#"><img class="card-img-top" src="/webdings/Meteor.png" alt="Eric Lyness and Steve Ryan"></a>
 									<div class="card-body">
 										<h5>Spring 2015: Eric Lyness, Steve Ryan</h5>
 										<p>For their SDU Capstone project, Steve and Eric were the content creators for the LaunchUMD campaign.</p>
@@ -187,6 +125,17 @@ and teach astronomy there.</p>
 									</div>
 								</div>
 							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-4">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/capstone-20202021.jpg"><img class="card-img-top" src="/webdings/capstone-20202021-crop.jpg" alt="Michael Suehle"></a>
+									<div class="card-body">
+										<h5>2020-2021: Michael Suehle</h5>
+										<p>Michael focused on the detection algorithms as well as writing scripts for clearing out overexposed images.</p>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 					<hr class="my-2" />
@@ -195,7 +144,7 @@ and teach astronomy there.</p>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
-								<a href="/webdings/Ryan_Geoff.jpg"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.jpg" alt="Dr. Ryan"></a>
+								<a href="/webdings/Ryan_Geoff.png"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
 								<div class="card-body">
 									<h5>Dr. Geoff Ryan</h5>
 									<p>Dr. Ryan handles the database.</p>
@@ -213,7 +162,7 @@ and teach astronomy there.</p>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
-								<a href="#"><img class="card-img-top" src="#" alt="Ashlee Wilkins"></a>
+								<a href="#"><img class="card-img-top" src="/webdings/Launch.png" alt="Ashlee Wilkins"></a>
 								<div class="card-body">
 									<h5>Ashlee Wilkins</h5>
 									<p>Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>

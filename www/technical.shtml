@@ -82,7 +82,7 @@
 							<h4>MASN Hardware</h4>
 							<p class="text-left py-2">The  Maryland All-Sky Network uses the Starlight Xpress Oculus all-sky
 camera. The monochrome camera has the ICX205AL Sony SuperHAD interline
-CCD chip with1392 x 1040 pixels that are 4.65&micro;m x 4.65&micro;m in size. The
+CCD chip with 1392 x 1040 pixels that are 4.65&micro;m x 4.65&micro;m in size. The
 camera is USB powered with a separate dewheater (definitely needed here
 in MD). The lens is a 1.55mm f2 180 degree 'Fish-Eye' under a 3"
 polycarbonate dome. The entire unit is about 15cm tall and 9.5 cm wide.
@@ -107,7 +107,7 @@ currently running Win 10 Pro.
 							<ul>
 								<li>CCD type: ICX205AL Sony SuperHAD interline CCD with low dark current and
 								vertical antiblooming.</li>
-								<li>CCD Pixel size: 4.65uM x 4.65uM</li>
+								<li>CCD Pixel size: 4.65 um x 4.65 um</li>
 								<li>Image format: 1392 x 1040 pixels</li>
 							</ul>
 						</div>
