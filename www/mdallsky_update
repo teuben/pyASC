@@ -2,10 +2,17 @@
 #
 #    mdallsky_update:   update the mdallsky web site from its github source
 #
-#    server is luna.astro.umd.edu, but via /n it's accessible anywhere on astro machines
+#    site is https://mdallsky.astro.umd.edu   (a virtual server)
+#    server runs on luna.astro.umd.edu, but via /n it's accessible anywhere on astro machines
 #    we keep the github tree in /n/www/mdallsky.git
 #    root directory of server is on /n/www/mdallsky, but it symlinks to /n/www/mdallsky.git/www
 #    permissions should be group=www, so any of us in www can update it
+#
+#    In addition to this directory, some symlinks into the data directories on astro need to
+#    be maintained:
+#
+#       masn01-archive -> /n/alberio1nb/data/ASC/MASN-01/archive
+#       masn01-latest -> /n/alberio1nb/data/ASC/MASN-01/latest
 #
 
 
