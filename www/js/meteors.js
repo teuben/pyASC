@@ -35,7 +35,14 @@ function renderBreadcrumbs(path) {
 }
 
 function renderFITS(path) {
-    let filePath = path.split('/').slice(1, -1);
+    console.log('rendering ' + path)
+
+    $('#js9-viewer').hide();
+    $('#js9-loading').show();
+    $('#js9-modal').fadeIn();
+
+    let filePath = path.split('/').filter(elem => elem !== '').slice(0, -1);
+    console.log(filePath)
     filePath[1] = getMonthNum(filePath[1]).toString();
     if(filePath[1].length == 1) filePath[1] = "0" + filePath[1];
 
@@ -43,6 +50,8 @@ function renderFITS(path) {
     let monthFolder = dateString.substring(0, 6);
 
     let fullPath = ['/masn01-archive', monthFolder, dateString, path.split('/').pop()].join('/');
+
+    console.log('loading ' + fullPath)
 
     $('#js9-filename').text(fullPath);
     
@@ -54,7 +63,8 @@ function renderFITS(path) {
         scalemax: "62017",
         zoom: 0.5,
         onload: function() {
-            $('#js9-modal').fadeIn();
+            $('#js9-loading').hide();
+            $('#js9-viewer').show();
         }
     });
 }
@@ -79,7 +89,7 @@ function renderPath(path) {
         let action = element.endsWith('.FIT') ? `renderFITS('${path}/${element}')` : `renderPath('${path}/${element}')`;
 
         $('#browser-cards .row').last().append(`
-            <div class='col'>
+            <div class='col-3'>
                 <div class="card" style="width: 18rem;" onclick="${action}">
                     <div class="card-body">
                         <p class="card-text">${element}</p>

@@ -45,10 +45,13 @@
 				<div id="js9-container">
 					<div id="js9-close"></div>
 					<h5 id="js9-filename">Filename</h5>
-					<div class="JS9Menubar"></div>
-					<div class="JS9Toolbar"></div>
-					<div class="JS9"></div>
-					<div class="JS9Statusbar"></div>
+					<h2 id="js9-loading">Loading...</h2>
+					<div id="js9-viewer">
+						<div class="JS9Menubar"></div>
+						<div class="JS9Toolbar"></div>
+						<div class="JS9"></div>
+						<div class="JS9Statusbar"></div>
+					</div>
 				</div>
 			</div>
 
