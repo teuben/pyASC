@@ -5,3 +5,43 @@
 .card:hover {
     background-color: #ccc;
 }
+
+#js9-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+#js9-backdrop {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#js9-container {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px black;
+}
+
+#js9-close {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+#js9-close::before {
+    content: "x";
+    position: relative;
+    cursor: pointer;
+}
