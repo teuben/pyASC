@@ -1,0 +1,129 @@
+#!/bin/bash
+# set -x
+
+# in case the user has changed the js9 script, try to figure out the right one
+# is this file a link?
+BFILE="${BASH_SOURCE[0]}"
+LFILE="$( readlink $BFILE )"
+if [ x"$LFILE" != x ]; then
+  XFILE="$LFILE"
+else
+  XFILE="$BFILE"
+fi
+# is the containing directory a link?
+BDIR="$( dirname ${XFILE} )"
+LDIR="$( readlink $BDIR )"
+if [ x"$LDIR" != x ]; then
+  XDIR="$LDIR"
+else
+  XDIR="$BDIR"
+fi
+# any more links we need to know about?
+DIR="$( cd "${XDIR}" >/dev/null 2>&1 && pwd )"
+if [ -r ${DIR}/js9 ]; then
+  JS9=${DIR}/js9
+else
+  JS9=js9
+fi
+
+error() {
+  echo "ERROR: $1" 1>&2
+  exit 1
+}
+
+# local variables
+DONE=false
+VERBOSE=false
+MAXTRIES=10
+ETRIES=3
+SLEEP=1
+
+while [ x"$1" != x ]; do
+    case $1 in
+    -h) shift
+	XARGS="$XARGS -h $1"
+        shift;;
+
+    -id|--id) shift
+        XARGS="$XARGS --id $1"
+	shift;;
+
+    -s) shift
+        SLEEP=$1
+        shift;;
+
+    -t) shift
+        MAXTRIES=$1
+        shift;;
+
+    -v) VERBOSE=true
+	shift;;
+
+     *) break;;
+    esac
+done
+
+# check for required args
+if [ $# -lt 1 ]; then
+  echo "usage:  $0 filename"
+  exit 1
+else
+  PATHNAME="$1"
+  shift
+fi
+
+# start the image load
+GOT=`${JS9} $XARGS Load "$PATHNAME" $* `
+if [ x"$GOT" != x ]; then
+  error "$GOT"
+fi
+
+# wait for completion
+TRIES=$MAXTRIES
+while [ $DONE = false ]; do
+  # get status of current image
+  GOT=`${JS9} $XARGS GetLoadStatus "$PATHNAME"`
+  case $GOT in
+    error)
+      error "could not load: $PATHNAME";;
+    loading|please|other|none)
+      # allow none once before error (might not have loaded enough image yet)
+      if [ $GOT = none -a $TRIES != $MAXTRIES ]; then
+          error "could not find: $PATHNAME"
+      fi
+      TRIES=`echo "$TRIES - 1" | bc`
+      if [ $TRIES -le 0 ]; then
+          error "timeout while loading: $PATHNAME"
+      fi
+      sleep $SLEEP
+      if [ x$VERBOSE = xtrue ] ; then
+        echo "loading [$TRIES] ..."
+      fi
+      continue;;
+    complete)
+      if [ x$VERBOSE = xtrue ] ; then
+        echo "success!"
+      fi
+      DONE=true
+      continue;;
+    ERROR*)
+      # look for race condition if js9 display is not ready
+      echo "$GOT" | egrep "can't find JS9 display with id" 1>/dev/null 2>&1
+      if [ $? = 0 ] ; then
+        ETRIES=`echo "$ETRIES - 1" | bc`
+        if [ $ETRIES -le 0 ]; then
+          error "timeout awaiting display, or missing file: $PATHNAME"
+        fi
+        sleep $SLEEP
+        if [ x$VERBOSE = xtrue ] ; then
+          echo "waiting for display [$ETRIES] ..."
+        fi
+      else
+        error "$GOT; could not load: $PATHNAME"
+      fi
+      continue;;
+  esac
+done
+
+# signal success
+exit 0

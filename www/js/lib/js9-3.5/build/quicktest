@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "quick js9 test ..."
+if [ x$1 != x ]; then
+  FILE="$1"
+fi
+
+
+if [ $? = 0 ]; then
+  pgrep -f js9Helper.js >/dev/null || build/nnode
+  printf "\nNB: if Chrome is your default browser, you probably need to exit Chrome,\nso that it can be re-started with the correct switches for this quicktest.\n\n"
+  ./js9 -v -b &
+  sleep 3
+  if [ x$FILE != x ]; then
+      ./js9load $FILE
+      ./js9 SetScale log
+      ./js9 SetColormap viridis
+      ./js9 DisplayPlugin JS9Magnifier
+  fi
+else
+ echo "requires Node.js (https://nodejs.org)"
+fi
