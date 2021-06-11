@@ -14,6 +14,10 @@
 #       masn01-archive -> /n/alberio1nb/data/ASC/MASN-01/archive
 #       masn01-latest -> /n/alberio1nb/data/ASC/MASN-01/latest
 #
+#
+#    As a crontab make an entry using "crontab -e" with the following entry:
+#    5 0 * * *   /n/www/mdallsky/mdallsky_update >> /n/www/mdallsky/mdallsky_update.log 2>&1
+#    This keeps a running log
 
 
 #                      default keywords
@@ -48,7 +52,4 @@ fi
 cd $mdir
 git pull
 
-
-
-
-
+echo Check your new: https://mdallsky.astro.umd.edu 
