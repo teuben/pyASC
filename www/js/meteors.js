@@ -14,7 +14,9 @@ function parseDirectoryListing(data, pathFilter, fileExt) {
     var root = parser.parseFromString(data, 'text/html');
     
     var links = [].slice.call(root.getElementsByTagName('a'));
-    var hrefs = links.map(item => item.href); // console.log(hrefs);
+    var hrefs = links.map(item => item.href.replace('archives', pathFilter)); // console.log(hrefs);
+
+    console.log(hrefs);
     
     var regex = !fileExt ? new RegExp('(.+)\/(' + pathFilter + ')\/(.+)\/$') : new RegExp('(.+)\.' + fileExt + '$');
     var dirs = hrefs.filter(href => href.match(regex));
@@ -144,7 +146,7 @@ $(function() {
                 var dayPromises = monthData[0].map(day => $.get(day));
                 Promise.all(dayPromises).then((dayListings) => {
                     dayListings.forEach((dayFiles, idx) => {
-                        let dayData = parseDirectoryListing(dayFiles, null, 'FIT');
+                        let dayData = parseDirectoryListing(dayFiles, `masn01-archive/${months[idx]}/${monthData[1][idx]}`, 'FIT');
                         if (dayData[0].length > 0) {
                             let fileNames = dayData[0].map(data => data.split('/').pop());
                             console.log(fileNames);
