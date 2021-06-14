@@ -26,7 +26,7 @@ function parseDirectoryListing(path) {
 function renderBreadcrumbs(path) {
     var components = path.split('/').filter(c => c != '');
     $('ol.breadcrumb').empty();
-    $('ol.breadcrumb').append('<li class="breadcrumb-item"><a href="#" onclick="renderPath(\'\')">Home</a></li>');
+    $('ol.breadcrumb').append('<li class="breadcrumb-item"><a href="#" onclick="renderPath(\'/masn01-archive\')">Home</a></li>');
     components.forEach((component, idx) => {
         $('ol.breadcrumb').append(`<li class="breadcrumb-item"><a href="#" onclick="renderPath('/${components.slice(0, idx + 1).join('/')}')">${component}</a></li>`);
     });
@@ -61,8 +61,10 @@ async function renderPath(path) {
     renderBreadcrumbs(path);
 
     $('#browser-cards').empty();
+    $('#browser-cards').append('<h6>Loading...</h6>')
 
     let elements = await parseDirectoryListing(path);
+    $('#browser-cards').empty();
     elements.forEach((element, idx) => {
         if (idx % 4 == 0) $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
 
