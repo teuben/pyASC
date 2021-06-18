@@ -20,7 +20,7 @@ function parseDirectoryListing(path) {
             var root = parser.parseFromString(data, 'text/html');
             
             var links = [].slice.call(root.getElementsByTagName('a'));
-            var hrefs = links.filter(link => link.innerText.match(/(^(?:(?!\.\.))(.+)\/$)|(^.+\.fits?$)/gmi)).map(link => getLinkDestination(link));
+            var hrefs = links.filter(link => link.innerText.match(/(^(?:(?!\.\.))(.+)(\/|>)$)|(^.+\.fits?$)/gmi)).map(link => getLinkDestination(link));
             
             console.log(links.map(link => getLinkDestination(link)));
 
@@ -74,13 +74,13 @@ async function renderPath(path) {
     elements.forEach((element, idx) => {
         if (idx % 4 == 0) $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
 
-        let action = element.endsWith('.FIT') ? `renderFITS('${path}/${element}')` : `renderPath('${path}/${element}')`;
+        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${path}/${element}')` : `renderPath('${path}/${element}')`;
 
         $('#browser-cards .row').last().append(`
             <div class='col-3'>
                 <div class="card" style="width: 18rem;" onclick="${action}">
                     <div class="card-body">
-                        <p class="card-text">${element}</p>
+                        <p class="card-text">${decodeURI(element)}</p>
                     </div>
                 </div>
             </div>
