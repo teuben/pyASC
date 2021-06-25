@@ -29,6 +29,20 @@ function parseDirectoryListing(path) {
     });
 }
 
+function moduloSum(a, b, m) {
+    let i = (a + b) % m;
+    if (i < 0) i = i + m;
+    return i;
+}
+
+function getActiveCardIndex() {
+    let result = -1;
+    $('#browser-cards .card').filter((idx, elem) => {
+        if ($(elem).data('active')) result = idx;
+    });
+    return result;
+}
+
 function renderBreadcrumbs(path) {
     var components = path.split('/').filter(c => c != '');
     $('ol.breadcrumb').empty();
@@ -40,8 +54,20 @@ function renderBreadcrumbs(path) {
     $('ol.breadcrumb > li > a').last().contents().unwrap();
 }
 
-function renderFITS(path) {
-    console.log('rendering ' + path)
+function renderDeltaFITS(delta) {
+    if ($('#js9-modal').is(':visible')) {
+        let cards = $('#browser-cards .card').length;
+        let idx = moduloSum(getActiveCardIndex(), delta, cards);
+        $($('#browser-cards .card')[idx]).click();
+    }
+}
+
+function renderFITS(path, elem) {
+    console.log(elem);
+    console.log('rendering ' + path);
+
+    $('#browser-cards .card').removeData('active');
+    $(elem).data('active', true);
 
     $('#js9-viewer').hide();
     $('#js9-loading').show();
@@ -74,7 +100,7 @@ async function renderPath(path) {
     elements.forEach((element, idx) => {
         if (idx % 4 == 0) $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
 
-        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${path}/${element}')` : `renderPath('${path}/${element}')`;
+        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${path}/${element}', this)` : `renderPath('${path}/${element}')`;
 
         $('#browser-cards .row').last().append(`
             <div class='col-3'>
@@ -99,6 +125,8 @@ $(function() {
 
     $(document).keydown(function(evt) {
         if (evt.which === 27) $('#js9-modal').fadeOut();
+        if (evt.which === 37) renderDeltaFITS(-1);
+        if (evt.which === 39) renderDeltaFITS(1);
     })
 
     renderPath('/masn01-archive');
