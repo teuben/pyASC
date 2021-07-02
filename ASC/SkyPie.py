@@ -20,7 +20,10 @@ def plot1(table,ax,Qtitle,title=None,invert=True):
     # invert:      this will place dark sky on the outside of the pie
     
     #   table of decimal hour time and median sky brightness (50,000 is very bright)
-    (t,s) = np.loadtxt(table).T
+    # (t,s,ffile) = np.loadtxt(table).T
+    loaded = np.genfromtxt(table, dtype=None, delimiter=' ')
+    (t,s) = np.array([t[0] for t in loaded]), np.array([t[1] for t in loaded])
+    print(t)
     print("Time:",t.min(),t.max())
     print("Sky: ",s.min(),s.max())
 
