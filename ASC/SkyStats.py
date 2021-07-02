@@ -26,5 +26,5 @@ if __name__ == '__main__':
             hms = -999.999
         t = float(hms[0]) + float(hms[1])/60  + float(hms[2])/3600
         
-        print("%.4f %g" % (t,np.median(dc)))
+        print("%.4f %g %s" % (t,np.median(dc),ffile))
         
