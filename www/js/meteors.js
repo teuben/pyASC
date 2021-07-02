@@ -1,5 +1,53 @@
 var FILESYSTEM = {};
 
+function drawIcon(tag) {
+    let canvas = $(`canvas[data-tag='${tag}']`)[0].getContext('2d');
+    let size = 45;
+    let data = getIconData(tag);
+
+    let dark = [35, 74, 125];
+    let light = [230, 215, 108];
+
+    for (let i = 0; i < 12; i++) {
+        let dataIndex = 11 - i;
+        let brightness = data['brightness'][dataIndex] / 65536;
+
+        let shade = [];
+        for (let j = 0; j < 3; j++) {
+            let min = Math.min(dark[j], light[j]);
+            let max = Math.max(dark[j], light[j]);
+            shade.push(brightness * (max - min) + min);
+        }
+        
+        canvas.fillStyle = `rgb(${shade.join(',')})`;
+        canvas.beginPath();
+        canvas.moveTo(size / 2, size / 2);
+        canvas.arc(size / 2, size / 2, (size / 2 - 6) * (1 + (brightness / 4)), (2 * Math.PI) - Math.PI / 12 * i, (2 * Math.PI) - Math.PI / 12 * (i + 1), true);
+        canvas.lineTo(size / 2, size / 2);
+        canvas.fill();
+    }
+
+    canvas.fillStyle = `rgb(${dark.join(',')}`;
+
+    canvas.beginPath();
+    canvas.arc(size * 0.5, size * 0.75, 5, 0, 2 * Math.PI);
+    canvas.fill();
+}
+
+function getIconData(tag) {
+    let result = {
+        brightness: [],
+        phase: null,
+    };
+    
+    for (let i = 0; i < 12; i++) {
+        result['brightness'].push(Math.floor(Math.random() * 65536));
+    }
+    result['phase'] = Math.floor(Math.random() * 30);
+
+    return result;
+}
+
 function getMonthNum(month) {
     return (new Date(month + ' 1').getMonth()) + 1;
 }
@@ -102,15 +150,22 @@ async function renderPath(path) {
 
         let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${path}/${element}', this)` : `renderPath('${path}/${element}')`;
 
+        let elemTxt = decodeURI(element);
+
         $('#browser-cards .row').last().append(`
             <div class='col-3'>
                 <div class="card" style="width: 18rem;" onclick="${action}">
                     <div class="card-body">
-                        <p class="card-text">${decodeURI(element)}</p>
+                        <p class="card-text">
+                            ${elemTxt}
+                            <canvas class="card-icon" height="45" width="45" data-tag="${elemTxt}"></canvas>
+                        </p>
                     </div>
                 </div>
             </div>
         `);
+
+        drawIcon(elemTxt);
     });
 }
 
