@@ -69,3 +69,10 @@
     position: relative;
     cursor: pointer;
 }
+
+.card-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
