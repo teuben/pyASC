@@ -16,11 +16,13 @@ BIGGER_SIZE = 8
 
 twopi = 2*np.pi
 
-def plot1(table,ax,Qtitle,title=None):
+def plot1(table,ax,Qtitle,title=None,invert=True):
+    # invert:      this will place dark sky on the outside of the pie
+    
     #   table of decimal hour time and median sky brightness (50,000 is very bright)
     (t,s) = np.loadtxt(table).T
-    print("Sky: ",s.min(),s.max())
     print("Time:",t.min(),t.max())
+    print("Sky: ",s.min(),s.max())
 
     t0 = t[0]
     t1 = t[-1]
@@ -35,8 +37,14 @@ def plot1(table,ax,Qtitle,title=None):
     
     print(tmin,tmax)
     x = (12-t) * twopi / 24.0
-    y = s.max()-s
-    y = smax-s
+    if invert:
+        #    dark sky on outside of the pie
+        y = s.max()-s
+        y = smax-s
+        print("y",invert,y.min(),y.max())
+    else:
+        y = s
+        print("y",invert,y.min(),y.max())        
     
     print(x.min(),x.max())
     print(y.min(),y.max())
@@ -81,10 +89,10 @@ def plot1(table,ax,Qtitle,title=None):
         plt.title("%s sky: %g-%g  %.3f-%.3f h" % (table,s.min(),s.max(),t0,t1))
 
         # needs tweaking
-        plt.text(3.14,smax*1.1,'midnight',horizontalalignment='center')
-        plt.text(1.2,smax,'sunrise',horizontalalignment='left')
-        plt.text(twopi-1.2,smax,'sunset',horizontalalignment='right')
-        plt.text(0,smax/4,'imagine a moon',horizontalalignment='center')
+        plt.text(3.14,     smax*1.1, 'midnight',      horizontalalignment='center')
+        plt.text(1.2,      smax,     'sunrise',       horizontalalignment='left')
+        plt.text(twopi-1.2,smax,     'sunset',        horizontalalignment='right')
+        plt.text(0,        smax/4,   'imagine a moon',horizontalalignment='center')
         
 
 
