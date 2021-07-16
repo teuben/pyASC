@@ -149,7 +149,7 @@ else:
 
 
 plt.savefig(png)
-plt.show()
+# plt.show()
 
 print("Written ",png)
 
