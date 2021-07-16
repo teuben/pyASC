@@ -16,7 +16,7 @@ BIGGER_SIZE = 8
 
 twopi = 2*np.pi
 
-def plot1(table,ax,Qtitle,title=None,invert=True):
+def plot1(table,ax,Qtitle,title=None,invert=True,raw=False):
     # invert:      this will place dark sky on the outside of the pie
     
     #   table of decimal hour time and median sky brightness (50,000 is very bright)
@@ -84,11 +84,11 @@ def plot1(table,ax,Qtitle,title=None,invert=True):
     ax.fill_between(x,yc,yd,facecolor='green',alpha=0.7)
     ax.fill_between(x,yd,ye,facecolor='green',alpha=0.85)
     ax.fill_between(x,ye,y ,facecolor='green',alpha=1)
-    if title != None:
+    if title != None and not raw:
         ax.text(0,smax/2,title,horizontalalignment='center')
         #ax.set_title(title)
 
-    if Qtitle:
+    if Qtitle and not raw:
         plt.title("%s sky: %g-%g  %.3f-%.3f h" % (table,s.min(),s.max(),t0,t1))
 
         # needs tweaking
@@ -107,6 +107,9 @@ if ntable == 1:
     Qtitle = True
 else:
     Qtitle = False
+
+
+Qraw = False    # set to true if you don't want any labeling around the plot, just the pie
 
 
 if ntable > 1:
@@ -136,7 +139,7 @@ if ntable > 1:
 #      hspace = 0.2   # the amount of height reserved for white space between subplots
 
 if Qtitle:
-    plot1(table,ax,True)
+    plot1(table,ax,True,raw=Qraw)
 else:    
     k = 1
     for i in range(nx):
@@ -150,3 +153,4 @@ plt.show()
 
 print("Written ",png)
 
+# convert input.png -crop 400x400+128+64 -resize 40x40^   input.thumb.png
