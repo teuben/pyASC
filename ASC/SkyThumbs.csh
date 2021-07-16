@@ -17,7 +17,7 @@ if ( ! -d $dir ) then
   exit 0
 endif
 
-set f=(`ls $dir/*.FIT`)
+set f=(`ls $dir/*.FIT $dir/*.fits`)
 set nf=$#f
 echo Found $nf
 
@@ -27,8 +27,11 @@ if ($nf == 0) then
 endif
 
 
-set tmp=/tmp/tmp$$
+set tmp=$dir/sky
+set tmp=/tmp/sky
 
 $asdir/SkyStats.py  $f  > $tmp.tab
 $asdir/SkyPie.py $tmp.tab
+convert $tmp.tab.png -transparent white -crop 400x400+128+64 -resize 40x40^   $tmp.tab.thumb.png
 
+echo Created $tmp.tab $tmp.tab.png $tmp.tab.thumb.png 
