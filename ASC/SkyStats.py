@@ -22,6 +22,10 @@ if __name__ == '__main__':
         elif 'DATE-LOC' in h:
             # '2020-02-29T20:13:34.920'
             hms = h['DATE-LOC'].split('T')[1].split(':')
+            if len(hms) == 1:
+                # '2017-11-19T22-43-30.506'
+                # there was a time we did it wrong....
+                hms = h['DATE-LOC'].split('T')[1].split('-')                
         else:
             hms = -999.999
         t = float(hms[0]) + float(hms[1])/60  + float(hms[2])/3600
