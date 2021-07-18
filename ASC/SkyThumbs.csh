@@ -1,6 +1,20 @@
 #! /usr/bin/csh -f
 #
-#    create the table and pictures/thumbnails
+#       Script to create the SkyPie table and graphics/thumbnails
+#
+# A typical month is about 50-100GB, and takes 20min to process
+#
+# Some useful shell commands to remember you might need as well.
+#
+# 
+# umask 2
+#
+# chgrp -R allsky ASC
+#
+# chmod g+s ASC -R
+#
+# find . -type d -exec /n/astromake/opt/allsky/pyASC/ASC/SkyThumbs.csh '{}' \;
+
 
 source /n/astromake/astromake_start.csh
 astroload python
@@ -18,7 +32,7 @@ umask 2
 
 foreach dir ($dirs)
 
-  echo " ==================================== working on $dir "
+  echo " `date` ==================================== working on $dir "
 
   if ( ! -d $dir ) then
     echo $dir is not a directory
@@ -37,14 +51,12 @@ foreach dir ($dirs)
 
   set tmp=$dir/sky
 
-  $asdir/SkyStats.py  $f  > $tmp.tab
-  $asdir/SkyPie.py $tmp.tab
+  /usr/bin/time $asdir/SkyStats.py  $f  > $tmp.tab
+  /usr/bin/time $asdir/SkyPie.py $tmp.tab
   convert $tmp.tab.png -transparent white -crop 400x400+128+64 -resize 40x40^   $tmp.tab.thumb.png
   echo Created $tmp.tab $tmp.tab.png $tmp.tab.thumb.png 
 
+  chgrp allsky $tmp.*
 end  
 
 
-# chgrp midas $tmp.*
-#
-# chmod g+s ASC -R 
