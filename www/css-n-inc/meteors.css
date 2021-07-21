@@ -76,3 +76,18 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+.thumbnail {
+    position: absolute;
+    right: 21px;
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+#thumbview {
+    position: absolute;
+    border: 1px solid black;
+    height: 400px;
+    width: auto;
+    background-color: white;
+}

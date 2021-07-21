@@ -145,12 +145,22 @@ async function renderPath(path) {
 
     let elements = await parseDirectoryListing(path);
     $('#browser-cards').empty();
-    elements.forEach((element, idx) => {
+    elements.forEach(async function(element, idx) {
         if (idx % 4 == 0) $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
 
-        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${path}/${element}', this)` : `renderPath('${path}/${element}')`;
-
+        let separator = path.endsWith('/') ? '' : '/';
+        let elemPath = `${path}${separator}${element}`;
+        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${elemPath}', this)` : `renderPath('${elemPath}')`;
         let elemTxt = decodeURI(element);
+
+        let hasThumb = null;
+        
+        try {
+            await $.get(`${elemPath}/sky.tab.thumb.png`);
+            hasThumb = true;
+        } catch (err) {
+            hasThumb = false;
+        }
 
         $('#browser-cards .row').last().append(`
             <div class='col-3'>
@@ -158,20 +168,38 @@ async function renderPath(path) {
                     <div class="card-body">
                         <p class="card-text">
                             ${elemTxt}
-                            <canvas class="card-icon" height="45" width="45" data-tag="${elemTxt}"></canvas>
+                            ${hasThumb ? `<img class='thumbnail' src='${elemPath}/sky.tab.thumb.png' />` : ''}
                         </p>
                     </div>
                 </div>
             </div>
         `);
 
-        drawIcon(elemTxt);
+        // drawIcon(elemTxt);
+        // <canvas class="card-icon" height="45" width="45" data-tag="${elemTxt}"></canvas>
     });
+}
+
+function handleThumbHover(evt) {
+    if ($('.thumbnail:hover').length > 0) {
+        let windowHeight = $(window).height();
+        let windowWidth = $(window).width();
+
+        let thumbnail = $('.thumbnail:hover');
+        $('#thumbview').attr('src', thumbnail[0].src.replace('.thumb', '')).offset({
+            left: windowWidth - evt.pageX < $('#thumbview').width() + 50 ? evt.pageX - ($('#thumbview').width() + 50) : evt.pageX + 50,
+            top: windowHeight - evt.pageY < 450 ? evt.pageY - (400 + 50) : evt.pageY + 50,
+        }).show();
+    } else {
+        $('#thumbview').hide();
+    }
 }
 
 $(function() {
     // Hide modal in beginning
     $('#js9-modal').hide();
+
+    $('body').append(`<img src='' id='thumbview' style='display: none' />`);
 
     // Event listeners for closing modal
     $('#js9-close, #js9-backdrop').click(function() {
@@ -182,7 +210,9 @@ $(function() {
         if (evt.which === 27) $('#js9-modal').fadeOut();
         if (evt.which === 37) renderDeltaFITS(-1);
         if (evt.which === 39) renderDeltaFITS(1);
-    })
+    });
+
+    $(document).mousemove(handleThumbHover);
 
     renderPath('/masn01-archive');
 });
