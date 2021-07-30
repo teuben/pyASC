@@ -23,9 +23,11 @@
 	<!--Content-->
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
-			<h2>MASN01 Archives</h2>
+			<h2>MASN Archives</h2>
 			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
 			<h5>Access to all archives</h5>
+
+			<select class="form-control form-select" id="masn-switch" style="width: fit-content"></select>
 
 			<hr />
 
