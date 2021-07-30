@@ -1,3 +1,4 @@
+var CAMERAS = ['/masn01-archive', '/masn02-archive'] // edit this for more camera options (name of symlink directory)
 var FILESYSTEM = {};
 
 function drawIcon(tag) {
@@ -163,8 +164,8 @@ async function renderPath(path) {
         }
 
         $('#browser-cards .row').last().append(`
-            <div class='col-3'>
-                <div class="card" style="width: 18rem;" onclick="${action}">
+            <div class='col-2'>
+                <div class="card" onclick="${action}">
                     <div class="card-body">
                         <p class="card-text">
                             ${elemTxt}
@@ -196,7 +197,11 @@ function handleThumbHover(evt) {
 }
 
 $(function() {
-    // Hide modal in beginning
+    CAMERAS.forEach((camera, idx) => {
+        $('#masn-switch').append(`<option value='${camera}' ${idx == 0 ? 'selected' : ''}>${camera}</option>`);
+    });
+
+        // Hide modal in beginning
     $('#js9-modal').hide();
 
     $('body').append(`<img src='' id='thumbview' style='display: none' />`);
@@ -214,5 +219,8 @@ $(function() {
 
     $(document).mousemove(handleThumbHover);
 
-    renderPath('/masn01-archive');
+    renderPath($('#masn-switch').val());
+    $('#masn-switch').change(evt => {
+        renderPath($('#masn-switch').val());
+    });
 });
