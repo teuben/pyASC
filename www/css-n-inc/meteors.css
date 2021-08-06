@@ -91,3 +91,40 @@
     width: auto;
     background-color: white;
 }
+
+#info-button {
+    color: #555;
+    cursor: pointer;
+}
+
+#info-button:hover {
+    color: #222;
+}
+
+#info-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#info-body {
+    background-color: white;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+#info-body p {
+    max-width: 35vw;
+}
+
+#info-body > p > b {
+    font-family: "Georgia", serif;
+    font-style: italic;
+}
