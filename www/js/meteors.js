@@ -146,9 +146,17 @@ async function renderPath(path) {
 
     let elements = await parseDirectoryListing(path);
     $('#browser-cards').empty();
-    elements.forEach(async function(element, idx) {
-        if (idx % 4 == 0) $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
 
+    // for (var i = 0; i < Math.ceil(elements.length / 4); i++) {
+        $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
+        // console.log('finished appending row ' + i);
+        for (var j = 0; j < elements.length; j++) {
+            $('#browser-cards .row').last().append(`<div class='col-2'></div>`);
+            console.log('finished appending card ' + j);
+        }
+    // }
+
+    elements.forEach(async function(element, idx) {
         let separator = path.endsWith('/') ? '' : '/';
         let elemPath = `${path}${separator}${element}`;
         let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${elemPath}', this)` : `renderPath('${elemPath}')`;
@@ -163,15 +171,16 @@ async function renderPath(path) {
             hasThumb = false;
         }
 
-        $('#browser-cards .row').last().append(`
-            <div class='col-2'>
-                <div class="card" onclick="${action}">
-                    <div class="card-body">
-                        <p class="card-text">
-                            ${elemTxt}
-                            ${hasThumb ? `<img class='thumbnail' src='${elemPath}/sky.tab.thumb.png' />` : ''}
-                        </p>
-                    </div>
+        // let targetRow = $('#browser-cards .row')[Math.floor(idx / 4)];
+        let targetSpan = $('#browser-cards .row').last().find('.col-2')[4 * Math.floor(idx / 4) + (idx % 4)];
+
+        $(targetSpan).append(`
+            <div class="card" onclick="${action}">
+                <div class="card-body">
+                    <p class="card-text">
+                        ${elemTxt}
+                        ${hasThumb ? `<img class='thumbnail' src='${elemPath}/sky.tab.thumb.png' />` : ''}
+                    </p>
                 </div>
             </div>
         `);
