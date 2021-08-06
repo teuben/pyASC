@@ -201,8 +201,13 @@ $(function() {
         $('#masn-switch').append(`<option value='${camera}' ${idx == 0 ? 'selected' : ''}>${camera}</option>`);
     });
 
-        // Hide modal in beginning
-    $('#js9-modal').hide();
+    $('#info-button').click(function() {
+        $('#info-modal').fadeIn();
+    });
+
+    $('#info-close').click(function() {
+        $('#info-modal').fadeOut();
+    });
 
     $('body').append(`<img src='' id='thumbview' style='display: none' />`);
 
