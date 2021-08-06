@@ -73,7 +73,7 @@
 					<h2>Thumbnails</h2>
 					<hr />
 					<span style="text-align: center; display: block">
-						<img src="../img/thumbinfo.png" style="margin: 15px; width: 600px; max-width: 30vw" />
+						<img src="../img/thumbinfo.png" style="margin: 15px; width: 700px; max-width: 35vw" />
 						<div style="font-style: italic; text-align: center; font-size: 10pt; margin-bottom: 10px; max-width: 35vw;">Two example plots. The left plot shows a poor session, with cloud cover and overexpsure, while the right plot shows an good session with a mostly-clear sky.</div>
 					</span>
 					<p>
@@ -81,12 +81,11 @@
 						This allows for at-a-glance evaluation of a session's quality.
 					</p>
 					<p>
-						The thumbnails are radial plots, where <b>r</b> represents the "visibility" and <b>Θ</b> represents the hour of the night.
-						Specifically, <b>Θ = 0°</b> represents 6pm, and <b>Θ = 180°</b> represents 6am. The visibility <b>v</b> is computed
-						as the inverse of the intensity <b>I</b> in the center of every frame:
+						The thumbnails are radial plots, where <b>r</b> represents the "visibility" and the angle represents the hour of the night.
+						The visibility <b>v</b> is computed as the average intensity <b>I</b> in the center of every frame, subtracted from the maximum possible intensity:
 					</p>
 					<p style="text-align: center">
-						<b>v = 65536 - I</b>
+						<b>v = 65535 - I</b>
 					</p>
 					<p>Low visibility may indicate the presence of clouds, moonlight, or overexposure.</p>
 					<hr />
