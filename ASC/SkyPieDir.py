@@ -13,29 +13,29 @@ def run(cmd):
     print('CMD',cmd)
     os.system(cmd)
 
-# this should be a directory within which each directory is a night
-dir = sys.argv[1]
+# these should loop over directories, within which each directory is a night
+for dir in sys.argv[1:]:
 
-# these could be something like '2020-03-30 to 2020-03-31'
-dirs = glob.glob('%s/*' % dir)
+    # these could be something like '2020-03-30 to 2020-03-31'
+    dirs = glob.glob('%s/*' % dir)
 
-print('Found %d directories' % len(dirs))
+    print('Found %d directories' % len(dirs))
 
-tmpdir = 'tmpday'
+    tmpdir = 'tmpday'
 
-tabs = ""
+    tabs = ""
 
-for i in range(len(dirs)):
-   d = dirs[i]
-   label = d.split('/')[-1].split()[0]
-   cmd = 'rm -rf %s; ln -s "%s" %s' % (tmpdir,d,tmpdir)
-   run(cmd)
-   tab = 'day%02d.tab' % i
-   tab = label
-   cmd = '/n/astromake/opt/allsky/pyASC/ASC/SkyStats.py %s/*.fits > %s' % (tmpdir,tab)
-   run(cmd)
-   tabs = tabs + tab + ' '
+    for i in range(len(dirs)):
+       d = dirs[i]
+       label = d.split('/')[-1].split()[0]
+       cmd = 'rm -rf %s; ln -s "%s" %s' % (tmpdir,d,tmpdir)
+       run(cmd)
+       tab = 'day%02d.tab' % i
+       tab = label
+       cmd = '/n/astromake/opt/allsky/pyASC/ASC/SkyStats.py %s/*.fits > %s' % (tmpdir,tab)
+       run(cmd)
+       tabs = tabs + tab + ' '
 
-cmd = '/n/astromake/opt/allsky/pyASC/ASC/SkyPie.py %s' % tabs
-run(cmd)
+    cmd = '/n/astromake/opt/allsky/pyASC/ASC/SkyPie.py %s' % tabs
+    run(cmd)
 
