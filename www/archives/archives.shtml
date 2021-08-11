@@ -23,9 +23,17 @@
 	<!--Content-->
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
-			<h2>MASN01 Archives</h2>
+			<h2>MASN Archives</h2>
 			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
-			<h5>Access to all archives</h5>
+			<h5>
+				Access to all archives
+				<svg id="info-button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+					<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+				</svg>
+			</h5>
+
+			<select class="form-control form-select" id="masn-switch" style="width: fit-content"></select>
 
 			<hr />
 
@@ -40,7 +48,7 @@
 				</div>
 			</div>
 
-			<div id="js9-modal">
+			<div id="js9-modal" style="display: none;">
 				<div id="js9-backdrop"></div>
 				<div id="js9-container">
 					<div id="js9-close"></div>
@@ -55,6 +63,34 @@
 							<div class="JS9Statusbar"></div>
 						</div>
 						<div class="carousel-button" onclick="renderDeltaFITS(1)">&rarr;</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="info-modal" style="display: none">
+				<div id="info-background"></div>
+				<div id="info-body">
+					<h2>Thumbnails</h2>
+					<hr />
+					<span style="text-align: center; display: block">
+						<img src="../img/thumbinfo.png" style="margin: 15px; width: 700px; max-width: 35vw" />
+						<div style="font-style: italic; text-align: center; font-size: 10pt; margin-bottom: 10px; max-width: 35vw;">Two example plots. The left plot shows a poor session, with cloud cover and overexpsure, while the right plot shows an good session with a mostly-clear sky.</div>
+					</span>
+					<p>
+						Folders containing nightly FITS files are summarized by a thumbnail. 
+						This allows for at-a-glance evaluation of a session's quality.
+					</p>
+					<p>
+						The thumbnails are radial plots, where <b>r</b> represents the "visibility" and the angle represents the hour of the night.
+						The visibility <b>v</b> is computed as the average intensity <b>I</b> in the center of every frame, subtracted from the maximum possible intensity:
+					</p>
+					<p style="text-align: center">
+						<b>v = 65535 - I</b>
+					</p>
+					<p>Low visibility may indicate the presence of clouds, moonlight, or overexposure.</p>
+					<hr />
+					<div style="text-align: right">
+						<button type="button" id="info-close" class="btn btn-success">Close</button>
 					</div>
 				</div>
 			</div>

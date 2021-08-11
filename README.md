@@ -18,6 +18,6 @@ experiment with the finer resolution. FITS images are
 
 github pages for this project are [here](https://teuben.github.io/pyASC/).
 
-![Example allsky image](20151108_1323.png "fireball and moon and two planets, jupiter and venus")
+![Example allsky image](20151108_1323.png "fireball and moon and three planets, venus, mars (dim) and jupiter")
 
 Frame 1329 from 20151108 (8-nov-2015) showing 3 planets, the moon and a meteor.

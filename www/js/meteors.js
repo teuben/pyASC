@@ -1,3 +1,4 @@
+var CAMERAS = ['/masn01-archive', '/masn02-archive'] // edit this for more camera options (name of symlink directory)
 var FILESYSTEM = {};
 
 function drawIcon(tag) {
@@ -145,33 +146,79 @@ async function renderPath(path) {
 
     let elements = await parseDirectoryListing(path);
     $('#browser-cards').empty();
-    elements.forEach((element, idx) => {
-        if (idx % 4 == 0) $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
 
-        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${path}/${element}', this)` : `renderPath('${path}/${element}')`;
+    // for (var i = 0; i < Math.ceil(elements.length / 4); i++) {
+        $('#browser-cards').append(`<div class='row justify-content-start'></div>`);
+        // console.log('finished appending row ' + i);
+        for (var j = 0; j < elements.length; j++) {
+            $('#browser-cards .row').last().append(`<div class='col-2'></div>`);
+            console.log('finished appending card ' + j);
+        }
+    // }
 
+    elements.forEach(async function(element, idx) {
+        let separator = path.endsWith('/') ? '' : '/';
+        let elemPath = `${path}${separator}${element}`;
+        let action = element.toLowerCase().endsWith('.fit') || element.toLowerCase().endsWith('.fits') ? `renderFITS('${elemPath}', this)` : `renderPath('${elemPath}')`;
         let elemTxt = decodeURI(element);
 
-        $('#browser-cards .row').last().append(`
-            <div class='col-3'>
-                <div class="card" style="width: 18rem;" onclick="${action}">
-                    <div class="card-body">
-                        <p class="card-text">
-                            ${elemTxt}
-                            <canvas class="card-icon" height="45" width="45" data-tag="${elemTxt}"></canvas>
-                        </p>
-                    </div>
+        let hasThumb = null;
+        
+        try {
+            await $.get(`${elemPath}/sky.tab.thumb.png`);
+            hasThumb = true;
+        } catch (err) {
+            hasThumb = false;
+        }
+
+        // let targetRow = $('#browser-cards .row')[Math.floor(idx / 4)];
+        let targetSpan = $('#browser-cards .row').last().find('.col-2')[4 * Math.floor(idx / 4) + (idx % 4)];
+
+        $(targetSpan).append(`
+            <div class="card" onclick="${action}">
+                <div class="card-body">
+                    <p class="card-text">
+                        ${elemTxt}
+                        ${hasThumb ? `<img class='thumbnail' src='${elemPath}/sky.tab.thumb.png' />` : ''}
+                    </p>
                 </div>
             </div>
         `);
 
-        drawIcon(elemTxt);
+        // drawIcon(elemTxt);
+        // <canvas class="card-icon" height="45" width="45" data-tag="${elemTxt}"></canvas>
     });
 }
 
+function handleThumbHover(evt) {
+    if ($('.thumbnail:hover').length > 0) {
+        let windowHeight = $(window).height();
+        let windowWidth = $(window).width();
+
+        let thumbnail = $('.thumbnail:hover');
+        $('#thumbview').attr('src', thumbnail[0].src.replace('.thumb', '')).offset({
+            left: windowWidth - evt.pageX < $('#thumbview').width() + 50 ? evt.pageX - ($('#thumbview').width() + 50) : evt.pageX + 50,
+            top: windowHeight - evt.pageY < 450 ? evt.pageY - (400 + 50) : evt.pageY + 50,
+        }).show();
+    } else {
+        $('#thumbview').hide();
+    }
+}
+
 $(function() {
-    // Hide modal in beginning
-    $('#js9-modal').hide();
+    CAMERAS.forEach((camera, idx) => {
+        $('#masn-switch').append(`<option value='${camera}' ${idx == 0 ? 'selected' : ''}>${camera}</option>`);
+    });
+
+    $('#info-button').click(function() {
+        $('#info-modal').fadeIn();
+    });
+
+    $('#info-close').click(function() {
+        $('#info-modal').fadeOut();
+    });
+
+    $('body').append(`<img src='' id='thumbview' style='display: none' />`);
 
     // Event listeners for closing modal
     $('#js9-close, #js9-backdrop').click(function() {
@@ -182,7 +229,12 @@ $(function() {
         if (evt.which === 27) $('#js9-modal').fadeOut();
         if (evt.which === 37) renderDeltaFITS(-1);
         if (evt.which === 39) renderDeltaFITS(1);
-    })
+    });
 
-    renderPath('/masn01-archive');
+    $(document).mousemove(handleThumbHover);
+
+    renderPath($('#masn-switch').val());
+    $('#masn-switch').change(evt => {
+        renderPath($('#masn-switch').val());
+    });
 });
