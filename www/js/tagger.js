@@ -110,12 +110,11 @@ function renderCurrentFile() {
             JS9.SetZoom('ToFit');
             CENTER_PAN = JS9.GetPan();
             console.log(CENTER_PAN);
+            $('#js9-viewer').show();
+            $('#actions').show();
+            $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
         }
     });
-    
-    $('#js9-viewer').show();
-    $('#actions').show();
-    $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
 }
 
 async function renderDate(date) {
@@ -127,7 +126,13 @@ async function renderDate(date) {
     let monthDir = dateStr.substring(0, 7);
     
     let parentDir = `${BASE_DIR}${yearDir}/${monthDir}/${dateStr}`
-    let list = await $.get(parentDir);
+    
+    let list;
+    try {
+        list = await $.get(parentDir);
+    } catch (error) {
+        list = null;
+    }
     
     let entries = getDirectories(list, /\.fits?/);
     console.log(entries);
@@ -136,7 +141,13 @@ async function renderDate(date) {
     CURR_DIR = parentDir;
     CURR_FILES = entries;
 
-    $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
-
-    renderCurrentFile();
+    if (list) {
+        $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
+        renderCurrentFile();
+    } else {
+        $('#skytab').hide();
+        $('#filename').text('No data.');
+        $('#js9-viewer').hide();
+        $('#actions').hide();
+    }
 }
