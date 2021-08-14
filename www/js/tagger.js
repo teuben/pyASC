@@ -22,6 +22,7 @@ $(async function() {
         format: 'YYYY-MM-DD',
         minDate: moment(`${years[0]}-01-01`, 'YYYY-MM-DD').toDate(),
         maxDate: moment(`${years[years.length-1]}-12-31`, 'YYYY-MM-DD').toDate(),
+        defaultDate: moment(`${years[0]}-01-01`).toDate(),
         onSelect: renderDate,
         onDraw: async function(evt) {
             let { year, month } = evt.calendars[0];
@@ -75,6 +76,23 @@ $(async function() {
     });
 });
 
+function createSlider() {
+    let handle = $('#fits-handle');
+    handle.text(1);
+    $('#slider').slider({
+        value: 1,
+        min: 1,
+        max: CURR_FILES.length,
+        change: function(evt, ui) {
+            CURR_IDX = ui.value - 1;
+            renderCurrentFile();
+        },
+        slide: function(evt, ui) {
+            handle.text(ui.value);
+        }
+    });
+}
+
 function getDirectories(html, regex) {
     let parser = new DOMParser();
     let root = parser.parseFromString(html, 'text/html');
@@ -110,12 +128,11 @@ function renderCurrentFile() {
             JS9.SetZoom('ToFit');
             CENTER_PAN = JS9.GetPan();
             console.log(CENTER_PAN);
+            $('#js9-viewer').show();
+            $('#actions').show();
+            $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
         }
     });
-    
-    $('#js9-viewer').show();
-    $('#actions').show();
-    $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
 }
 
 async function renderDate(date) {
@@ -127,7 +144,13 @@ async function renderDate(date) {
     let monthDir = dateStr.substring(0, 7);
     
     let parentDir = `${BASE_DIR}${yearDir}/${monthDir}/${dateStr}`
-    let list = await $.get(parentDir);
+    
+    let list;
+    try {
+        list = await $.get(parentDir);
+    } catch (error) {
+        list = null;
+    }
     
     let entries = getDirectories(list, /\.fits?/);
     console.log(entries);
@@ -136,7 +159,14 @@ async function renderDate(date) {
     CURR_DIR = parentDir;
     CURR_FILES = entries;
 
-    $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
-
-    renderCurrentFile();
+    if (list) {
+        $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
+        createSlider();
+        renderCurrentFile();
+    } else {
+        $('#skytab').hide();
+        $('#filename').text('No data.');
+        $('#js9-viewer').hide();
+        $('#actions').hide();
+    }
 }

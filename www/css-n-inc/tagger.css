@@ -142,3 +142,11 @@ div#info-modal {
 .day-good button {
     background-color: rgb(159, 255, 159);
 }
+
+div#fits-handle {
+    text-align: center;
+    font-size: 10pt;
+    height: 2em;
+    line-height: 2em;
+    width: 4em;
+}
