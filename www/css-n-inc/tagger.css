@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    background-color: #333;
+}
+
+#header {
+    font-size: 15pt;
+    padding: 15px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    background-color: #666;
+}
+
+#controls {
+    text-align: center;
+    border-bottom: 1px solid #333;
+    background-color: #444;
+    padding: 15px;
+}
+
+#datepicker {
+    padding: 10px;
+}
+
+#skytab {
+    vertical-align: middle;
+    height: 30px;
+}
+
+select {
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#status-bar {
+    text-align: center;
+}
+
+#filename {
+    user-select: none;
+    cursor: default;
+}
+
+#status-window {
+    color: #bbb;
+    display: inline-block;
+    margin: 5px;
+}
+
+.file-control {
+    padding: 20px;
+    cursor: pointer;
+}
+
+#js9-viewer {
+    display: inline-block;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+div#actions {
+    text-align: center;
+    font-size: 16pt;
+    cursor: default;
+    user-select: none;
+}
+
+div#actions i {
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.1s all;
+}
+
+div#actions i:hover, div#actions i.active {
+    color: rgb(196, 196, 123);
+}
+
+div#actions i:active {
+    color: #666;
+}
+
+.modal-background {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+div#info-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.modal-body {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+#tag-overlay, .tag-toggle {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 0, 0, 0.1);
+    z-index: 10;
+}
+
+#tag-text {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+}
+
+.day-poor button {
+    background-color: rgb(255, 179, 179);
+}
+
+.day-medium button {
+    background-color: rgb(255, 255, 157);
+}
+
+.day-good button {
+    background-color: rgb(159, 255, 159);
+}
