@@ -1,3 +1,87 @@
+// NOTE: The PHP script should have set the variables
+//       TABS and DAYS, which contain quality and day information.
+//       So just imagine the following lines here:
+//
+//       const TABS = ...;
+//       const DAYS = ...;
+
+const BASE_DIR = '/masn01-archive/';
+
+let CURR_DIR = null;
+let CURR_FILES = null;
+let CURR_IDX = 0;
+
+const MAX_VAL = 65535;
+const POOR_LIM = MAX_VAL * (1/3);
+const MEDIUM_LIM = MAX_VAL * (2/3);
+const GOOD_LIM = MAX_VAL * (3/3);
+
+$(async function() {
+    $('#datepicker').prop('disabled', true);
+
+    let result = await $.get(BASE_DIR);
+    let years = getDirectories(result, /\d{4}/);
+
+    console.log(years);
+
+    let picker = new Pikaday({ 
+        field: document.getElementById('datepicker'),
+        format: 'YYYY-MM-DD',
+        minDate: moment(`${years[0]}-01-01`, 'YYYY-MM-DD').toDate(),
+        maxDate: moment(`${years[years.length-1]}-12-31`, 'YYYY-MM-DD').toDate(),
+        disableDayFn: function(date) {
+            return DAYS.indexOf(moment(date).format('YYYY-MM-DD')) === -1;
+        },
+        onSelect: renderDate,
+        onDraw: function(evt) {
+            let { year, month } = evt.calendars[0];
+            let days = $('.pika-lendar tbody td').filter('[data-day]');
+            days.each((_, elem) => {
+                let dateStr = moment({
+                    day: $(elem).data('day'),
+                    month: month,
+                    year: year
+                }).format('YYYY-MM-DD');
+
+                if (DAYS.indexOf(dateStr) !== -1) {
+                    let dateTab = TABS[DAYS.indexOf(dateStr)];
+                    $(elem).attr('data-tab', dateTab);
+                    if (0 <= dateTab && dateTab < POOR_LIM) $(elem).addClass('day-poor');
+                    else if (POOR_LIM <= dateTab && dateTab < MEDIUM_LIM) $(elem).addClass('day-medium');
+                    else if (MEDIUM_LIM <= dateTab && dateTab < GOOD_LIM) $(elem).addClass('day-good');
+                }
+            });
+        }
+    });
+    
+    $('#datepicker').prop('disabled', false);
+
+    $('#fileprev').click(function() {
+        if (CURR_FILES == null) return;
+        CURR_IDX = CURR_IDX - 1 < 0 ? CURR_FILES.length - 1 : CURR_IDX - 1;
+        renderCurrentFile();
+    });
+
+    $('#filenext').click(function() {
+        if (CURR_FILES == null) return;
+        CURR_IDX = CURR_IDX + 1 >= CURR_FILES.length - 1 ? 0 : CURR_IDX + 1;
+        renderCurrentFile();
+    });
+
+    $('#action-tag').click(function() {
+        $('#action-tag').toggleClass('active');
+        $('#tag-overlay, .tag-toggle').toggle();
+        if ($('#action-tag').hasClass('active')) {
+            JS9.SetZoom('ToFit');
+            JS9.SetPan({ x: CENTER_PAN.ox, y: CENTER_PAN.oy });
+        }
+    });
+
+    $('#tag-overlay, .tag-toggle').mousedown(evt => {
+        evt.stopPropagation();
+    });
+});
+
 function getDirectories(html, regex) {
     let parser = new DOMParser();
     let root = parser.parseFromString(html, 'text/html');
@@ -27,102 +111,39 @@ function renderCurrentFile() {
     JS9.globalOpts.toolBar = ['box', 'circle', 'ellipse', 'zoom+', 'zoom-', 'zoomtofit'];
     
     JS9.SetToolbar('init');
-    JS9.Load(currPath, { zoom: 'ToFit' });
-    CENTER_PAN = JS9.GetPan();
+    JS9.Load(currPath, { 
+        zoom: 'ToFit', 
+        onload: function() {
+            JS9.SetZoom('ToFit');
+            CENTER_PAN = JS9.GetPan();
+            console.log(CENTER_PAN);
+        }
+    });
     
     $('#js9-viewer').show();
     $('#actions').show();
     $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
 }
 
-let CURR_DIR = null;
-let CURR_FILES = null;
-let CURR_IDX = 0;
-
-let CENTER_PAN = null;
-let PREV_ZOOM = null;
-let PREV_PAN = null;
-
-$(async function() {
-    const BASE_DIR = 'http://localhost:8010/proxy/masn01-archive/';
-
-    $('#datepicker').prop('disabled', true);
-
-    let result = await $.get(BASE_DIR);
-    let years = getDirectories(result, /\d{4}/);
-    let months = await Promise.all(years.map(async function(year) {
-        let list = await $.get(`${BASE_DIR}${year}`);
-        return getDirectories(list, /\d{4}-\d{2}/);
-    }));
-    months = [].concat(...months);
-    console.log(months);
-    let days = await Promise.all(months.map(async function(month) {
-        let list = await $.get(`${BASE_DIR}${month.substring(0, 4)}/${month}`);
-        return getDirectories(list, /\d{4}-\d{2}-\d{2}/);
-    }));
-    days = [].concat(...days);
-
-    console.log(days);
-
-    let picker = new Pikaday({ 
-        field: document.getElementById('datepicker'),
-        format: 'YYYY-MM-DD',
-        minDate: new Date(days[0]),
-        maxDate: new Date(days[days.length - 1]),
-        disableDayFn: function(date) {
-            return days.indexOf(moment(date.toString()).format('YYYY-MM-DD')) === -1;
-        },
-        onSelect: async function(date) {
-            $('#filename').text('Loading...');
+async function renderDate(date) {
+    $('#filename').text('Loading...');
             
-            let dateStr = moment(date).format('YYYY-MM-DD');
+    let dateStr = moment(date).format('YYYY-MM-DD');
 
-            let yearDir = dateStr.substring(0, 4);
-            let monthDir = dateStr.substring(0, 7);
-            
-            let parentDir = `${BASE_DIR}${yearDir}/${monthDir}/${dateStr}`
-            let list = await $.get(parentDir);
-            
-            let entries = getDirectories(list, /\.fits?/);
-            console.log(entries);
-            
-            CURR_IDX = 0;
-            CURR_DIR = parentDir;
-            CURR_FILES = entries;
-
-            $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
-
-            renderCurrentFile();
-        }
-    });
+    let yearDir = dateStr.substring(0, 4);
+    let monthDir = dateStr.substring(0, 7);
     
-    $('#datepicker').prop('disabled', false);
+    let parentDir = `${BASE_DIR}${yearDir}/${monthDir}/${dateStr}`
+    let list = await $.get(parentDir);
+    
+    let entries = getDirectories(list, /\.fits?/);
+    console.log(entries);
+    
+    CURR_IDX = 0;
+    CURR_DIR = parentDir;
+    CURR_FILES = entries;
 
-    $('#fileprev').click(function() {
-        if (CURR_FILES == null) return;
-        CURR_IDX = CURR_IDX - 1 < 0 ? CURR_FILES.length - 1 : CURR_IDX - 1;
-        renderCurrentFile();
-    });
+    $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
 
-    $('#filenext').click(function() {
-        if (CURR_FILES == null) return;
-        CURR_IDX = CURR_IDX + 1 >= CURR_FILES.length - 1 ? 0 : CURR_IDX + 1;
-        renderCurrentFile();
-    });
-
-    $('#action-tag').click(function() {
-        $('#action-tag').toggleClass('active');
-        $('#tag-overlay, .tag-toggle').toggle();
-        if ($('#action-tag').hasClass('active')) {
-            PREV_ZOOM = JS9.GetZoom();
-            PREV_PAN = JS9.GetPan();
-            
-        } else {
-
-        }
-    });
-
-    $('#tag-overlay, .tag-toggle').mousedown(evt => {
-        evt.stopPropagation();
-    });
-});
+    renderCurrentFile();
+}
