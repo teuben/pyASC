@@ -1,10 +1,3 @@
-// NOTE: The PHP script should have set the variables
-//       TABS and DAYS, which contain quality and day information.
-//       So just imagine the following lines here:
-//
-//       const TABS = ...;
-//       const DAYS = ...;
-
 const BASE_DIR = '/masn01-archive/';
 
 let CURR_DIR = null;
@@ -29,22 +22,22 @@ $(async function() {
         format: 'YYYY-MM-DD',
         minDate: moment(`${years[0]}-01-01`, 'YYYY-MM-DD').toDate(),
         maxDate: moment(`${years[years.length-1]}-12-31`, 'YYYY-MM-DD').toDate(),
-        disableDayFn: function(date) {
-            return DAYS.indexOf(moment(date).format('YYYY-MM-DD')) === -1;
-        },
         onSelect: renderDate,
-        onDraw: function(evt) {
+        onDraw: async function(evt) {
             let { year, month } = evt.calendars[0];
-            let days = $('.pika-lendar tbody td').filter('[data-day]');
-            days.each((_, elem) => {
+
+            let { tabs, days } = await $.get(`stats.php?y=${year}&m=${String(month + 1).padStart(2, '0')}`);
+
+            let renderedDays = $('.pika-lendar tbody td').filter('[data-day]');
+            renderedDays.each((_, elem) => {
                 let dateStr = moment({
                     day: $(elem).data('day'),
                     month: month,
                     year: year
                 }).format('YYYY-MM-DD');
 
-                if (DAYS.indexOf(dateStr) !== -1) {
-                    let dateTab = TABS[DAYS.indexOf(dateStr)];
+                if (days.indexOf(dateStr) !== -1) {
+                    let dateTab = tabs[days.indexOf(dateStr)];
                     $(elem).attr('data-tab', dateTab);
                     if (0 <= dateTab && dateTab < POOR_LIM) $(elem).addClass('day-poor');
                     else if (POOR_LIM <= dateTab && dateTab < MEDIUM_LIM) $(elem).addClass('day-medium');
