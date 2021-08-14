@@ -22,7 +22,7 @@ $(async function() {
         format: 'YYYY-MM-DD',
         minDate: moment(`${years[0]}-01-01`, 'YYYY-MM-DD').toDate(),
         maxDate: moment(`${years[years.length-1]}-12-31`, 'YYYY-MM-DD').toDate(),
-        defaultDate: moment(`${years[0]}-01-01`).toDate(),
+        defaultDate: moment(`2018-11-20`).toDate(),
         onSelect: renderDate,
         onDraw: async function(evt) {
             let { year, month } = evt.calendars[0];
@@ -53,12 +53,14 @@ $(async function() {
     $('#fileprev').click(function() {
         if (CURR_FILES == null) return;
         CURR_IDX = CURR_IDX - 1 < 0 ? CURR_FILES.length - 1 : CURR_IDX - 1;
+        $('#slider').slider('value', CURR_IDX + 1);
         renderCurrentFile();
     });
 
     $('#filenext').click(function() {
         if (CURR_FILES == null) return;
         CURR_IDX = CURR_IDX + 1 >= CURR_FILES.length - 1 ? 0 : CURR_IDX + 1;
+        $('#slider').slider('value', CURR_IDX + 1);
         renderCurrentFile();
     });
 
@@ -84,6 +86,7 @@ function createSlider() {
         min: 1,
         max: CURR_FILES.length,
         change: function(evt, ui) {
+            handle.text(ui.value);
             CURR_IDX = ui.value - 1;
             renderCurrentFile();
         },
@@ -107,6 +110,7 @@ function getDirectories(html, regex) {
 
 function renderCurrentFile() {
     if (CURR_FILES == null) return;
+
     let currentFile = CURR_FILES[CURR_IDX];
     let currPath = `${CURR_DIR}/${currentFile}`;
     
@@ -128,9 +132,18 @@ function renderCurrentFile() {
             JS9.SetZoom('ToFit');
             CENTER_PAN = JS9.GetPan();
             console.log(CENTER_PAN);
-            $('#js9-viewer').show();
+            $('#viewer-container').show();
             $('#actions').show();
             $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
+
+            let header = JS9.GetImageData(true).header;
+            if (header['CRVAL1']) {
+                $('#skymap');
+                let mapSrc = `http://www.wikisky.org/map?custom=1&language=EN&type=PART&w=512&h=512&angle=180&ra=${header['CRVAL1']}&de=${header['CRVAL2']}&rotation=0&mag=6&max_stars=100000&zoom=00.1&borders=&border_color=400000&show_grid=0&grid_color=404040&grid_color_zero=808080&grid_lines_width=1.0&grid_ra_step=1.0&grid_de_step=15.0&show_const_lines=1&constellation_lines_color=006000&constellation_lines_width=1.0&show_const_names=1&constellation_names_color=006000&const_name_font_type=PLAIN&const_name_font_name=SanSerif&const_name_font_size=15&show_const_boundaries=&constellation_boundaries_color=000060&constellation_boundaries_width=1.0&background_color=000000&output=GIF`;
+                $('#skymap').attr('src', mapSrc).show();
+            } else {
+                $('#skymap').hide();
+            }
         }
     });
 }
@@ -166,7 +179,7 @@ async function renderDate(date) {
     } else {
         $('#skytab').hide();
         $('#filename').text('No data.');
-        $('#js9-viewer').hide();
+        $('#viewer-container').hide();
         $('#actions').hide();
     }
 }

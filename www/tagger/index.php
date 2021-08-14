@@ -56,15 +56,19 @@
             <i id="action-info" class="fas fa-question-circle"></i>
         </div>
     </div>
-    <div id="js9-viewer" style="display: none">
-        <div class="JS9Menubar"></div>
-        <div class="JS9Toolbar"></div>
-        <div class="JS9">
-            <div id="tag-overlay">
-                <span id="tag-text">Tagging On</span>
+    <div id="viewer-container" style="display: none">
+        <div id="js9-viewer">
+            <div class="JS9Menubar"></div>
+            <div class="JS9Toolbar"></div>
+            <div class="JS9">
+                <div id="tag-overlay">
+                    <span id="tag-text">Tagging On</span>
+                </div>
             </div>
+            <div class="JS9Statusbar"></div>
         </div>
-        <div class="JS9Statusbar"></div>
+        <img src="" id="skymap" />
+</IFRAME>
     </div>
 </body>
 

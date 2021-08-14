@@ -57,12 +57,23 @@ select {
     cursor: pointer;
 }
 
-#js9-viewer {
+/* #js9-viewer {
     display: inline-block;
     left: 50%;
     position: relative;
     transform: translateX(-50%);
     text-align: center;
+} */
+
+#viewer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 4em;
+}
+
+#skymap {
+    align-self: center;
 }
 
 div#actions {
