@@ -29,10 +29,10 @@
 
     header('Content-Type: application/json');
     
-    $dirs = `find . -maxdepth 3 -type d | grep -P '(\d{4}-\d{2}-\d{2})'`;
+    $dirs = `ls | grep -P '(\d{4}-\d{2}-\d{2})'`;
     $tabs = array_map('tabavg', preg_split("/\r\n|\n|\r/", trim($dirs)));
 
-    $dayDirs = `find . -maxdepth 3 -type d | grep -oP '(\d{4}-\d{2}-\d{2})'`;
+    $dayDirs = `ls | grep -oP '(\d{4}-\d{2}-\d{2})'`;
     $days = preg_split("/\r\n|\n|\r/", trim($dayDirs));
 
     echo json_encode(['tabs' => $tabs, 'days' => $days]);
