@@ -67,7 +67,7 @@
             </div>
             <div class="JS9Statusbar"></div>
         </div>
-        <img src="" id="skymap" />
+        <img src="" id="skymap" style="display: none" />
 </IFRAME>
     </div>
 </body>

@@ -1,0 +1,8 @@
+{
+  "sql": {
+    "hostname": "@HOSTNAME@",
+    "username": "@USERNAME@",
+    "password": "@PASSWORD@",
+    "database": "@DATABASE@"
+  }
+}
