@@ -138,9 +138,7 @@ function renderCurrentFile() {
 
             let header = JS9.GetImageData(true).header;
             if (header['CRVAL1']) {
-                $('#skymap');
-                let mapSrc = `http://www.wikisky.org/map?custom=1&language=EN&type=PART&w=512&h=512&angle=180&ra=${header['CRVAL1']}&de=${header['CRVAL2']}&rotation=0&mag=6&max_stars=100000&zoom=00.1&borders=&border_color=400000&show_grid=0&grid_color=404040&grid_color_zero=808080&grid_lines_width=1.0&grid_ra_step=1.0&grid_de_step=15.0&show_const_lines=1&constellation_lines_color=006000&constellation_lines_width=1.0&show_const_names=1&constellation_names_color=006000&const_name_font_type=PLAIN&const_name_font_name=SanSerif&const_name_font_size=15&show_const_boundaries=&constellation_boundaries_color=000060&constellation_boundaries_width=1.0&background_color=000000&output=GIF`;
-                $('#skymap').attr('src', mapSrc).show();
+                
             } else {
                 $('#skymap').hide();
             }

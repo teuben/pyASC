@@ -12,4 +12,3 @@ The http server (since 2020) uses luna:/etc/httpd/sites.d/mdallsky.conf
 The way the tree is structured, it assumes the docroot to be the root of this directory,
 so it's currently not easy to get the full experience if you view it "locally". This
 is because we assume it's on the docroot of http://mdallsky.astro.umd.edu/
-
