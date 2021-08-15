@@ -69,7 +69,7 @@ select {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-bottom: 4em;
+    padding-bottom: 6em;
 }
 
 #skymap {
@@ -160,4 +160,19 @@ div#fits-handle {
     height: 2em;
     line-height: 2em;
     width: 4em;
+}
+
+#footer {
+    color: white;
+    font-size: 9pt;
+    background-color: #111;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+#footer a {
+    color:rgb(159, 255, 159);
 }

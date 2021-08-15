@@ -9,6 +9,8 @@ const POOR_LIM = MAX_VAL * (1/3);
 const MEDIUM_LIM = MAX_VAL * (2/3);
 const GOOD_LIM = MAX_VAL * (3/3);
 
+const FILE_REGEX = /\w+\d+-(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})(?:-(\d{3,})(\w?))?/;
+
 $(async function() {
     $('#datepicker').prop('disabled', true);
 
@@ -136,12 +138,37 @@ function renderCurrentFile() {
             $('#actions').show();
             $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
 
+            let latitude = 39.0021;
+            let longitude = -76.956;
+            
+            let m = currentFile.match(FILE_REGEX).slice(1);
+            let isoDate = `${m[0]}-${m[1]}-${m[2]}T${m[3]}:${m[4]}:${m[5]}${m[6] ? `,${m[6]}${m[7]}` : ''}`;
+            let isUTC = currentFile.indexOf('Z') !== -1;
+            let date = (isUTC ? moment.utc(isoDate) : moment(isoDate)).utc().toDate();
+
             let header = JS9.GetImageData(true).header;
-            if (header['CRVAL1']) {
-                
-            } else {
-                $('#skymap').hide();
+            if (header['SITE-LAT']) latitude = header['SITE-LAT'];
+            if (header['SITE-LONG']) longitude = header['SITE-LONG'];
+            if (header['DATE-OBS']) moment.utc(header['DATE-OBS']);
+
+            $('#skymap').show();
+
+            if ($('#skymap canvas').length === 0) {
+                Celestial.display({
+                    width: $(window).width() / 3.6,
+                    container: 'skymap',
+                    projection: 'airy',
+                    form: false,
+                    interactive: false,
+                    datapath: '/js/lib/celestial0.6/data'
+                });
             }
+
+            Celestial.skyview({
+                date: date,
+                location: [latitude, longitude],
+                timezone: 0
+            });
         }
     });
 }
