@@ -160,7 +160,10 @@ function renderCurrentFile() {
                     projection: 'airy',
                     form: false,
                     interactive: false,
-                    datapath: '/js/lib/celestial0.6/data'
+                    datapath: '/js/lib/celestial0.6/data',
+                    daylight: {
+                        show: true
+                    }
                 });
             }
 
