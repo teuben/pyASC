@@ -165,6 +165,9 @@ function renderCurrentFile() {
                     datapath: '/js/lib/celestial0.6/data',
                     daylight: {
                         show: true
+                    },
+                    planets: {
+                        show: true
                     }
                 });
             }
