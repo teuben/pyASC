@@ -76,6 +76,13 @@ select {
     align-self: center;
 }
 
+div#filetime {
+    font-style: italic;
+    color: #aaa;
+    font-size: 10pt;
+    margin-bottom: 10px;
+}
+
 div#actions {
     text-align: center;
     font-size: 16pt;

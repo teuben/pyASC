@@ -47,6 +47,7 @@
             <span id="filename">No file selected</span>
             <span id="filenext" class="file-control">&#62;</span>
         </div>
+        <div id="filetime" style='display: none'></div>
     </div>
     <div id="actions" style="display: none">
         <div id="slider-container" style="width: 90vw; display: inline-block;">

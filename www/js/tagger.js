@@ -138,7 +138,9 @@ function renderCurrentFile() {
             console.log(CENTER_PAN);
             $('#viewer-container').show();
             $('#actions').show();
+
             $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
+            $('#filetime').show();
 
             let latitude = 39.0021;
             let longitude = -76.956;
@@ -147,6 +149,8 @@ function renderCurrentFile() {
             let isoDate = `${m[0]}-${m[1]}-${m[2]}T${m[3]}:${m[4]}:${m[5]}${m[6] ? `,${m[6]}${m[7]}` : ''}`;
             let isUTC = currentFile.indexOf('Z') !== -1;
             let date = (isUTC ? moment.utc(isoDate) : moment(isoDate)).utc().toDate();
+
+            $('#filetime').text(date.toString());
 
             let header = JS9.GetImageData(true).header;
             if (header['SITE-LAT']) latitude = header['SITE-LAT'];
@@ -215,6 +219,7 @@ async function renderDate(date) {
     } else {
         $('#skytab').hide();
         $('#filename').text('No data.');
+        $('#filetime').hide();
         $('#viewer-container').hide();
         $('#actions').hide();
     }
