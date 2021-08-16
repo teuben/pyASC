@@ -157,18 +157,19 @@ function renderCurrentFile() {
 
             if ($('#skymap canvas').length === 0) {
                 Celestial.display({
-                    width: $(window).width() / 3.6,
+                    width: $(window).width() / 2.4,
                     container: 'skymap',
                     projection: 'airy',
                     form: false,
-                    interactive: false,
+                    interactive: true,
                     datapath: '/js/lib/celestial0.6/data',
                     daylight: {
                         show: true
                     },
                     planets: {
                         show: true
-                    }
+                    },
+                    controls: false
                 });
             }
 
