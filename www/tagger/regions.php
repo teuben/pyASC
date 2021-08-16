@@ -1,8 +1,10 @@
 <?php 
-    define('DB_SERVER', '129.2.14.6');
-    define('DB_USERNAME', 'obsdatauser');
-    define('DB_PASSWORD', 'SNgoB00m');
-    define('DB_DATABASE', 'umdastroobs');
+    $creds = json_decode(`cat ../../creds.json`, true);
+
+    define('DB_SERVER', $creds['sql']['hostname']);
+    define('DB_USERNAME', $creds['sql']['username']);
+    define('DB_PASSWORD', $creds['sql']['password']);
+    define('DB_DATABASE', $creds['sql']['database']);
 
     $mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 

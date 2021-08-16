@@ -2,7 +2,9 @@ const BASE_DIR = '/masn01-archive/';
 
 let CURR_DIR = null;
 let CURR_FILES = null;
+
 let CURR_IDX = 0;
+let PREV_IDX = null;
 
 const MAX_VAL = 65535;
 const POOR_LIM = MAX_VAL * (1/3);
@@ -111,10 +113,14 @@ function getDirectories(html, regex) {
 }
 
 function renderCurrentFile() {
+    if (PREV_IDX == CURR_IDX) return;
     if (CURR_FILES == null) return;
 
+    PREV_IDX = CURR_IDX;
     let currentFile = CURR_FILES[CURR_IDX];
     let currPath = `${CURR_DIR}/${currentFile}`;
+
+    JS9.CloseImage();
     
     PREV_ZOOM = null;
     PREV_PAN = null;
@@ -129,7 +135,7 @@ function renderCurrentFile() {
     
     JS9.SetToolbar('init');
     JS9.Load(currPath, { 
-        zoom: 'ToFit', 
+        zoom: 'ToFit',
         onload: function() {
             JS9.SetZoom('ToFit');
             JS9.SetFlip('x');
@@ -208,6 +214,7 @@ async function renderDate(date) {
     let entries = getDirectories(list, /\.fits?/);
     console.log(entries);
     
+    PREV_IDX = null;
     CURR_IDX = 0;
     CURR_DIR = parentDir;
     CURR_FILES = entries;
