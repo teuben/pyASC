@@ -176,3 +176,7 @@ div#fits-handle {
 #footer a {
     color:rgb(159, 255, 159);
 }
+
+#celestial-zoomin, #celestial-zoomout {
+    position: fixed;
+}

@@ -132,6 +132,8 @@ function renderCurrentFile() {
         zoom: 'ToFit', 
         onload: function() {
             JS9.SetZoom('ToFit');
+            JS9.SetFlip('x');
+
             CENTER_PAN = JS9.GetPan();
             console.log(CENTER_PAN);
             $('#viewer-container').show();
@@ -172,6 +174,8 @@ function renderCurrentFile() {
                 location: [latitude, longitude],
                 timezone: 0
             });
+
+            $('#skymap').height($('#skymap canvas').height());
         }
     });
 }
