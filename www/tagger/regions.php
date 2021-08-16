@@ -9,6 +9,6 @@
     $mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
     if ($mysqli->connect_errno) {
-        echo("connection error: " + $mysqli->connect_error);
+        echo("connection error: " . $mysqli->connect_error);
     }
 ?>
