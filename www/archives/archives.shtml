@@ -24,7 +24,7 @@
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
 			<h2>MASN Archives</h2>
-			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
+			<p>Here you can browse through the archives. When you get to the nightly folders, there is a summary graphic indicating the quality of the night.</p>
 			<h5>
 				Access to all archives
 				<svg id="info-button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -74,7 +74,7 @@
 					<hr />
 					<span style="text-align: center; display: block">
 						<img src="../img/thumbinfo.png" style="margin: 15px; width: 700px; max-width: 35vw" />
-						<div style="font-style: italic; text-align: center; font-size: 10pt; margin-bottom: 10px; max-width: 35vw;">Two example plots. The left plot shows a poor session, with cloud cover and overexpsure, while the right plot shows an good session with a mostly-clear sky.</div>
+						<div style="font-style: italic; text-align: center; font-size: 10pt; margin-bottom: 10px; max-width: 35vw;">Two example plots. The left plot shows a poor session, with cloud cover and overexpsure, while the right plot shows a good session with a mostly-clear sky.</div>
 					</span>
 					<p>
 						Folders containing nightly FITS files are summarized by a thumbnail. 

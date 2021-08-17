@@ -144,22 +144,14 @@ and teach astronomy there.</p>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
-								<a href="/webdings/Ryan_Geoff.png"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
+								<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="Shawn Foster in front of a box containing the first all-sky camera"></a>
 								<div class="card-body">
-									<h5>Dr. Geoff Ryan</h5>
-									<p>Dr. Ryan handles the database.</p>
+									<h5>Shawn Foster</h5>
+									<p>As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-lg-3">
-							<div class="card shadow-sm m-2">
-								<a href="/webdings/Karim_Ramsey.jpg"><img class="card-img-top" src="/webdings/Karim_Ramsey-crop.jpg" alt="Ramsey Karim"></a>
-								<div class="card-body">
-									<h5>Ramsey Karim</h5>
-									<p>A grad student that is helping with the project.</p>
-								</div>
-							</div>
-						</div>
+						
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
 								<a href="#"><img class="card-img-top" src="/webdings/Launch.png" alt="Ashlee Wilkins"></a>
@@ -169,15 +161,37 @@ and teach astronomy there.</p>
 								</div>
 							</div>
 						</div>
+						
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
-								<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="Shawn Foster in front of a box containing the first all-sky camera"></a>
+								<a href="/webdings/Ryan_Geoff.png"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
 								<div class="card-body">
-									<h5>Shawn Foster</h5>
-									<p>As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
+									<h5>Dr. Geoff Ryan</h5>
+									<p>Dr. Ryan handles the database.</p>
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/Karim_Ramsey.jpg"><img class="card-img-top" src="/webdings/Karim_Ramsey-crop.jpg" alt="Ramsey Karim"></a>
+								<div class="card-body">
+									<h5>Ramsey Karim</h5>
+									<p>A grad student that is helping with the project.</p>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="#"><img class="card-img-top" src="/webdings/Lin_Jonathan-crop.png" alt="Jonathan Lin"></a>
+								<div class="card-body">
+									<h5>Jonathan Lin</h5>
+									<p>Jonathan implemented the image viewer and ROI tagger.</p>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				<!--End row 1-->
