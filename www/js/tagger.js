@@ -1,4 +1,5 @@
 const BASE_DIR = '/masn01-archive/';
+const TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
 
 let CURR_DIR = null;
 let CURR_FILES = null;
@@ -15,6 +16,8 @@ const GOOD_LIM = MAX_VAL * (3/3);
 const FILE_REGEX = /\w+\d+-(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})(?:-(\d{3,})(\w?))?/;
 
 $(async function() {
+    TAG_OPTIONS.forEach(tag => $('#tag-select').append(`<option value='${tag}'>${tag}</option>`));
+
     $('#datepicker').prop('disabled', true);
 
     let result = await $.get(BASE_DIR);
@@ -72,14 +75,22 @@ $(async function() {
     $('#action-tag').click(function() {
         let selectedRegions = JS9.GetRegions('selected');
         if (selectedRegions.length === 1) {
-            let tag = prompt('What should the tag be for this region?');
-            JS9.ChangeRegions('selected', { text: tag, data: { tag: tag } });
-            saveCurrentRegions();
+            $('#tag-select')[0].selectedIndex = 0;
+            $('#tag-modal').show();
         } else if (selectedRegions.length > 1) {
             alert('Please select only one region.');
         } else {
             alert('Please select a region.');
         }
+    });
+
+    $('#tag-select').change(function(evt) {
+        let tag = $(this).val();
+        if (tag.trim() != '') {
+            JS9.ChangeRegions('selected', { text: tag, data: { tag: tag } });
+            saveCurrentRegions();
+        }
+        $('#tag-modal').hide();
     });
 
     $('#action-reset').click(function() {
@@ -89,10 +100,20 @@ $(async function() {
 
     $('#action-save').click(function() {
         saveCurrentRegions();
+        alert('All changes saved.');
+    });
+
+    $('#action-info').click(function() {
+        $('#info-modal').show();
+    });
+
+    $('.modal-close').click(function() {
+        $('.modal').hide();
     });
 
     $(window).keydown(function(evt) {
         if (evt.which === 8 && JS9.GetImageData(true)) saveCurrentRegions();
+        if (evt.which === 27) $('.modal').hide();
     });
 });
 
