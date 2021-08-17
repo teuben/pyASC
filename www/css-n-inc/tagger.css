@@ -178,6 +178,7 @@ div#fits-handle {
     bottom: 0;
     width: 100vw;
     box-sizing: border-box;
+    z-index: 1000;
 }
 
 #footer a {
