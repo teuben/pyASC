@@ -3,6 +3,7 @@ const BASE_DIR = '/masn01-archive/';
 let CURR_DIR = null;
 let CURR_FILES = null;
 
+let INIT_CMAP = null;
 let CURR_IDX = 0;
 let PREV_IDX = null;
 
@@ -69,16 +70,29 @@ $(async function() {
     });
 
     $('#action-tag').click(function() {
-        $('#action-tag').toggleClass('active');
-        $('#tag-overlay, .tag-toggle').toggle();
-        if ($('#action-tag').hasClass('active')) {
-            JS9.SetZoom('ToFit');
-            JS9.SetPan({ x: CENTER_PAN.ox, y: CENTER_PAN.oy });
+        let selectedRegions = JS9.GetRegions('selected');
+        if (selectedRegions.length === 1) {
+            let tag = prompt('What should the tag be for this region?');
+            JS9.ChangeRegions('selected', { text: tag, data: { tag: tag } });
+            saveCurrentRegions();
+        } else if (selectedRegions.length > 1) {
+            alert('Please select only one region.');
+        } else {
+            alert('Please select a region.');
         }
     });
 
-    $('#tag-overlay, .tag-toggle').mousedown(evt => {
-        evt.stopPropagation();
+    $('#action-reset').click(function() {
+        if (INIT_CMAP == null) return;
+        JS9.SetColormap(INIT_CMAP.colormap, INIT_CMAP.contrast, INIT_CMAP.bias);
+    });
+
+    $('#action-save').click(function() {
+        saveCurrentRegions();
+    });
+
+    $(window).keydown(function(evt) {
+        if (evt.which === 8 && JS9.GetImageData(true)) saveCurrentRegions();
     });
 });
 
@@ -136,11 +150,27 @@ function renderCurrentFile() {
     JS9.SetToolbar('init');
     JS9.Load(currPath, { 
         zoom: 'ToFit',
-        onload: function() {
+        onload: async function() {
+            let fileData = JSON.parse(await $.get('regions.php', {
+                action: 'list',
+                path: currentFile
+            }));
+            
+            if (Object.keys(fileData).length > 0) {
+                fileData.params = JSON.parse(fileData.params);
+                fileData.params.map(region => {
+                    if (region.data.tag) region.text = region.data.tag;
+                    return region;
+                });
+                JS9.AddRegions(fileData.params);
+            }
+
             JS9.SetZoom('ToFit');
             JS9.SetFlip('x');
 
             CENTER_PAN = JS9.GetPan();
+            INIT_CMAP = JS9.GetColormap();
+
             console.log(CENTER_PAN);
             $('#viewer-container').show();
             $('#actions').show();
@@ -230,4 +260,15 @@ async function renderDate(date) {
         $('#viewer-container').hide();
         $('#actions').hide();
     }
+}
+
+function saveCurrentRegions() {
+    let regions = JS9.GetRegions('all');
+    let tags = JS9.GetRegions('all').map(region => region.data ? region.data.tag : null).filter(tag => tag != null);
+    $.get('regions.php', {
+        action: 'update',
+        path: CURR_FILES[CURR_IDX],
+        tags: tags.join(','),
+        params: JSON.stringify(regions)
+    }).then(response => console.log(response));
 }

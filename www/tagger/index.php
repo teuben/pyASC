@@ -56,9 +56,10 @@
             </div>
         </div>
         <div style="margin: 10px 0px;">
-            <i id="action-tag" class="fas fa-tag"></i>
-            <i id="action-save" class="fas fa-save"></i>
-            <i id="action-info" class="fas fa-question-circle"></i>
+            <i id="action-tag" class="fas fa-tag" title='Tag region'></i>
+            <i id="action-save" class="fas fa-save" title='Save changes'></i>
+            <i id="action-reset" class="fas fa-palette" title='Reset colormap'></i>
+            <i id="action-info" class="fas fa-question-circle" title='Help'></i>
         </div>
     </div>
     <div id="viewer-container" style="display: none">
@@ -66,9 +67,6 @@
             <div class="JS9Menubar"></div>
             <div class="JS9Toolbar"></div>
             <div class="JS9">
-                <div id="tag-overlay">
-                    <span id="tag-text">Tagging On</span>
-                </div>
             </div>
             <div class="JS9Statusbar"></div>
         </div>
