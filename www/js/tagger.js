@@ -292,7 +292,7 @@ function saveCurrentRegions() {
         tags: tags.join(','),
         params: JSON.stringify(regions)
     }).then(response => {
-        if (response.trim() === '') {
+        if (response.trim() !== '') {
             alert(`Error saving regions: ${response}`);
         }
     });
