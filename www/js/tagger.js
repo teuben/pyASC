@@ -291,5 +291,9 @@ function saveCurrentRegions() {
         path: CURR_FILES[CURR_IDX],
         tags: tags.join(','),
         params: JSON.stringify(regions)
-    }).then(response => console.log(response));
+    }).then(response => {
+        if (response.trim() === '') {
+            alert(`Error saving regions: ${response}`);
+        }
+    });
 }
