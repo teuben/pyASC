@@ -16,6 +16,8 @@ const GOOD_LIM = MAX_VAL * (3/3);
 const FILE_REGEX = /\w+\d+-(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})(?:-(\d{3,})(\w?))?/;
 
 $(async function() {
+    JS9.ResizeDisplay(750, 750);
+
     TAG_OPTIONS.forEach(tag => $('#tag-select').append(`<option value='${tag}'>${tag}</option>`));
 
     $('#datepicker').prop('disabled', true);
@@ -218,7 +220,7 @@ function renderCurrentFile() {
 
             if ($('#skymap canvas').length === 0) {
                 Celestial.display({
-                    width: $(window).width() / 2.4,
+                    width: $(window).width() / 2.7,
                     container: 'skymap',
                     projection: 'airy',
                     form: false,
