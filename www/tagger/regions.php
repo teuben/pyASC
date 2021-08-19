@@ -1,7 +1,7 @@
 <?php
     class RegionDB extends SQLite3 {
         function __construct() {
-            $this->open('../../regions.db');
+            $this->open('../regions.db');
         }
     }
 

@@ -223,6 +223,9 @@ function renderCurrentFile() {
                     projection: 'airy',
                     form: false,
                     interactive: true,
+                    stars: {
+                        limit: 4
+                    },
                     datapath: '/js/lib/celestial0.6/data',
                     daylight: {
                         show: true
