@@ -25,37 +25,8 @@
 		<div class="container-fluid white-bg py-4">
 			<h2>Meteor Archives</h2>
 			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
-			<h5>Access to all archives</h5>
 
 			<hr />
-
-			<div id="date-browser">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="#">Home</a></li>
-					</ol>
-				</nav>
-				<div id="browser-cards" class="container-fluid">
-					<h6>Loading...</h6>
-				</div>
-			</div>
-
-			<div id="js9-modal">
-				<div id="js9-backdrop"></div>
-				<div id="js9-container">
-					<div>
-						<div id="js9-close"></div>
-						<h5 id="js9-filename">Filename</h5>
-						<h2 id="js9-loading">Loading...</h2>
-						<div id="js9-viewer">
-							<div class="JS9Menubar"></div>
-							<div class="JS9Toolbar"></div>
-							<div class="JS9"></div>
-							<div class="JS9Statusbar"></div>
-						</div>
-					</div>
-				</div>
-			</div>
 
 			<div id="img-wall" class="container-fluid">
 				<div id="link"></div>
@@ -87,7 +58,6 @@
 <script type="text/javascript" src="/js/lib/js9-3.5/js9support.min.js"></script>
 <script type="text/javascript" src="/js/lib/js9-3.5/js9.min.js"></script>
 <script type="text/javascript" src="/js/lib/js9-3.5/js9plugins.js"></script>
-<script src="/js/meteors.js"></script>
 
 </body>
 
