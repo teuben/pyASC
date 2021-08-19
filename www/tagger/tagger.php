@@ -27,6 +27,7 @@
     <script type="text/javascript" src="/js/lib/js9-3.5/js9plugins.js"></script>
     <script src="https://kit.fontawesome.com/446f3e493f.js" crossorigin="anonymous"></script>
     <script src="/js/tagger.js"></script>
+    <script src="/js/util.js"></script>
 </head>
 
 <body>
@@ -55,7 +56,9 @@
             </div>
         </div>
     </div>
-    <div id="header">Object Tagger</div>
+    <div id="header">
+        <span>Object Tagger</span>
+    </div>
     <div id="tag-modal" class="modal" style="display: none;">
         <div class="modal-background"></div>
         <div class="modal-body">
@@ -99,7 +102,7 @@
             </div>
             <div class="JS9Statusbar"></div>
         </div>
-        <div id="skymap" style="display: none" />
+        <div id="skymap" style="display: none"></div>
     </div>
     <div id="footer">
         Skymaps are rendered using the D3-Celestial Javascript library: <a href='https://github.com/ofrohn/d3-celestial'>https://github.com/ofrohn/d3-celestial</a>
