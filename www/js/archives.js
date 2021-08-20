@@ -1,5 +1,10 @@
-var CAMERAS = ['/masn01-archive', '/masn02-archive'] // edit this for more camera options (name of symlink directory)
+// edit this for more camera options (name of symlink directory)
+// MAKE SURE TO INCLUDE A FRONT SLASH IN FRONT OF THE DIRECTORY.
+var CAMERAS = ['/masn01-archive', '/masn02-archive']
+
 var FILESYSTEM = {};
+let CURR_FILES = [];
+let CURR_PATH = null;
 
 function drawIcon(tag) {
     let canvas = $(`canvas[data-tag='${tag}']`)[0].getContext('2d');
@@ -105,9 +110,17 @@ function renderBreadcrumbs(path) {
 
 function renderDeltaFITS(delta) {
     if ($('#js9-modal').is(':visible')) {
-        let cards = $('#browser-cards .card').length;
-        let idx = moduloSum(getActiveCardIndex(), delta, cards);
-        $($('#browser-cards .card')[idx]).click();
+        if ($('#folder-view').is(':visible')) {
+            let cards = $('#browser-cards .card').length;
+            let idx = moduloSum(getActiveCardIndex(), delta, cards);
+            $($('#browser-cards .card')[idx]).click();
+        } else {
+            CURR_IDX += delta;
+            if (CURR_IDX < 0) CURR_IDX = CURR_FILES.length - 1;
+            else if (CURR_IDX >= CURR_FILES.length) CURR_IDX = 0;
+            renderFITS(`${CURR_PATH}/${CURR_FILES[CURR_IDX]}`, null);
+            $('#slider').slider('value', CURR_IDX + 1);
+        }
     }
 }
 
@@ -115,8 +128,10 @@ function renderFITS(path, elem) {
     console.log(elem);
     console.log('rendering ' + path);
 
-    $('#browser-cards .card').removeData('active');
-    $(elem).data('active', true);
+    if (elem) {
+        $('#browser-cards .card').removeData('active');
+        $(elem).data('active', true);
+    }
 
     $('#js9-viewer').hide();
     $('#js9-loading').show();
@@ -131,6 +146,7 @@ function renderFITS(path, elem) {
             $('#js9-loading').hide();
             $('#js9-viewer').show();
             JS9.SetZoom('tofit');
+            if (JS9.GetFlip() === 'none') JS9.SetFlip('x')
             updateSkymap(path.trim().split('/').pop());
         }
     });
@@ -203,6 +219,80 @@ function handleThumbHover(evt) {
     }
 }
 
+function drawCalendar() {
+    new Pikaday({ 
+        field: document.getElementById('datepicker'),
+        format: 'ddd MMM DD YYYY',
+        defaultDate: moment(`2018-11-20`).toDate(),
+        onSelect: renderDate,
+        onDraw: async function(evt) {
+            let { year, month } = evt.calendars[0];
+
+            let { tabs, days } = await $.get(`/tagger/stats.php?y=${year}&m=${String(month + 1).padStart(2, '0')}&dir=${BASE_DIR}`);
+
+            let renderedDays = $('.pika-lendar tbody td').filter('[data-day]');
+            renderedDays.each((_, elem) => {
+                let dateStr = moment({
+                    day: $(elem).data('day'),
+                    month: month,
+                    year: year
+                }).format('YYYY-MM-DD');
+
+                if (days.indexOf(dateStr) !== -1) {
+                    let dateTab = tabs[days.indexOf(dateStr)];
+                    $(elem).attr('data-tab', dateTab);
+                    if (0 <= dateTab && dateTab < POOR_LIM) $(elem).addClass('day-poor');
+                    else if (POOR_LIM <= dateTab && dateTab < MEDIUM_LIM) $(elem).addClass('day-medium');
+                    else if (MEDIUM_LIM <= dateTab && dateTab < GOOD_LIM) $(elem).addClass('day-good');
+                }
+            });
+        }
+    });
+}
+
+function getPath(date) {
+    let dateStr = moment(date).format('YYYY-MM-DD');
+    let path = `${BASE_DIR}/${dateStr.substring(0, 4)}/${dateStr.substring(0, 7)}/${dateStr}`;
+    return path;
+}
+
+async function renderDate(date) {
+    let path = getPath(date);
+    try {
+        let listing = await $.get(path);
+        $('#slider').show();
+        CURR_PATH = path;
+        let parser = new DOMParser();
+        let dom = parser.parseFromString(listing, 'text/html');
+        let links = [].slice.call(dom.getElementsByTagName('a')).filter(link => link.href.match(/\.fits?$/i)).map(link => link.href.split('/').pop());
+        CURR_FILES = links;
+        createSlider();
+        renderFITS(`${path}/${CURR_FILES[$('#slider').slider('value') - 1]}`, null);
+    } catch {
+        $('#slider').hide();
+        alert('No data exists for this date.');
+    }
+}
+
+function createSlider() {
+    let handle = $('#fits-handle');
+    handle.text(1);
+    $('#slider').slider({
+        value: 1,
+        min: 1,
+        max: 1,
+        max: CURR_FILES.length,
+        change: function(evt, ui) {
+            handle.text(ui.value);
+            CURR_IDX = ui.value - 1;
+            renderFITS(`${CURR_PATH}/${CURR_FILES[CURR_IDX]}`, null);
+        },
+        slide: function(evt, ui) {
+            handle.text(ui.value);
+        }
+    });
+}
+
 $(function() {
     CAMERAS.forEach((camera, idx) => {
         $('#masn-switch').append(`<option value='${camera}' ${idx == 0 ? 'selected' : ''}>${camera}</option>`);
@@ -215,6 +305,16 @@ $(function() {
     $('#info-close').click(function() {
         $('#info-modal').fadeOut();
     });
+
+    $('#view-toggle').click(function() {
+        $('#toggle-slider').toggleClass('active');
+        $('#folder-view').toggle();
+        $('#calendar-view').toggle();
+        if ($('#toggle-slider').hasClass('active')) $('#view-toggle span').text('Folder View');
+        else $('#view-toggle span').text('Calendar View');
+    });
+
+    createSlider();
 
     $('body').append(`<img src='' id='thumbview' style='display: none' />`);
 
@@ -231,8 +331,12 @@ $(function() {
 
     $(document).mousemove(handleThumbHover);
 
+    BASE_DIR = $('#masn-switch').val();
     renderPath($('#masn-switch').val());
     $('#masn-switch').change(evt => {
+        BASE_DIR = $('#masn-switch').val();
         renderPath($('#masn-switch').val());
     });
+
+    drawCalendar();
 });

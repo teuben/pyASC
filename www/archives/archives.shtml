@@ -9,12 +9,16 @@
 	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9support.css">
 	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9.css">
 	<link rel="stylesheet" href="/js/lib/celestial0.6/celestial.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+	<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css" />
 
 	<script type="text/javascript" src="/js/lib/celestial0.6/lib/d3.min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="/js/lib/celestial0.6/lib/d3.geo.projection.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="/js/lib/celestial0.6/celestial.min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/js/lib/js9-3.5/js9prefs.js"></script>
@@ -50,16 +54,29 @@
 
 			<select class="form-control form-select" id="masn-switch" style="width: fit-content"></select>
 
+			<div id="view-toggle"><div id="toggle-slider"></div><span>Calendar View</span></div>
+
 			<hr />
 
-			<div id="date-browser">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="#">Home</a></li>
-					</ol>
-				</nav>
-				<div id="browser-cards" class="container-fluid">
-					<h6>Loading...</h6>
+			<div id="folder-view" style="display: none">
+				<div id="date-browser">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item active"><a href="#">Home</a></li>
+						</ol>
+					</nav>
+					<div id="browser-cards" class="container-fluid">
+						<h6>Loading...</h6>
+					</div>
+				</div>
+			</div>
+
+			<div id="calendar-view">
+				<input type="text" id="datepicker" placeholder="Select date..." autocomplete="off">
+				<div id="slider-container" style="width: 90vw; display: inline-block;">
+					<div id="slider" style="display: none">
+						<div id="fits-handle" class="ui-slider-handle"></div>
+					</div>
 				</div>
 			</div>
 
@@ -108,22 +125,6 @@
 						<button type="button" id="info-close" class="btn btn-success">Close</button>
 					</div>
 				</div>
-			</div>
-
-			<div id="img-wall" class="container-fluid">
-				<div id="link"></div>
-				<!--
-				<div class="row">
-					<div class="col-lg-4 col-xs-12">
-						<div class="container-fluid">
-							<a href="/gallery/meteor/Meteor-20191028.png"><img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture" /></a>
-						</div>
-					</div>
-				</div>
-				-->
-
-				<!--
-				<img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>-->
 			</div>
 		</div>
 	</div>
