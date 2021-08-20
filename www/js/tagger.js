@@ -173,7 +173,10 @@ function renderCurrentFile() {
     JS9.Load(currPath, { 
         zoom: 'ToFit',
         onload: async function() {
-            let fileData = JSON.parse(await $.get('regions.php', {
+            let fileData = JSON.parse(await $.get({
+                    url: 'regions.php',
+                    cache: false
+                }, {
                 action: 'list',
                 path: currentFile
             }));
