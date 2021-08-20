@@ -9,7 +9,10 @@ $(function() {
 });
 
 async function init() {
-    let tagged = JSON.parse(await $.get(`/tagger/regions.php?action=tag&tag=${FILTER_TAG}`));
+    let tagged = JSON.parse(await $.get({
+        url: `/tagger/regions.php?action=tag&tag=${FILTER_TAG}`,
+        cache: false
+    }));
     console.log(tagged);
     FILES = tagged.map(data => {
         let { path, params } = data;

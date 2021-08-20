@@ -246,7 +246,10 @@ async function renderDate(date) {
 function saveCurrentRegions() {
     let regions = JS9.GetRegions('all');
     let tags = JS9.GetRegions('all').map(region => region.data ? region.data.tag : null).filter(tag => tag != null);
-    $.get('regions.php', {
+    $.get({
+        url: 'regions.php',
+        cache: false
+    }, {
         action: 'update',
         path: CURR_FILES[CURR_IDX],
         tags: tags.join(','),
