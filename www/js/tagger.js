@@ -188,7 +188,7 @@ function renderCurrentFile() {
             }
 
             JS9.SetZoom('ToFit');
-            JS9.SetFlip('x');
+            if (JS9.GetFlip() === 'none') JS9.SetFlip('x');
 
             CENTER_PAN = JS9.GetPan();
             INIT_CMAP = JS9.GetColormap();
