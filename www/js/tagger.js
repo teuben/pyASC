@@ -8,11 +8,6 @@ let INIT_CMAP = null;
 let CURR_IDX = 0;
 let PREV_IDX = null;
 
-const MAX_VAL = 65535;
-const POOR_LIM = MAX_VAL * (1/3);
-const MEDIUM_LIM = MAX_VAL * (2/3);
-const GOOD_LIM = MAX_VAL * (3/3);
-
 $(async function() {
     JS9.ResizeDisplay(750, 750);
 
@@ -25,7 +20,7 @@ $(async function() {
 
     console.log(years);
 
-    let picker = new Pikaday({ 
+    new Pikaday({ 
         field: document.getElementById('datepicker'),
         format: 'YYYY-MM-DD',
         minDate: moment(`${years[0]}-01-01`, 'YYYY-MM-DD').toDate(),

@@ -1,5 +1,10 @@
 const FILE_REGEX = /\w+\d+-(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})(?:-(\d{3,})(\w?))?/;
 
+const MAX_VAL = 65535;
+const POOR_LIM = MAX_VAL * (1/3);
+const MEDIUM_LIM = MAX_VAL * (2/3);
+const GOOD_LIM = MAX_VAL * (3/3);
+
 function updateSkymap(currentFile) {
     let latitude = 39.0021;
     let longitude = -76.956;
