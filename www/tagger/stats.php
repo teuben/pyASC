@@ -25,7 +25,9 @@
         }
     }
 
-    chdir(sprintf('../masn01-archive/%s/%s-%s', $_GET['y'], $_GET['y'], $_GET['m']));
+    $directory = isset($_GET['dir']) && preg_match("/[\w\d-]/", $_GET['dir']) ? $_GET['dir'] : 'masn01-archive';
+
+    chdir(sprintf('../%s/%s/%s-%s', $directory, $_GET['y'], $_GET['y'], $_GET['m']));
 
     header('Content-Type: application/json');
     

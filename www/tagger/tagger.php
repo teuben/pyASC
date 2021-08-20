@@ -27,16 +27,49 @@
     <script type="text/javascript" src="/js/lib/js9-3.5/js9plugins.js"></script>
     <script src="https://kit.fontawesome.com/446f3e493f.js" crossorigin="anonymous"></script>
     <script src="/js/tagger.js"></script>
+    <script src="/js/util.js"></script>
 </head>
 
 <body>
-    <div id="info-modal" style="display: none;">
+    <div id="info-modal" class="modal" style="display: none;">
         <div class="modal-background"></div>
         <div class="modal-body">
-            Hi.
+            <div style="max-height: 60vh; overflow-y: auto;">
+                <h3>Navigation</h3>
+                <p>Use the white arrows on either side of the file name, or the slider.</p>
+                <h3>Creating New Regions</h3>
+                <p>Click any of the region shapes on the toolbar:</p>
+                <img src="/webdings/help/toolbar.png" style="width: 60%;" />
+                <p>A new region will appear on the image. Drag, rotate, and resize this region as needed.</p>
+                <h3>Tagging Regions</h3>
+                <p>Select a region by clicking on it:</p>
+                <img src="/webdings/help/selected.png" />
+                <p>Now, click the tag symbol on the action bar.</p>
+                <img src="/webdings/help/tag.png" />
+                <p>A modal will appear with tagging options. Select one, and it should automatically close.</p>
+                <img src="/webdings/help/menu.png" />
+                <h3>Deleting Regions</h3>
+                <p>Select a region by clicking on it. Press <span class='key-control'>Backspace</span>.
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button modal-close">Close</button>
+            </div>
         </div>
     </div>
-    <div id="header">Object Tagger</div>
+    <div id="header">
+        <span>Object Tagger</span>
+        <select id="masn-switch"></select>
+    </div>
+    <div id="tag-modal" class="modal" style="display: none;">
+        <div class="modal-background"></div>
+        <div class="modal-body">
+            <div style="margin-bottom: 10px">Select the tag for this region.</div>
+            <select id="tag-select">
+                <option value=''>Choose tag...</option>
+                <option value='' disabled>---</option>
+            </select>
+        </div>
+    </div>
     <div id="controls">
         <input type="text" id="datepicker" placeholder="Select date..." autocomplete="off">
         <img id="skytab" height="50" style="display: none" />
@@ -56,23 +89,21 @@
             </div>
         </div>
         <div style="margin: 10px 0px;">
-            <i id="action-tag" class="fas fa-tag"></i>
-            <i id="action-save" class="fas fa-save"></i>
-            <i id="action-info" class="fas fa-question-circle"></i>
+            <i id="action-tag" class="fas fa-tag" title='Tag region'></i>
+            <i id="action-save" class="fas fa-save" title='Save changes'></i>
+            <i id="action-reset" class="fas fa-palette" title='Reset colormap'></i>
+            <i id="action-info" class="fas fa-question-circle" title='Help'></i>
         </div>
     </div>
     <div id="viewer-container" style="display: none">
         <div id="js9-viewer">
-            <div class="JS9Menubar"></div>
+            <!-- <div class="JS9Menubar"></div> -->
             <div class="JS9Toolbar"></div>
             <div class="JS9">
-                <div id="tag-overlay">
-                    <span id="tag-text">Tagging On</span>
-                </div>
             </div>
             <div class="JS9Statusbar"></div>
         </div>
-        <div id="skymap" style="display: none" />
+        <div id="skymap" style="display: none"></div>
     </div>
     <div id="footer">
         Skymaps are rendered using the D3-Celestial Javascript library: <a href='https://github.com/ofrohn/d3-celestial'>https://github.com/ofrohn/d3-celestial</a>

@@ -1,0 +1,220 @@
+.card {
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    background-color: #ccc;
+}
+
+#js9-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100000;
+}
+
+#js9-backdrop {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#js9-carousel {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+#js9-carousel .carousel-button {
+    margin: 0px 20px;
+    font-weight: 900;
+    background-color: #b7b7b7;
+    color: white;
+    font-size: 20pt;
+    border-radius: 10%;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #444;
+    text-shadow: 0px 2px black;
+}
+
+#js9-carousel .carousel-button:hover {
+    background-color: #222;
+}
+
+#js9-container {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px black;
+}
+
+#js9-viewer {
+    margin-bottom: 20px;
+}
+
+#js9-close {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+#js9-close::before {
+    content: "x";
+    position: relative;
+    cursor: pointer;
+}
+
+.card-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.thumbnail {
+    position: absolute;
+    right: 21px;
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+#thumbview {
+    position: absolute;
+    border: 1px solid black;
+    height: 400px;
+    width: auto;
+    background-color: white;
+}
+
+#info-button {
+    color: #555;
+    cursor: pointer;
+}
+
+#info-button:hover {
+    color: #222;
+}
+
+#info-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#info-body {
+    background-color: white;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+#info-body p {
+    max-width: 35vw;
+}
+
+#info-body > p > b {
+    font-family: "Georgia", serif;
+    font-style: italic;
+}
+
+#js9-filename {
+    padding: 15px;
+    background-color: #495057;
+    font-size: 10pt;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+#view-toggle {
+    margin-top: 10px;
+    user-select: none;
+    width: fit-content;
+}
+
+#toggle-slider {
+    height: 10px;
+    width: 20px;
+    display: inline-block;
+    background-color: gray;
+    margin: 0px 10px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s all;
+}
+
+#toggle-slider.active {
+    background-color: rgb(35, 117, 211);
+}
+
+#toggle-slider::before {
+    content: "";
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: white;
+    display: block;
+    left: 0;
+    top: 50%;
+    border: 1px solid #aaa;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+#toggle-slider.active::before {
+    right: 0;
+    transform: translateY(-50%) translateX(50%);
+}
+
+#calendar-view {
+    text-align: center;
+}
+
+#datepicker {
+    padding: 10px;
+    font-size: 10pt;
+}
+
+.day-poor button {
+    background-color: rgb(255, 179, 179);
+}
+
+.day-medium button {
+    background-color: rgb(255, 255, 157);
+}
+
+.day-good button {
+    background-color: rgb(159, 255, 159);
+}
+
+div#fits-handle {
+    text-align: center;
+    font-size: 10pt;
+    height: 2em;
+    line-height: 2em;
+    width: 4em;
+}
+
+#slider-container {
+    margin: 25px 0px;
+}

@@ -1,130 +1,26 @@
-.card {
-    cursor: pointer;
-}
-
-.card:hover {
-    background-color: #ccc;
-}
-
-#js9-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-}
-
-#js9-backdrop {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-#js9-carousel {
-    align-items: center;
-    display: flex;
-}
-
-#js9-carousel .carousel-button {
-    margin: 0px 20px;
-    font-weight: 900;
-    background-color: rgb(83, 83, 202);
-    color: white;
-    font-size: 20pt;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
+#js9-filename {
     text-align: center;
-    line-height: 34px;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-}
-
-#js9-carousel .carousel-button:hover {
-    background-color: rgb(75, 75, 226);
+    font-variant: small-caps;
 }
 
 #js9-container {
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 5px 10px black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
-#js9-close {
-    margin-bottom: 20px;
-    text-align: right;
-}
-
-#js9-close::before {
-    content: "x";
-    position: relative;
+.carousel-button {
+    color: white;
+    background-color: #aaa;
+    padding:  15px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 15pt;
+    text-shadow: 0px 2px #444;
     cursor: pointer;
 }
 
-.card-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.thumbnail {
-    position: absolute;
-    right: 21px;
-    bottom: 50%;
-    transform: translateY(50%);
-}
-
-#thumbview {
-    position: absolute;
-    border: 1px solid black;
-    height: 400px;
-    width: auto;
-    background-color: white;
-}
-
-#info-button {
-    color: #555;
-    cursor: pointer;
-}
-
-#info-button:hover {
-    color: #222;
-}
-
-#info-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-#info-body {
-    background-color: white;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 3px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-}
-
-#info-body p {
-    max-width: 35vw;
-}
-
-#info-body > p > b {
-    font-family: "Georgia", serif;
-    font-style: italic;
+.carousel-button:hover {
+    background-color: #222;
 }

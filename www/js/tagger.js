@@ -1,19 +1,24 @@
-const BASE_DIR = '/masn01-archive/';
+let BASE_DIR = '/masn01-archive/';
+const TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
 
 let CURR_DIR = null;
 let CURR_FILES = null;
 
+let INIT_CMAP = null;
 let CURR_IDX = 0;
 let PREV_IDX = null;
 
-const MAX_VAL = 65535;
-const POOR_LIM = MAX_VAL * (1/3);
-const MEDIUM_LIM = MAX_VAL * (2/3);
-const GOOD_LIM = MAX_VAL * (3/3);
-
-const FILE_REGEX = /\w+\d+-(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})(?:-(\d{3,})(\w?))?/;
-
 $(async function() {
+    let cameras = JSON.parse(await $.get('cameras.php'));
+    cameras.forEach((camera) => {
+        $('#masn-switch').append(`<option value='${camera}/'>${camera}</option>`);
+    });
+    BASE_DIR = $('#masn-switch').val();
+
+    JS9.ResizeDisplay(750, 750);
+
+    TAG_OPTIONS.forEach(tag => $('#tag-select').append(`<option value='${tag}'>${tag}</option>`));
+
     $('#datepicker').prop('disabled', true);
 
     let result = await $.get(BASE_DIR);
@@ -21,7 +26,7 @@ $(async function() {
 
     console.log(years);
 
-    let picker = new Pikaday({ 
+    new Pikaday({ 
         field: document.getElementById('datepicker'),
         format: 'YYYY-MM-DD',
         minDate: moment(`${years[0]}-01-01`, 'YYYY-MM-DD').toDate(),
@@ -69,16 +74,47 @@ $(async function() {
     });
 
     $('#action-tag').click(function() {
-        $('#action-tag').toggleClass('active');
-        $('#tag-overlay, .tag-toggle').toggle();
-        if ($('#action-tag').hasClass('active')) {
-            JS9.SetZoom('ToFit');
-            JS9.SetPan({ x: CENTER_PAN.ox, y: CENTER_PAN.oy });
+        let selectedRegions = JS9.GetRegions('selected');
+        if (selectedRegions.length === 1) {
+            $('#tag-select')[0].selectedIndex = 0;
+            $('#tag-modal').show();
+        } else if (selectedRegions.length > 1) {
+            alert('Please select only one region.');
+        } else {
+            alert('Please select a region.');
         }
     });
 
-    $('#tag-overlay, .tag-toggle').mousedown(evt => {
-        evt.stopPropagation();
+    $('#tag-select').change(function(evt) {
+        let tag = $(this).val();
+        if (tag.trim() != '') {
+            JS9.ChangeRegions('selected', { text: tag, data: { tag: tag } });
+            saveCurrentRegions();
+        }
+        $('#tag-modal').hide();
+    });
+
+    $('#action-reset').click(function() {
+        if (INIT_CMAP == null) return;
+        JS9.SetColormap(INIT_CMAP.colormap, INIT_CMAP.contrast, INIT_CMAP.bias);
+    });
+
+    $('#action-save').click(function() {
+        saveCurrentRegions();
+        alert('All changes saved.');
+    });
+
+    $('#action-info').click(function() {
+        $('#info-modal').show();
+    });
+
+    $('.modal-close').click(function() {
+        $('.modal').hide();
+    });
+
+    $(window).keydown(function(evt) {
+        if (evt.which === 8 && JS9.GetImageData(true)) saveCurrentRegions();
+        if (evt.which === 27) $('.modal').hide();
     });
 });
 
@@ -136,11 +172,30 @@ function renderCurrentFile() {
     JS9.SetToolbar('init');
     JS9.Load(currPath, { 
         zoom: 'ToFit',
-        onload: function() {
+        onload: async function() {
+            let fileData = JSON.parse(await $.get({
+                    url: 'regions.php',
+                    cache: false
+                }, {
+                action: 'list',
+                path: currentFile
+            }));
+            
+            if (Object.keys(fileData).length > 0) {
+                fileData.params = JSON.parse(fileData.params);
+                fileData.params.map(region => {
+                    if (region.data.tag) region.text = region.data.tag;
+                    return region;
+                });
+                JS9.AddRegions(fileData.params);
+            }
+
             JS9.SetZoom('ToFit');
-            JS9.SetFlip('x');
+            if (JS9.GetFlip() === 'none') JS9.SetFlip('x');
 
             CENTER_PAN = JS9.GetPan();
+            INIT_CMAP = JS9.GetColormap();
+
             console.log(CENTER_PAN);
             $('#viewer-container').show();
             $('#actions').show();
@@ -148,48 +203,7 @@ function renderCurrentFile() {
             $('#filename').text(`${currentFile} (${CURR_IDX + 1}/${CURR_FILES.length})`);
             $('#filetime').show();
 
-            let latitude = 39.0021;
-            let longitude = -76.956;
-            
-            let m = currentFile.match(FILE_REGEX).slice(1);
-            let isoDate = `${m[0]}-${m[1]}-${m[2]}T${m[3]}:${m[4]}:${m[5]}${m[6] ? `,${m[6]}${m[7]}` : ''}`;
-            let isUTC = currentFile.indexOf('Z') !== -1;
-            let date = (isUTC ? moment.utc(isoDate) : moment(isoDate)).utc().toDate();
-
-            $('#filetime').text(date.toString());
-
-            let header = JS9.GetImageData(true).header;
-            if (header['SITE-LAT']) latitude = header['SITE-LAT'];
-            if (header['SITE-LONG']) longitude = header['SITE-LONG'];
-            if (header['DATE-OBS']) moment.utc(header['DATE-OBS']);
-
-            $('#skymap').show();
-
-            if ($('#skymap canvas').length === 0) {
-                Celestial.display({
-                    width: $(window).width() / 2.4,
-                    container: 'skymap',
-                    projection: 'airy',
-                    form: false,
-                    interactive: true,
-                    datapath: '/js/lib/celestial0.6/data',
-                    daylight: {
-                        show: true
-                    },
-                    planets: {
-                        show: true
-                    },
-                    controls: false
-                });
-            }
-
-            Celestial.skyview({
-                date: date,
-                location: [latitude, longitude],
-                timezone: 0
-            });
-
-            $('#skymap').height($('#skymap canvas').height());
+            updateSkymap(currentFile);
         }
     });
 }
@@ -230,4 +244,22 @@ async function renderDate(date) {
         $('#viewer-container').hide();
         $('#actions').hide();
     }
+}
+
+function saveCurrentRegions() {
+    let regions = JS9.GetRegions('all');
+    let tags = JS9.GetRegions('all').map(region => region.data ? region.data.tag : null).filter(tag => tag != null);
+    $.get({
+        url: 'regions.php',
+        cache: false
+    }, {
+        action: 'update',
+        path: CURR_FILES[CURR_IDX],
+        tags: tags.join(','),
+        params: JSON.stringify(regions)
+    }).then(response => {
+        if (response.trim() !== '') {
+            alert(`Error saving regions: ${response}`);
+        }
+    });
 }

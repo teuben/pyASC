@@ -110,12 +110,44 @@ div#actions i:active {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-div#info-modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
+    box-sizing: border-box;
+    z-index: 4000;
+}
+
+.modal-footer {
+    border-top: 1px solid #bbb;
+    padding-top: 15px;
+    text-align: right;
+    margin-top: 15px;
+}
+
+span.key-control {
+    font-size: 8pt;
+    background-color: #eee;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #777;
+    position: relative;
+    vertical-align: text-top;
+    box-shadow: 0px 1px;
+}
+
+button.modal-button {
+    background-color: blue;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+button.modal-button:hover {
+    background-color: #2d2dff;
 }
 
 .modal-body {
@@ -123,10 +155,22 @@ div#info-modal {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.modal-body img {
+    max-width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal-body p {
+    padding: 15px 0px;
+    word-break: break-word;
 }
 
 #tag-overlay, .tag-toggle {
@@ -178,6 +222,7 @@ div#fits-handle {
     bottom: 0;
     width: 100vw;
     box-sizing: border-box;
+    z-index: 1000;
 }
 
 #footer a {
