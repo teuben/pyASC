@@ -260,6 +260,7 @@ async function renderDate(date) {
     let path = getPath(date);
     try {
         let listing = await $.get(path);
+        $('#slider').show();
         CURR_PATH = path;
         let parser = new DOMParser();
         let dom = parser.parseFromString(listing, 'text/html');
@@ -268,6 +269,7 @@ async function renderDate(date) {
         createSlider();
         renderFITS(`${path}/${CURR_FILES[$('#slider').slider('value') - 1]}`, null);
     } catch {
+        $('#slider').hide();
         alert('No data exists for this date.');
     }
 }

@@ -74,7 +74,7 @@
 			<div id="calendar-view">
 				<input type="text" id="datepicker" placeholder="Select date..." autocomplete="off">
 				<div id="slider-container" style="width: 90vw; display: inline-block;">
-					<div id="slider">
+					<div id="slider" style="display: none">
 						<div id="fits-handle" class="ui-slider-handle"></div>
 					</div>
 				</div>
