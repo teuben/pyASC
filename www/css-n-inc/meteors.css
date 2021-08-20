@@ -1,0 +1,26 @@
+#js9-filename {
+    text-align: center;
+    font-variant: small-caps;
+}
+
+#js9-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.carousel-button {
+    color: white;
+    background-color: #aaa;
+    padding:  15px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 15pt;
+    text-shadow: 0px 2px #444;
+    cursor: pointer;
+}
+
+.carousel-button:hover {
+    background-color: #222;
+}
