@@ -1,4 +1,4 @@
-const BASE_DIR = '/masn01-archive/';
+let BASE_DIR = '/masn01-archive/';
 const TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
 
 let CURR_DIR = null;
@@ -9,6 +9,12 @@ let CURR_IDX = 0;
 let PREV_IDX = null;
 
 $(async function() {
+    let cameras = JSON.parse(await $.get('cameras.php'));
+    cameras.forEach((camera) => {
+        $('#masn-switch').append(`<option value='${camera}/'>${camera}</option>`);
+    });
+    BASE_DIR = $('#masn-switch').val();
+
     JS9.ResizeDisplay(750, 750);
 
     TAG_OPTIONS.forEach(tag => $('#tag-select').append(`<option value='${tag}'>${tag}</option>`));
