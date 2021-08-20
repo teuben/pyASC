@@ -44,7 +44,7 @@
 
 			<hr />
 
-			<h5 id="js9-filename">Filename</h5>
+			<h5 id="js9-filename">Loading...</h5>
 			<div id="js9-container">
 				<div class="carousel-button" onclick="renderDeltaFITS(-1)">&langle;</div>
 				<div id="js9-viewer">
