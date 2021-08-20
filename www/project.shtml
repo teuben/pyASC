@@ -45,14 +45,7 @@
 								</div>
 								<div class="card-body">
 									<h5>Dr. Peter Teuben</h5>
-									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department
-of Astronomy. Although his main interests are in galactic dynamics,
-hydrodynamics, and radio astronomy software, it was his interest in
-community software development that led him to join MASN in
-Summer 2015. He has been the Python coding advisor over the years
-training CPS-SDU students in using Python and GitHub. He also led
-an IAU/OAD sponsored project to take an All Sky Camera to Haiti
-and teach astronomy there.</p>
+									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department of Astronomy. Although his main interests are in galactic dynamics, hydrodynamics, and radio astronomy software, it was his interest in community software development that led him to join MASN in Summer 2015. He has been the Python coding advisor over the years training CPS-SDU students in using Python and GitHub. He also led an IAU/OAD sponsored project to take an All Sky Camera to Haiti and teach astronomy there.</p>
 								</div>
 							</div>
 						</div>
@@ -72,6 +65,8 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>Spring 2015: Eric Lyness, Steve Ryan</h5>
 										<p>For their SDU Capstone project, Steve and Eric were the content creators for the LaunchUMD campaign.</p>
+										<p><a href="webdings/student_work/2015_ELyness.pdf">Eric's capstone poster</a>
+										<br /><a href="webdings/student_work/2015_SRyan.pdf">Steve's capstone poster</a></p>
 									</div>
 								</div>
 							</div>
@@ -82,6 +77,7 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>2015-2016: James Gaitan, Anna Kraft</h5>
 										<p>As SDU students, Anna and James tried writing an improved camera control program as an alternative to the proprietary software.</p>
+										<!-- <p>Anna &amp; James' capstone poster</p> -->
 									</div>
 								</div>
 							</div>
@@ -92,6 +88,7 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>2016-2017: Benji Cooper, Baram Sosis</h5>
 										<p>Benji and his friend Baram started by continuing the work Anna and James had started, but after discovering AllSkEye, Benji alone worked on coding a better meteor detection algorithm.</p>
+										<p><a href="webdings/student_work/2017_BCooper.pdf">Benji's capstone poster</a></p>
 									</div>
 								</div>
 							</div>
@@ -102,6 +99,7 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>2017-2018: Joe Cohen</h5>
 										<p>Joe continued working on the meteor detection program that Benji started.</p>
+										<p><a href="webdings/student_work/2018_JCohen.pdf">Joe's capstone poster</a></p>
 									</div>
 								</div>
 							</div>
@@ -112,6 +110,7 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>2018-2019: Zach Rabin, Dmitriy Yarunin</h5>
 										<p>Zach and Dmitriy also worked on the meteor detection algorithms and started looking at how to present the results on a webpage.</p>
+										<p><a href="webdings/student_work/2019_DYarunin_ZRabin.pdf">Zach &amp; Dmitriy's capstone poster</a></p>
 									</div>
 								</div>
 							</div>
@@ -122,6 +121,7 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>2019-2020: Sam Wills</h5>
 										<p>For his SDU Capstone, Sam designed and built the MASN website.</p>
+										<p><a href="webdings/student_work/2020_SWills.pdf">Sam's capstone poster</a></p>
 									</div>
 								</div>
 							</div>
@@ -132,6 +132,7 @@ and teach astronomy there.</p>
 									<div class="card-body">
 										<h5>2020-2021: Michael Suehle</h5>
 										<p>Michael focused on the detection algorithms as well as writing scripts for clearing out overexposed images.</p>
+										<p><a href="webdings/student_work/2021_MSuehle.pdf">Michael's capstone poster</a></p>
 									</div>
 								</div>
 							</div>
@@ -213,7 +214,7 @@ and teach astronomy there.</p>
 	</div>
 
 	<!--#include virtual="/css-n-inc/footer.inc"-->
-
+<p>Updated: <!--#config timefmt="%d-%h-%Y" --><!--#echo var="LAST_MODIFIED" --></p>
 </div> <!--Closing main div-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

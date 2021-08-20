@@ -10,17 +10,11 @@
 				
 				<a href="https://www.umd.edu">UMD</a>
 				
-				<br />
+				<br /><em><strong><a href="https://umd.edu/web-accessibility" target="_blank">Web Accessibility</a></strong></em>
 
-				<em><strong><a href="https://umd.edu/web-accessibility" target="_blank">Web Accessibility</a></strong></em>
+				<br />Copyright &copy; 2021. All rights reserved.
 
-				<br />
-
-				Copyright &copy; 2020. All rights reserved.
-
-				<br />
-
-				Updated: <!--#config timefmt="%d-%h-%Y" --><!--#echo var="LAST_MODIFIED" -->
+				
 			</p>
 		</div>
 	</footer>
