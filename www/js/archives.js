@@ -293,8 +293,10 @@ function createSlider() {
     });
 }
 
-$(function() {
-    CAMERAS.forEach((camera, idx) => {
+$(async function() {
+    let cameras = JSON.parse(await $.get('/tagger/cameras.php'));
+
+    cameras.forEach((camera, idx) => {
         $('#masn-switch').append(`<option value='${camera}' ${idx == 0 ? 'selected' : ''}>${camera}</option>`);
     });
 
