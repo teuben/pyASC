@@ -1,10 +1,8 @@
 <?php
-    function prepend_slash($str) {
-        return '/' . $str;
-    }
-
     $cameras = preg_split("/\r\n|\n|\r/", trim(`ls ../ | grep -P 'masn.+archive'`));
-    $cameras = array_map(prepend_slash, $cameras);
+    $cameras = array_map(function ($str) {
+        return '/' . $str;
+    }, $cameras);
 
     echo json_encode($cameras);
 ?>

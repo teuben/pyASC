@@ -1,16 +1,32 @@
 <html>
 <head>
+	<title>Meteor Archives</title>
+
+	<!--Mobile viewport fix!-->
+	<meta name="viewport" content="initial-scale=1" />
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/meteors.css">
 	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9support.css">
 	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9.css">
-<title>MASN_01</title>
+	<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css" />
 
-<!--Mobile viewport fix!-->
-<meta name="viewport" content="initial-scale=1" />
+	<script type="text/javascript" src="/js/lib/celestial0.6/lib/d3.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/js/lib/celestial0.6/lib/d3.geo.projection.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/js/lib/celestial0.6/celestial.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="/js/lib/js9-3.5/js9prefs.js"></script>
+	<script type="text/javascript" src="/js/lib/js9-3.5/js9support.min.js"></script>
+	<script type="text/javascript" src="/js/lib/js9-3.5/js9.min.js"></script>
+	<script type="text/javascript" src="/js/lib/js9-3.5/js9plugins.js"></script>
 
+	<script type="text/javascript" src="/js/meteor.js"></script>
+	<script type="text/javascript" src="/js/util.js"></script>
 </head>
 
 <body style="background: url('/webdings/Banner_3.png') center center; background-position: top">
@@ -28,36 +44,22 @@
 
 			<hr />
 
-			<div id="img-wall" class="container-fluid">
-				<div id="link"></div>
-				<!--
-				<div class="row">
-					<div class="col-lg-4 col-xs-12">
-						<div class="container-fluid">
-							<a href="/gallery/meteor/Meteor-20191028.png"><img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture" /></a>
-						</div>
-					</div>
+			<h5 id="js9-filename">Filename</h5>
+			<div id="js9-container">
+				<div class="carousel-button" onclick="renderDeltaFITS(-1)">&langle;</div>
+				<div id="js9-viewer">
+					<div class="JS9Menubar"></div>
+					<div class="JS9Toolbar"></div>
+					<div class="JS9"></div>
+					<div class="JS9Statusbar"></div>
 				</div>
-				-->
-
-				<!--
-				<img class="img img-fluid" src="/gallery/meteor/Meteor-20191028.png" alt="Meteor picture"/>-->
+				<div id="skymap" style="display: none"></div>
+				<div class="carousel-button" onclick="renderDeltaFITS(1)">&rangle;</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!--Closing camera jumbotron-->
-
-	<!--#include virtual="/css-n-inc/footer.inc"-->
-
-</div> <!--Closing main div-->
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/js/lib/js9-3.5/js9prefs.js"></script>
-<script type="text/javascript" src="/js/lib/js9-3.5/js9support.min.js"></script>
-<script type="text/javascript" src="/js/lib/js9-3.5/js9.min.js"></script>
-<script type="text/javascript" src="/js/lib/js9-3.5/js9plugins.js"></script>
+</div>
 
 </body>
 

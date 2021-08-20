@@ -1,7 +1,3 @@
-// edit this for more camera options (name of symlink directory)
-// MAKE SURE TO INCLUDE A FRONT SLASH IN FRONT OF THE DIRECTORY.
-var CAMERAS = ['/masn01-archive', '/masn02-archive']
-
 var FILESYSTEM = {};
 let CURR_FILES = [];
 let CURR_PATH = null;
