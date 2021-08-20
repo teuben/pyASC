@@ -39,15 +39,15 @@
                 <p>Use the white arrows on either side of the file name, or the slider.</p>
                 <h3>Creating New Regions</h3>
                 <p>Click any of the region shapes on the toolbar:</p>
-                <img src="/img/toolbar.png" style="width: 60%;" />
+                <img src="/webdings/help/toolbar.png" style="width: 60%;" />
                 <p>A new region will appear on the image. Drag, rotate, and resize this region as needed.</p>
                 <h3>Tagging Regions</h3>
                 <p>Select a region by clicking on it:</p>
-                <img src="/img/selected.png" />
+                <img src="/webdings/help/selected.png" />
                 <p>Now, click the tag symbol on the action bar.</p>
-                <img src="/img/tag.png" />
+                <img src="/webdings/help/tag.png" />
                 <p>A modal will appear with tagging options. Select one, and it should automatically close.</p>
-                <img src="/img/menu.png" />
+                <img src="/webdings/help/menu.png" />
                 <h3>Deleting Regions</h3>
                 <p>Select a region by clicking on it. Press <span class='key-control'>Backspace</span>.
             </div>
