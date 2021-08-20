@@ -58,6 +58,7 @@
     </div>
     <div id="header">
         <span>Object Tagger</span>
+        <select id="masn-switch"></select>
     </div>
     <div id="tag-modal" class="modal" style="display: none;">
         <div class="modal-background"></div>
