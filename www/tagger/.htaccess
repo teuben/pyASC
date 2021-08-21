@@ -1,0 +1,5 @@
+AuthUserFile /an/terra_a/warnerem/protectthese/.mypasswordfile
+AuthGroupFile /dev/null
+AuthName "MASN Object Tagger"
+AuthType Basic
+require valid-user allsky1
