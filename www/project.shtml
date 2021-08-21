@@ -32,6 +32,7 @@
 
 					<div class="container">
 						<div class="card-deck px-4">
+
 							<div class="card shadow-sm m-2">
 								<a href="/webdings/Warner_Elizabeth2.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Warner_Elizabeth2-crop.jpg" alt="Elizabeth Warner"></a>
 								<div class="card-body">
@@ -39,6 +40,7 @@
 									<p>A Principal Faculty Specialist in the Department of Astronomy and the Observatory Director, Elizabeth spearheaded the LaunchUMD campaign to acquire the cameras. Her primary role in the project has been as a science advisor.</p>
 								</div>
 							</div>
+
 							<div class="card shadow-sm m-2">
 								<div class="container p-2">
 									<a href="/webdings/Teuben_Peter3-crop.jpg"><img class="rounded-circle img-thumbnail" src="/webdings/Teuben_Peter3-crop.jpg" alt="Dr. Teuben"></a>
@@ -48,9 +50,9 @@
 									<p>Dr. Peter Teuben is a Principal Research Scientist in the Department of Astronomy. Although his main interests are in galactic dynamics, hydrodynamics, and radio astronomy software, it was his interest in community software development that led him to join MASN in Summer 2015. He has been the Python coding advisor over the years training CPS-SDU students in using Python and GitHub. He also led an IAU/OAD sponsored project to take an All Sky Camera to Haiti and teach astronomy there.</p>
 								</div>
 							</div>
+
 						</div>
 					</div>
-
 
 					<hr class="my-2" />
 				
@@ -143,26 +145,27 @@
 
 					<h6>Other Contributors</h6>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-lg-3">
-							<div class="card shadow-sm m-2">
-								<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="Shawn Foster in front of a box containing the first all-sky camera"></a>
-								<div class="card-body">
-									<h5>Shawn Foster</h5>
-									<p>As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
-								</div>
-							</div>
-						</div>
-						
+
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
 								<a href="#"><img class="card-img-top" src="/webdings/Launch.png" alt="Ashlee Wilkins"></a>
 								<div class="card-body">
 									<h5>Ashlee Wilkins</h5>
-									<p>Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>
+									<p>(Spring 2015) Ashlee served as content advisors during the LaunchUMD campaign and identified potential partner hosts for the cameras.</p>
 								</div>
 							</div>
 						</div>
-						
+
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="/webdings/shawn-foster.jpg"><img class="card-img-top" src="/webdings/shawn-foster-crop.jpg" alt="Shawn Foster in front of a box containing the first all-sky camera"></a>
+								<div class="card-body">
+									<h5>Shawn Foster</h5>
+									<p>(Summer 2015) As a summer intern, Shawn assisted with the installation of MASN-1 at the UMD Observatory.</p>
+								</div>
+							</div>
+						</div>
+
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
 								<a href="/webdings/Ryan_Geoff.png"><img class="card-img-top" src="/webdings/Ryan_Geoff-crop.png" alt="Dr. Ryan"></a>
@@ -172,7 +175,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-xs-12 col-sm-6 col-lg-3">
 							<div class="card shadow-sm m-2">
 								<a href="/webdings/Karim_Ramsey.jpg"><img class="card-img-top" src="/webdings/Karim_Ramsey-crop.jpg" alt="Ramsey Karim"></a>
@@ -188,7 +191,8 @@
 								<a href="#"><img class="card-img-top" src="/webdings/Lin_Jonathan-crop.png" alt="Jonathan Lin"></a>
 								<div class="card-body">
 									<h5>Jonathan Lin</h5>
-									<p>Jonathan implemented the image viewer and ROI tagger.</p>
+									<p>(Summer 2021) Jonathan implemented the image viewer and ROI tagger.</p>
+									<p><a href="/masn01-videos/student-work/20210820_J-Lin.mp4">Jonathan's presentation</a> A brief overview of the new features.</p>
 								</div>
 							</div>
 						</div>
@@ -197,15 +201,12 @@
 				</div>
 				<!--End row 1-->
 
-
-
 				<hr class="my-2" />
 
 				<!--LaunchUMD info-->
 				<h4>Sponsors</h4>
 				<div class="col-md-4 float-left"><a href="https://launch.umd.edu/project/482"><img class="img-fluid" src="/webdings/Launch.png" /></a></div>
 				<p>LaunchUMD is the crowdfunding platform for the University of Maryland. In early 2015, Observatory staff with the support of the Astronomy department, GRAD-MAP, and CMNS successfully proposed a project to raise $5,000 to acquire 2 cameras (and their control computers). The campaign was a great success, raising $8,745 or 174% of the goal. In addition, by taking advantage of educational discounts and bulk purchasing, the team was able to purchase 5 cameras.</p>
-
 				<a href="https://launch.umd.edu"><img class="img-fluid" src="/webdings/logo.png" /></a>
 				<!--End LaunchUMD-->
 
