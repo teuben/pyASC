@@ -263,7 +263,7 @@ function saveCurrentRegions() {
         cache: false
     }, {
         action: 'update',
-        path: CURR_FILES[CURR_IDX],
+        path: `${CURR_DIR}/${CURR_FILES[CURR_IDX]}`,
         tags: tags.join(','),
         params: JSON.stringify(regions)
     }).then(response => {

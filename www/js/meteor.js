@@ -39,17 +39,7 @@ async function init() {
         $('#tag-none').hide();
         $('#tag-browser').show();
 
-        FILES = tagged.map(data => {
-            let { path, params } = data;
-            let date = filenameToDate(path, true).local().hour(0).minute(0).second(0).millisecond(0).add(1, 'days');
-            console.log(date, date.format('YYYY-MM-DD'));
-            let dateStr = date.format('YYYY-MM-DD');
-            let cameraNum = path.match(/masn(\d{2})/i)[1];
-            return {
-                path: `/masn${cameraNum}-archive/${dateStr.substring(0, 4)}/${dateStr.substring(0, 7)}/${dateStr}/${path}`,
-                params: params
-            };
-        });
+        FILES = tagged;
         renderCurrentFile();
     } else {
         $('#tag-none').show();
