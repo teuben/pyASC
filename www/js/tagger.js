@@ -26,7 +26,9 @@ $(async function() {
 
     JS9.ResizeDisplay(750, 750);
 
-    TAG_OPTIONS.forEach(tag => $('#tag-select').append(`<option value='${tag}'>${tag}</option>`));
+    TAG_OPTIONS.forEach(tag => {
+        $('#tag-select, #search-select').append(`<option value='${tag}'>${tag}</option>`)
+    });
 
     $('#datepicker').prop('disabled', true);
 
@@ -123,9 +125,47 @@ $(async function() {
 
     $(window).keydown(function(evt) {
         if (evt.which === 8 && JS9.GetImageData(true)) saveCurrentRegions();
-        if (evt.which === 27) $('.modal').hide();
+        if (evt.which === 27) {
+            $('#search-pane').hide();
+            $('.modal').hide();
+        }
+    });
+
+    $('#tag-search').click(function() {
+        $('#search-pane').show();
+    });
+
+    $('#search-close').click(function() {
+        $('#search-pane').hide();
+    });
+
+    showSearchResults();
+    $('#search-select').change(function() {
+        showSearchResults();
+    });
+
+    $(window).click(function(evt) {
+        let clicked = $(evt.target);
+        if (clicked.is('.search-result')) {
+            let target = clicked.data('full');
+            let parts = target.split('/');
+            let startFile = parts.pop();
+            renderDirectory(parts.join('/'), startFile);
+        }
     });
 });
+
+async function showSearchResults() {
+    let results = JSON.parse(await $.get(`regions.php?action=tag&tag=${$('#search-select').val()}`));
+    $('#search-results').empty();
+    if (results.length > 0) {
+        results.forEach(result => {
+            $('#search-results').append(`<div class='search-result' data-full='${result.path}'>${result.path.split('/').pop()}</div>`);
+        });
+    } else {
+        $('#search-results').append(`<div id='search-null'>No results.</div>`);
+    }
+}
 
 function createSlider() {
     let handle = $('#fits-handle');
@@ -187,7 +227,7 @@ function renderCurrentFile() {
                     cache: false
                 }, {
                 action: 'list',
-                path: currentFile
+                path: `${CURR_DIR}/${currentFile}`
             }));
             
             if (Object.keys(fileData).length > 0) {
@@ -226,7 +266,11 @@ async function renderDate(date) {
     let monthDir = dateStr.substring(0, 7);
     
     let parentDir = `${BASE_DIR}${yearDir}/${monthDir}/${dateStr}`
-    
+
+    renderDirectory(parentDir);
+}
+
+async function renderDirectory(parentDir, startFile) {
     let list;
     try {
         list = await $.get(parentDir);
@@ -235,16 +279,19 @@ async function renderDate(date) {
     }
     
     let entries = getDirectories(list, /\.fits?/);
+    let startIdx = entries.indexOf(startFile);
     console.log(entries);
+    console.log('rendering', startFile, 'starting at index', startIdx);
     
     PREV_IDX = null;
-    CURR_IDX = 0;
+    CURR_IDX = startIdx === -1 ? 0 : startIdx;
     CURR_DIR = parentDir;
     CURR_FILES = entries;
 
     if (list) {
         $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
-        createSlider();
+        if (!$('#slider').is('.ui-slider')) createSlider();
+        $('#slider').slider('value', CURR_IDX + 1);
         renderCurrentFile();
     } else {
         $('#skytab').hide();

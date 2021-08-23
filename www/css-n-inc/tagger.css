@@ -14,6 +14,8 @@ body {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
     color: white;
     background-color: #666;
+    display: flex;
+    align-items: center;
 }
 
 #controls {
@@ -231,4 +233,97 @@ div#fits-handle {
 
 #celestial-zoomin, #celestial-zoomout {
     position: fixed;
+}
+
+i#tag-search {
+    cursor: pointer;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #111;
+    text-shadow: 0px 2px 0px black;
+    margin-left: auto;
+    user-select: none;
+}
+
+i#tag-search:hover {
+    background-color: #555;
+}
+
+i#tag-search:active {
+    background-color: black;
+}
+
+#search-pane {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: fit-content;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+    border-left: 1px solid rgb(58, 58, 58);
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+}
+
+#search-select {
+    margin: 15px;
+    flex: 0 1 auto;
+    min-width: 12em;
+}
+
+#search-results {
+    max-height: 80vh;
+    width: 100%;
+    border-top: 1px solid rgb(68, 68, 68);
+    overflow-y: auto;
+}
+
+#search-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#search-close {
+    color: white;
+    font-size: 15pt;
+    margin-right: 15px;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+}
+
+#search-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.search-result {
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+    font-size: 9pt;
+    user-select: none;
+}
+
+.search-result:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.search-result:active {
+    background-color: black;
+}
+
+#search-null {
+    color: #aaa;
+    padding: 10px;
+    text-align: center;
+}
+
+#masn-switch {
+    margin-left: 10px;
 }
