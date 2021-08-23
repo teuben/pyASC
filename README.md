@@ -21,25 +21,3 @@ github pages for this project are [here](https://teuben.github.io/pyASC/).
 ![Example allsky image](20151108_1323.png "fireball and moon and three planets, venus, mars (dim) and jupiter")
 
 Frame 1329 from 20151108 (8-nov-2015) showing 3 planets, the moon and a meteor.
-
-# Database Credentials
-
-Credentials are needed to connect to the object tagger database. The template file is
-`creds.json.in`, which has the following format:
-
-    {
-        "sql": {
-            "hostname": "@HOSTNAME@",
-            "username": "@USERNAME@",
-            "password": "@PASSWORD@",
-            "database": "@DATABASE@"
-        }
-    }
-
-To use this template, copy it to a functioning `creds.json` file by executing 
-
-    cp creds.json.in creds.json
-
-Then, substitute the appropriate values into the fields. `creds.json` has been specified as a file to ignore
-in the `.gitignore` file, so it will not be pushed to any public repositories.
-

@@ -1,0 +1,5 @@
+{
+    "default-data": "masn01-archive",
+    "directory-regex": "masn.+archive",
+    "image-tags": ["meteor", "plane", "bug", "satellite", "misc"]
+}

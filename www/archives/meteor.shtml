@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Meteor Archives</title>
+	<title>Tagged Objects</title>
 
 	<!--Mobile viewport fix!-->
 	<meta name="viewport" content="initial-scale=1" />
@@ -39,22 +39,30 @@
 	<!--Content-->
 	<div class="container-fluid UMD-Der-Silver">
 		<div class="container-fluid white-bg py-4">
-			<h2>Meteor Archives</h2>
-			<p>This is where we will have images of meteors and of suspected meteors caught by our all-sky camera.</p>
+			<h2>Tagged Objects</h2>
+			<p>Here, you can browse interesting objects that have been captured, like meteors and bugs. Use the dropdown menu to select a tag.</p>
+
+			<div>
+				<b>Select tag: </b><select class="form-control form-select" id="tag-select" style="width: fit-content"></select>
+			</div>
 
 			<hr />
 
-			<h5 id="js9-filename">Loading...</h5>
-			<div id="js9-container">
-				<div class="carousel-button" onclick="renderDeltaFITS(-1)">&langle;</div>
-				<div id="js9-viewer">
-					<div class="JS9Menubar"></div>
-					<div class="JS9Toolbar"></div>
-					<div class="JS9"></div>
-					<div class="JS9Statusbar"></div>
-				</div>
-				<div id="skymap" style="display: none"></div>
-				<div class="carousel-button" onclick="renderDeltaFITS(1)">&rangle;</div>
+			<div id="tag-none" style="text-align: center; display: none;">No objects of this type have been tagged.</div>
+
+			<div id="tag-browser">
+				<h5 id="js9-filename">Loading...</h5>
+				<div id="js9-container">
+					<div class="carousel-button" onclick="renderDeltaFITS(-1)">&langle;</div>
+					<div id="js9-viewer">
+						<div class="JS9Menubar"></div>
+						<div class="JS9Toolbar"></div>
+						<div class="JS9"></div>
+						<div class="JS9Statusbar"></div>
+					</div>
+					<div id="skymap" style="display: none"></div>
+					<div class="carousel-button" onclick="renderDeltaFITS(1)">&rangle;</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 let BASE_DIR = '/masn01-archive/';
-const TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
+let TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
 
 let CURR_DIR = null;
 let CURR_FILES = null;
@@ -9,6 +9,15 @@ let CURR_IDX = 0;
 let PREV_IDX = null;
 
 $(async function() {
+    try {
+        let config = await $.get('/config.json');
+        BASE_DIR = config['default-data'];
+        TAG_OPTIONS = config['image-tags'];
+    } catch (err) {
+        console.log(`Error fetching config: ${err.statusText} (${err.status})`);
+        console.log('Reverting to defaults.');
+    }
+
     let cameras = JSON.parse(await $.get('cameras.php'));
     cameras.forEach((camera) => {
         $('#masn-switch').append(`<option value='${camera}/'>${camera}</option>`);
