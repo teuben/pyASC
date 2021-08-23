@@ -34,8 +34,8 @@
 	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
 		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 		<a class="dropdown-item" href="/archives/video.shtml">Videos</a>
-		<a class="dropdown-item" href="/archives/meteor.shtml">Meteors</a>
-		<a class="dropdown-item" href="/archives/archives.shtml">MASN01 Archives</a>
+		<a class="dropdown-item" href="/archives/meteor.shtml">Tagged Objects</a>
+		<a class="dropdown-item" href="/archives/archives.shtml">MASN Archives</a>
 		<a class="dropdown-item" href="/archives/other.shtml">Others</a>
 		</div>
 	</li>
