@@ -156,7 +156,10 @@ $(async function() {
 });
 
 async function showSearchResults() {
-    let results = JSON.parse(await $.get(`regions.php?action=tag&tag=${$('#search-select').val()}`));
+    let results = JSON.parse(await $.get({
+        url: `regions.php?action=tag&tag=${$('#search-select').val()}`,
+        cache: false
+    }));
     $('#search-results').empty();
     if (results.length > 0) {
         results.forEach(result => {
