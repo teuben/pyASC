@@ -106,9 +106,17 @@ Individual FITS files are assumed to be named in the following format:
 
     <CAMERA>-<YYYY>-<MM>-<DD>T<HH>-<MM>-<SS>-<sss>Z.fits
 
-The format is meant to provide information about the source camera and observation time for a given file. For example, `MASN01-2018-11-01T09-48-26-416Z.fits` fits this format, and shows that the file was taken by the MASN01 camera at Thu Nov 01 2018 05:48:26 GMT-0400 (Eastern Daylight Time).
+The format is meant to provide information about the source camera and
+observation time for a given file. For example,
+`MASN01-2018-11-01T09-48-26-416Z.fits` fits this format, and shows
+that the file was taken by the MASN01 camera at Thu Nov 01 2018
+05:48:26 GMT-0400 (Eastern Daylight Time). 
 
-Note that the times in the filenames are given in UTC time, as indicated by the `Z` suffix.
+qNote that the times in the filenames are given in UTC time, as indicated by the `Z` suffix.
+
+Note that we don't exactly follow the ISO date+time convention, the (:) separator
+beween HH, MM, SS and sss is now a dash (-).
+
 
 ### Directory Tree
 
@@ -172,3 +180,36 @@ The options are:
 ## Browser Compatibility
 
 The site is designed to run in browsers that support HTML5 and CSS3.
+
+
+## Generating new thumbnails
+
+The **sky.tab** files and thumbnails are computed by a python script, which also generates the graphics 
+described above.   Here is an example to update a new month of data that has been archives, and add
+these. They will automatically be picked up by the current software.
+
+	  # change directory to one of the new months, e.g.
+	  # within which you should directories with the name yyyy-mm-dd
+	  
+	  cd /n/alberio10nb/data/ASC/MASN-01/archive/2021-08
+	  
+	  # set group permissions
+	  
+	  umask 2
+	  chgrp -R allsky .
+	  chmod g+s allsky .
+
+	  
+	  # run the script
+	  
+	  find . -type d -exec /n/astromake/opt/allsky/pyASC/ASC/SkyThumbs.csh '{}' \;
+	  
+	  # you will now see a bit of progress reporting for each yyyy-mm-dd day
+	  # taking around 2 minutes per day per 1000 images.
+	  
+	  # ensure the permissions are correct
+	  chmod g+s ASC -R
+
+	  
+In case of confusion, this documentation is also maintained in the **SkyThumbs.csh** 
+script. As time evolves, location and python definitions may change!
