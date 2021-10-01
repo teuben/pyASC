@@ -155,7 +155,12 @@ Note the `sky.tab` files, which are explained in the following section.
 
 <img src="webdings/help/thumbinfo.png" style="background-color: white" />
 
-Skytabs are small images that may summarize the quality of an observing, or anything other aspect of a folder. They will be rendered in the folder view as long as they are stored as `sky.tab.png`, `sky.tab.thumb.png`, and `sky.tab`, which are the high resolution, low resolution, and textual data respectively.
+Skytabs are small images that may summarize the quality of an
+observing, or anything other aspect of a folder. They will be rendered
+in the folder view as long as they are stored as `sky.tab.png`,
+`sky.tab.thumb.png`, and `sky.tab`, which are the high resolution, low
+resolution, and textual data respectively. See below how to generate
+new ones.
 
 ## Configuration
 
@@ -185,29 +190,30 @@ The site is designed to run in browsers that support HTML5 and CSS3.
 ## Generating new thumbnails
 
 The **sky.tab** files and thumbnails are computed by a python script, which also generates the graphics 
-described above.   Here is an example to update a new month of data that has been archives, and add
+described above.   Here is an example to update a new month of data that has been archived, and add
 these. They will automatically be picked up by the current software.
 
 	  # change directory to one of the new months, e.g.
 	  # within which you should directories with the name yyyy-mm-dd
-	  
+	  #
 	  cd /n/alberio10nb/data/ASC/MASN-01/archive/2021-08
 	  
 	  # set group permissions
-	  
+	  #
 	  umask 2
 	  chgrp -R allsky .
 	  chmod g+s allsky .
 
 	  
 	  # run the script
-	  
+	  #
 	  find . -type d -exec /n/astromake/opt/allsky/pyASC/ASC/SkyThumbs.csh '{}' \;
 	  
 	  # you will now see a bit of progress reporting for each yyyy-mm-dd day
 	  # taking around 2 minutes per day per 1000 images.
 	  
 	  # ensure the permissions are correct
+	  #
 	  chmod g+s ASC -R
 
 	  
