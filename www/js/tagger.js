@@ -1,5 +1,5 @@
 let BASE_DIR = '/masn01-archive/';
-const TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
+const TAG_OPTIONS = ['meteor', 'plane', 'satellite', 'bug', 'cloud', 'misc'];
 
 let CURR_DIR = null;
 let CURR_FILES = null;
