@@ -5,7 +5,14 @@
         }
     }
 
+    $create = !file_exists('db/regions.db');
     $db = new RegionDB();
+
+    if ($create) $db->query('CREATE TABLE regions (
+        path TEXT NOT NULL UNIQUE,
+        tags TEXT NOT NULL,
+        params TEXT NOT NULL
+    );');
 
     if ($_GET['action'] == 'all') {
         $output = array();

@@ -59,6 +59,14 @@
     <div id="header">
         <span>Object Tagger</span>
         <select id="masn-switch"></select>
+        <i id="tag-search" class="fas fa-search" title='Search tags'></i>
+    </div>
+    <div id="search-pane" style="display: none;">
+        <div id="search-menu">
+            <select id="search-select"></select>
+            <i id="search-close" class="fas fa-times" title='Close search'></i>
+        </div>
+        <div id="search-results"></div>
     </div>
     <div id="tag-modal" class="modal" style="display: none;">
         <div class="modal-background"></div>
