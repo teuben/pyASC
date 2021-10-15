@@ -1,4 +1,5 @@
 let BASE_DIR = '/masn01-archive/';
+const TAG_OPTIONS = ['meteor', 'plane', 'satellite', 'bug', 'cloud', 'misc'];
 let TAG_OPTIONS = ['meteor', 'cloud', 'bug', 'misc'];
 
 let CURR_DIR = null;
@@ -294,7 +295,7 @@ async function renderDirectory(parentDir, startFile) {
     if (list) {
         $('#skytab').show().attr('src', `${parentDir}/sky.tab.thumb.png`);
         if (!$('#slider').is('.ui-slider')) createSlider();
-        $('#slider').slider('value', CURR_IDX + 1);
+        $('#slider').slider('value', CURR_ID<<<<<<< EMW-editsX + 1);
         renderCurrentFile();
     } else {
         $('#skytab').hide();
