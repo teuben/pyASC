@@ -22,11 +22,22 @@ def plot1(table,ax,Qtitle,title=None,invert=True,raw=False):
     #   table of decimal hour time and median sky brightness (50,000 is very bright)
     # (t,s,ffile) = np.loadtxt(table).T
     loaded = np.genfromtxt(table, dtype=None, delimiter=' ')
-    (t,s) = np.array([t[0] for t in loaded]), np.array([t[1] for t in loaded])
-    print(t)
-    print("Time:",t.min(),t.max())
-    print("Sky: ",s.min(),s.max())
-
+    try:
+        (t,s,e,m) = np.array([t[0] for t in loaded]), np.array([t[1] for t in loaded]), np.array([t[2] for t in loaded]), np.array([t[3] for t in loaded])
+        print(t)
+        print("Time:",t.min(),t.max())
+        print("Sky: ",s.min(),s.max())
+        print("Exp: ",e.min(),e.max())
+        print("Moon:",m.min(),m.max())
+        amp = (m.min() + m.max())/2.0     # average moon phase
+    except:
+        # older format with only 2 columns
+        (t,s) = np.array([t[0] for t in loaded]), np.array([t[1] for t in loaded])
+        print(t)
+        print("Time:",t.min(),t.max())
+        print("Sky: ",s.min(),s.max())
+        amp = -2.0
+        
     t0 = t[0]
     t1 = t[-1]
     print(t0,t1)
@@ -91,11 +102,11 @@ def plot1(table,ax,Qtitle,title=None,invert=True,raw=False):
     if Qtitle and not raw:
         plt.title("%s sky: %g-%g  %.3f-%.3f h" % (table,s.min(),s.max(),t0,t1))
 
-        # needs tweaking
-        plt.text(3.14,     smax*1.1, 'midnight',      horizontalalignment='center')
-        plt.text(1.2,      smax,     'sunrise',       horizontalalignment='left')
-        plt.text(twopi-1.2,smax,     'sunset',        horizontalalignment='right')
-        plt.text(0,        smax/4,   'imagine a moon',horizontalalignment='center')
+        # needs placement tweaking
+        plt.text(3.14,     smax*1.1, 'midnight',        horizontalalignment='center')
+        plt.text(1.2,      smax,     'sunrise',         horizontalalignment='left')
+        plt.text(twopi-1.2,smax,     'sunset',          horizontalalignment='right')
+        plt.text(0,        smax/4,   'moon %.3g' % amp, horizontalalignment='center')
         
 
 
