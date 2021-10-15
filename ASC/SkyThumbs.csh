@@ -16,6 +16,10 @@
 # find . -type d -exec /n/astromake/opt/allsky/pyASC/ASC/SkyThumbs.csh '{}' \;
 
 
+#  the next three lines are specific to UMD, which python to use
+#  and where we keep the code. This is just to keep our lives easy
+#  how to run this code, this is not a recommended procedure for
+#  development. Pick your own python and pick your own data directory
 source /n/astromake/astromake_start.csh
 astroload python
 set asdir=/n/astromake/opt/allsky/pyASC/ASC/
