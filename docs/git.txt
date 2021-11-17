@@ -114,5 +114,6 @@ http://physics.mnstate.edu/craig/git-novice-pyastro/
 Some GUI tips:
 https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/
 
-
-
+The new Hub vs. CLI approach
+https://github.com/cli/cli/blob/trunk/docs/gh-vs-hub.md
+https://github.com/cli/cli/blob/trunk/docs/install_linux.md
