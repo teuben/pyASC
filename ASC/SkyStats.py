@@ -26,6 +26,7 @@ def my_moon(ffile, Qmiddle, box, m):
     nx = d.shape[1]
     ny = d.shape[0]
     dc = d[ny//2-box:ny//2+box, nx//2-box:nx//2+box]
+    moon = -1.0
     if 'EXPTIME' in h:
         exp = float(h['EXPTIME'])
     else:
@@ -73,7 +74,7 @@ if __name__ == '__main__':
     # being the middle of the arguments sent in to SkyStats.py
     middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -1.0)[3]
 
-    # for each file name sent in, calculate all stats using
+    # for each file name sent in, calculate all stats except moon phase
     for ffile in sys.argv[1:]:
         moon = my_moon(ffile, False, box, middle_moon)
         print("%.4f %g %g %g %s" % (moon[0],moon[1],moon[2],moon[3],moon[4]))
