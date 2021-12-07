@@ -72,7 +72,10 @@ if __name__ == '__main__':
 
     # Sets Qmiddle to true so it only calculates the moon once, that spot 
     # being the middle of the arguments sent in to SkyStats.py
-    middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -4.0)[3]
+    if len(sys.argv) == 2:
+        middle_moon = my_moon(sys.argv[1], True, box, -4.0)[3]
+    else:
+        middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -4.0)[3]
 
     # for each file name sent in, calculate all stats except moon phase
     for ffile in sys.argv[1:]:
