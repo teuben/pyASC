@@ -219,7 +219,6 @@ function drawCalendar() {
     new Pikaday({ 
         field: document.getElementById('datepicker'),
         format: 'ddd MMM DD YYYY',
-        defaultDate: moment(`2018-11-20`).toDate(),
         onSelect: renderDate,
         onDraw: async function(evt) {
             let { year, month } = evt.calendars[0];
