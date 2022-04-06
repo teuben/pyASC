@@ -12,7 +12,6 @@ import sys
 import numpy as np
 from astropy.io import fits
 from astropy.coordinates import EarthLocation
-from scipy.fftpack import ss_diff
 import datetime
 import pytz
 
