@@ -15,6 +15,9 @@ The way the tree is structured, it assumes the docroot to be the root of this di
 so it's currently not easy to get the full experience if you view it "locally". This
 is because we assume it's on the docroot of http://mdallsky.astro.umd.edu/
 
+If you need direct (wget) access to fits files, start at for example
+          https://mdallsky.astro.umd.edu/masn01-archive/
+
 ## Features
 
 The site currently offers several features to allow public viewing of data from the camera, including tagged images with regions of interest. It also features an administration tool to manage these tags and regions of interest, which may be used by anyone with the correct credentials.
