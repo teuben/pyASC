@@ -3,10 +3,11 @@
 #	load a cube with the given command line arguments
 #
 #  Usage:
-#       SkyStats.py  file1.fits [file2.fits ...]
+#       (must use more than one fits file)
+#       SkyStats.py  file1.fits file2.fits [file3.fits ...]
 #
 #  Output:  an ASCII table with the following columns
-#       local_time median_sky exp_time moon_phase file_name
+#       local_time median_sky exp_time moon_illum_percent file_name
 
 import sys
 import numpy as np
@@ -39,6 +40,7 @@ def my_moon(ffile, Qcalc, box, m):
     nx = d.shape[1]
     ny = d.shape[0]
     dc = d[ny//2-box:ny//2+box, nx//2-box:nx//2+box]
+    # Qmoon = False which implies one of astropy, astroplan does not work
     moon = -16.0
     sunset = -1
     sunrise = -1
@@ -47,7 +49,6 @@ def my_moon(ffile, Qcalc, box, m):
     else:
         exp = -1.0
     if 'TIME-OBS' in h:
-        #
         iso_date = h['TIME-OBS']
         hms = iso_date.split(':')
         moon = -17.0
@@ -63,7 +64,7 @@ def my_moon(ffile, Qcalc, box, m):
         else:
             # Qmoon is true if astroplan succesfully opened
             if Qmoon:
-                # Qmiddle is true if currently on an image you want to calc
+                # Qcalc is true if currently on an image you want to calc
                 # the moon phase for
                 if Qcalc:
                     # example iso_date (in UT):   2021-09-12T19:58:21.025
@@ -132,7 +133,6 @@ if __name__ == '__main__':
     middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -11.0)
 
     # print out commented sunrise and sunset
-    #print('#',first_moon[5],first_moon[6])
     print('#%.4f %.4f' % (first_moon[5],first_moon[6]))
 
     # if moon illumination is decreasing then mark it with a negative to know 
