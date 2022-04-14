@@ -3,7 +3,6 @@
 # Takes about 15" for 1400 images on laptop with a local fast disk (100% cpu)
 # But 60" on the Xeon, but at 300% cpu
 #
-from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
