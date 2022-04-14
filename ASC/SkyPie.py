@@ -3,7 +3,6 @@
 # Takes about 15" for 1400 images on laptop with a local fast disk (100% cpu)
 # But 60" on the Xeon, but at 300% cpu
 #
-from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -18,7 +17,7 @@ BIGGER_SIZE = 8
 
 twopi = 2*np.pi
 
-def plot1(table,ax1,ax2,Qtitle,title=None,invert=True,raw=False):
+def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
     # invert:      this will place dark sky on the outside of the pie
     
     #   table of decimal hour time and median sky brightness (50,000 is very bright)
@@ -180,34 +179,74 @@ def plot1(table,ax1,ax2,Qtitle,title=None,invert=True,raw=False):
         ax1.set_title("Brightness: %g-%g ADU" % (s.min(),s.max()),fontdict={'fontsize':9}, pad = -20)
         ax2.set_title("Exposure: %g-%g sec" % (e.min(),e.max()),fontdict={'fontsize':9}, pad = -20)
         
-        # gets the number of the image to use. Will be a number between -15 and 15
-        # calculated by multiplying the resulting moon illumination (negative or
-        # positive depending on waning/waxing) by 15 and rounding to the nearest integer.
-        # -15 and 15 are full moon, 0 is new moon.
-        image_num = round(amp/(1/15))
+        # gets the number of the image to use. Will be a number between 0 and 32,
+        # but we there is no 32.png so it is also 0.png. The range of amp is
+        # -1 <= amp <= +1, so after multiplying it by 16 and adding 16 we get
+        # integers 0 <= image_num <= 31.
+        image_num = round(amp*16)+16
+        # this occurs when you get +1.0 for moon illumination, so it is a full
+        # moon. This is at 0.png
+        if image_num == 32:
+            image_num = 0
 
         # if the image_num is out of bounds, just print the error moon value,
         # which we can use to debug.
-        if True or image_num < -15 or image_num > 15:
-            pm = ''
-            if amp > 0:
-                pm = '+'
-            ax1.text(1.1, -0.2, 'moon illum: %s%g%%\nimage num: %g' % (pm,round(amp*100),image_num), horizontalalignment='center', transform=ax1.transAxes)
-        # else put the correct image
-        # will need to change the names of the images. As of now, I do not know 
-        # what they will be called.
-        else:
-            # file names in moonphases directory are of the from moonphases<-15 to 15>.png
-            moonphase_img = mpimg.imread('moonphases/moonphases' + str(int(image_num)) + '.png')
-
+        if 0 <= image_num <= 32:
+            # file names in www/webdings/moons/<0-31>.png
+            # will need to change this based on where you run the code from
+            # For example: running from pyASC/ASC. the path is ../www/webdings/moons/...
+            moonphase_img = mpimg.imread('../www/webdings/moons/' + str(int(image_num)) + '.png')
             if moonphase_img is not None:
-                # image exists, put it on the plot
-                imagebox = OffsetImage(moonphase_img, zoom = 0.35)
-                ab = AnnotationBbox(imagebox, (0.5,0.5), xybox = (0,smax/4), frameon = False)
-                ax.add_artist(ab)
+                # image exists, put it on the figures
+                # do this by creating a new axes at the bottom of the figure and
+                # put an image in there
+                
+                # image placement: adjust x and y for placement, adjust xlen 
+                # and ylen for size/aspect ratio
+                #                         x   y   xlen ylen.
+                newax = fig.add_axes([0.375,0.075,0.25,0.25])
+                newax.imshow(moonphase_img)
+                newax.axis('off')
+                # 0 and 32 == Full Moon
+                # 1 - 7 == Waning Gibbous
+                # 8 == First Quarter
+                # 9 - 15 == Waning Screscent
+                # 16 == New Moon
+                # 17 - 23 == Waxing Crescent
+                # 24 == Last/Third Quarter
+                # 25 - 31 == Waxing Gibbous
+                moon_type = ""
+                if image_num == 0:
+                    moon_type = "Full Moon"
+                elif image_num == 16:
+                    moon_type = "New Moon"
+                elif image_num == 24:
+                    moon_type = "First Quarter"
+                elif image_num == 8:
+                    moon_type = "Last/Third Quarter"
+                elif 25 <= image_num <= 31:
+                    moon_type = "Waxing Gibbous"
+                elif 17 <= image_num <= 23:
+                    moon_type = "Waxing Crescent"
+                elif 1 <= image_num <= 7:
+                    moon_type = "Waning Gibbous"
+                elif 9 <= image_num <= 15:
+                    moon_type = "Waning Crescent"
+                pm = ''
+                if amp > 0:
+                    pm = '+'
+                ax1.text(1.1, -0.455, '%s\n%s%g%%' % (moon_type,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
+            # else, no file found
             else:
-                # image does not exist
-                plt.text(0, smax/4, 'moon %.3g' % -30, horizontalalignment='center')
+                pm = ''
+                if amp > 0:
+                    pm = '+'
+                ax1.text(1.1, -0.2, 'moon file not found\nimage num: %g\n%s%g' % (image_num,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
+        # this should only happen if an invalid moon illum percentage (amp) is
+        # out of the range -1 <= amp <= +1
+        # check SkyStats.py for the error
+        else:        
+            ax1.text(1.1, -0.2, 'invalid moon num\nmoon error: %g' % (amp), horizontalalignment='center', transform=ax1.transAxes)
 
         print('theta',tmin*3.14/180,tmax*3.14/180)
         ax1.text(3.14,              1.1*smax,   'midnight',        horizontalalignment='center',   fontdict={'fontsize':8})
@@ -254,7 +293,7 @@ plt.subplots_adjust(hspace = .001,wspace=0.2, left=0.01, right=0.99, bottom=0.15
 #      hspace = 0.2   # the amount of height reserved for white space between subplots
 
 if Qtitle:
-    plot1(table,ax1,ax2,True,raw=Qraw)
+    plot1(table,ax1,ax2,fig,True,raw=Qraw)
 else:    
     k = 1
     for i in range(nx):

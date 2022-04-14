@@ -130,15 +130,12 @@ if __name__ == '__main__':
 
     # Sets Qmiddle to true so it only calculates the moon once, that spot 
     # being the middle of the arguments sent in to SkyStats.py
-    if len(sys.argv) == 2:
-        middle_moon = my_moon(sys.argv[1], True, box, -4.0)[3]
-    else:
-        middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -4.0)[3]
 
-    # gather first image of the night's moon illumination
-    #    first_moon = my_moon(sys.argv[1], True, box, -19.0)
-    # gather middle image of the night's moon illumination, 
-    # middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -11.0)
+    # get first image of the night's moon illumination
+    first_moon = my_moon(sys.argv[1], True, box, -19.0)
+
+    # get middle image of the night's moon illumination, 
+    middle_moon = my_moon(sys.argv[(len(sys.argv)+2)//2], True, box, -11.0)
 
 
     # print out commented sunrise and sunset
