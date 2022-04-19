@@ -203,11 +203,9 @@ def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
             # pyASC is actually in our path so far.
             pathname = os.path.dirname(sys.argv[0])
             full_path = os.path.abspath(pathname).split('/')
-            print(full_path)
             if 'pyASC' in full_path:
                 path = 'pyASC'
                 while not os.path.isdir(path):
-                    print(path)
                     path = '../' + path
                 
                 moonphase_img = mpimg.imread(path+'/www/webdings/moons/' + str(int(image_num)) + '.png')
