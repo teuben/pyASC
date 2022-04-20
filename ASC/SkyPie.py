@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
-import sys
+import sys, os
 
 #   plt.rcParams.update({'font.size': 10})
 SMALL_SIZE = 8
@@ -184,6 +184,7 @@ def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
         # -1 <= amp <= +1, so after multiplying it by 16 and adding 16 we get
         # integers 0 <= image_num <= 31.
         image_num = round(amp*16)+16
+        
         # this occurs when you get +1.0 for moon illumination, so it is a full
         # moon. This is at 0.png
         if image_num == 32:
@@ -192,56 +193,73 @@ def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
         # if the image_num is out of bounds, just print the error moon value,
         # which we can use to debug.
         if 0 <= image_num <= 32:
+
             # file names in www/webdings/moons/<0-31>.png
-            # will need to change this based on where you run the code from
-            # For example: running from pyASC/ASC. the path is ../www/webdings/moons/...
-            moonphase_img = mpimg.imread('../www/webdings/moons/' + str(int(image_num)) + '.png')
-            if moonphase_img is not None:
-                # image exists, put it on the figures
-                # do this by creating a new axes at the bottom of the figure and
-                # put an image in there
+
+            # find the path to <PATH>/pyASC/www/webdings/moons.
+            # done by checking how many directories up we must go until we get
+            # to the pyASC directory.
+            # We make sure we do not run into an infinite loop first by ensuring
+            # pyASC is actually in our path so far.
+            pathname = os.path.dirname(sys.argv[0])
+            full_path = os.path.abspath(pathname).split('/')
+            if 'pyASC' in full_path:
+                path = 'pyASC'
+                while not os.path.isdir(path):
+                    path = '../' + path
                 
-                # image placement: adjust x and y for placement, adjust xlen 
-                # and ylen for size/aspect ratio
-                #                         x   y   xlen ylen.
-                newax = fig.add_axes([0.375,0.075,0.25,0.25])
-                newax.imshow(moonphase_img)
-                newax.axis('off')
-                # 0 and 32 == Full Moon
-                # 1 - 7 == Waning Gibbous
-                # 8 == First Quarter
-                # 9 - 15 == Waning Screscent
-                # 16 == New Moon
-                # 17 - 23 == Waxing Crescent
-                # 24 == Last/Third Quarter
-                # 25 - 31 == Waxing Gibbous
-                moon_type = ""
-                if image_num == 0:
-                    moon_type = "Full Moon"
-                elif image_num == 16:
-                    moon_type = "New Moon"
-                elif image_num == 24:
-                    moon_type = "First Quarter"
-                elif image_num == 8:
-                    moon_type = "Last/Third Quarter"
-                elif 25 <= image_num <= 31:
-                    moon_type = "Waxing Gibbous"
-                elif 17 <= image_num <= 23:
-                    moon_type = "Waxing Crescent"
-                elif 1 <= image_num <= 7:
-                    moon_type = "Waning Gibbous"
-                elif 9 <= image_num <= 15:
-                    moon_type = "Waning Crescent"
-                pm = ''
-                if amp > 0:
-                    pm = '+'
-                ax1.text(1.1, -0.455, '%s\n%s%g%%' % (moon_type,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
-            # else, no file found
+                moonphase_img = mpimg.imread(path+'/www/webdings/moons/' + str(int(image_num)) + '.png')
+                if moonphase_img is not None:
+                    # image exists, put it on the figures
+                    # do this by creating a new axes at the bottom of the figure and
+                    # put an image in there
+                    
+                    # image placement: adjust x and y for placement, adjust xlen 
+                    # and ylen for size/aspect ratio
+                    #                         x   y   xlen ylen.
+                    newax = fig.add_axes([0.375,0.075,0.25,0.25])
+                    newax.imshow(moonphase_img)
+                    newax.axis('off')
+                    # 0 and 32 == Full Moon
+                    # 1 - 7 == Waning Gibbous
+                    # 8 == First Quarter
+                    # 9 - 15 == Waning Screscent
+                    # 16 == New Moon
+                    # 17 - 23 == Waxing Crescent
+                    # 24 == Last/Third Quarter
+                    # 25 - 31 == Waxing Gibbous
+                    moon_type = ""
+                    if image_num == 0:
+                        moon_type = "Full Moon"
+                    elif image_num == 16:
+                        moon_type = "New Moon"
+                    elif image_num == 24:
+                        moon_type = "First Quarter"
+                    elif image_num == 8:
+                        moon_type = "Last/Third Quarter"
+                    elif 25 <= image_num <= 31:
+                        moon_type = "Waxing Gibbous"
+                    elif 17 <= image_num <= 23:
+                        moon_type = "Waxing Crescent"
+                    elif 1 <= image_num <= 7:
+                        moon_type = "Waning Gibbous"
+                    elif 9 <= image_num <= 15:
+                        moon_type = "Waning Crescent"
+                    pm = ''
+                    if amp > 0:
+                        pm = '+'
+                    ax1.text(1.1, -0.455, '%s\n%s%g%%' % (moon_type,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
+                # else, no file found
+                else:
+                    pm = ''
+                    if amp > 0:
+                        pm = '+'
+                    ax1.text(1.1, -0.2, 'moon file not found\nimage num: %g\n%s%g' % (image_num,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
+            # else, your path does not include pyASC, this will only work
+            # if we find the pyASC in your path
             else:
-                pm = ''
-                if amp > 0:
-                    pm = '+'
-                ax1.text(1.1, -0.2, 'moon file not found\nimage num: %g\n%s%g' % (image_num,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
+                ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons\nyour path: %s' % (pathname), horizontalalignment='center', transform=ax1.transAxes)
+                
         # this should only happen if an invalid moon illum percentage (amp) is
         # out of the range -1 <= amp <= +1
         # check SkyStats.py for the error
@@ -281,16 +299,16 @@ ny = ntable // nx
 
 print(nx,ny)
 
-# ax1 is will be the brightness/green graph. ax2 will be the exposure/orange graph
+# ax1 will be the brightness/green graph. ax2 will be the exposure/orange graph
 fig, (ax1,ax2) = plt.subplots(1,2,subplot_kw=dict(projection='polar'))
 
 plt.subplots_adjust(hspace = .001,wspace=0.2, left=0.01, right=0.99, bottom=0.15, top=0.99)
-#      left  = 0.125  # the left side of the subplots of the figure
-#      right = 0.9    # the right side of the subplots of the figure
-#      bottom = 0.1   # the bottom of the subplots of the figure
-#      top = 0.9      # the top of the subplots of the figure
+#      left  = 0.01   # the left side of the subplots of the figure
+#      right = 0.99   # the right side of the subplots of the figure
+#      bottom = 0.15  # the bottom of the subplots of the figure
+#      top = 0.99     # the top of the subplots of the figure
 #      wspace = 0.2   # the amount of width reserved for blank space between subplots
-#      hspace = 0.2   # the amount of height reserved for white space between subplots
+#      hspace = 0.001 # the amount of height reserved for white space between subplots
 
 if Qtitle:
     plot1(table,ax1,ax2,fig,True,raw=Qraw)
@@ -304,5 +322,6 @@ else:
 plt.savefig(png)
 
 print("Written ",png)
+
 
 # convert input.png -crop 400x400+128+64 -resize 40x40^   input.thumb.png
