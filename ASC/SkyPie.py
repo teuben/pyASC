@@ -201,19 +201,32 @@ def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
             # to the pyASC directory.
             # We make sure we do not run into an infinite loop first by ensuring
             # pyASC is actually in our path so far.
-            pathname = os.path.dirname(sys.argv[0])
-            full_path = os.path.abspath(pathname).split('/')
-            if 'pyASC' in full_path:
-                path = 'pyASC'
-                while not os.path.isdir(path):
-                    path = '../' + path
-                
-                moonphase_img = mpimg.imread(path+'/www/webdings/moons/' + str(int(image_num)) + '.png')
+            
+            # find the moondir, check first for environment variable
+            # still need to add
+            moondir = None
+            if 'MOONDIR' in os.environ:
+                moondir = os.environ['MOONDIR']
+            # else, no moondir, try to find it using the current path and
+            # slice it before '/pyASC', then add the rest of the path to moons
+            else:
+                pathname = os.path.dirname(sys.argv[0])
+                full_path = os.path.abspath(pathname)
+                index = full_path.find('/pyASC')
+                if index != -1:
+                    path = full_path[:index] + '/pyASC'
+                    print("path",path)
+                    moondir = path + '/www/webdings/moons/'
+                # if you couldnt find '/pyASC', invalid path
+                else:
+                    ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons\nyour path: %s' % (full_path), horizontalalignment='center', transform=ax1.transAxes)
+            if moondir is not None:
+                moonphase_img = mpimg.imread(moondir + '/' + str(int(image_num)) + '.png')
                 if moonphase_img is not None:
                     # image exists, put it on the figures
                     # do this by creating a new axes at the bottom of the figure and
                     # put an image in there
-                    
+                        
                     # image placement: adjust x and y for placement, adjust xlen 
                     # and ylen for size/aspect ratio
                     #                         x   y   xlen ylen.
@@ -251,20 +264,20 @@ def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
                     ax1.text(1.1, -0.455, '%s\n%s%g%%' % (moon_type,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
                 # else, no file found
                 else:
-                    pm = ''
-                    if amp > 0:
-                        pm = '+'
-                    ax1.text(1.1, -0.2, 'moon file not found\nimage num: %g\n%s%g' % (image_num,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
-            # else, your path does not include pyASC, this will only work
-            # if we find the pyASC in your path
-            else:
-                ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons\nyour path: %s' % (pathname), horizontalalignment='center', transform=ax1.transAxes)
+                        pm = ''
+                        if amp > 0:
+                            pm = '+'
+                        ax1.text(1.1, -0.2, 'moon file not found\nimage num: %g\n%s%g' % (image_num,pm,round(amp*100)), horizontalalignment='center', transform=ax1.transAxes)
+        # else, your path does not include pyASC, this will only work
+        # if we find the pyASC in your path
+        else:
+            ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons\nyour path: %s' % (pathname), horizontalalignment='center', transform=ax1.transAxes)
                 
         # this should only happen if an invalid moon illum percentage (amp) is
         # out of the range -1 <= amp <= +1
         # check SkyStats.py for the error
-        else:        
-            ax1.text(1.1, -0.2, 'invalid moon num\nmoon error: %g' % (amp), horizontalalignment='center', transform=ax1.transAxes)
+        #else:        
+        #    ax1.text(1.1, -0.2, 'invalid moon num\nmoon error: %g' % (amp), horizontalalignment='center', transform=ax1.transAxes)
 
         print('theta',tmin*3.14/180,tmax*3.14/180)
         ax1.text(3.14,              1.1*smax,   'midnight',        horizontalalignment='center',   fontdict={'fontsize':8})

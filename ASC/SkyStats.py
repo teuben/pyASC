@@ -144,7 +144,13 @@ if __name__ == '__main__':
     # if moon illumination is decreasing then mark it with a negative to know 
     # that the moon is waning, else the moon is waxing so keep it positive
     if middle_moon[3] < first_moon[3]:
-        middle_moon[3] = (-1) * middle_moon[3]
+        if len(middle_moon) == 7:
+            mm = middle_moon
+            middle_moon = (mm[0], mm[1], mm[2], -mm[3], mm[4], mm[5], mm[6])
+        else:
+            # @TODO need to add an appropriate error code/message indicating the 
+            # length of middle_moon is incorrect and not 7
+            print('some error')
 
     # for each file name sent in, calculate all stats except moon illumination.
     # The moon illumination value is defaulted with middle_moon
