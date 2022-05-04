@@ -105,7 +105,7 @@
 					<h2>Thumbnails</h2>
 					<hr />
 					<span style="text-align: center; display: block">
-						<img src="/webdings/help/newthumbinfo.png" style="margin: 15px; width: 700px; max-width: 35vw" />
+						<img src="/webdings/help/thumbnail.png" style="margin: 15px; width: 700px; max-width: 35vw" />
 						<div style="font-style: italic; text-align: center; font-size: 10pt; margin-bottom: 10px; max-width: 35vw;">
 							Four example plots. The left two plots show a low visibility session, with cloud coverage 
 							and overexposure, while the right two plots show a high visibility seassion with a mostly-clear sky.
