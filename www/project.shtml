@@ -139,6 +139,28 @@
 								</div>
 							</div>
 
+							<div class="col-xs-12 col-sm-6 col-lg-4">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/capstone-20212022a.jpg"><img class="card-img-top" src="/webdings/capstone-20212022a-crop.jpg" alt="Nick Riley"></a>
+									<div class="card-body">
+										<h5>2021-2022: Nick Riley</h5>
+										<p></p>
+										<p><a href="webdings/student_work/2022_NRiley.pdf">Nick's capstone poster</a></p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-lg-4">
+								<div class="card shadow-sm m-2">
+									<a href="/webdings/capstone-20212022b.jpg"><img class="card-img-top" src="/webdings/capstone-20212022b-crop.jpg" alt="Aman Sheth"></a>
+									<div class="card-body">
+										<h5>2021-2022: Aman Sheth</h5>
+										<p></p>
+										<p><a href="webdings/student_work/2022_ASheth.pdf">Aman's capstone poster</a></p>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 					<hr class="my-2" />
