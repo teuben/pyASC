@@ -5,12 +5,12 @@
 	<!--Mobile viewport fix!-->
 	<meta name="viewport" content="initial-scale=1" />
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
-	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
-	<link rel="stylesheet" type="text/css" href="/css-n-inc/meteors.css">
-	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9support.css">
-	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	
+	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css" />
+	<link rel="stylesheet" type="text/css" href="/css-n-inc/meteors.css" />
+	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9support.css" />
+	<link type="text/css" rel="stylesheet" href="/js/lib/js9-3.5/js9.css" />
 	<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css" />
 
 	<script type="text/javascript" src="/js/lib/celestial0.6/lib/d3.min.js" charset="UTF-8"></script>
