@@ -1,8 +1,8 @@
 <html>
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css-n-inc/colors.css">
-	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	
+	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css" />
 <title>MASN-01 Camera</title>
 
 <!--Credit to Beskeen Observatory in Cambridgeshire, UK-->
@@ -59,7 +59,7 @@ made possible by a very generous donation from UMD alum Dr. Ralph Pass.</p>
 					</div>
 					<div class="col-lg-6">
 						<h4 class="text-center">About this Camera</h4>
-						<p><ul>
+						<ul>
 							<li>This camera is currently located at the University of Maryland Observatory. It is placed on top of a wooden pole to get a clear view of the sky above it. The surrounding foliage and relative isolation of the observatory help to decrease the amount of light pollution affecting the camera.</li>
 						</ul></p>
 					</div>
