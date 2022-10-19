@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="/css-n-inc/colors.css" />
@@ -90,7 +90,7 @@ function force_load_image(num){
 						<div class="container col-md-12 col-lg-10">
 							<div class="tab-content">
 								<div class="tab-pane show active" id="MASN_0X">
-									<a id="img_anchor" href="/masn01-latest/AllSkEyeLatest.jpg?"><img class="img-fluid" id="img_self" name="animation" src="/masn01-latest/AllSkEyeLatest.jpg?" alt="Most recent image taken from the currently selected camera"/></a>
+									<a id="img_anchor" href="/masn01-latest/AllSkEyeLatest.jpg?"><img class="img-fluid" id="img_self" name="animation" src="/masn01-latest/AllSkEyeLatest.jpg?" alt="Most recent image taken from the currently selected camera" /></a>
 								</div>
 							</div>
 						</div> 
@@ -123,7 +123,7 @@ function force_load_image(num){
 			<div class="col-lg-8 col-sm-12 order-1 order-lg-2 UMD-Der-grey">
 				<div class="container-fluid">
 					<div class="embed-responsive embed-responsive-4by3">
-		  				<iframe class="embed-responsive-item" src="/masn01-latest/LatestVideo.mp4" allowfullscreen>
+		  				<iframe class="embed-responsive-item" src="/masn01-latest/LatestVideo.mp4" alt="overnight video" allowfullscreen>
 		  				</iframe>
 					</div>
 				</div>
