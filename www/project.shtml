@@ -218,6 +218,17 @@
 							</div>
 						</div>
 						
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<div class="card shadow-sm m-2">
+								<a href="#"><img class="card-img-top" src="/webdings/Biniam_Israel-crop.jpg" alt="Israel Biniam" /></a>
+								<div class="card-body">
+									<h5>Israel Biniam</h5>
+									<p>(Fall 2022) Israel manually reviewed false-positive detections.</p>
+									<p></p>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				<!--End row 1-->
