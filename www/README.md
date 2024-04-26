@@ -115,7 +115,7 @@ observation time for a given file. For example,
 that the file was taken by the MASN01 camera at Thu Nov 01 2018
 05:48:26 GMT-0400 (Eastern Daylight Time). 
 
-qNote that the times in the filenames are given in UTC time, as indicated by the `Z` suffix.
+Note that the times in the filenames are given in UTC time, as indicated by the `Z` suffix.
 
 Note that we don't exactly follow the ISO date+time convention, the (:) separator
 beween HH, MM, SS and sss is now a dash (-).
@@ -197,9 +197,9 @@ described above.   Here is an example to update a new month of data that has bee
 these. They will automatically be picked up by the current software.
 
 	  # change directory to one of the new months, e.g.
-	  # within which you should directories with the name yyyy-mm-dd
+	  # within which you should see directories with the name yyyy-mm-dd
 	  #
-	  cd /n/alberio10nb/data/ASC/MASN-01/archive/2021-08
+	  cd /n/alberio1nb/data/MASN-01/2021/2021-08
 	  
 	  # set group permissions
 	  #
