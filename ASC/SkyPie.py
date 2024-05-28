@@ -271,9 +271,10 @@ def plot1(table,ax1,ax2,fig,Qtitle,title=None,invert=True,raw=False):
         # else, your path does not include pyASC, this will only work
         # if we find the pyASC in your path
         else:
-            ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons\nyour path: %s' % (pathname), horizontalalignment='center', transform=ax1.transAxes)
+            #ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons\nyour path: %s' % (pathname), horizontalalignment='center', transform=ax1.transAxes)
+            ax1.text(1.1, -0.2, 'invalid path to pyASC/webdings/www/moons', horizontalalignment='center', transform=ax1.transAxes)            
                 
-        # this should only happen if an invalid moon illum percentage (amp) is
+        # this should only happen if an invalid moon illumination percentage (amp) is
         # out of the range -1 <= amp <= +1
         # check SkyStats.py for the error
         #else:        
